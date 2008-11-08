@@ -1,0 +1,1 @@
+{load module="message" action="send"}
