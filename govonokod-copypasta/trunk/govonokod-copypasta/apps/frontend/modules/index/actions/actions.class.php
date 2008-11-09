@@ -17,6 +17,7 @@ class indexActions extends sfActions
   */
   public function executeIndex($request)
   {
-    $this->forward('default', 'module');
+  	$form = new CopypastaForm();
+    $this->form = $form;
   }
 }

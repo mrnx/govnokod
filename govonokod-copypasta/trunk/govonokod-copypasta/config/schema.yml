@@ -1,0 +1,11 @@
+propel:
+  copypasta:
+    id:
+    copypasta_language_id:
+    copypasta: longvarchar
+    created_at:
+
+  copypasta_language:
+    id:
+    title: varchar(50)
+    position: integer
