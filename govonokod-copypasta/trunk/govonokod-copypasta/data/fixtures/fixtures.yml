@@ -1,0 +1,7 @@
+CopypastaLanguage:
+  first_language:
+    title: php
+    position: 1
+  second_language:
+    title: javascript
+    position: 2    

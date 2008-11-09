@@ -9,4 +9,8 @@
  */ 
 class CopypastaLanguage extends BaseCopypastaLanguage
 {
+  public function __toString() {
+  	return $this->getTitle();
+  }
+  
 }
