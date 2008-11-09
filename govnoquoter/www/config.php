@@ -66,6 +66,9 @@ systemConfig::$cache['memcached']['backend'] = 'memcached';
 systemConfig::$cache['memcached']['params'] = array('servers' => array('localhost' => array()));
 */
 
+systemConfig::$cache['file']['backend'] = 'file';
+systemConfig::$cache['file']['params'] = array('path' => systemConfig::$pathToTemp . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'code', 'prefix' => 'highlighted_');
+
 systemConfig::init();
 
 ?>
