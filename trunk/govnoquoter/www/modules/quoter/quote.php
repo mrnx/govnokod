@@ -42,7 +42,7 @@ class quote extends simple
         $lines = array();
         $linesCount = $this->getLines();
         $chars = strlen($linesCount);
-        for($i = 1; $i <= $linesCount; $i++) {
+        for ($i = 1; $i <= $linesCount; $i++) {
             $lines[] = sprintf('%0' . $chars . 'd', $i);
         }
 
