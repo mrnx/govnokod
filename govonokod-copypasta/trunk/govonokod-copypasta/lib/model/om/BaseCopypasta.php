@@ -41,6 +41,20 @@ abstract class BaseCopypasta extends BaseObject  implements Persistent {
 
 
 	/**
+	 * The value for the username field.
+	 * @var        string
+	 */
+	protected $username;
+
+
+	/**
+	 * The value for the delete_at field.
+	 * @var        int
+	 */
+	protected $delete_at;
+
+
+	/**
 	 * The value for the created_at field.
 	 * @var        int
 	 */
@@ -96,6 +110,48 @@ abstract class BaseCopypasta extends BaseObject  implements Persistent {
 	{
 
 		return $this->copypasta;
+	}
+
+	/**
+	 * Get the [username] column value.
+	 * 
+	 * @return     string
+	 */
+	public function getUsername()
+	{
+
+		return $this->username;
+	}
+
+	/**
+	 * Get the [optionally formatted] [delete_at] column value.
+	 * 
+	 * @param      string $format The date/time format string (either date()-style or strftime()-style).
+	 *							If format is NULL, then the integer unix timestamp will be returned.
+	 * @return     mixed Formatted date/time value as string or integer unix timestamp (if format is NULL).
+	 * @throws     PropelException - if unable to convert the date/time to timestamp.
+	 */
+	public function getDeleteAt($format = 'Y-m-d H:i:s')
+	{
+
+		if ($this->delete_at === null || $this->delete_at === '') {
+			return null;
+		} elseif (!is_int($this->delete_at)) {
+			// a non-timestamp value was set externally, so we convert it
+			$ts = strtotime($this->delete_at);
+			if ($ts === -1 || $ts === false) { // in PHP 5.1 return value changes to FALSE
+				throw new PropelException("Unable to parse value of [delete_at] as date/time value: " . var_export($this->delete_at, true));
+			}
+		} else {
+			$ts = $this->delete_at;
+		}
+		if ($format === null) {
+			return $ts;
+		} elseif (strpos($format, '%') !== false) {
+			return strftime($format, $ts);
+		} else {
+			return date($format, $ts);
+		}
 	}
 
 	/**
@@ -200,6 +256,52 @@ abstract class BaseCopypasta extends BaseObject  implements Persistent {
 	} // setCopypasta()
 
 	/**
+	 * Set the value of [username] column.
+	 * 
+	 * @param      string $v new value
+	 * @return     void
+	 */
+	public function setUsername($v)
+	{
+
+		// Since the native PHP type for this column is string,
+		// we will cast the input to a string (if it is not).
+		if ($v !== null && !is_string($v)) {
+			$v = (string) $v; 
+		}
+
+		if ($this->username !== $v) {
+			$this->username = $v;
+			$this->modifiedColumns[] = CopypastaPeer::USERNAME;
+		}
+
+	} // setUsername()
+
+	/**
+	 * Set the value of [delete_at] column.
+	 * 
+	 * @param      int $v new value
+	 * @return     void
+	 */
+	public function setDeleteAt($v)
+	{
+
+		if ($v !== null && !is_int($v)) {
+			$ts = strtotime($v);
+			if ($ts === -1 || $ts === false) { // in PHP 5.1 return value changes to FALSE
+				throw new PropelException("Unable to parse date/time value for [delete_at] from input: " . var_export($v, true));
+			}
+		} else {
+			$ts = $v;
+		}
+		if ($this->delete_at !== $ts) {
+			$this->delete_at = $ts;
+			$this->modifiedColumns[] = CopypastaPeer::DELETE_AT;
+		}
+
+	} // setDeleteAt()
+
+	/**
 	 * Set the value of [created_at] column.
 	 * 
 	 * @param      int $v new value
@@ -246,14 +348,18 @@ abstract class BaseCopypasta extends BaseObject  implements Persistent {
 
 			$this->copypasta = $rs->getString($startcol + 2);
 
-			$this->created_at = $rs->getTimestamp($startcol + 3, null);
+			$this->username = $rs->getString($startcol + 3);
+
+			$this->delete_at = $rs->getTimestamp($startcol + 4, null);
+
+			$this->created_at = $rs->getTimestamp($startcol + 5, null);
 
 			$this->resetModified();
 
 			$this->setNew(false);
 
 			// FIXME - using NUM_COLUMNS may be clearer.
-			return $startcol + 4; // 4 = CopypastaPeer::NUM_COLUMNS - CopypastaPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 6; // 6 = CopypastaPeer::NUM_COLUMNS - CopypastaPeer::NUM_LAZY_LOAD_COLUMNS).
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Copypasta object", $e);
@@ -498,6 +604,12 @@ abstract class BaseCopypasta extends BaseObject  implements Persistent {
 				return $this->getCopypasta();
 				break;
 			case 3:
+				return $this->getUsername();
+				break;
+			case 4:
+				return $this->getDeleteAt();
+				break;
+			case 5:
 				return $this->getCreatedAt();
 				break;
 			default:
@@ -523,7 +635,9 @@ abstract class BaseCopypasta extends BaseObject  implements Persistent {
 			$keys[0] => $this->getId(),
 			$keys[1] => $this->getCopypastaLanguageId(),
 			$keys[2] => $this->getCopypasta(),
-			$keys[3] => $this->getCreatedAt(),
+			$keys[3] => $this->getUsername(),
+			$keys[4] => $this->getDeleteAt(),
+			$keys[5] => $this->getCreatedAt(),
 		);
 		return $result;
 	}
@@ -565,6 +679,12 @@ abstract class BaseCopypasta extends BaseObject  implements Persistent {
 				$this->setCopypasta($value);
 				break;
 			case 3:
+				$this->setUsername($value);
+				break;
+			case 4:
+				$this->setDeleteAt($value);
+				break;
+			case 5:
 				$this->setCreatedAt($value);
 				break;
 		} // switch()
@@ -593,7 +713,9 @@ abstract class BaseCopypasta extends BaseObject  implements Persistent {
 		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
 		if (array_key_exists($keys[1], $arr)) $this->setCopypastaLanguageId($arr[$keys[1]]);
 		if (array_key_exists($keys[2], $arr)) $this->setCopypasta($arr[$keys[2]]);
-		if (array_key_exists($keys[3], $arr)) $this->setCreatedAt($arr[$keys[3]]);
+		if (array_key_exists($keys[3], $arr)) $this->setUsername($arr[$keys[3]]);
+		if (array_key_exists($keys[4], $arr)) $this->setDeleteAt($arr[$keys[4]]);
+		if (array_key_exists($keys[5], $arr)) $this->setCreatedAt($arr[$keys[5]]);
 	}
 
 	/**
@@ -608,6 +730,8 @@ abstract class BaseCopypasta extends BaseObject  implements Persistent {
 		if ($this->isColumnModified(CopypastaPeer::ID)) $criteria->add(CopypastaPeer::ID, $this->id);
 		if ($this->isColumnModified(CopypastaPeer::COPYPASTA_LANGUAGE_ID)) $criteria->add(CopypastaPeer::COPYPASTA_LANGUAGE_ID, $this->copypasta_language_id);
 		if ($this->isColumnModified(CopypastaPeer::COPYPASTA)) $criteria->add(CopypastaPeer::COPYPASTA, $this->copypasta);
+		if ($this->isColumnModified(CopypastaPeer::USERNAME)) $criteria->add(CopypastaPeer::USERNAME, $this->username);
+		if ($this->isColumnModified(CopypastaPeer::DELETE_AT)) $criteria->add(CopypastaPeer::DELETE_AT, $this->delete_at);
 		if ($this->isColumnModified(CopypastaPeer::CREATED_AT)) $criteria->add(CopypastaPeer::CREATED_AT, $this->created_at);
 
 		return $criteria;
@@ -666,6 +790,10 @@ abstract class BaseCopypasta extends BaseObject  implements Persistent {
 		$copyObj->setCopypastaLanguageId($this->copypasta_language_id);
 
 		$copyObj->setCopypasta($this->copypasta);
+
+		$copyObj->setUsername($this->username);
+
+		$copyObj->setDeleteAt($this->delete_at);
 
 		$copyObj->setCreatedAt($this->created_at);
 

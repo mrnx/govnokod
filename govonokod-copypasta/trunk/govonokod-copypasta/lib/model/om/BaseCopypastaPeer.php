@@ -19,7 +19,7 @@ abstract class BaseCopypastaPeer {
 	const CLASS_DEFAULT = 'lib.model.Copypasta';
 
 	/** The total number of columns. */
-	const NUM_COLUMNS = 4;
+	const NUM_COLUMNS = 6;
 
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -33,6 +33,12 @@ abstract class BaseCopypastaPeer {
 
 	/** the column name for the COPYPASTA field */
 	const COPYPASTA = 'copypasta.COPYPASTA';
+
+	/** the column name for the USERNAME field */
+	const USERNAME = 'copypasta.USERNAME';
+
+	/** the column name for the DELETE_AT field */
+	const DELETE_AT = 'copypasta.DELETE_AT';
 
 	/** the column name for the CREATED_AT field */
 	const CREATED_AT = 'copypasta.CREATED_AT';
@@ -48,10 +54,10 @@ abstract class BaseCopypastaPeer {
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'CopypastaLanguageId', 'Copypasta', 'CreatedAt', ),
-		BasePeer::TYPE_COLNAME => array (CopypastaPeer::ID, CopypastaPeer::COPYPASTA_LANGUAGE_ID, CopypastaPeer::COPYPASTA, CopypastaPeer::CREATED_AT, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'copypasta_language_id', 'copypasta', 'created_at', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'CopypastaLanguageId', 'Copypasta', 'Username', 'DeleteAt', 'CreatedAt', ),
+		BasePeer::TYPE_COLNAME => array (CopypastaPeer::ID, CopypastaPeer::COPYPASTA_LANGUAGE_ID, CopypastaPeer::COPYPASTA, CopypastaPeer::USERNAME, CopypastaPeer::DELETE_AT, CopypastaPeer::CREATED_AT, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'copypasta_language_id', 'copypasta', 'username', 'delete_at', 'created_at', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
 	);
 
 	/**
@@ -61,10 +67,10 @@ abstract class BaseCopypastaPeer {
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'CopypastaLanguageId' => 1, 'Copypasta' => 2, 'CreatedAt' => 3, ),
-		BasePeer::TYPE_COLNAME => array (CopypastaPeer::ID => 0, CopypastaPeer::COPYPASTA_LANGUAGE_ID => 1, CopypastaPeer::COPYPASTA => 2, CopypastaPeer::CREATED_AT => 3, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'copypasta_language_id' => 1, 'copypasta' => 2, 'created_at' => 3, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'CopypastaLanguageId' => 1, 'Copypasta' => 2, 'Username' => 3, 'DeleteAt' => 4, 'CreatedAt' => 5, ),
+		BasePeer::TYPE_COLNAME => array (CopypastaPeer::ID => 0, CopypastaPeer::COPYPASTA_LANGUAGE_ID => 1, CopypastaPeer::COPYPASTA => 2, CopypastaPeer::USERNAME => 3, CopypastaPeer::DELETE_AT => 4, CopypastaPeer::CREATED_AT => 5, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'copypasta_language_id' => 1, 'copypasta' => 2, 'username' => 3, 'delete_at' => 4, 'created_at' => 5, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
 	);
 
 	/**
@@ -169,6 +175,10 @@ abstract class BaseCopypastaPeer {
 		$criteria->addSelectColumn(CopypastaPeer::COPYPASTA_LANGUAGE_ID);
 
 		$criteria->addSelectColumn(CopypastaPeer::COPYPASTA);
+
+		$criteria->addSelectColumn(CopypastaPeer::USERNAME);
+
+		$criteria->addSelectColumn(CopypastaPeer::DELETE_AT);
 
 		$criteria->addSelectColumn(CopypastaPeer::CREATED_AT);
 

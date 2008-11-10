@@ -15,6 +15,8 @@ class BaseCopypastaForm extends BaseFormPropel
       'id'                    => new sfWidgetFormInputHidden(),
       'copypasta_language_id' => new sfWidgetFormPropelSelect(array('model' => 'CopypastaLanguage', 'add_empty' => true)),
       'copypasta'             => new sfWidgetFormTextarea(),
+      'username'              => new sfWidgetFormInput(),
+      'delete_at'             => new sfWidgetFormDateTime(),
       'created_at'            => new sfWidgetFormDateTime(),
     ));
 
@@ -22,6 +24,8 @@ class BaseCopypastaForm extends BaseFormPropel
       'id'                    => new sfValidatorPropelChoice(array('model' => 'Copypasta', 'column' => 'id', 'required' => false)),
       'copypasta_language_id' => new sfValidatorPropelChoice(array('model' => 'CopypastaLanguage', 'column' => 'id', 'required' => false)),
       'copypasta'             => new sfValidatorString(array('required' => false)),
+      'username'              => new sfValidatorString(array('max_length' => 50, 'required' => false)),
+      'delete_at'             => new sfValidatorDateTime(array('required' => false)),
       'created_at'            => new sfValidatorDateTime(array('required' => false)),
     ));
 

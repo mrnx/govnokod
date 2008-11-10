@@ -18,6 +18,30 @@ class indexActions extends sfActions
   public function executeIndex($request)
   {
   	$form = new CopypastaForm();
+  	if ($request->isMethod('post'))
+  	{
+  		$form->bind($request->getParameter('copypasta'));
+  		if ($form->isValid())
+  		{
+  			$copypasta = $form->save();
+  			$this->redirect('index/item?id='.$copypasta->getId());
+  		}
+  	}
+  	
     $this->form = $form;
   }
+
+ /**
+  * Executes index action
+  *
+  * @param sfRequest $request A request object
+  */
+  public  function executeItem($request) {
+  	$this->forward404Unless($copypasta = CopypastaPeer::retrieveByPK($request->getParameter('id')));
+  	
+  	$this->copypasta = $copypasta;
+    $this->form      = new CopypastaForm($copypasta);
+    $this->form->setDefault('username', '');
+  }
+  
 }

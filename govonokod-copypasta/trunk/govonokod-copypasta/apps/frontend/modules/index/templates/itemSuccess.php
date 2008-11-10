@@ -1,4 +1,9 @@
 <h1>Тест</h1>
+<pre><code>
+<?php echo $copypasta->getCopypasta() ?>
+</code></pre>
+
+
 <form action="<?php echo url_for('index/index') ?>" method="post">
 <table>
   <tfoot>

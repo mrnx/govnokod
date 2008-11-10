@@ -15,6 +15,8 @@ CREATE TABLE `copypasta`
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`copypasta_language_id` INTEGER,
 	`copypasta` TEXT,
+	`username` VARCHAR(50),
+	`delete_at` DATETIME,
 	`created_at` DATETIME,
 	PRIMARY KEY (`id`),
 	INDEX `copypasta_FI_1` (`copypasta_language_id`),

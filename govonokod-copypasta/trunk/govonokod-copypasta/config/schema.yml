@@ -2,7 +2,9 @@ propel:
   copypasta:
     id:
     copypasta_language_id:
-    copypasta: longvarchar
+    copypasta:              longvarchar
+    username:               varchar(50)
+    delete_at:              timestamp
     created_at:
 
   copypasta_language:

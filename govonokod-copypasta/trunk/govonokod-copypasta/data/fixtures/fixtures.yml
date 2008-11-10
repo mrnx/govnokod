@@ -1,7 +1,14 @@
 CopypastaLanguage:
-  first_language:
-    title: php
-    position: 1
-  second_language:
-    title: javascript
-    position: 2    
+  CopypastaLanguage_1:
+    title: PHP
+    position: '1'
+  CopypastaLanguage_2:
+    title: Javascript
+    position: '2'
+Copypasta:
+  Copypasta_1:
+    copypasta_language_id: CopypastaLanguage_1
+    copypasta: Ниибёт
+    username: User
+    delete_at: '2009-03-06 01:05:00'
+    created_at: '2008-11-10 21:31:12'

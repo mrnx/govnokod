@@ -67,6 +67,10 @@ class CopypastaMapBuilder {
 
 		$tMap->addColumn('COPYPASTA', 'Copypasta', 'string', CreoleTypes::LONGVARCHAR, false, null);
 
+		$tMap->addColumn('USERNAME', 'Username', 'string', CreoleTypes::VARCHAR, false, 50);
+
+		$tMap->addColumn('DELETE_AT', 'DeleteAt', 'int', CreoleTypes::TIMESTAMP, false, null);
+
 		$tMap->addColumn('CREATED_AT', 'CreatedAt', 'int', CreoleTypes::TIMESTAMP, false, null);
 
 	} // doBuild()
