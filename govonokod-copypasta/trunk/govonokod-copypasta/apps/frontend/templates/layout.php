@@ -11,8 +11,17 @@
 
 </head>
 <body>
-
-<?php echo $sf_content ?>
+  <div style="margin: 20px 10px;">
+    <h1>Йа Шапко</h1>
+  </div>
+  <div id="b-left">
+    <?php include_partial('index/actions');?>
+    <?php include_component('index', 'lastCopypastas');?>
+    <?php include_partial('global/credits');?>
+  </div>
+  <div id="b-center">
+    <?php echo $sf_content ?>
+  </div>
 
 </body>
 </html>

@@ -1,4 +1,3 @@
-<h1>Тест</h1>
 <form action="<?php echo url_for('index/index') ?>" method="post">
 <table>
   <tfoot>
