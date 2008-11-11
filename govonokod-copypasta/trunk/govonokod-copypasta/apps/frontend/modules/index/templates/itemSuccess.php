@@ -1,6 +1,5 @@
 <h2 class="green"><?php echo __('Posted by %1% at %2%', array('%1%' => $copypasta->getUsername(), '%2%' => $copypasta->getCreatedAt()))?></h2>
-<pre><code><?php echo $copypasta->getCopypasta() ?>
-</code></pre>
+<?php echo $highlighter->parse_code() ?>
 
 <h2 class="green"><?php echo __('Submit a correction or amendment below.')?></h2>
 <form action="<?php echo url_for('index/index') ?>" method="post">
