@@ -1,6 +1,5 @@
 {* main="header.tpl" placeholder="content" *}
 {load module="user" action="loginForm" section="user" id=0 _side="left"}
-{load module="voting" section="voting" action="viewActual" name="simple" 403handle="none" _side="left" tplPrefix="blocks"}
 <div id="wrapper">
     <div id="nonFooter">
         <div id="hbackground">
@@ -56,18 +55,6 @@
                     </div>
                 </div>
             </div>
-            {if false && $current_section != 'gallery' && $current_section != 'forum'}
-            <!-- right column -->
-            <div id="col3">
-                <div class="sideBlock">
-                    <p class="sideBlockTitle">Опрос</p>
-                    <div class="sideBlockContent">
-                        {load module="voting" section="voting" action="viewActual" name="simple" 403handle="none"}
-                    </div>
-                </div>
-
-            </div>
-            {/if}
 
             <div class="clear"></div>
         </div>

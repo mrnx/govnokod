@@ -38,6 +38,11 @@ class quoteMapper extends simpleMapper
      */
     protected $className = 'quote';
 
+    public function searchById($id)
+    {
+        return $this->searchOneByField('id', $id);
+    }
+
     /**
      * Возвращает доменный объект по аргументам
      *
