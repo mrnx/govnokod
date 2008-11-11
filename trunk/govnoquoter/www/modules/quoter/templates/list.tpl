@@ -1,20 +1,7 @@
+{add file="prototype.js"}
+{add file="effects.js"}
 {literal}
 <style type="text/css">
-span, td {
-  background-color: white;
-}
-body {
-  padding: 0;
-  margin: 0;
-  font-family: tahoma, verdana, arial;
-}
-#content {
-  font-family:arial,verdana,helvetica,sans-serif;
-  line-height: 130%;
-  padding: 30px;
-  padding-top: 0px;
-}
-
 td.line {
   color: #999;
   background-color: #F7F7F7;
@@ -31,11 +18,11 @@ td.line {
 .codeContent {
   padding-left: 5px;
   overflow: auto;
-
 }
 
 pre {
   margin: 0;
+  padding: 0;
 }
 </style>
 <script type="text/javascript">
@@ -74,29 +61,76 @@ pre {
             scaleFrom: Math.ceil((100 / elem.scrollHeight) * 150)
         });
     }
+
+    var allreadyLoaded = new Array();
+
+    function unfoldCode(codeId)
+    {
+        var codeContent = $('codeContent' + codeId);
+
+        if (codeContent) {
+            if (allreadyLoaded[codeId] == true) {
+                var currentHeight = codeContent.getHeight();
+                Effect.BlindDown(codeContent, {
+                    duration: 0.4,
+                    scaleMode: 'contents',
+                    restoreAfterFinish: false,
+                    scaleFrom: Math.ceil((100 / codeContent.scrollHeight) * currentHeight)
+                });
+            } else {
+                var currentHeight = codeContent.getHeight();
+                codeContent.setStyle('overflow: hidden; height: ' + currentHeight + 'px;');
+                new Ajax.Request('/quoter/' + encodeURIComponent(codeId), {
+                    method: 'get',
+                    parameters: {format: 'ajax'},
+                    onSuccess: function(transport) {
+                        allreadyLoaded[codeId] = true;
+                        codeContent.update(transport.responseText);
+                        Effect.BlindDown(codeContent, {
+                            duration: 0.4,
+                            scaleMode: 'contents',
+                            restoreAfterFinish: false,
+                            scaleFrom: Math.ceil((100 / codeContent.scrollHeight) * currentHeight)
+                        });
+                    }
+                });
+            }
+        }
+    }
+
+    function foldCode(codeId)
+    {
+        var codeContent = $('codeContent' + codeId);
+        if (codeContent) {
+            Effect.BlindUp(codeContent, {
+                duration: 0.4,
+                scaleMode: 'contents',
+                restoreAfterFinish: false,
+                scaleTo: Math.ceil((100 / codeContent.scrollHeight) * 210),
+                afterFinishInternal: function(effect) {
+                    codeContent.setStyle({overflow: 'hidden', height: '210px'}).show();
+                    //codeContent.show();
+                }
+            });
+        }
+    }
 </script>
 {/literal}
-<table>
+
 {foreach from=$quotes item="quote"}
-    <tr>
-        <td>
-            <table class="colorCode" cellpadding="3" cellspacing="0" border="0">
-                <tr>
-                    <td colspan="2">{$quote->getUsername()} <a href="#" onclick="toggleFold({$quote->getId()}); return false;">сдвинуть\разодвинуть</a></td>
-                </tr>
-                <tr>
-                    <td class="line" valign="top" style="width: 1px;">
-                        <div id="codeLines{$quote->getId()}" class="codeLines" style="height: 150px; overflow: hidden;">
-                            <pre>
-{foreach from=$quote->generateLines() item="line"}{$line}
+    <div>
+        <table class="colorCode" cellpadding="3" cellspacing="0" border="0">
+            <tr>
+                <td valign="top" style="width: 300px;">
+                    <a href="{url route="withId" action="" id=$quote->getId()}" onclick="unfoldCode({$quote->getId()}); this.toggle(); this.next('a').toggle(); return false;" style="border-bottom: 1px dashed; text-decoration: none;">развернуть</a>
+                    <a href="{url route="withId" action="" id=$quote->getId()}" onclick="foldCode({$quote->getId()}); this.toggle(); this.previous('a').toggle(); return false;" style="display: none; border-bottom: 1px dashed; text-decoration: none;">свернуть</a>
+                </td>
+                <td valign="top" style="width: 100%;">
+                    <div id="codeContent{$quote->getId()}" class="codeContent" style="overflow: hidden; height: 210px;">
+                        {$quote->getText(15)|highlite:$quote->getCategory()->getName()}
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
 {/foreach}
-                            </pre>
-                        </div>
-                    </td>
-                    <td valign="top"><div id="codeContent{$quote->getId()}" class="codeContent" style="height: 150px; overflow: hidden;">{$quote->getText()|highlite:$quote->getCategory()->getName():$quote->getId()}</div></td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-{/foreach}
-</table>

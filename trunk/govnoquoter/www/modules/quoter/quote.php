@@ -24,29 +24,28 @@ class quote extends simple
 {
     protected $name = 'quoter';
 
-    protected $lines = 0;
+    protected $linesCount = 0;
 
-    public function getLines()
+    public function getText($linesNum = null)
     {
-        if ($this->lines == 0) {
-            $text = $this->getText();
-            $lines = substr_count($text, "\n");
-            $this->lines = $lines < 1 ? 1 : $lines + 1;
+        $text = parent::__call('getText', array());
+        if ($linesNum > 0 && $linesNum < $this->getLinesCount()) {
+            $text = implode("\n", array_slice(explode("\n", $text), 0, $linesNum));
         }
 
-        return $this->lines;
+        return $text;
     }
 
-    public function generateLines()
+    public function getLinesCount()
     {
-        $lines = array();
-        $linesCount = $this->getLines();
-        $chars = strlen($linesCount);
-        for ($i = 1; $i <= $linesCount; $i++) {
-            $lines[] = sprintf('%0' . $chars . 'd', $i);
+        if ($this->linesCount == 0) {
+            $text = $this->getText();
+            $lines = substr_count($text, "\n");
+            $this->linesCount = $lines < 1 ? 1 : $lines + 1;
+
         }
 
-        return $lines;
+        return $this->linesCount;
     }
 }
 

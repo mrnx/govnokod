@@ -41,7 +41,7 @@ require_once SYSTEM_PATH . 'systemConfig.php';
 systemConfig::$i18n = 'ru';
 
 // включаем мультиязычность
-systemConfig::$i18nEnable = true;
+systemConfig::$i18nEnable = false;
 
 // устанавливаем дефолтную кодировку для выдачи
 ini_set('default_charset', 'utf-8');
