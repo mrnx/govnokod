@@ -123,9 +123,15 @@ pre {
 </script>
 {/literal}
 
+<a href="{if $listAll}{url route="default2" action="add"}{else}{url route="withAnyParam" action="add" name=$category->getName()}{/if}">Накласть говнокод</a>
+<br /><br />
+
 {foreach from=$quotes item="quote"}
     <div>
         <table class="colorCode" cellpadding="3" cellspacing="0" border="0">
+            <tr>
+                <td><a href="{url route="withAnyParam" action="list" name=$quote->getCategory()->getName()}">{$quote->getCategory()->getTitle()|htmlspecialchars}</a> - <a href="{url route="withId" action="" id=$quote->getId()}">Говнокод#{$quote->getId()}</a></td>
+            </tr>
             <tr>
                 <td valign="top" style="width: 20%;">
                     <a href="{url route="withId" action="" id=$quote->getId()}" id="unfoldCode{$quote->getId()}" onclick="unfoldCode({$quote->getId()}); return false;" style="border-bottom: 1px dashed; text-decoration: none;">развернуть</a>

@@ -42,15 +42,17 @@ pre {
     <div>
         <table class="colorCode" cellpadding="3" cellspacing="0" border="0">
             <tr>
-                <td valign="top" style="width: 300px;">
-                    <a href="{url route="withId" action="" id=$quote->getId()}" onclick="unfoldCode({$quote->getId()}); this.toggle(); this.next('a').toggle(); return false;" style="border-bottom: 1px dashed; text-decoration: none;">развернуть</a>
-                    <a href="{url route="withId" action="" id=$quote->getId()}" onclick="this.toggle(); this.previous('a').toggle(); return false;" style="display: none; border-bottom: 1px dashed; text-decoration: none;">свернуть</a>
+                <td valign="top" style="width: 20%;">
+                    <br />Язык: {$quote->getCategory()->getTitle()|htmlspecialchars}
+                    <br />Автор: {$quote->getUsername()}
+                    <br />Всего строк: {$quote->getLinesCount()}
                 </td>
-                <td valign="top" style="width: 100%;">
+                <td valign="top" style="width: 80%;">
                     <div id="codeContent{$quote->getId()}" class="codeContent">
-                        {$quote->getText()|highlite:$quote->getCategory()->getName():$quote->getId()}
+                        {$quote->getText()|highlite:$quote->getCategory()->getName()}
                     </div>
                 </td>
             </tr>
         </table>
     </div>
+    <br />

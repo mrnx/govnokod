@@ -44,6 +44,18 @@ class quoteMapper extends simpleMapper
     }
 
     /**
+     * Выполнение операций с массивом $fields перед вставкой в БД
+     *
+     * @param array $fields
+     */
+    protected function insertDataModify(&$fields)
+    {
+        $fields['created'] = new sqlFunction('UNIX_TIMESTAMP');
+        $fields['rating'] = 0;
+        $fields['comments_count'] = 0;
+    }
+
+    /**
      * Возвращает доменный объект по аргументам
      *
      * @return simple
