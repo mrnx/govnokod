@@ -34,6 +34,13 @@ abstract class BaseCopypastaLanguage extends BaseObject  implements Persistent {
 
 
 	/**
+	 * The value for the geshi_code field.
+	 * @var        string
+	 */
+	protected $geshi_code;
+
+
+	/**
 	 * The value for the position field.
 	 * @var        int
 	 */
@@ -85,6 +92,17 @@ abstract class BaseCopypastaLanguage extends BaseObject  implements Persistent {
 	{
 
 		return $this->title;
+	}
+
+	/**
+	 * Get the [geshi_code] column value.
+	 * 
+	 * @return     string
+	 */
+	public function getGeshiCode()
+	{
+
+		return $this->geshi_code;
 	}
 
 	/**
@@ -143,6 +161,28 @@ abstract class BaseCopypastaLanguage extends BaseObject  implements Persistent {
 	} // setTitle()
 
 	/**
+	 * Set the value of [geshi_code] column.
+	 * 
+	 * @param      string $v new value
+	 * @return     void
+	 */
+	public function setGeshiCode($v)
+	{
+
+		// Since the native PHP type for this column is string,
+		// we will cast the input to a string (if it is not).
+		if ($v !== null && !is_string($v)) {
+			$v = (string) $v; 
+		}
+
+		if ($this->geshi_code !== $v) {
+			$this->geshi_code = $v;
+			$this->modifiedColumns[] = CopypastaLanguagePeer::GESHI_CODE;
+		}
+
+	} // setGeshiCode()
+
+	/**
 	 * Set the value of [position] column.
 	 * 
 	 * @param      int $v new value
@@ -185,14 +225,16 @@ abstract class BaseCopypastaLanguage extends BaseObject  implements Persistent {
 
 			$this->title = $rs->getString($startcol + 1);
 
-			$this->position = $rs->getInt($startcol + 2);
+			$this->geshi_code = $rs->getString($startcol + 2);
+
+			$this->position = $rs->getInt($startcol + 3);
 
 			$this->resetModified();
 
 			$this->setNew(false);
 
 			// FIXME - using NUM_COLUMNS may be clearer.
-			return $startcol + 3; // 3 = CopypastaLanguagePeer::NUM_COLUMNS - CopypastaLanguagePeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 4; // 4 = CopypastaLanguagePeer::NUM_COLUMNS - CopypastaLanguagePeer::NUM_LAZY_LOAD_COLUMNS).
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating CopypastaLanguage object", $e);
@@ -420,6 +462,9 @@ abstract class BaseCopypastaLanguage extends BaseObject  implements Persistent {
 				return $this->getTitle();
 				break;
 			case 2:
+				return $this->getGeshiCode();
+				break;
+			case 3:
 				return $this->getPosition();
 				break;
 			default:
@@ -444,7 +489,8 @@ abstract class BaseCopypastaLanguage extends BaseObject  implements Persistent {
 		$result = array(
 			$keys[0] => $this->getId(),
 			$keys[1] => $this->getTitle(),
-			$keys[2] => $this->getPosition(),
+			$keys[2] => $this->getGeshiCode(),
+			$keys[3] => $this->getPosition(),
 		);
 		return $result;
 	}
@@ -483,6 +529,9 @@ abstract class BaseCopypastaLanguage extends BaseObject  implements Persistent {
 				$this->setTitle($value);
 				break;
 			case 2:
+				$this->setGeshiCode($value);
+				break;
+			case 3:
 				$this->setPosition($value);
 				break;
 		} // switch()
@@ -510,7 +559,8 @@ abstract class BaseCopypastaLanguage extends BaseObject  implements Persistent {
 
 		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
 		if (array_key_exists($keys[1], $arr)) $this->setTitle($arr[$keys[1]]);
-		if (array_key_exists($keys[2], $arr)) $this->setPosition($arr[$keys[2]]);
+		if (array_key_exists($keys[2], $arr)) $this->setGeshiCode($arr[$keys[2]]);
+		if (array_key_exists($keys[3], $arr)) $this->setPosition($arr[$keys[3]]);
 	}
 
 	/**
@@ -524,6 +574,7 @@ abstract class BaseCopypastaLanguage extends BaseObject  implements Persistent {
 
 		if ($this->isColumnModified(CopypastaLanguagePeer::ID)) $criteria->add(CopypastaLanguagePeer::ID, $this->id);
 		if ($this->isColumnModified(CopypastaLanguagePeer::TITLE)) $criteria->add(CopypastaLanguagePeer::TITLE, $this->title);
+		if ($this->isColumnModified(CopypastaLanguagePeer::GESHI_CODE)) $criteria->add(CopypastaLanguagePeer::GESHI_CODE, $this->geshi_code);
 		if ($this->isColumnModified(CopypastaLanguagePeer::POSITION)) $criteria->add(CopypastaLanguagePeer::POSITION, $this->position);
 
 		return $criteria;
@@ -580,6 +631,8 @@ abstract class BaseCopypastaLanguage extends BaseObject  implements Persistent {
 	{
 
 		$copyObj->setTitle($this->title);
+
+		$copyObj->setGeshiCode($this->geshi_code);
 
 		$copyObj->setPosition($this->position);
 

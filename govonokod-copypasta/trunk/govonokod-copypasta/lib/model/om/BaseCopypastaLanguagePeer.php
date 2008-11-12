@@ -19,7 +19,7 @@ abstract class BaseCopypastaLanguagePeer {
 	const CLASS_DEFAULT = 'lib.model.CopypastaLanguage';
 
 	/** The total number of columns. */
-	const NUM_COLUMNS = 3;
+	const NUM_COLUMNS = 4;
 
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -30,6 +30,9 @@ abstract class BaseCopypastaLanguagePeer {
 
 	/** the column name for the TITLE field */
 	const TITLE = 'copypasta_language.TITLE';
+
+	/** the column name for the GESHI_CODE field */
+	const GESHI_CODE = 'copypasta_language.GESHI_CODE';
 
 	/** the column name for the POSITION field */
 	const POSITION = 'copypasta_language.POSITION';
@@ -45,10 +48,10 @@ abstract class BaseCopypastaLanguagePeer {
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'Title', 'Position', ),
-		BasePeer::TYPE_COLNAME => array (CopypastaLanguagePeer::ID, CopypastaLanguagePeer::TITLE, CopypastaLanguagePeer::POSITION, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'title', 'position', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Title', 'GeshiCode', 'Position', ),
+		BasePeer::TYPE_COLNAME => array (CopypastaLanguagePeer::ID, CopypastaLanguagePeer::TITLE, CopypastaLanguagePeer::GESHI_CODE, CopypastaLanguagePeer::POSITION, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'title', 'geshi_code', 'position', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
 	);
 
 	/**
@@ -58,10 +61,10 @@ abstract class BaseCopypastaLanguagePeer {
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Title' => 1, 'Position' => 2, ),
-		BasePeer::TYPE_COLNAME => array (CopypastaLanguagePeer::ID => 0, CopypastaLanguagePeer::TITLE => 1, CopypastaLanguagePeer::POSITION => 2, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'title' => 1, 'position' => 2, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Title' => 1, 'GeshiCode' => 2, 'Position' => 3, ),
+		BasePeer::TYPE_COLNAME => array (CopypastaLanguagePeer::ID => 0, CopypastaLanguagePeer::TITLE => 1, CopypastaLanguagePeer::GESHI_CODE => 2, CopypastaLanguagePeer::POSITION => 3, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'title' => 1, 'geshi_code' => 2, 'position' => 3, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
 	);
 
 	/**
@@ -164,6 +167,8 @@ abstract class BaseCopypastaLanguagePeer {
 		$criteria->addSelectColumn(CopypastaLanguagePeer::ID);
 
 		$criteria->addSelectColumn(CopypastaLanguagePeer::TITLE);
+
+		$criteria->addSelectColumn(CopypastaLanguagePeer::GESHI_CODE);
 
 		$criteria->addSelectColumn(CopypastaLanguagePeer::POSITION);
 

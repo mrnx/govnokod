@@ -12,15 +12,17 @@ class BaseCopypastaLanguageForm extends BaseFormPropel
   public function setup()
   {
     $this->setWidgets(array(
-      'id'       => new sfWidgetFormInputHidden(),
-      'title'    => new sfWidgetFormInput(),
-      'position' => new sfWidgetFormInput(),
+      'id'         => new sfWidgetFormInputHidden(),
+      'title'      => new sfWidgetFormInput(),
+      'geshi_code' => new sfWidgetFormInput(),
+      'position'   => new sfWidgetFormInput(),
     ));
 
     $this->setValidators(array(
-      'id'       => new sfValidatorPropelChoice(array('model' => 'CopypastaLanguage', 'column' => 'id', 'required' => false)),
-      'title'    => new sfValidatorString(array('max_length' => 50, 'required' => false)),
-      'position' => new sfValidatorInteger(array('required' => false)),
+      'id'         => new sfValidatorPropelChoice(array('model' => 'CopypastaLanguage', 'column' => 'id', 'required' => false)),
+      'title'      => new sfValidatorString(array('max_length' => 50, 'required' => false)),
+      'geshi_code' => new sfValidatorString(array('max_length' => 50, 'required' => false)),
+      'position'   => new sfValidatorInteger(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('copypasta_language[%s]');

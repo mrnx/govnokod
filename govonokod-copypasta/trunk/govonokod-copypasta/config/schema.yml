@@ -9,5 +9,6 @@ propel:
 
   copypasta_language:
     id:
-    title: varchar(50)
-    position: integer
+    title:      varchar(50)
+    geshi_code: varchar(50)
+    position:   integer

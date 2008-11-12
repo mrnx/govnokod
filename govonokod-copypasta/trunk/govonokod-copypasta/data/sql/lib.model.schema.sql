@@ -36,6 +36,7 @@ CREATE TABLE `copypasta_language`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`title` VARCHAR(50),
+	`geshi_code` VARCHAR(50),
 	`position` INTEGER,
 	PRIMARY KEY (`id`)
 )Type=InnoDB;

@@ -65,6 +65,8 @@ class CopypastaLanguageMapBuilder {
 
 		$tMap->addColumn('TITLE', 'Title', 'string', CreoleTypes::VARCHAR, false, 50);
 
+		$tMap->addColumn('GESHI_CODE', 'GeshiCode', 'string', CreoleTypes::VARCHAR, false, 50);
+
 		$tMap->addColumn('POSITION', 'Position', 'int', CreoleTypes::INTEGER, false, null);
 
 	} // doBuild()

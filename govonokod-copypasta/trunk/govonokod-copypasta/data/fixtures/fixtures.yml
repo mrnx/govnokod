@@ -1,9 +1,11 @@
 CopypastaLanguage:
   CopypastaLanguage_1:
     title: PHP
+    geshi_code: php
     position: '1'
   CopypastaLanguage_2:
     title: Javascript
+    geshi_code: javascript
     position: '2'
 Copypasta:
   Copypasta_1:
@@ -12,3 +14,15 @@ Copypasta:
     username: User
     delete_at: '2009-03-06 01:05:00'
     created_at: '2008-11-10 21:31:12'
+  Copypasta_2:
+    copypasta_language_id: CopypastaLanguage_1
+    copypasta: "<?php\n\n/**\n * index actions.\n *\n * @package    govnokod\n * @subpackage index\n * @author     Your name here\n * @version    SVN: $Id: actions.class.php 9301 2008-05-27 01:08:46Z dwhittle $\n */\nclass indexActions extends sfActions\n{\n /**\n  * Executes index action\n  *\n  * @param sfRequest $request A request object\n  */\n  public function executeIndex($request)\n  {\n  	$form = new CopypastaForm();\n  	if ($request->isMethod('post'))\n  	{\n  		$form->bind($request->getParameter('copypasta'));\n  		if ($form->isValid())\n  		{\n  			$copypasta = $form->save();\n  			$this->redirect('index/item?id='.$copypasta->getId());\n  		}\n  	}\n  	\n    $this->form = $form;\n  }\n\n /**\n  * Executes index action\n  *\n  * @param sfRequest $request A request object\n  */\n  public  function executeItem($request) {\n  	$this->forward404Unless($copypasta = CopypastaPeer::retrieveByPK($request->getParameter('id')));\n  	\n  	$this->copypasta = $copypasta;\n    $this->highlighter = new sfGeshi($copypasta->getCopypasta(), $copypasta->getCopypastaLanguage()->getGeshiCode());\n  	\n    $this->form      = new CopypastaForm($copypasta);\n    $this->form->setDefault('username', '');\n  }\n  \n}\n"
+    username: dizzy2
+    delete_at: '2009-05-06 04:06:00'
+    created_at: '2008-11-12 20:44:17'
+  Copypasta_3:
+    copypasta_language_id: CopypastaLanguage_2
+    copypasta: "/**\n\n * Magento\n\n *\n\n * NOTICE OF LICENSE\n\n *\n\n * This source file is subject to the Open Software License (OSL 3.0)\n\n * that is bundled with this package in the file LICENSE.txt.\n\n * It is also available through the world-wide-web at this URL:\n\n * http://opensource.org/licenses/osl-3.0.php\n\n * If you did not receive a copy of the license and are unable to\n\n * obtain it through the world-wide-web, please send an email\n\n * to license@magentocommerce.com so we can send you a copy immediately.\n\n *\n\n * DISCLAIMER\n\n *\n\n * Do not edit or add to this file if you wish to upgrade Magento to newer\n\n * versions in the future. If you wish to customize Magento for your\n\n * needs please refer to http://www.magentocommerce.com for more information.\n\n *\n\n * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)\n\n * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)\n\n */\n\n// old school cookie functions grabbed off the web\n\n\n\nif (!window.Mage) var Mage = {};\n\n\n\nMage.Cookies = {};\n\nMage.Cookies.set = function(name, value){\n\n     var argv = arguments;\n\n     var argc = arguments.length;\n\n     var expires = (argc > 2) ? argv[2] : null;\n\n     var path = (argc > 3) ? argv[3] : '/';\n\n     var domain = (argc > 4) ? argv[4] : null;\n\n     var secure = (argc > 5) ? argv[5] : false;\n\n     document.cookie = name + \"=\" + escape (value) +\n\n       ((expires == null) ? \"\" : (\"; expires=\" + expires.toGMTString())) +\n\n       ((path == null) ? \"\" : (\"; path=\" + path)) +\n\n       ((domain == null) ? \"\" : (\"; domain=\" + domain)) +\n\n       ((secure == true) ? \"; secure\" : \"\");\n\n};\n\n\n\nMage.Cookies.get = function(name){\n\n    var arg = name + \"=\";\n\n    var alen = arg.length;\n\n    var clen = document.cookie.length;\n\n    var i = 0;\n\n    var j = 0;\n\n    while(i < clen){\n\n        j = i + alen;\n\n        if (document.cookie.substring(i, j) == arg)\n\n            return Cookies.getCookieVal(j);\n\n        i = document.cookie.indexOf(\" \", i) + 1;\n\n        if(i == 0)\n\n            break;\n\n    }\n\n    return null;\n\n};\n\n\n\nMage.Cookies.clear = function(name) {\n\n  if(Cookies.get(name)){\n\n    document.cookie = name + \"=\" +\n\n    \"; expires=Thu, 01-Jan-70 00:00:01 GMT\";\n\n  }\n\n};\n\n\n\nMage.Cookies.getCookieVal = function(offset){\n\n   var endstr = document.cookie.indexOf(\";\", offset);\n\n   if(endstr == -1){\n\n       endstr = document.cookie.length;\n\n   }\n\n   return unescape(document.cookie.substring(offset, endstr));\n\n};"
+    username: dizzy2
+    delete_at: '2010-11-09 07:08:00'
+    created_at: '2008-11-12 20:45:07'
