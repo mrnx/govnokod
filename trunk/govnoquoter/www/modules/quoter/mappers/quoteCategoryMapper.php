@@ -38,6 +38,11 @@ class quoteCategoryMapper extends simpleMapper
      */
     protected $className = 'quoteCategory';
 
+    public function searchByName($name)
+    {
+        return $this->searchOneByField('name', $name);
+    }
+
     /**
      * Возвращает доменный объект по аргументам
      *

@@ -27,10 +27,27 @@ class quoterListController extends simpleController
         $action = $this->request->getAction();
         $listAll = ($action == 'listAll');
 
+        $criteria = new criteria;
+        $criteria->setOrderByFieldDesc('created');
+
+        if (!$listAll) {
+            $name = $this->request->getString('name');
+            $categoryMapper = $this->toolkit->getMapper('quoter', 'quoteCategory');
+
+            $category = $categoryMapper->searchByName($name);
+            if (!$category) {
+                return $categoryMapper->get404()->run();
+            }
+
+            $criteria->add('category_id', $category->getId());
+            $this->smarty->assign('category', $category);
+        }
+
         $quoteMapper = $this->toolkit->getMapper('quoter', 'quote');
-        $quotes = $quoteMapper->searchAll();
+        $quotes = $quoteMapper->searchAllByCriteria($criteria);
 
         $this->smarty->assign('quotes', $quotes);
+        $this->smarty->assign('listAll', $listAll);
         return $this->smarty->fetch('quoter/list.tpl');
     }
 }
