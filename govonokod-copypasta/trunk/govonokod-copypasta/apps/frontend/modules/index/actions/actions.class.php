@@ -5,13 +5,13 @@
  *
  * @package    govnokod
  * @subpackage index
- * @author     Your name here
+ * @author     dizzy2
  * @version    SVN: $Id: actions.class.php 9301 2008-05-27 01:08:46Z dwhittle $
  */
 class indexActions extends sfActions
 {
  /**
-  * Executes index action
+  * Добавление новой копипасты
   *
   * @param sfRequest $request A request object
   */
@@ -32,17 +32,17 @@ class indexActions extends sfActions
   }
 
  /**
-  * Executes index action
+  * Просмотр и изменение копипасты
   *
   * @param sfRequest $request A request object
   */
   public  function executeItem($request) {
   	$this->forward404Unless($copypasta = CopypastaPeer::retrieveByPK($request->getParameter('id')));
   	
-  	$this->copypasta = $copypasta;
+  	$this->copypasta   = $copypasta;
     $this->highlighter = new sfGeshi($copypasta->getCopypasta(), $copypasta->getCopypastaLanguage()->getGeshiCode());
   	
-    $this->form      = new CopypastaForm($copypasta);
+    $this->form        = new CopypastaForm($copypasta);
     $this->form->setDefault('username', '');
   }
   
