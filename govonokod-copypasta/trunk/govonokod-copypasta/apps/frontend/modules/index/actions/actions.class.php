@@ -17,17 +17,17 @@ class indexActions extends sfActions
   */
   public function executeIndex($request)
   {
-  	$form = new CopypastaForm();
-  	if ($request->isMethod('post'))
-  	{
-  		$form->bind($request->getParameter('copypasta'));
-  		if ($form->isValid())
-  		{
-  			$copypasta = $form->save();
-  			$this->redirect('index/item?id='.$copypasta->getId());
-  		}
-  	}
-  	
+    $form = new CopypastaForm();
+    if ($request->isMethod('post'))
+    {
+      $form->bind($request->getParameter('copypasta'));
+      if ($form->isValid())
+      {
+        $copypasta = $form->save();
+        $this->redirect('index/item?id='.$copypasta->getId());
+      }
+    }
+
     $this->form = $form;
   }
 
@@ -37,11 +37,11 @@ class indexActions extends sfActions
   * @param sfRequest $request A request object
   */
   public  function executeItem($request) {
-  	$this->forward404Unless($copypasta = CopypastaPeer::retrieveByPK($request->getParameter('id')));
-  	
-  	$this->copypasta   = $copypasta;
+    $this->forward404Unless($copypasta = CopypastaPeer::retrieveByPK($request->getParameter('id')));
+
+    $this->copypasta   = $copypasta;
     $this->highlighter = new sfGeshi($copypasta->getCopypasta(), $copypasta->getCopypastaLanguage()->getGeshiCode());
-  	
+
     $this->form        = new CopypastaForm($copypasta);
     $this->form->setDefault('username', '');
   }
