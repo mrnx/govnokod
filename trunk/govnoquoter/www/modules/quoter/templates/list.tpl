@@ -66,10 +66,12 @@ pre {
 
     function unfoldCode(codeId)
     {
+        $('unfoldCode' + codeId).hide();
+        $('foldCode' + codeId).show();
         var codeContent = $('codeContent' + codeId);
 
         if (codeContent) {
-            if (allreadyLoaded[codeId] == true) {
+            if (allreadyLoaded[codeId] > 0) {
                 var currentHeight = codeContent.getHeight();
                 Effect.BlindDown(codeContent, {
                     duration: 0.4,
@@ -84,7 +86,7 @@ pre {
                     method: 'get',
                     parameters: {format: 'ajax'},
                     onSuccess: function(transport) {
-                        allreadyLoaded[codeId] = true;
+                         allreadyLoaded[codeId] = currentHeight;
                         codeContent.update(transport.responseText);
                         Effect.BlindDown(codeContent, {
                             duration: 0.4,
@@ -100,15 +102,19 @@ pre {
 
     function foldCode(codeId)
     {
+        $('unfoldCode' + codeId).show();
+        $('foldCode' + codeId).hide();
+
         var codeContent = $('codeContent' + codeId);
         if (codeContent) {
+            var foldedHeight = allreadyLoaded[codeId];
             Effect.BlindUp(codeContent, {
                 duration: 0.4,
                 scaleMode: 'contents',
                 restoreAfterFinish: false,
-                scaleTo: Math.ceil((100 / codeContent.scrollHeight) * 210),
+                scaleTo: Math.ceil((100 / codeContent.scrollHeight) * foldedHeight),
                 afterFinishInternal: function(effect) {
-                    codeContent.setStyle({overflow: 'hidden', height: '210px'}).show();
+                    codeContent.setStyle({overflow: 'hidden', height: foldedHeight + 'px'}).show();
                     //codeContent.show();
                 }
             });
@@ -121,12 +127,14 @@ pre {
     <div>
         <table class="colorCode" cellpadding="3" cellspacing="0" border="0">
             <tr>
-                <td valign="top" style="width: 300px;">
-                    <a href="{url route="withId" action="" id=$quote->getId()}" onclick="unfoldCode({$quote->getId()}); this.toggle(); this.next('a').toggle(); return false;" style="border-bottom: 1px dashed; text-decoration: none;">развернуть</a>
-                    <a href="{url route="withId" action="" id=$quote->getId()}" onclick="foldCode({$quote->getId()}); this.toggle(); this.previous('a').toggle(); return false;" style="display: none; border-bottom: 1px dashed; text-decoration: none;">свернуть</a>
+                <td valign="top" style="width: 20%;">
+                    <a href="{url route="withId" action="" id=$quote->getId()}" id="unfoldCode{$quote->getId()}" onclick="unfoldCode({$quote->getId()}); return false;" style="border-bottom: 1px dashed; text-decoration: none;">развернуть</a>
+                    <a href="{url route="withId" action="" id=$quote->getId()}" id="foldCode{$quote->getId()}" onclick="foldCode({$quote->getId()}); return false;" style="display: none; border-bottom: 1px dashed; text-decoration: none;">свернуть</a>
+                    <br />Автор: {$quote->getUsername()}
+                    <br />Всего строк: {$quote->getLinesCount()}
                 </td>
-                <td valign="top" style="width: 100%;">
-                    <div id="codeContent{$quote->getId()}" class="codeContent" style="overflow: hidden; height: 210px;">
+                <td valign="top" style="width: 80%;">
+                    <div id="codeContent{$quote->getId()}" class="codeContent">
                         {$quote->getText(15)|highlite:$quote->getCategory()->getName()}
                     </div>
                 </td>
