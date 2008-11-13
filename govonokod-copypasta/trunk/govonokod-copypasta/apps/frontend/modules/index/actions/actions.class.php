@@ -23,10 +23,25 @@ class indexActions extends sfActions
       $form->bind($request->getParameter('copypasta'));
       if ($form->isValid())
       {
+        $values = $form->getValues();
         $copypasta = $form->save();
+        if ($request->hasParameter('remember'))
+        {
+          $this->getResponse()->setCookie('remember', $values['username'], time() + 30*24*60*60, '/');
+        }
+        else {
+        	$this->getResponse()->setCookie('remember', '', time() - 3600, '/');
+          
+        }
+        
         $this->redirect('index/item?id='.$copypasta->getId());
       }
     }
+    else {
+    	$form->setDefault('username', is_null($this->getRequest()->getCookie('remember')) ? '' : $this->getRequest()->getCookie('remember'));
+    }
+    $this->remember = (is_null($this->getRequest()->getCookie('remember')) ? null : htmlspecialchars($this->getRequest()->getCookie('remember'))) ;
+    
 
     $this->form = $form;
   }
@@ -43,7 +58,9 @@ class indexActions extends sfActions
     $this->highlighter = new sfGeshi($copypasta->getCopypasta(), $copypasta->getCopypastaLanguage()->getGeshiCode());
 
     $this->form        = new CopypastaForm($copypasta);
-    $this->form->setDefault('username', '');
+    $this->form->setDefault('username', is_null($this->getRequest()->getCookie('remember')) ? '' : $this->getRequest()->getCookie('remember'));
+
+    $this->remember = (is_null($this->getRequest()->getCookie('remember')) ? null : htmlspecialchars($this->getRequest()->getCookie('remember'))) ;
   }
   
 }

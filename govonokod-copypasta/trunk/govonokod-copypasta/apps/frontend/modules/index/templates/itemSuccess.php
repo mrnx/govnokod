@@ -7,12 +7,13 @@
   <tfoot>
     <tr>
       <td colspan="2">
+        <label><input type="checkbox" name="remember" <?php echo ($remember != null ? 'checked="checked"' : '')?> /> <?php echo __('Remember me')?></label>
         <input type="submit" value="Отправить" />
       </td>
     </tr>
   </tfoot>
   <tbody>
-	  <?php echo $form; ?>
+    <?php echo $form; ?>
   </tbody>
 </table>
 </form>
