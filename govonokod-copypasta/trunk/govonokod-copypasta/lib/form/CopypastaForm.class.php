@@ -20,7 +20,7 @@ class CopypastaForm extends BaseCopypastaForm
       'copypasta_language_id' => new sfWidgetFormPropelSelect(array('model' => 'CopypastaLanguage', 'add_empty' => 'None')),
       'copypasta'             => new sfWidgetFormTextarea(),
       'username'              => new sfWidgetFormInput(),
-      'delete_at'             => new sfWidgetFormDateTime(),
+      'delete_at'             => new myWidgetFormRichDate(),
     ));
 
     $this->setValidators(array(
