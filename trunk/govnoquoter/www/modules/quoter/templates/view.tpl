@@ -44,7 +44,6 @@ pre {
             <tr>
                 <td valign="top" style="width: 20%;">
                     <br />Язык: {$quote->getCategory()->getTitle()|htmlspecialchars}
-                    <br />Автор: {$quote->getUsername()}
                     <br />Всего строк: {$quote->getLinesCount()}
                 </td>
                 <td valign="top" style="width: 80%;">

@@ -136,7 +136,6 @@ pre {
                 <td valign="top" style="width: 20%;">
                     <a href="{url route="withId" action="" id=$quote->getId()}" id="unfoldCode{$quote->getId()}" onclick="unfoldCode({$quote->getId()}); return false;" style="border-bottom: 1px dashed; text-decoration: none;">развернуть</a>
                     <a href="{url route="withId" action="" id=$quote->getId()}" id="foldCode{$quote->getId()}" onclick="foldCode({$quote->getId()}); return false;" style="display: none; border-bottom: 1px dashed; text-decoration: none;">свернуть</a>
-                    <br />Автор: {$quote->getUsername()}
                     <br />Всего строк: {$quote->getLinesCount()}
                 </td>
                 <td valign="top" style="width: 80%;">
