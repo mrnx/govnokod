@@ -52,7 +52,6 @@ class quoteMapper extends simpleMapper
     {
         $fields['created'] = new sqlFunction('UNIX_TIMESTAMP');
         $fields['rating'] = 0;
-        $fields['comments_count'] = 0;
     }
 
     /**
