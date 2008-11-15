@@ -1,76 +1,26 @@
 <html>
+<head>
+    <script type="text/javascript">
+        function numbering(textareaObj) {
+            var linesCount = textareaObj.value.split("\n").length;
+
+            var numbers = '';
+            for (var i = 1; i <= linesCount; i++) {
+                numbers += i + ".\n";
+            }
+
+            textareaObj.style.height = linesCount * 16 + 'px';
+            document.getElementById('nums').innerHTML = numbers;
+        }
+    </script>
+</head>
 <body>
-    <div style="height: 350px; overflow-y: scroll;">
-        <table>
+    <div style="height: 340px; overflow-y: scroll;">
+        <table style="width: 100%;">
             <tr>
-                <td>
-<pre>
-1.
-2.
-2.
-2.
-2.
-2.
-2.
-2.
-2.
-2.
-2.
-2.
-2.
-2.
-2.
-2.
-2.
-2.
-2.
-2.
-2.
-2.
-2.
-2.
-2.
-2.
-2.
-2.
-</pre></td>
-                <td>
-<textarea style="width: 100%; height: 650px; overflow: hidden;">
-as
-df
-as
-df
-as
-df
-as
-df
-a
-sd
-fas
-df
-asd
-f
-asd
-f
-asd
-f
-asd
-fsadf
-fsadf
-fsadf
-fsadf
-fsadf
-fsadf
-fsadf
-fsadf
-fsadf
-fsadf
-fsadf
-fsadf
-fsadf
-fsadf
-fsadf
-</textarea>
+                <td style="width: 1%; vertical-align: top;"><pre id="nums" style="text-align: right; font-family: monospace; font-size: 10pt; line-height: 16px;">1.</pre></td>
+                <td style="width: 99%; vertical-align: top;">
+                    <textarea style="background: #EEEEEE; width: 100%; height: 350px; position: relative; overflow: hidden; border: 0px; font-family: monospace; font-size: 10pt; line-height: 16px;" onkeyup="javascript: numbering(this);"></textarea>
                 </td>
             </tr>
         </table>

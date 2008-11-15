@@ -13,7 +13,7 @@
  */
 
 /**
- * quoterListController: контроллер для метода listAll модуля quoter
+ * quoterListController: контроллер для метода list модуля quoter
  *
  * @package modules
  * @subpackage quoter

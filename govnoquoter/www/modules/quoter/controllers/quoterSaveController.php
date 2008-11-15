@@ -57,7 +57,7 @@ class quoterSaveController extends simpleController
         $validator = new formValidator();
         $validator->add('required', 'text', 'Укажите код');
         $validator->add('required', 'category_id', 'Укажите категорию');
-        $validator->add('in', 'category_id', 'Укажите категорию', array_keys($categoriesSelect));
+        $validator->add('in', 'category_id', 'Укажите правильную категорию', array_keys($categoriesSelect));
         if ($validator->validate()) {
             $categoryId = $this->request->getInteger('category_id', SC_POST);
             $text = $this->request->getString('text', SC_POST);

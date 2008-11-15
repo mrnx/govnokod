@@ -50,6 +50,12 @@ class quoteCategoryMapper extends simpleMapper
      */
     public function convertArgsToObj($args)
     {
+        if (isset($args['name'])) {
+            $do = $this->searchByName($args['name']);
+            if ($do) {
+                return $do;
+            }
+        }
         throw new mzzDONotFoundException();
     }
 }
