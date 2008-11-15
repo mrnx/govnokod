@@ -1,8 +1,81 @@
-body {font: normal 75% Tahoma, sans-serif; background-color: #C0C0C0;}
-#b-left {float: left; width: 230px; margin: 0 10px 10px; padding: 5px; border: 1px outset #ccc; background-color: #fff;}
-#b-center {margin: 10px 10px 10px 260px; background-color: #fff;  border: 1px outset #ccc; padding: 5px;}
-pre {font-size: 130%; border: 1px outset;  width: 800px; margin-bottom: 25px}
+#b-left {
+  clear: left;
+  float: left;
+  width: 230px; margin: 25px 10px 10px 0;
+}
+#b-center {
+  margin: 25px 10px 10px 260px;
+}
+#b-left, #b-center { font-size: 85%; }
+
+pre {font-size: 130%; border: 1px outset;  width: 800px; margin-bottom: 25px; overflow: auto;}
 pre ol, pre li {list-style-type: decimal-leading-zero; list-style-position: inside;}
 pre div {display: inline;}
 
 h2.green {font: bold 110% Tahoma, sans-serif; background-color: #439151; padding: 3px 0 3px 10px; color: #fff; margin-bottom: 5px;}
+
+
+body {
+  padding:50px;
+  background:#996633 url(/images/lines-brown.gif);
+  font-family: Arial, Tahoma;
+  /*font-size:15px;*/
+  color:#222
+}
+
+a:link, a:visited {color:#dd8c3e;}
+a:hover {color:#8fc6ff}
+img {vertical-align:middle;}
+img,div,li{behavior:url(/js/png.htc)}
+
+.input{border: 1px solid #B9B59C;background: #fff;font-family: Arial, Tahoma, Verdana;font-size: 13px;color: #000}
+.inbutton{border:0px;font-family: Arial, Tahoma, Verdana;font-size: 13px;font-weight: bold;background:#fff;color: #BD0000}
+
+h1 {
+  font: normal 120% Tahoma;
+  /*font-size:24px;*/
+  color:#fff;
+  padding-bottom:15px;
+}
+
+a.header:link, a.header:visited {
+  display:block;
+  font: bold 400% "Trebuchet MS", sans-serif;
+  color:#2F2419;
+  text-transform:uppercase;
+  text-decoration:none;
+}
+a.header:link img, a.header:visited img
+{
+  vertical-align:baseline
+}
+
+ul.menu {overflow: hidden;}
+ul.menu li {
+  font-size:18px;
+  display:block;
+  float:left;
+  width:180px;
+  height:39px;
+  line-height:39px;
+  margin-bottom:25px;
+  text-transform:uppercase;
+  text-align:center;
+}
+ul.menu li a:link,ul.menu li a:visited {color:#fff}
+ul.menu li a:hover {color:#dd8c3e}
+ul.menu li.active {background:url(/images/menu-active.png)}
+ul.menu li.active a:link,ul.menu li.active a:visited {text-decoration:none; color:#8fc6ff}
+
+.rounded { margin:25px 0;width:802px; background-color: white; padding: 10px; }
+noindex:-o-prefocus, .rounded-svg {
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgoJPG1hc2sgaWQ9Im1hc2siPgoJCTxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHJ4PSIxMCIgcnk9IjEwIiBmaWxsPSJ3aGl0ZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIyIi8+Cgk8L21hc2s+Cgk8cmVjdCBzdHJva2U9ImJsYWNrIiBmaWxsPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSI0IiBtYXNrPSJ1cmwoI21hc2spIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiByeD0iMTAiIHJ5PSIxMCIvPgo8L3N2Zz4K);
+  border: none !important;
+}
+.rounded-css3 {
+  border: 1px solid white;
+  -moz-border-radius: 12px;     /* mozilla 1.5 */
+  -webkit-border-radius: 12px;  /* safari 3 */
+  -khtml-border-radius: 12px;   /* Konqueror */
+  border-radius: 12px;          /* CSS3 */
+}

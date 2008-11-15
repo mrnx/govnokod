@@ -11,15 +11,23 @@
 
 </head>
 <body>
-  <div style="margin: 20px 10px;">
-    <h1>Йа Шапко</h1>
-  </div>
-  <div id="b-left">
-    <?php include_partial('index/actions');?>
-    <?php include_component('index', 'lastCopypastas');?>
+  <a href="#" class="header">
+    <img src="/images/logo.png" alt="Логотип портала Говнокод.Ру" title="Да, это говно" />
+    Govnokod.ru
+  </a>
+
+  <ul class="menu">
+    <li class="active"><a href="#">Говнобин</a></li>
+    <li><a href="#">Говнобаш</a></li>
+    <li><a href="#">Говноблог</a></li>
+  </ul>
+  
+  <div id="b-left" class="rounded rounded-css3 rounded-svg">
+    <?php include_partial('index/actions');?><br /><br />
+    <?php include_component('index', 'lastCopypastas');?><br />
     <?php include_partial('global/credits');?>
   </div>
-  <div id="b-center">
+  <div id="b-center" class="rounded rounded-css3 rounded-svg">
     <?php echo $sf_content ?>
   </div>
 
