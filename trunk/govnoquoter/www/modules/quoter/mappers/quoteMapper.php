@@ -61,6 +61,12 @@ class quoteMapper extends simpleMapper
      */
     public function convertArgsToObj($args)
     {
+        if (isset($args['id'])) {
+            $do = $this->searchById($args['id']);
+            if ($do) {
+                return $do;
+            }
+        }
         throw new mzzDONotFoundException();
     }
 }

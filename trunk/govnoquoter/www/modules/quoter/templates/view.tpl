@@ -48,7 +48,7 @@ pre {
                 </td>
                 <td valign="top" style="width: 80%;">
                     <div id="codeContent{$quote->getId()}" class="codeContent">
-                        {$quote->getText()|highlite:$quote->getCategory()->getName()}
+                        {$quote->getText()|highlite:$quote->getCategory()->getName():$quote->getId()}
                     </div>
                 </td>
             </tr>
