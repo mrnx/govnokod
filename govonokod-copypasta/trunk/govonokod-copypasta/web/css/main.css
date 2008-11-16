@@ -69,13 +69,14 @@ ul.menu li.active a:link,ul.menu li.active a:visited {text-decoration:none; colo
 
 .rounded { margin:25px 0;width:802px; background-color: white; padding: 10px; }
 noindex:-o-prefocus, .rounded-svg {
-  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgoJPG1hc2sgaWQ9Im1hc2siPgoJCTxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHJ4PSIxMCIgcnk9IjEwIiBmaWxsPSJ3aGl0ZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIyIi8+Cgk8L21hc2s+Cgk8cmVjdCBzdHJva2U9ImJsYWNrIiBmaWxsPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSI0IiBtYXNrPSJ1cmwoI21hc2spIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiByeD0iMTAiIHJ5PSIxMCIvPgo8L3N2Zz4K);
-  border: none !important;
+  background:transparent url(/images/rnd.svg);
+  border: none !important; 
 }
 .rounded-css3 {
   border: 1px solid white;
   -moz-border-radius: 12px;     /* mozilla 1.5 */
   -webkit-border-radius: 12px;  /* safari 3 */
   -khtml-border-radius: 12px;   /* Konqueror */
+  -opera-border-radius: 12px;
   border-radius: 12px;          /* CSS3 */
 }
