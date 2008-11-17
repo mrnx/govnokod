@@ -67,11 +67,11 @@ ul.menu li a:hover {color:#dd8c3e}
 ul.menu li.active {background:url(/images/menu-active.png)}
 ul.menu li.active a:link,ul.menu li.active a:visited {text-decoration:none; color:#8fc6ff}
 
-.rounded { margin:25px 0;width:802px; background-color: white; padding: 10px; }
 noindex:-o-prefocus, .rounded-svg {
   background:transparent url(/images/rnd.svg);
   border: none !important; 
 }
+.rounded { margin:25px 0;width:802px; background-color: white; padding: 10px; }
 .rounded-css3 {
   border: 1px solid white;
   -moz-border-radius: 12px;     /* mozilla 1.5 */
