@@ -5,29 +5,17 @@
             Govnokod.ru
         </a>
     </div>
+    <div class="add-govno"><a href="{if $listAll|default:true}{url route="default2" action="add"}{else}{url route="withAnyParam" action="add" name=$category->getName()}{/if}"><img src="{$SITE_PATH}/templates/des/icon-plus.png" alt="" /></a> <a href="{if $listAll|default:true}{url route="default2" action="add"}{else}{url route="withAnyParam" action="add" name=$category->getName()}{/if}">Накласть говнокод</a></div>
     <ul class="menu">
-        <li><a href="#">Говнобин</a></li>
-        <li class="active"><a href="#">Говнобаш</a></li>
-        {*<li><a href="#">Говноблог</a></li>*}
+        <li class="active"><a href="{url route="default"}">Говнокод</a></li>
+        <li><a href="http://bin.govnokod.ru/">Говнобин</a></li>
+    </ul>
+    <div style="clear:both"></div>
+    <ul class="sub-menu">
+        <li class="left">&nbsp;</li>
+    	<li><a href="#">Новые</a></li>
+    	<li><a href="#">Лучшие</a></li>
+    	<li class="right">&nbsp;</li>
     </ul>
 
     {$content}
-    {*
-    <div class="block">
-        <div class="top">&nbsp;</div>
-        <div class="content">
-            <h1><a href="#">Пацанчики на пати!</a></h1>
-            Вы все говно!
-        </div>
-        <div class="bottom"></div>
-    </div>
-
-    <div class="block">
-        <div class="top">&nbsp;</div>
-        <div class="content">
-            <h1><a href="#">Пацанчики на пати!</a></h1>
-            Вы все говно!
-        </div>
-        <div class="bottom"></div>
-    </div>
-    *}

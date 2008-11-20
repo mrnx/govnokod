@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+    <script type="text/javascript">
+        /**
+         * 
+         * @param {Object} textareaObj
+         */
+        function numbering(textareaObj) {
+            var linesCount = textareaObj.value.split("\n").length;
+ 
+            var numbers = '';
+            for (var i = 1; i <= linesCount; i++) {
+                numbers += i + ".\n";
+            }
+ 
+            textareaObj.style.height = linesCount * 16 + 'px';
+            document.getElementById('nums').value = numbers;
+            document.getElementById('nums').style.height = linesCount * 16 + 'px';
+        }
+    </script>
+    <style type="text/css">
+        .text{
+            background: #EEEEEE; 
+            width: 260px;
+            height: 100px; 
+            position: relative; 
+            overflow: hidden; 
+            border: 0px; 
+            font-family: monospace; 
+            font-size: 10pt; 
+            line-height: 16px;
+            float:right;
+            display:inline;
+        }
+        .text2{
+            width: 16px;
+            float:left;     
+        }
+    </style>
+</head>
+<body>
+ 
+    <div style="height: 340px; width: 296px;">
+        <textarea class="text text2" id = "nums">
+        </textarea>
+        <textarea class="text" id = "text" onkeyup="javascript: numbering(this);">
+        </textarea>
+    </div>
+</body>
+</html>

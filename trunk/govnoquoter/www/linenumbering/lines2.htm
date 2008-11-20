@@ -6,7 +6,7 @@
 
             var numbers = '';
             for (var i = 1; i <= linesCount; i++) {
-                numbers += i + ".\n";
+                numbers += '<a href="#" onclick="return false;">' + i + '</a>' + ".<br />";
             }
 
             textareaObj.style.height = linesCount * 16 + 'px';
@@ -18,7 +18,7 @@
     <div style="height: 340px; overflow-y: scroll;">
         <table style="width: 100%;">
             <tr>
-                <td style="width: 1%; vertical-align: top;"><pre id="nums" style="text-align: right; font-family: monospace; font-size: 10pt; line-height: 16px;">1.</pre></td>
+                <td style="width: 1%; vertical-align: top;"><div id="nums" style="text-align: right; font-family: monospace; font-size: 10pt; line-height: 16px;">1.</div></td>
                 <td style="width: 99%; vertical-align: top;">
                     <textarea style="background: #EEEEEE; width: 100%; height: 350px; position: relative; overflow: hidden; border: 0px; font-family: monospace; font-size: 10pt; line-height: 16px;" onkeyup="javascript: numbering(this);"></textarea>
                 </td>

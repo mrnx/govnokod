@@ -1,3 +1,4 @@
+{*
 {literal}<script type="text/javascript">
     function vote(aElem) {
         new Ajax.Request(aElem.href, {
@@ -17,3 +18,10 @@
     {$quote->getRating()}
     <a href="{url route="withId" action="cool" id=$quote->getId()}" onclick="vote(this); return false;">+</a>
 </span>
+*}
+                    <div class="numbers">
+                        {foreach from=$quote->generateLines() item="line" name="lineIterator"}{$line}{if !$smarty.foreach.lineIterator.last}<br />{/if}{/foreach}
+                    </div>
+                    <div class="code">
+                        {$quote->getText()|highlite:$quote->getCategory()->getName()}
+                    </div>
