@@ -47,6 +47,23 @@ class quote extends simple
 
         return $this->linesCount;
     }
+
+    public function generateLines($num = null)
+    {
+        $lines = array();
+        $linesCount = $this->getLinesCount();
+
+        if (!is_null($num) && $num < $linesCount) {
+            $linesCount = $num;
+        }
+
+        $chars = strlen($linesCount);
+        for ($i = 1; $i <= $linesCount; $i++) {
+            $lines[] = sprintf('%0' . $chars . 'd', $i);
+        }
+
+        return $lines;
+    }
 }
 
 ?>

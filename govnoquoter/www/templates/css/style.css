@@ -8,21 +8,57 @@ img{border:0px;vertical-align:middle}
 img,div,li{behavior:url(../des/png.htc)}
 
 h1{font-family:Tahoma;font-size:24px;color:#fff;font-weight:normal; padding:0px 0px 15px 0px; margin:0px}
-h2{font-family:Tahoma;font-size:24px;color:#fff;font-weight:normal; padding:0px 0px 15px 0px; margin:0px}
 
-.header a:link,.header a:visited{display:block;font-family:"Trebuchet MS";color:#2F2419;font-size:64px;text-transform:uppercase;text-decoration:none;font-weight:bold}
+.header a:link,.header a:visited{display:block;font-family:"Trebuchet MS";color:#2F2419;font-size:64px;text-transform:uppercase;text-decoration:none;font-weight:bold;float:left}
 .header a:link img,.header a:visited img{vertical-align:baseline}
 
-ul.menu{padding:0px;margin:0px}
-ul.menu li{font-size:18px;display:block;float:left;width:180px;text-transform:uppercase;text-align:center;height:39px;line-height:39px;margin-bottom:25px}
+.add-govno{line-height:26px;height:26px;margin-left:725px;padding-top:59px}
+.add-govno a:link,.add-govno a:visited{color:#fff}
+.add-govno a:hover{color:#dd8c3e}
+
+ul.menu{padding:0px;margin:0px;clear:both}
+ul.menu li{font-size:18px;display:block;float:left;width:180px;text-transform:uppercase;text-align:center;height:39px;line-height:39px}
 ul.menu li a:link,ul.menu li a:visited{color:#fff}
 ul.menu li a:hover{color:#dd8c3e}
 ul.menu li.active{background:url(../des/menu-active.png)}
-ul.menu li.active a:link,ul.menu li.active a:visited{text-decoration:none; color:#8fc6ff}
+ul.menu li.active a:link,ul.menu li.active a:visited{text-decoration:none;color:#8fc6ff}
+
+ul.sub-menu{padding:0px;margin:0px}
+ul.sub-menu li{display:block;float:left;background:url(../des/sub-menu-bg.png);height:39px;line-height:39px;font-size:13px;text-align:center;width:79px}
+ul.sub-menu li a:link,ul.sub-menu li a:visited{color:#fff}
+ul.sub-menu li a:hover{ color: #000}
+ul.sub-menu li.left{background:url(../des/sub-menu-left.png) top left no-repeat;width:11px}
+ul.sub-menu li.right{background:url(../des/sub-menu-right.png) top left no-repeat;width:11px}
 
 
 
-.block{clear:both;padding-top:25px;width:700px}
+.block{padding-top:25px;width:700px}
 .block .top{background:url(../des/round-top.png) top no-repeat;height:20px;line-height:20px}
 .block .bottom{background:url(../des/round-bottom.png) bottom no-repeat;height:20px;line-height:20px}
 .block .content{padding:0px 25px 0px 25px;background:#fff}
+
+.right-block{float:left;margin-left:25px}
+.right-block .block{padding-top:25px;width:175px}
+.right-block .block .top{background:url(../des/right-block-top.png) top no-repeat;height:20px;line-height:20px}
+.right-block .block .bottom{background:url(../des/right-block-bottom.png) bottom no-repeat;height:20px;line-height:20px}
+.right-block .block .content{padding:0px 25px 0px 25px;background:url(../des/right-block-bg.png);width:125px}
+.right-block a:link,.right-block a:visited{color:#fff}
+.right-block a:hover{color:#000}
+.right-block ul{padding:0px;margin:0px;line-height:24px}
+
+
+
+.rblock{border-collapse:collapse;clear:both; margin-top:25px; width:100%}
+.rblock td{padding:0px}
+.rblock h2{padding:0px 0px 25px 0px;margin:0px}
+.rblock h2 span{color:#999;padding:0px 15px 0px 15px;font-weight:normal}
+.rblock tr.content td,.rblock td.empty{background:#fff;}
+.rblock table tr td.numbers{background:#E6D6AC;text-align:right;width:35px;font-family:monospace;font-size:13px;line-height:16px;margin-right:5px;vertical-align:top}
+.rblock div.numbers{float:left;background:#E6D6AC;text-align:right;width:35px;font-family:monospace;font-size:13px;line-height:16px;margin-right:5px;vertical-align:top}
+.rblock div.code{font-size:13px;line-height:16px;vertical-align:top}
+.rblock td.code{font-size:13px;line-height:16px;vertical-align:top}
+.rblock pre{padding:0px;margin:0px;clear:none}
+.rblock a.more:link,.rblock a.more:visited{display:block;text-decoration:none;border-bottom:1px dotted #dd8c3e;float:left}
+.rblock a.more:hover{border-bottom:1px dotted #8fc6ff}
+.rblock .rate{ float:right}
+.rblock .rate a:link,.rblock .rate a:visited{text-decoration:none}

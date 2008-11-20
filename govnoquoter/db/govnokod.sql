@@ -12,14 +12,6 @@
 
 SET FOREIGN_KEY_CHECKS=0;
 
-DROP DATABASE IF EXISTS `govnokod`;
-
-CREATE DATABASE `govnokod`
-    CHARACTER SET 'utf8'
-    COLLATE 'utf8_general_ci';
-
-USE `govnokod`;
-
 SET sql_mode = '';
 
 #
@@ -287,14 +279,15 @@ CREATE TABLE `quoter_quote` (
   `comments_count` INTEGER(11) NOT NULL,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=2 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=3 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `quoter_quote` table  (LIMIT 0,500)
 #
 
 INSERT INTO `quoter_quote` (`id`, `obj_id`, `category_id`, `username`, `user`, `created`, `text`, `description`, `rating`, `comments_count`) VALUES 
-  (1,25,1,'',0,1226759659,'<?php\r\necho ''test'';\r\n?>','',0,0);
+  (1,25,1,'',0,1226759659,'<?php\r\necho ''test'';\r\n?>','',0,0),
+  (2,26,1,'',0,1226925376,'<?php\r\n/**\r\n * $URL$\r\n *\r\n * MZZ Content Management System (c) 2008\r\n * Website : http://www.mzz.ru\r\n *\r\n * This program is free software and released under\r\n * the GNU Lesser General Public License (See /docs/LGPL.txt).\r\n *\r\n * @link http://www.mzz.ru\r\n * @version $Id$\r\n */\r\n\r\n/**\r\n * quoterListController: контроллер для метода list модуля quoter\r\n *\r\n * @package modules\r\n * @subpackage quoter\r\n * @version 0.1\r\n */\r\n\r\nclass quoterListController extends simpleController\r\n{\r\n    protected function getView()\r\n    {\r\n        $action = $this->request->getAction();\r\n        $listAll = ($action == ''listAll'');\r\n\r\n        $criteria = new criteria;\r\n        $criteria->setOrderByFieldDesc(''created'');\r\n\r\n        if (!$listAll) {\r\n            $name = $this->request->getString(''name'');\r\n            $categoryMapper = $this->toolkit->getMapper(''quoter'', ''quoteCategory'');\r\n\r\n            $category = $categoryMapper->searchByName($name);\r\n            if (!$category) {\r\n                return $categoryMapper->get404()->run();\r\n            }\r\n\r\n            $criteria->add(''category_id'', $category->getId());\r\n            $this->smarty->assign(''category'', $category);\r\n        }\r\n\r\n        $quoteMapper = $this->toolkit->getMapper(''quoter'', ''quote'');\r\n        $quotes = $quoteMapper->searchAllByCriteria($criteria);\r\n\r\n        $this->smarty->assign(''quotes'', $quotes);\r\n        $this->smarty->assign(''listAll'', $listAll);\r\n        return $this->smarty->fetch(''quoter/list.tpl'');\r\n    }\r\n}\r\n\r\n?>','',0,0);
 COMMIT;
 
 #
@@ -355,7 +348,7 @@ CREATE TABLE `sys_access_registry` (
   `class_section_id` INTEGER(11) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`obj_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=26 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=27 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_access_registry` table  (LIMIT 0,500)
@@ -386,7 +379,8 @@ INSERT INTO `sys_access_registry` (`obj_id`, `class_section_id`) VALUES
   (22,55),
   (23,55),
   (24,15),
-  (25,54);
+  (25,54),
+  (26,54);
 COMMIT;
 
 #
@@ -1109,7 +1103,7 @@ CREATE TABLE `sys_obj_id` (
   `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=26 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=27 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_obj_id` table  (LIMIT 0,500)
@@ -1140,7 +1134,8 @@ INSERT INTO `sys_obj_id` (`id`) VALUES
   (22),
   (23),
   (24),
-  (25);
+  (25),
+  (26);
 COMMIT;
 
 #
@@ -1341,8 +1336,8 @@ AUTO_INCREMENT=4 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 #
 
 INSERT INTO `user_user` (`id`, `obj_id`, `login`, `password`, `created`, `confirmed`, `last_login`, `language_id`, `timezone`, `skin`) VALUES 
-  (1,17,'guest','',NULL,NULL,1226657274,NULL,3,1),
-  (2,18,'admin','098f6bcd4621d373cade4e832627b4f6',NULL,NULL,1226672407,1,3,1);
+  (1,17,'guest','',NULL,NULL,1226928564,NULL,3,1),
+  (2,18,'admin','098f6bcd4621d373cade4e832627b4f6',NULL,NULL,1226760405,1,3,1);
 COMMIT;
 
 #
@@ -1406,14 +1401,14 @@ CREATE TABLE `user_userOnline` (
   UNIQUE KEY `user_id` (`user_id`, `session`),
   KEY `last_activity` (`last_activity`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=363 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=374 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `user_userOnline` table  (LIMIT 0,500)
 #
 
 INSERT INTO `user_userOnline` (`id`, `user_id`, `session`, `last_activity`, `url`, `ip`) VALUES 
-  (362,2,'d019c19ab2f62c3cb9d4cce0e0af65e8',1226760405,'http://govnokod/quoter/1?format=ajax','127.0.0.1');
+  (373,1,'045ddad5cffea0b825b49d86f36ddf1a',1227200801,'http://govnokod/','127.0.0.1');
 COMMIT;
 
 

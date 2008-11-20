@@ -3,38 +3,14 @@
 {add file="prototype.js"}
 {add file="effects.js"}
 {literal}
-<style type="text/css">
-td.line {
-  color: #999;
-  background-color: #F7F7F7;
-  border-right: 1px solid #E0E0E0;
-  width: 20px;
-  text-align: right;
-}
-
-.colorCode {
-  border: 1px solid #E0E0E0;
-  width:100%;
-  margin-top: 3px;
-}
-.codeContent {
-  padding-left: 5px;
-  overflow: auto;
-}
-
-pre {
-  margin: 0;
-  padding: 0;
-}
-</style>
 <script type="text/javascript">
     var allreadyLoaded = new Array();
 
     function unfoldCode(codeId)
     {
-        $('unfoldCode' + codeId).hide();
-        $('foldCode' + codeId).show();
-        var codeContent = $('codeContent' + codeId);
+        //$('unfoldCode' + codeId).hide();
+        //$('foldCode' + codeId).show();
+        var codeContent = $('colorCode' + codeId);
 
         if (codeContent) {
             if (allreadyLoaded[codeId] > 0) {
@@ -52,7 +28,7 @@ pre {
                     method: 'get',
                     parameters: {format: 'ajax'},
                     onSuccess: function(transport) {
-                         allreadyLoaded[codeId] = currentHeight;
+                        allreadyLoaded[codeId] = currentHeight;
                         codeContent.update(transport.responseText);
                         Effect.BlindDown(codeContent, {
                             duration: 0.4,
@@ -68,10 +44,10 @@ pre {
 
     function foldCode(codeId)
     {
-        $('unfoldCode' + codeId).show();
-        $('foldCode' + codeId).hide();
+        //$('unfoldCode' + codeId).show();
+        //$('foldCode' + codeId).hide();
 
-        var codeContent = $('codeContent' + codeId);
+        var codeContent = $('colorCode' + codeId);
         if (codeContent) {
             var foldedHeight = allreadyLoaded[codeId];
             Effect.BlindUp(codeContent, {
@@ -81,37 +57,63 @@ pre {
                 scaleTo: Math.ceil((100 / codeContent.scrollHeight) * foldedHeight),
                 afterFinishInternal: function(effect) {
                     codeContent.setStyle({overflow: 'hidden', height: foldedHeight + 'px'}).show();
-                    //codeContent.show();
                 }
             });
         }
     }
 </script>
 {/literal}
-
-<a href="{if $listAll}{url route="default2" action="add"}{else}{url route="withAnyParam" action="add" name=$category->getName()}{/if}">Накласть говнокод</a>
-<br /><br />
-
 {foreach from=$quotes item="quote"}
-    <div class="block">
-        <div class="top">&nbsp;</div>
-        <div class="content">
-            <h2><a href="{url route="withAnyParam" action="list" name=$quote->getCategory()->getName()}">{$quote->getCategory()->getTitle()|htmlspecialchars}</a> <span style="color: #000;">::</span> <a href="{url route="withId" action="" id=$quote->getId()}">Говнокод#{$quote->getId()}</a></h2>
-            <table class="colorCode" cellpadding="3" cellspacing="0" border="0">
-                <tr>
-                    <td valign="top" style="width: 20%;">
-                        <a href="{url route="withId" action="" id=$quote->getId()}" id="unfoldCode{$quote->getId()}" onclick="unfoldCode({$quote->getId()}); return false;" style="border-bottom: 1px dashed; text-decoration: none;">развернуть</a>
-                        <a href="{url route="withId" action="" id=$quote->getId()}" id="foldCode{$quote->getId()}" onclick="foldCode({$quote->getId()}); return false;" style="display: none; border-bottom: 1px dashed; text-decoration: none;">свернуть</a>
-                        <br />Всего строк: {$quote->getLinesCount()}
-                    </td>
-                    <td valign="top" style="width: 80%;">
-                        <div id="codeContent{$quote->getId()}" class="codeContent">
-                            {$quote->getText(15)|highlite:$quote->getCategory()->getName()}
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div class="bottom"></div>
-    </div>
+    <table class="rblock">
+        <tr>
+            <td style="width:20px"><img src="{$SITE_PATH}/templates/des/rblock-left-top.png" alt="" /></td>
+            <td class="empty">&nbsp;</td><td style="width:20px"><img src="{$SITE_PATH}/templates/des/rblock-right-top.png" alt="" /></td>
+        </tr>
+        <tr class="content">
+            <td>&nbsp;</td>
+            <td>
+                <p class="rate">[ <a href="#" onclick="alert('coming soon'); return false;">+</a> 32 <a href="#" onclick="alert('coming soon'); return false;">-</a> ]</p>
+                <h2><a href="{url route="withAnyParam" action="list" name=$quote->getCategory()->getName()}">{$quote->getCategory()->getTitle()|htmlspecialchars}</a> / <a href="{url route="withId" action="" id=$quote->getId()}">Говнокод#{$quote->getId()}</a></h2>
+                {*
+                <a href="{url route="withId" action="" id=$quote->getId()}" id="unfoldCode{$quote->getId()}" onclick="unfoldCode({$quote->getId()}); return false;" style="border-bottom: 1px dashed; text-decoration: none;">+показать код</a>
+                <a href="{url route="withId" action="" id=$quote->getId()}" id="foldCode{$quote->getId()}" onclick="foldCode({$quote->getId()}); return false;" style="display: none; border-bottom: 1px dashed; text-decoration: none;">-свернуть</a>
+                <br /><br />*}
+                <div class="colorCode" id="colorCode{$quote->getId()}">
+                    <div class="numbers">
+                        {foreach from=$quote->generateLines(15) item="line" name="lineIterator"}{$line}{if !$smarty.foreach.lineIterator.last}<br />{/if}{/foreach}
+                        {if $quote->getLinesCount() > 15}
+                            <br />…<br />
+                            <a href="#" onclick="unfoldCode({$quote->getId()}); return false;">{$quote->getLinesCount()}</a>
+                        {/if}
+                    </div>
+                    <div class="code">
+                        {$quote->getText(15)|highlite:$quote->getCategory()->getName()}
+                        {if $quote->getLinesCount() > 15}
+                            <a href="#" onclick="unfoldCode({$quote->getId()}); return false;">...</a>
+                        {/if}
+                    </div>
+                </div>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td><img src="{$SITE_PATH}/templates/des/rblock-left-bottom.png" alt="" /></td>
+            <td class="empty">&nbsp;</td>
+            <td><img src="{$SITE_PATH}/templates/des/rblock-right-bottom.png" alt="" /></td>
+        </tr>
+    </table>
 {/foreach}
+{*
+<div class="right-block">
+	<div class="block">
+    	<div class="top">&nbsp;</div>
+            <div class="content">
+              <ul>
+                <li><a href="#">php</a></li>
+                <li><a href="#">java</a></li>
+                <li><a href="#">css</a></li>
+              </ul>
+            </div>
+    	<div class="bottom">&nbsp;</div>
+    </div>
+</div>*}
