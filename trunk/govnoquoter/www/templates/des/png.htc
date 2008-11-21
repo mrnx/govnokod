@@ -2,7 +2,7 @@
 <public:attach event="onpropertychange" onevent="iePNGFix(0)" />
 
 <script type="text/javascript">
-if (typeof blankImg == 'undefined') var blankImg = 'des/blank.gif';
+if (typeof blankImg == 'undefined') var blankImg = '/templates/des/blank.gif';
 
 
 

@@ -53,11 +53,12 @@ class quote extends simple
         $lines = array();
         $linesCount = $this->getLinesCount();
 
+        $chars = strlen($linesCount);
+
         if (!is_null($num) && $num < $linesCount) {
             $linesCount = $num;
         }
 
-        $chars = strlen($linesCount);
         for ($i = 1; $i <= $linesCount; $i++) {
             $lines[] = sprintf('%0' . $chars . 'd', $i);
         }
