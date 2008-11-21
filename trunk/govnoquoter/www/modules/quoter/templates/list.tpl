@@ -15,9 +15,7 @@
                 <p class="rate">[ <a href="#" onclick="alert('coming soon'); return false;">+</a> 32 <a href="#" onclick="alert('coming soon'); return false;">-</a> ]</p>
                 <h2><a href="{url route="withAnyParam" action="list" name=$quote->getCategory()->getName()}">{$quote->getCategory()->getTitle()|htmlspecialchars}</a> / <a href="{url route="withId" action="" id=$quote->getId()}">Говнокод#{$quote->getId()}</a></h2>
                 <div class="colorCode" id="colorCode{$quote->getId()}">
-                    {strip}
                     <div class="numbers">
-
                         {foreach from=$quote->generateLines(15) item="line" name="lineIterator"}
                             {if $smarty.foreach.lineIterator.first && $quote->getLinesCount() > 15}
                                 <span id="codefolder{$quote->getId()}" style="float: left;">
@@ -35,13 +33,11 @@
                             <br />…<br />
                             <a href="{url route="withId" action="" id=$quote->getId()}" onclick="unfoldCode({$quote->getId()}); return false;" title="Развернуть">{$quote->getLinesCount()}</a>
                         {/if}
-
                     </div>
                     <div class="code">
                         {$quote->getText(15)|highlite:$quote->getCategory()->getName()}
                         {if $quote->getLinesCount() > 15}...{/if}
                     </div>
-                    {/strip}
                 </div>
             </td>
             <td>&nbsp;</td>
