@@ -54,7 +54,8 @@ ul.sub-menu li.right{background:url(../des/sub-menu-right.png) top left no-repea
 .rblock h2 span{color:#999;padding:0px 15px 0px 15px;font-weight:normal}
 .rblock tr.content td,.rblock td.empty{background:#fff;}
 .rblock table tr td.numbers{background:#E6D6AC;text-align:right;width:35px;font-family:monospace;font-size:13px;line-height:16px;margin-right:5px;vertical-align:top}
-.rblock div.numbers{float:left;background:#E6D6AC;text-align:right;width:35px;font-family:monospace;font-size:13px;line-height:16px;margin-right:5px;vertical-align:top}
+.rblock div.colorCode{border: solid 1px #E6D6AC;}
+.rblock div.numbers{float:left;background:#E6D6AC;text-align:right;width:40px;font-family:monospace;font-size:13px;line-height:16px;margin-right:5px;vertical-align:top}
 .rblock div.code{font-size:13px;line-height:16px;vertical-align:top}
 .rblock td.code{font-size:13px;line-height:16px;vertical-align:top}
 .rblock pre{padding:0px;margin:0px;clear:none}

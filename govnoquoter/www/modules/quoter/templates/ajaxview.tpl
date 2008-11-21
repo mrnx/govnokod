@@ -1,27 +1,20 @@
-{*
-{literal}<script type="text/javascript">
-    function vote(aElem) {
-        new Ajax.Request(aElem.href, {
-            method: 'get',
-            onSuccess: function(transport) {
-                aElem.parentNode.update('Голос принят');
-            }
-        });
-    }
-</script>{/literal}
-{$quote->getText()|highlite:$quote->getCategory()->getName():$quote->getId()}
-<br />
-{if $quote->getDescription()}Описание:<br /> {$quote->getDescription()|htmlspecialchars|nl2br}{/if}
-<br />Рейтинг:
-<span id="quote{$quote->getId()}_votemenu">
-    <a href="{url route="withId" action="suxx" id=$quote->getId()}" onclick="vote(this); return false;">-</a>
-    {$quote->getRating()}
-    <a href="{url route="withId" action="cool" id=$quote->getId()}" onclick="vote(this); return false;">+</a>
-</span>
-*}
-                    <div class="numbers">
-                        {foreach from=$quote->generateLines() item="line" name="lineIterator"}{$line}{if !$smarty.foreach.lineIterator.last}<br />{/if}{/foreach}
-                    </div>
-                    <div class="code">
-                        {$quote->getText()|highlite:$quote->getCategory()->getName()}
-                    </div>
+    <div class="numbers">
+        {foreach from=$quote->generateLines() item="line" name="lineIterator"}
+            {if $smarty.foreach.lineIterator.first && $quote->getLinesCount() > 15}
+                <span id="codefolder{$quote->getId()}" style="float: left;">
+                    <a href="{url route="withId" action="" id=$quote->getId()}" id="unfoldCode{$quote->getId()}" onclick="unfoldCode({$quote->getId()}); return false;" style="display: none;" title="Развернуть">
+                        <img src="{$SITE_PATH}/templates/images/quoter/nolines_plus.gif" alt="" />
+                    </a>
+                    <a href="{url route="withId" action="" id=$quote->getId()}" id="foldCode{$quote->getId()}" onclick="foldCode({$quote->getId()}); return false;" title="Свернуть">
+                        <img src="{$SITE_PATH}/templates/images/quoter/nolines_minus.gif" alt="" />
+                    </a>
+                </span> {$line}
+            {else}
+                {$line}
+            {/if}
+            {if !$smarty.foreach.lineIterator.last}<br />{/if}
+        {/foreach}
+    </div>
+    <div class="code">
+        {$quote->getText()|highlite:$quote->getCategory()->getName()}
+    </div>
