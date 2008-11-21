@@ -33,7 +33,7 @@
 
                         {if $quote->getLinesCount() > 15}
                             <br />…<br />
-                            {$quote->getLinesCount()}
+                            <a href="{url route="withId" action="" id=$quote->getId()}" onclick="unfoldCode({$quote->getId()}); return false;" title="Развернуть">{$quote->getLinesCount()}</a>
                         {/if}
 
                     </div>
