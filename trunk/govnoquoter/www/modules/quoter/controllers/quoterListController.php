@@ -28,7 +28,7 @@ class quoterListController extends simpleController
         $listAll = ($action == 'listAll');
 
         $criteria = new criteria;
-        $criteria->setOrderByFieldDesc('created');
+        $criteria->add('active', 1)->setOrderByFieldDesc('created');
 
         $categoryMapper = $this->toolkit->getMapper('quoter', 'quoteCategory');
         $categories = $categoryMapper->searchAll();

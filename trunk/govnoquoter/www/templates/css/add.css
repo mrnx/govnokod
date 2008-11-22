@@ -1,8 +1,9 @@
 .codeInput {
-    height: 700px;
-    overflow-y: hidden;
+    height: 16px;
     overflow-x: auto;
+    overflow-y: hidden;
     border: solid 1px black;
+    margin: 20px 0px 20px 0px;
 }
 
 .linenumbers {

@@ -45,9 +45,21 @@ class quoterQuoteController extends simpleController
                 break;
         }
 
-        if ($newRating != $oldRating) {
-            $quote->setRating($newRating);
-            $quoteMapper->save($quote);
+        $ip = $this->request->getServer('REMOTE_ADDR');
+        $db = DB::factory();
+
+        $vote = $db->getOne('SELECT * FROM `quoter_votes` WHERE `ip` = "' . $ip . '" AND `quote_id` = ' . $quote->getId() . ' AND `created` > ' . (time() - 3600 * 2));
+        if (!$vote) {
+            if ($newRating != $oldRating) {
+                $quote->setRating($newRating);
+                $quoteMapper->save($quote);
+
+                $voteData = array();
+                $voteData['ip'] = $ip;
+                $voteData['quote_id'] = $quote->getId();
+                $voteData['created'] = time();
+                $db->autoExecute('quoter_votes', $voteData);
+            }
         }
 
         $url = new url('quoteView');
