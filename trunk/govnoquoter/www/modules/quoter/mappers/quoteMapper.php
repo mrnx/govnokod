@@ -62,12 +62,15 @@ class quoteMapper extends simpleMapper
     protected function afterInsert(&$fields)
     {
         $categoryMapper = systemToolkit::getInstance()->getMapper('quote', 'quoteCategory', $this->section);
-        //@todo: переписать с использованием ОРМ?
+        $fields['category_id']->setQuoteCounts($fields['category_id']->getQuoteCounts() + 1);
+        $categoryMapper->save($fields['category_id']);
+        /*
         $db = DB::factory();
         $sql = 'UPDATE `' . $categoryMapper->getTable() . '` SET `quote_counts` = `quote_counts` + 1 WHERE `id` = :id';
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':id', $fields['category_id']->getId());
         $stmt->execute();
+        */
     }
 
     /**
