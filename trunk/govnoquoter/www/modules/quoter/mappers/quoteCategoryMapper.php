@@ -43,6 +43,18 @@ class quoteCategoryMapper extends simpleMapper
         return $this->searchOneByField('name', $name);
     }
 
+    public function getPage(quoteCategory $category)
+    {
+        $pageMapper = systemToolkit::getInstance()->getMapper('page', 'page', 'page');
+
+        $criteria = new criteria;
+        $criteria->add('name', $category->getName());
+
+        //@todo: убрать хардкод
+        $criteria->add('folder_id', 2);
+        return $pageMapper->searchOneByCriteria($criteria);
+    }
+
     /**
      * Возвращает доменный объект по аргументам
      *

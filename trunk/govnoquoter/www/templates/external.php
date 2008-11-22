@@ -13,33 +13,55 @@
  */
 
 /**
- * Генератор объединённых js-файлов
+ * Код для получения и/или объединения (только js) файлов из директорий модулей и шаблонов
  *
  * @package system
  * @subpackage template
- * @version 0.1
+ * @version 0.1.1
  */
 
+require_once '../configs/config.php';
+require_once systemConfig::$pathToSystem . '/core/fileLoader.php';
+
+require_once systemConfig::$pathToSystem . '/resolver/iResolver.php';
+require_once systemConfig::$pathToSystem . '/resolver/fileResolver.php';
+require_once systemConfig::$pathToSystem . '/resolver/compositeResolver.php';
+require_once systemConfig::$pathToSystem . '/resolver/sysFileResolver.php';
+require_once systemConfig::$pathToSystem . '/resolver/appFileResolver.php';
+require_once systemConfig::$pathToSystem . '/resolver/moduleMediaResolver.php';
+require_once systemConfig::$pathToSystem . '/resolver/templateMediaResolver.php';
+require_once systemConfig::$pathToSystem . '/resolver/decoratingResolver.php';
+require_once systemConfig::$pathToSystem . '/resolver/cachingResolver.php';
+require_once systemConfig::$pathToSystem . '/resolver/classFileResolver.php';
+
+$baseresolver = new compositeResolver();
+$baseresolver->addResolver(new appFileResolver());
+$baseresolver->addResolver(new sysFileResolver());
+
+$resolver = new compositeResolver();
+$resolver->addResolver(new moduleMediaResolver($baseresolver));
+$resolver->addResolver(new templateMediaResolver($baseresolver));
+$resolver->addResolver(new classFileResolver($baseresolver));
+
+$resolver = new cachingResolver($resolver, 'resolver.media.cache');
+fileLoader::setResolver($resolver);
+fileLoader::load('exceptions/init');
+
+fileLoader::load('request/httpRequest');
+$request = new httpRequest();
+
 $pathToTemplates = dirname(__FILE__);
-if (isset($_GET['type']) && isset($_GET['files'])) {
-    $headers = apache_request_headers();
-
-    $files = explode(',', $_GET['files']);
+$type = $request->getString('type', SC_GET);
+$files = $request->getString('files', SC_GET);
+if ($type !== null && $files !== null) {
+    $files = explode(',', $files);
     if ($files) {
-        switch ($_GET['type']) {
-            case 'js':
-                header('Content-type: application/x-javascript');
-                $source = generateSource($files, $pathToTemplates . DIRECTORY_SEPARATOR . 'js', 'js', $headers);
-                break;
+        $mimes = array('js' => 'application/x-javascript', 'css' => 'text/css', 'png' => 'image/png', 'gif' => 'image/gif');
 
-            case 'css':
-                header('Content-type: text/css');
-                $source = generateSource($files, $pathToTemplates . DIRECTORY_SEPARATOR . 'css', 'css');
-                break;
-
-            default:
-                $source = null;
-                break;
+        $source = null;
+        if (isset($mimes[$type])) {
+            header('Content-type: ' . $mimes[$type]);
+            $source = generateSource($files, $resolver, $request->getHeaders());
         }
 
         echo $source;
@@ -47,24 +69,33 @@ if (isset($_GET['type']) && isset($_GET['files'])) {
     }
 }
 
-function generateSource(Array $files, $path, $validExt, $headers)
+function generateSource(Array $files, iResolver $resolver, $headers)
 {
     $fileNameReplacePatterns = array('..' => '');
     $source = null;
     $filemtime = null;
+
     foreach ($files as $file) {
         $file = str_replace(array_keys($fileNameReplacePatterns), $fileNameReplacePatterns, $file);
         $ext = substr(strrchr($file, '.'), 1);
-        if ($ext == $validExt) {
-            $filePath = $path . DIRECTORY_SEPARATOR . $file;
-            if (is_file($filePath) && is_readable($filePath)) {
-                $currentFileTime = filemtime($filePath);
-                if ($currentFileTime > $filemtime) {
-                    $filemtime = $currentFileTime;
-                }
-                $source .= file_get_contents($filePath);
-            }
+        $filePath = $resolver->resolve($file);
+        // если в обычных директориях не найден - ищем в simple
+        if (is_null($filePath)) {
+            $filePath = $resolver->resolve('simple/' . $file);
         }
+
+        if (is_file($filePath) && is_readable($filePath)) {
+            $currentFileTime = filemtime($filePath);
+            if ($currentFileTime > $filemtime) {
+                $filemtime = $currentFileTime;
+            }
+            $source .= file_get_contents($filePath);
+        }
+    }
+
+    if (is_null($filemtime)) {
+        header("HTTP/1.1 404 Not Found");
+        exit();
     }
 
     if ($files && $filemtime) {
@@ -87,7 +118,7 @@ function generateSource(Array $files, $path, $validExt, $headers)
 
         $time_match = false;
         if ($modified_since <= time() && is_int($modified_since) && $modified_since >= $filemtime) {
-            $changed = $time_match = true;
+            $time_match = true;
         }
     }
 
