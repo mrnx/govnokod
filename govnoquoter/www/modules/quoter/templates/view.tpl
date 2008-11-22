@@ -1,5 +1,4 @@
 {add file="prototype.js"}
-{add file="effects.js"}
 {add file="govnokod.js"}
 {title append=$quote->getCategory()->getTitle()|htmlspecialchars}
 
@@ -12,7 +11,7 @@
             <td>&nbsp;</td>
             <td>
                 <p class="rate">[ <a href="{url route="withId" action="cool" id=$quote->getId()}" onclick="ajaxvote(this); return false;" title="понравилось!">+</a> {$quote->getRating()} <a href="{url route="withId" action="suxx" id=$quote->getId()}" onclick="ajaxvote(this); return false;" title="отстой!">-</a> ]</p>
-                <h1><a href="{url route="categoryList" name=$quote->getCategory()->getName()|htmlspecialchars}">{$quote->getCategory()->getTitle()|htmlspecialchars}</a> / <a href="{url route="quoteView" id=$quote->getId()}">Говнокод#{$quote->getId()}</a></h1>
+                <h1><a href="{url route="categoryList" name=$quote->getCategory()->getName()|htmlspecialchars}">{$quote->getCategory()->getTitle()|htmlspecialchars}</a> / <a href="{url route="quoteView" id=$quote->getId()}">Говнокод#{$quote->getId()}</a> {$quote->getJip()}</h1>
                 <div class="colorCode" id="colorCode{$quote->getId()}">
                     <div class="numbers">
                         {foreach from=$quote->generateLines() item="line" name="lineIterator"}

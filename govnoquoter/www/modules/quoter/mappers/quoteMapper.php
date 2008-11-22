@@ -52,6 +52,7 @@ class quoteMapper extends simpleMapper
     {
         $fields['created'] = new sqlFunction('UNIX_TIMESTAMP');
         $fields['rating'] = 0;
+        $fields['active'] = 1;
     }
 
     /**
@@ -71,6 +72,16 @@ class quoteMapper extends simpleMapper
         $stmt->bindParam(':id', $fields['category_id']->getId());
         $stmt->execute();
         */
+    }
+
+    public function delete(quote $do)
+    {
+        $categoryMapper = systemToolkit::getInstance()->getMapper('quote', 'quoteCategory', $this->section);
+        $category = $do->getCategory();
+        $category->setQuoteCounts($category->getQuoteCounts() - 1);
+        $categoryMapper->save($category);
+
+        parent::delete($do);
     }
 
     /**

@@ -69,8 +69,30 @@ class quote extends simple
     public function getHighlightedLines()
     {
         $lines = parent::__call('getHighlitedLines', array());
-        $linesArray = explode(', ', $lines);
+        if (!$lines) {
+            $linesArray = array();
+        } else {
+            $linesArray = explode(', ', $lines);
+        }
+
         return array_map('intval', $linesArray);
+    }
+
+    public function getAcl($name = null)
+    {
+        $user = systemToolkit::getInstance()->getUser();
+
+        switch ($name) {
+            case 'edit':
+            case 'delete':
+                $groups = $user->getGroupsList();
+                if (in_array(MZZ_ROOT_GID, $groups)) {
+                    return true;
+                }
+                break;
+        }
+
+        return false;
     }
 }
 

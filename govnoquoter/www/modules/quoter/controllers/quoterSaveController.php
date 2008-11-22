@@ -43,20 +43,27 @@ class quoterSaveController extends simpleController
         }
 
         $currentCategory = (!$isEdit) ? $this->request->getString('name') : '';
-        $this->smarty->assign('currentCategory', null);
+        $this->smarty->assign('currentCategory', ($isEdit) ? $quote->getCategory()->getId() : null);
 
         $categories = $categoryMapper->searchAll();
         $categoriesSelect = array();
         foreach ($categories as $category) {
-            if ($category->getName() == $currentCategory) {
+            if (!$isEdit && $category->getName() == $currentCategory) {
                 $this->smarty->assign('currentCategory', $category->getId());
             }
             $categoriesSelect[$category->getId()] = $category->getTitle();
         }
 
+        $lines = $quote->getHighlightedLines();
+        $linesPost = $this->request->getArray('lines', SC_POST);
+        if ($linesPost) {
+            $lines = $linesPost;
+        }
+        $this->smarty->assign('lines', $lines);
+
         $validator = new formValidator();
         $validator->add('required', 'text', 'Укажите код');
-        $validator->add('callback', 'text', 'Такой большой код врядли может быть смешным', array('checkCodeLength'));
+        $validator->add('callback', 'text', 'Такой длинный код врядли может быть смешным', array('checkCodeLength'));
         $validator->add('required', 'category_id', 'Укажите категорию');
         $validator->add('in', 'category_id', 'Укажите правильную категорию', array_keys($categoriesSelect));
         if ($validator->validate()) {

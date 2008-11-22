@@ -1,4 +1,4 @@
-# SQL Manager 2007 for MySQL 4.4.0.5
+# SQL Manager 2007 for MySQL 4.3.4.1
 # ---------------------------------------
 # Host     : localhost
 # Port     : 3306
@@ -258,22 +258,18 @@ CREATE TABLE `quoter_quote` (
   `highlited_lines` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `description` TEXT COLLATE utf8_general_ci NOT NULL,
   `rating` INTEGER(11) NOT NULL,
+  `active` INTEGER(11) NOT NULL,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=8 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=9 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `quoter_quote` table  (LIMIT 0,500)
 #
 
-INSERT INTO `quoter_quote` (`id`, `obj_id`, `category_id`, `created`, `text`, `highlited_lines`, `description`, `rating`) VALUES 
-  (1,25,1,1226759659,'<?php\r\necho ''test'';\r\n?>','','',2),
-  (2,26,1,1226925376,'<?php\r\n/**\r\n * $URL$\r\n *\r\n * MZZ Content Management System (c) 2008\r\n * Website : http://www.mzz.ru\r\n *\r\n * This program is free software and released under\r\n * the GNU Lesser General Public License (See /docs/LGPL.txt).\r\n *\r\n * @link http://www.mzz.ru\r\n * @version $Id$\r\n */\r\n\r\n/**\r\n * quoterListController: контроллер для метода list модуля quoter\r\n *\r\n * @package modules\r\n * @subpackage quoter\r\n * @version 0.1\r\n */\r\n\r\nclass quoterListController extends simpleController\r\n{\r\n    protected function getView()\r\n    {\r\n        $action = $this->request->getAction();\r\n        $listAll = ($action == ''listAll'');\r\n\r\n        $criteria = new criteria;\r\n        $criteria->setOrderByFieldDesc(''created'');\r\n\r\n        if (!$listAll) {\r\n            $name = $this->request->getString(''name'');\r\n            $categoryMapper = $this->toolkit->getMapper(''quoter'', ''quoteCategory'');\r\n\r\n            $category = $categoryMapper->searchByName($name);\r\n            if (!$category) {\r\n                return $categoryMapper->get404()->run();\r\n            }\r\n\r\n            $criteria->add(''category_id'', $category->getId());\r\n            $this->smarty->assign(''category'', $category);\r\n        }\r\n\r\n        $quoteMapper = $this->toolkit->getMapper(''quoter'', ''quote'');\r\n        $quotes = $quoteMapper->searchAllByCriteria($criteria);\r\n\r\n        $this->smarty->assign(''quotes'', $quotes);\r\n        $this->smarty->assign(''listAll'', $listAll);\r\n        return $this->smarty->fetch(''quoter/list.tpl'');\r\n    }\r\n}\r\n\r\n?>','','',2),
-  (3,32,2,1227283056,'херакс','','',-1),
-  (4,33,2,1227283120,'ываыва','','',10),
-  (5,37,3,1227319573,'SELECT SQL_CALC_FOUND_ROWS bs.desc_,\r\n       bs.photo_preview,\r\n       bs.photo_preview as photo,\r\n       bs.id_firms,\r\n       bs.id_firms,\r\n       bs.id,\r\n       bs.title,\r\n       if (bs.datein > now() + interval 0 hour, DATE_FORMAT(now() + interval 0\r\n        hour, \"%d.%m.%y\"), DATE_FORMAT(bs.datein, \"%d.%m.%y\")) as datein\r\nFROM basenews bs\r\nWHERE 1 and\r\n      bs.bshow = 1 and\r\n      bs.news_article = 1 and\r\n      bs.id_firms = \"0\" AND\r\n      `bs`.`title` LIKE ''%представитель%'' and\r\n      bs.datein <=(now() + interval 0 hour) and\r\n      bs.saled = 0 and\r\n      bs.id in (SELECT bsnet.id_basenews FROM basenewsessence bsnet WHERE\r\n       bsnet.id_s_news_essence = \"3\")\r\nORDER BY bs.datein DESC\r\nLIMIT 0, 10','','',0),
-  (6,38,3,1227331945,'SELECT *\r\nFROM basenews bs\r\nWHERE \r\n    1 \r\n    AND\r\n    bs.id in (SELECT bsnet.id_basenews FROM basenewscategory bsnet WHERE bsnet.id_s_news_essence = \"3\")\r\nORDER BY bs.datein DESC\r\nLIMIT 0, 10','6','',1),
-  (7,39,5,1227332464,'<?php\r\necho ''test'';\r\n\r\n\r\n\r\necho ''test2'';\r\n\r\n?>','6, 2','',0);
+INSERT INTO `quoter_quote` (`id`, `obj_id`, `category_id`, `created`, `text`, `highlited_lines`, `description`, `rating`, `active`) VALUES 
+  (6,38,3,1227331945,'SELECT *\r\nFROM basenews bs\r\nWHERE \r\n    1 \r\n    AND\r\n    bs.id in (SELECT bsnet.id_basenews FROM basenewscategory bsnet WHERE bsnet.id_s_news_essence = \"3\")\r\nORDER BY bs.datein DESC\r\nLIMIT 0, 10','6','',1,1),
+  (8,40,1,1227353872,'$error = \"Всё хорошо\";\r\n \r\nif (!$_POST[''mail''] || !checkEmail($_POST[''mail''])) {\r\n    $error .= \"Не верный E-mail\";\r\n}\r\n \r\n...\r\n \r\nif ($error == \"Всё хорошо\") {\r\n    $db->query(\"INSERT...\r\n} else {\r\n \r\n...','1, 9','',3,1);
 COMMIT;
 
 #
@@ -297,12 +293,27 @@ AUTO_INCREMENT=6 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci'
 #
 
 INSERT INTO `quoter_quoteCategory` (`id`, `obj_id`, `name`, `title`, `quote_counts`) VALUES 
-  (1,22,'php','PHP',2),
-  (2,23,'javascript','JavaScript',1),
-  (3,34,'mysql','MySQL',2),
+  (1,22,'php','PHP',1),
+  (2,23,'javascript','JavaScript',0),
+  (3,34,'mysql','MySQL',1),
   (4,35,'perl','PERL',0),
-  (5,36,'python','Python',1);
+  (5,36,'python','Python',0);
 COMMIT;
+
+#
+# Structure for the `quoter_votes` table : 
+#
+
+DROP TABLE IF EXISTS `quoter_votes`;
+
+CREATE TABLE `quoter_votes` (
+  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
+  `ip` VARCHAR(20) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `quote_id` INTEGER(11) NOT NULL,
+  `created` INTEGER(11) NOT NULL,
+  PRIMARY KEY (`id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=1 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Structure for the `sys_access` table : 
@@ -337,7 +348,7 @@ CREATE TABLE `sys_access_registry` (
   `class_section_id` INTEGER(11) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`obj_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=40 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=41 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_access_registry` table  (LIMIT 0,500)
@@ -367,19 +378,15 @@ INSERT INTO `sys_access_registry` (`obj_id`, `class_section_id`) VALUES
   (22,55),
   (23,55),
   (24,15),
-  (25,54),
-  (26,54),
   (27,49),
   (28,51),
   (30,13),
   (31,6),
-  (33,54),
   (34,55),
   (35,55),
   (36,55),
-  (37,54),
   (38,54),
-  (39,54);
+  (40,54);
 COMMIT;
 
 #
@@ -754,7 +761,7 @@ CREATE TABLE `sys_classes_actions` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `class_id` (`class_id`, `action_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=299 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=301 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_classes_actions` table  (LIMIT 0,500)
@@ -951,7 +958,9 @@ INSERT INTO `sys_classes_actions` (`id`, `class_id`, `action_id`) VALUES
   (290,55,9),
   (291,56,9),
   (292,57,9),
-  (298,57,109);
+  (298,57,109),
+  (299,55,2),
+  (300,55,1);
 COMMIT;
 
 #
@@ -1104,7 +1113,7 @@ CREATE TABLE `sys_obj_id` (
   `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=40 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=41 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_obj_id` table  (LIMIT 0,500)
@@ -1149,7 +1158,8 @@ INSERT INTO `sys_obj_id` (`id`) VALUES
   (36),
   (37),
   (38),
-  (39);
+  (39),
+  (40);
 COMMIT;
 
 #
