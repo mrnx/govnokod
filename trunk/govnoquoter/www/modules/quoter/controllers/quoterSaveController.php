@@ -56,6 +56,7 @@ class quoterSaveController extends simpleController
 
         $validator = new formValidator();
         $validator->add('required', 'text', 'Укажите код');
+        $validator->add('callback', 'text', 'Такой большой код врядли может быть смешным', array('checkCodeLength'));
         $validator->add('required', 'category_id', 'Укажите категорию');
         $validator->add('in', 'category_id', 'Укажите правильную категорию', array_keys($categoriesSelect));
         if ($validator->validate()) {
@@ -63,9 +64,20 @@ class quoterSaveController extends simpleController
             $text = $this->request->getString('text', SC_POST);
             $desciption = $this->request->getString('description', SC_POST);
 
+            $lines = $this->request->getArray('lines', SC_POST);
+            $linesCount = substr_count($text, "\n");
+
+            $highlightedLines = array();
+            foreach ($lines as $line) {
+                if ($line > 0 && $line < $linesCount && !in_array($line, $highlightedLines)) {
+                    $highlightedLines[] = $line;
+                }
+            }
+
             $quote->setCategory($categoryId);
             $quote->setText($text);
             $quote->setDescription($desciption);
+            $quote->setHighlitedLines(join(', ', $highlightedLines));
             $quoteMapper->save($quote);
 
             $url = new url('quoteView');
@@ -80,6 +92,11 @@ class quoterSaveController extends simpleController
         $this->smarty->assign('errors', $validator->getErrors());
         return $this->smarty->fetch('quoter/save.tpl');
     }
+}
+
+function checkCodeLength($text) {
+    $linesCount = substr_count($text, "\n");
+    return ($linesCount < 100);
 }
 
 ?>

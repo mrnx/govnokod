@@ -102,8 +102,9 @@
                             <a href="{url route="withId" action="" id=$quote->getId()}" onclick="unfoldCode({$quote->getId()}); return false;" title="Развернуть">{$quote->getLinesCount()}</a>
                         {/if}
                     </div>
+
                     <div class="code">
-                        {$quote->getText(15)|highlite:$quote->getCategory()->getName()}
+                        {$quote->getText(15)|highlite:$quote->getCategory()->getName():$quote->getHighlightedLines()}
                         {if $quote->getLinesCount() > 15}...{/if}
                     </div>
                 </div>

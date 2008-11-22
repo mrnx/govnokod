@@ -1,5 +1,5 @@
 <?php
-function smarty_modifier_highlite($source, $language = 'plain', $cacheKey = null)
+function smarty_modifier_highlite($source, $language = 'plain', Array $highlight = array(), $cacheKey = null)
 {
     if ($cacheKey) {
         fileLoader::load('cache');
@@ -25,12 +25,14 @@ function smarty_modifier_highlite($source, $language = 'plain', $cacheKey = null
             $geshi->set_comments_style(4, 'color: #009933;');
             $geshi->set_comments_style('MULTI', 'color: #666666;');
 
-            //$geshi->highlight_lines_extra(array(1, 3));
             break;
     }
 
+    if ($highlight) {
+        $geshi->highlight_lines_extra($highlight);
+    }
+
     $geshi->set_overall_style('width: 1024px; overflow-x: auto;', true);
-    //$geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
     $code = $geshi->parse_code();
 
     if ($cacheKey && !DEBUG_MODE) {
