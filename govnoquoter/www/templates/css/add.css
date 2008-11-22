@@ -1,0 +1,30 @@
+.codeInput {
+    height: 700px;
+    overflow-y: hidden;
+    overflow-x: auto;
+    border: solid 1px black;
+}
+
+.linenumbers {
+    text-align: right;
+    font-family: monospace;
+    font-size: 10pt;
+    line-height: 16px;
+}
+
+.linenumbers a.active {
+    background-color: red;
+}
+
+.codeArea {
+    background: #EEEEEE;
+    width: 100%;
+    position: relative;
+    height: 16px;
+    border: 0px;
+    font-family: monospace;
+    font-size: 10pt;
+    line-height: 16px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}

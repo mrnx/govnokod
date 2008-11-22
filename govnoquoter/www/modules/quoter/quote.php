@@ -65,6 +65,13 @@ class quote extends simple
 
         return $lines;
     }
+
+    public function getHighlightedLines()
+    {
+        $lines = parent::__call('getHighlitedLines', array());
+        $linesArray = explode(', ', $lines);
+        return array_map('intval', $linesArray);
+    }
 }
 
 ?>

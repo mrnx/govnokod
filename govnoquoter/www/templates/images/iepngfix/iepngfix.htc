@@ -2,7 +2,17 @@
 <public:attach event="onpropertychange" onevent="iePNGFix(0)" />
 
 <script type="text/javascript">
-if (typeof blankImg == 'undefined') var blankImg = '/templates/des/blank.gif';
+
+// IE5.5+ PNG Alpha Fix v1.0
+// (c) 2004-2008 Angus Turnbull http://www.twinhelix.com
+
+// This is licensed under the GNU LGPL, version 2.1 or later.
+// For details, see: http://creativecommons.org/licenses/LGPL/2.1/
+
+
+// This must be a path to a blank image, relative to the HTML document(s).
+// In production use I suggest '/images/blank.gif' or similar. That's all!
+if (typeof blankImg == 'undefined') var blankImg = '/templates/images/blank.gif';
 
 
 

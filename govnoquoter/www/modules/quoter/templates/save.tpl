@@ -1,20 +1,57 @@
 {title append="Накласть говнокод"}
 {add file="prototype.js"}
+{add file="add.css"}
 {literal}
-<script type="text/javascript">
+    <script type="text/javascript">
+        var linesCountLast;
         function numbering(textareaObj) {
-            var linesCount = textareaObj.value.split("\n").length;
+            var lines = textareaObj.getValue().split("\n");
+            var linesCount = lines.length;
 
-            var numbers = '';
-            for (var i = 1; i <= linesCount; i++) {
-                numbers += '<a href="#" onclick="return false;">' + i + '</a>' + ".<br />";
+            if (linesCount > 100) {
+                lines = lines.slice(0, 100);
+                textareaObj.setValue(lines.join("\n"));
+                linesCount = 100;
             }
 
-            textareaObj.style.height = linesCount * 16 + 'px';
-            $('nums').update(numbers);
-            //alert(Position.cumulativeOffset($('codeSaveContainer')) + ' ' + Position.cumulativeOffset(textareaObj));
+            if (linesCountLast != linesCount) {
+                linesCountLast = linesCount;
+
+                var numbersHolder = new Element('span');
+                for (var i = 1; i <= linesCount; i++) {
+                    var aElem = new Element('a', {href: '#', title: 'Отметить эту линию', onclick: 'return false;'});
+                    aElem.appendChild(document.createTextNode(i));
+
+                    aElem.observe('click', selectLine);
+
+                    numbersHolder.appendChild(aElem);
+                    numbersHolder.appendChild(document.createTextNode('.'));
+                    numbersHolder.appendChild(new Element('br'));
+                }
+
+                textareaObj.style.height = linesCount * 16 + 'px';
+                $('codeSaveContainer').style.height = textareaObj.style.height;
+                $('nums').update(numbersHolder);
+            }
         }
-</script>
+
+        function selectLine(event) {
+            var lineNumber = parseInt(this.innerHTML);
+            this.toggleClassName('active');
+
+            var hiddenIdName = 'linenumber' + lineNumber;
+
+            if (this.hasClassName('active')) {
+                var input = new Element('input', {name: 'lines[]', id: hiddenIdName, type: 'hidden', value: lineNumber});
+                $('linesInput').appendChild(input);
+            } else {
+                var input = $(hiddenIdName);
+                if (input) {
+                    input.remove();
+                }
+            }
+        }
+    </script>
 {/literal}
 
     <table class="rblock">
@@ -35,14 +72,14 @@
                         <tr>
                             <td style="vertical-align: top;">{form->caption name="text" value="Код"}</td>
                             <td>
-                                <div id="codeSaveContainer" style="height: 350px; overflow-y: scroll; border: solid 1px red;">
+                                <div id="codeSaveContainer" class="codeInput">
                                     <table cellpadding="0" cellspacing="0" style="width: 100%;">
                                         <tr>
-                                            <td style="vertical-align: top;">
-                                                <div id="nums" style="text-align: right; font-family: monospace; font-size: 10pt; line-height: 16px;">1.</div>
+                                            <td style="vertical-align: top; width: 5%;">
+                                                <div id="nums" class="linenumbers">1.</div>
                                             </td>
-                                            <td style="vertical-align: top;">
-                                                {form->textarea name="text" value=$quote->getText() rows="15" cols="50" style="background: #EEEEEE; width: 100%; position: relative; height: 16px; border: 0px; font-family: monospace; font-size: 10pt; line-height: 16px; overflow: hidden;" onkeyup="numbering(this);"}
+                                            <td style="vertical-align: top; width: 95%;">
+                                                {form->textarea name="text" value=$quote->getText() rows="15" cols="50" class="codeArea" onkeyup="numbering(this);" wrap="off"}
                                             </td>
                                         </tr>
                                     </table>
@@ -54,7 +91,7 @@
                             <td>{form->textarea name="description" value=$quote->getDescription() rows="4" cols="50"}</td>
                         </tr>
                         <tr>
-                            <td>&nbsp;</td>
+                            <td id="linesInput">&nbsp;</td>
                             <td>{form->submit name="submit" value="Накласть"}</td>
                         </tr>
                     </table>

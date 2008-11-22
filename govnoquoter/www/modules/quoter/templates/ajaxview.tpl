@@ -16,5 +16,5 @@
         {/foreach}
     </div>
     <div class="code">
-        {$quote->getText()|highlite:$quote->getCategory()->getName()}
+        {$quote->getText()|highlite:$quote->getCategory()->getName():$quote->getHighlightedLines():$quote->getId()}
     </div>
