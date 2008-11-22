@@ -23,6 +23,16 @@
 class quoteCategory extends simple
 {
     protected $name = 'quoter';
+    protected $page = false;
+
+    public function getPage()
+    {
+        if ($this->page === false) {
+            $this->page = $this->mapper->getPage($this);
+        }
+
+        return $this->page;
+    }
 }
 
 ?>

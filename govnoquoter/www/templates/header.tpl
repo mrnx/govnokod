@@ -4,6 +4,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Govnokod.ru {title separator=" — " start=" — "}</title>
     <link rel="stylesheet" type="text/css" href="{$SITE_PATH}/templates/css/style.css" />
+    {*if $listAll|default:true}
+    <link title="rss govnokod.ru" type="application/rss+xml" rel="alternate" href="{url route="rss"}"/>
+    {else}
+    <link title="rss govnokod.ru" type="application/rss+xml" rel="alternate" href="{url route="rssFull" name=$category->getName()}"/>
+    {/if*}
     {include file='include.css.tpl'}
     <script type="text/javascript">
     <!--

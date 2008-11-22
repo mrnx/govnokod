@@ -1,57 +1,34 @@
-{literal}
-<style type="text/css">
-span, td {
-  background-color: white;
-}
-body {
-  padding: 0;
-  margin: 0;
-  font-family: tahoma, verdana, arial;
-}
-#content {
-  font-family:arial,verdana,helvetica,sans-serif;
-  line-height: 130%;
-  padding: 30px;
-  padding-top: 0px;
-}
+{add file="prototype.js"}
+{add file="effects.js"}
+{add file="govnokod.js"}
+{title append=$quote->getCategory()->getTitle()|htmlspecialchars}
 
-td.line {
-  color: #999;
-  background-color: #F7F7F7;
-  border-right: 1px solid #E0E0E0;
-  width: 20px;
-  text-align: right;
-}
-
-.colorCode {
-  border: 1px solid #E0E0E0;
-  width:100%;
-  margin-top: 3px;
-}
-.codeContent {
-  padding-left: 5px;
-  overflow: auto;
-
-}
-
-pre {
-  margin: 0;
-}
-</style>
-{/literal}
-    <div>
-        <table class="colorCode" cellpadding="3" cellspacing="0" border="0">
-            <tr>
-                <td valign="top" style="width: 20%;">
-                    <br />Язык: {$quote->getCategory()->getTitle()|htmlspecialchars}
-                    <br />Всего строк: {$quote->getLinesCount()}
-                </td>
-                <td valign="top" style="width: 80%;">
-                    <div id="codeContent{$quote->getId()}" class="codeContent">
-                        {$quote->getText()|highlite:$quote->getCategory()->getName():$quote->getId()}
+    <table class="rblock">
+        <tr>
+            <td style="width:20px"><img src="{$SITE_PATH}/templates/images/rblock-left-top.png" alt="" /></td>
+            <td class="empty">&nbsp;</td><td style="width:20px"><img src="{$SITE_PATH}/templates/images/rblock-right-top.png" alt="" /></td>
+        </tr>
+        <tr class="content">
+            <td>&nbsp;</td>
+            <td>
+                <p class="rate">[ <a href="{url route="withId" action="cool" id=$quote->getId()}" onclick="ajaxvote(this); return false;" title="понравилось!">+</a> {$quote->getRating()} <a href="{url route="withId" action="suxx" id=$quote->getId()}" onclick="ajaxvote(this); return false;" title="отстой!">-</a> ]</p>
+                <h1><a href="{url route="categoryList" name=$quote->getCategory()->getName()|htmlspecialchars}">{$quote->getCategory()->getTitle()|htmlspecialchars}</a> / <a href="{url route="quoteView" id=$quote->getId()}">Говнокод#{$quote->getId()}</a></h1>
+                <div class="colorCode" id="colorCode{$quote->getId()}">
+                    <div class="numbers">
+                        {foreach from=$quote->generateLines() item="line" name="lineIterator"}
+                            {$line}{if !$smarty.foreach.lineIterator.last}<br />{/if}
+                        {/foreach}
                     </div>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <br />
+                    <div class="code">
+                        {$quote->getText()|highlite:$quote->getCategory()->getName()}
+                    </div>
+                </div>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td><img src="{$SITE_PATH}/templates/images/rblock-left-bottom.png" alt="" /></td>
+            <td class="empty">&nbsp;</td>
+            <td><img src="{$SITE_PATH}/templates/images/rblock-right-bottom.png" alt="" /></td>
+        </tr>
+    </table>

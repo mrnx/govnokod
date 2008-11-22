@@ -50,8 +50,7 @@ class quoterQuoteController extends simpleController
             $quoteMapper->save($quote);
         }
 
-        $url = new url('withId');
-        $url->setAction('');
+        $url = new url('quoteView');
         $url->add('id', $quote->getId());
         $this->response->redirect($url->get());
     }

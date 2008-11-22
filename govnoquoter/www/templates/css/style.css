@@ -1,13 +1,13 @@
-body{margin:0px;padding:50px;background:#996633 url(../des/lines-brown.gif);font-family:Arial, Tahoma;font-size:15px;color:#222}
+body{margin:0px;padding:50px;background:#996633 url(../images/lines-brown.gif);font-family:Arial, Tahoma;font-size:15px;color:#222}
 div, td{}
 A:link, A:visited{color:#dd8c3e;text-decoration:underline}
 A:hover{color:#8fc6ff}
 .input{border: 1px solid #B9B59C;background: #fff;font-family: Arial, Tahoma, Verdana;font-size: 13px;color: #000}
 .inbutton{border:0px;font-family: Arial, Tahoma, Verdana;font-size: 13px;font-weight: bold;background:#fff;color: #BD0000}
 img{border:0px;vertical-align:middle}
-img,div,li{behavior:url(../des/png.htc)}
+img,div,li{behavior:url(../images/png.htc)}
 
-h1{font-family:Tahoma;font-size:24px;color:#fff;font-weight:normal; padding:0px 0px 15px 0px; margin:0px}
+h1{font-family:Tahoma;font-size:24px;color:#DD8C3E;font-weight:normal; padding:0px 0px 15px 0px; margin:0px}
 
 .header a:link,.header a:visited{display:block;font-family:"Trebuchet MS";color:#2F2419;font-size:64px;text-transform:uppercase;text-decoration:none;font-weight:bold;float:left}
 .header a:link img,.header a:visited img{vertical-align:baseline}
@@ -20,29 +20,29 @@ ul.menu{padding:0px;margin:0px;clear:both}
 ul.menu li{font-size:18px;display:block;float:left;width:180px;text-transform:uppercase;text-align:center;height:39px;line-height:39px}
 ul.menu li a:link,ul.menu li a:visited{color:#fff}
 ul.menu li a:hover{color:#dd8c3e}
-ul.menu li.active{background:url(../des/menu-active.png)}
+ul.menu li.active{background:url(../images/menu-active.png)}
 ul.menu li.active a:link,ul.menu li.active a:visited{text-decoration:none;color:#8fc6ff}
 
 ul.sub-menu{padding:0px;margin:0px}
-ul.sub-menu li{display:block;float:left;background:url(../des/sub-menu-bg.png);height:39px;line-height:39px;font-size:13px;text-align:center;width:79px}
+ul.sub-menu li{display:block;float:left;background:url(../images/sub-menu-bg.png);height:39px;line-height:39px;font-size:13px;text-align:center;width:79px}
 ul.sub-menu li a:link,ul.sub-menu li a:visited{color:#fff}
 ul.sub-menu li a:hover{ color: #000}
-ul.sub-menu li.left{background:url(../des/sub-menu-left.png) top left no-repeat;width:11px}
-ul.sub-menu li.right{background:url(../des/sub-menu-right.png) top left no-repeat;width:11px}
+ul.sub-menu li.left{background:url(../images/sub-menu-left.png) top left no-repeat;width:11px}
+ul.sub-menu li.right{background:url(../images/sub-menu-right.png) top left no-repeat;width:11px}
 
 
 
 .block{padding-top:25px;width:700px}
-.block .top{background:url(../des/round-top.png) top no-repeat;height:20px;line-height:20px}
-.block .bottom{background:url(../des/round-bottom.png) bottom no-repeat;height:20px;line-height:20px}
+.block .top{background:url(../images/round-top.png) top no-repeat;height:20px;line-height:20px}
+.block .bottom{background:url(../images/round-bottom.png) bottom no-repeat;height:20px;line-height:20px}
 .block .content{padding:0px 25px 0px 25px;background:#fff}
 
 .right-block{float:left;margin-left:25px}
 .right-block .block{padding-top:25px;width:175px}
-.right-block .block .top{background:url(../des/right-block-top.png) top no-repeat;height:20px;line-height:20px}
-.right-block .block .bottom{background:url(../des/right-block-bottom.png) bottom no-repeat;height:20px;line-height:20px}
-.right-block .block .content{padding:0px 25px 0px 25px;background:url(../des/right-block-bg.png);width:125px}
-.right-block a:link,.right-block a:visited{color:#fff}
+.right-block .block .top{background:url(../images/right-block-top.png) top no-repeat;height:20px;line-height:20px}
+.right-block .block .bottom{background:url(../images/right-block-bottom.png) bottom no-repeat;height:20px;line-height:20px}
+.right-block .block .content{padding:0px 25px 0px 25px;background:url(../images/right-block-bg.png);width:125px}
+.right-block a:link,.right-block a:visited{color:#DD8C3E}
 .right-block a:hover{color:#000}
 .right-block ul{padding:0px;margin:0px;line-height:24px}
 

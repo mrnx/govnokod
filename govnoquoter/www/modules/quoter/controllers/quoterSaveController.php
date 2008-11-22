@@ -68,8 +68,7 @@ class quoterSaveController extends simpleController
             $quote->setDescription($desciption);
             $quoteMapper->save($quote);
 
-            $url = new url('withId');
-            $url->setAction('view');
+            $url = new url('quoteView');
             $url->add('id', $quote->getId());
 
             $this->response->redirect($url->get());

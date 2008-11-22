@@ -1,26 +1,94 @@
-{if $listAll}{title append="информационный портал нового поколения"}{else}{/if}
 {add file="prototype.js"}
 {add file="effects.js"}
-{add file="codefolding.js"}
+{add file="govnokod.js"}
 
-{foreach from=$quotes item="quote"}
-    <table class="rblock">
+{if $listAll}
+    {title append="информационный портал нового поколения"}
+    <table class="rblock" style="float: left; width: 700px;">
         <tr>
-            <td style="width:20px"><img src="{$SITE_PATH}/templates/des/rblock-left-top.png" alt="" /></td>
-            <td class="empty">&nbsp;</td><td style="width:20px"><img src="{$SITE_PATH}/templates/des/rblock-right-top.png" alt="" /></td>
+            <td style="width:20px"><img src="{$SITE_PATH}/templates/images/rblock-left-top.png" alt="" /></td>
+            <td class="empty">&nbsp;</td><td style="width:20px"><img src="{$SITE_PATH}/templates/images/rblock-right-top.png" alt="" /></td>
         </tr>
         <tr class="content">
             <td>&nbsp;</td>
             <td>
-                <p class="rate">[ <a href="#" onclick="alert('coming soon'); return false;">+</a> 32 <a href="#" onclick="alert('coming soon'); return false;">-</a> ]</p>
-                <h2><a href="{url route="withAnyParam" action="list" name=$quote->getCategory()->getName()}">{$quote->getCategory()->getTitle()|htmlspecialchars}</a> / <a href="{url route="withId" action="" id=$quote->getId()}">Говнокод#{$quote->getId()}</a></h2>
+                <h1>Govnokod.ru</h1>
+                Описание ресурса
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td><img src="{$SITE_PATH}/templates/images/rblock-left-bottom.png" alt="" /></td>
+            <td class="empty">&nbsp;</td>
+            <td><img src="{$SITE_PATH}/templates/images/rblock-right-bottom.png" alt="" /></td>
+        </tr>
+    </table>
+{else}
+    {if $category->getPage()}
+        {assign var="pageTitle" value=$category->getPage()->getTitle()}
+        {assign var="pageContent" value=$category->getPage()->getContent()}
+    {else}
+        {assign var="pageTitle" value=$category->getTitle()}
+        {assign var="pageContent" value=""}
+    {/if}
+    {title append=$pageTitle|htmlspecialchars}
+    <table class="rblock" style="float: left; width: 700px;">
+        <tr>
+            <td style="width:20px"><img src="{$SITE_PATH}/templates/images/rblock-left-top.png" alt="" /></td>
+            <td class="empty">&nbsp;</td><td style="width:20px"><img src="{$SITE_PATH}/templates/images/rblock-right-top.png" alt="" /></td>
+        </tr>
+        <tr class="content">
+            <td>&nbsp;</td>
+            <td>
+                <h1>{$pageTitle|htmlspecialchars}</h1>
+                {$pageContent}
+                {if $category->getQuoteCounts() == 0}
+                <br /><br />
+                Раздел пуст. <a href="{url route="quoteAddFull" name=$category->getName()}">Накласть</a> говнокод первым.
+                {/if}
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td><img src="{$SITE_PATH}/templates/images/rblock-left-bottom.png" alt="" /></td>
+            <td class="empty">&nbsp;</td>
+            <td><img src="{$SITE_PATH}/templates/images/rblock-right-bottom.png" alt="" /></td>
+        </tr>
+    </table>
+{/if}
+
+    <div class="right-block">
+        <div class="block">
+            <div class="top">&nbsp;</div>
+                <div class="content">
+                    <ul>
+                        {foreach from=$categories item="category"}
+                        <li><a href="{url route="categoryList" name=$category->getName()|htmlspecialchars}">{$category->getTitle()|htmlspecialchars} ({$category->getQuoteCounts()})</a></li>
+                        {/foreach}
+                    </ul>
+                </div>
+            <div class="bottom">&nbsp;</div>
+        </div>
+    </div>
+
+{foreach from=$quotes item="quote"}
+    <table class="rblock">
+        <tr>
+            <td style="width:20px"><img src="{$SITE_PATH}/templates/images/rblock-left-top.png" alt="" /></td>
+            <td class="empty">&nbsp;</td><td style="width:20px"><img src="{$SITE_PATH}/templates/images/rblock-right-top.png" alt="" /></td>
+        </tr>
+        <tr class="content">
+            <td>&nbsp;</td>
+            <td>
+                <p class="rate">[ <a href="{url route="withId" action="cool" id=$quote->getId()}" onclick="ajaxvote(this); return false;" title="понравилось!">+</a> {$quote->getRating()} <a href="{url route="withId" action="suxx" id=$quote->getId()}" onclick="ajaxvote(this); return false;" title="отстой!">-</a> ]</p>
+                <h2><a href="{url route="categoryList" name=$quote->getCategory()->getName()|htmlspecialchars}">{$quote->getCategory()->getTitle()|htmlspecialchars}</a> / <a href="{url route="quoteView" id=$quote->getId()}">Говнокод#{$quote->getId()}</a></h2>
                 <div class="colorCode" id="colorCode{$quote->getId()}">
                     <div class="numbers">
                         {foreach from=$quote->generateLines(15) item="line" name="lineIterator"}
                             {if $smarty.foreach.lineIterator.first && $quote->getLinesCount() > 15}
                                 <span id="codefolder{$quote->getId()}" style="float: left;">
                                     <a href="{url route="withId" action="" id=$quote->getId()}" onclick="unfoldCode({$quote->getId()}); return false;" title="Развернуть">
-                                        <img src="{$SITE_PATH}/templates/images/quoter/nolines_plus.gif" alt="" />
+                                        <img src="{$SITE_PATH}/templates/images/nolines_plus.gif" alt="" />
                                     </a>
                                 </span> {$line}
                             {else}
@@ -43,23 +111,9 @@
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td><img src="{$SITE_PATH}/templates/des/rblock-left-bottom.png" alt="" /></td>
+            <td><img src="{$SITE_PATH}/templates/images/rblock-left-bottom.png" alt="" /></td>
             <td class="empty">&nbsp;</td>
-            <td><img src="{$SITE_PATH}/templates/des/rblock-right-bottom.png" alt="" /></td>
+            <td><img src="{$SITE_PATH}/templates/images/rblock-right-bottom.png" alt="" /></td>
         </tr>
     </table>
 {/foreach}
-{*
-<div class="right-block">
-	<div class="block">
-    	<div class="top">&nbsp;</div>
-            <div class="content">
-              <ul>
-                <li><a href="#">php</a></li>
-                <li><a href="#">java</a></li>
-                <li><a href="#">css</a></li>
-              </ul>
-            </div>
-    	<div class="bottom">&nbsp;</div>
-    </div>
-</div>*}

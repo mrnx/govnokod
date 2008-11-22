@@ -55,6 +55,22 @@ class quoteMapper extends simpleMapper
     }
 
     /**
+     * Хук, вызываемый сразу же после добавления объекта в БД
+     *
+     * @param array $fields
+     */
+    protected function afterInsert(&$fields)
+    {
+        $categoryMapper = systemToolkit::getInstance()->getMapper('quote', 'quoteCategory', $this->section);
+        //@todo: переписать с использованием ОРМ?
+        $db = DB::factory();
+        $sql = 'UPDATE `' . $categoryMapper->getTable() . '` SET `quote_counts` = `quote_counts` + 1 WHERE `id` = :id';
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':id', $fields['category_id']->getId());
+        $stmt->execute();
+    }
+
+    /**
      * Возвращает доменный объект по аргументам
      *
      * @return simple

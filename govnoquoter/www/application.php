@@ -25,6 +25,23 @@
 class application extends core
 {
 
+    /**
+     * Регистрация необходимых фильтров
+     *
+     * @param object $filter_chain
+     * @return object
+     */
+    protected function composeFilters($filter_chain)
+    {
+        $filter_chain->registerFilter(new timingFilter());
+        $filter_chain->registerFilter(new sessionFilter());
+        $filter_chain->registerFilter(new routingFilter());
+        $filter_chain->registerFilter(new userFilter());
+        $filter_chain->registerFilter(new userPreferencesFilter());
+        //$filter_chain->registerFilter(new userOnlineFilter());
+        $filter_chain->registerFilter(new contentFilter());
+        return $filter_chain;
+    }
 }
 
 ?>
