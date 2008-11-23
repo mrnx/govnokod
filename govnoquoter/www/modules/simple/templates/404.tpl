@@ -1,4 +1,3 @@
-{* main="main.tpl" placeholder="content" *}
 {title append="404 Page not found!"}
 <div style="clear:both"></div>
 <div style="float:left">
