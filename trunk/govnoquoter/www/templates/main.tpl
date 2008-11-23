@@ -1,11 +1,14 @@
 {* main="header.tpl" placeholder="content" *}
     <div class="header">
         <a href="/">
-            <img src="{$SITE_PATH}/templates/images/logo.png" alt="Логотип портала Говнокод.Ру" title="Да, это говно" />
+            <img src="{$SITE_PATH}/templates/images/logo.png" alt="Говнокод.Ру" title="Да, это говно!" />
             Govnokod.ru
         </a>
     </div>
-    <div class="add-govno"><a href="{if $listAll|default:true}{url route="quoteAdd"}{else}{url route="quoteAddFull" name=$category->getName()}{/if}"><img src="{$SITE_PATH}/templates/images/icon-plus.png" alt="" /></a> <a href="{if $listAll|default:true}{url route="quoteAdd"}{else}{url route="quoteAddFull" name=$category->getName()}{/if}">Накласть говнокод</a></div>
+    <div class="add-govno">
+        <a href="{if $listAll|default:true}{url route="quoteAdd"}{else}{url route="quoteAddFull" name=$category->getName()}{/if}"><img src="{$SITE_PATH}/templates/images/icon-plus.png" alt="" /></a>
+        <a href="{if $listAll|default:true}{url route="quoteAdd"}{else}{url route="quoteAddFull" name=$category->getName()}{/if}">Накласть говнокод</a>
+    </div>
     <ul class="menu">
         <li class="active"><a href="{url route="default"}">Говнокод</a></li>
         {*<li><a href="http://bin.govnokod.ru/">Говнобин</a></li>*}
@@ -19,3 +22,8 @@
     </ul>
 
     {$content}
+
+    <div class="footer">
+        © говнокод.ру
+        <img src="{$SITE_PATH}/templates/images/mrHankey.png" alt="Мистер Хэнки" title="Мистер Хэнки" />
+    </div>
