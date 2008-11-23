@@ -3,7 +3,7 @@
 {add file="govnokod.js"}
 
 {if $listAll}
-    {title append="информационный портал нового поколения"}
+    {title append="говнокод онлайн"}
     <table class="rblock" style="float: left; width: 700px;">
         <tr>
             <td style="width:20px"><img src="{$SITE_PATH}/templates/images/rblock-left-top.png" alt="" /></td>
@@ -12,8 +12,11 @@
         <tr class="content">
             <td>&nbsp;</td>
             <td>
-                <h1>Govnokod.ru</h1>
-                Описание ресурса
+                <h1>Говнокод.ру</h1>
+                Нашли или выдавили из себя код, который нельзя назвать нормальным, на который без улыбки не взглянешь? Не торопитесь его удалять
+                или рефакторить — запостите его на говнокод.ру, посмеемся вместе!
+                <br /><br />
+                <a href="http://code.google.com/p/govnokod/">http://code.google.com/p/govnokod/</a>
             </td>
             <td>&nbsp;</td>
         </tr>

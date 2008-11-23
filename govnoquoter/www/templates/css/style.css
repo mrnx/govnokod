@@ -63,3 +63,10 @@ ul.sub-menu li.right{background:url(../images/sub-menu-right.png) top left no-re
 .rblock a.more:hover{border-bottom:1px dotted #8fc6ff}
 .rblock .rate{ float:right}
 .rblock .rate a:link,.rblock .rate a:visited{text-decoration:none}
+
+div.footer {
+    text-align: right;
+    margin-top: 32px;
+    font-size: 10px;
+    color: #3F3F3F;
+}
