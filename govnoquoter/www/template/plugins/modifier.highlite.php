@@ -32,7 +32,7 @@ function smarty_modifier_highlite($source, $language = 'plain', Array $highlight
         $geshi->highlight_lines_extra($highlight);
     }
 
-    $geshi->set_overall_style('width: 1048px; overflow-x: auto;', true);
+    //$geshi->set_overall_style('width: 1048px; overflow-x: auto;', true);
     $code = $geshi->parse_code();
 
     if ($cacheKey && !DEBUG_MODE) {
