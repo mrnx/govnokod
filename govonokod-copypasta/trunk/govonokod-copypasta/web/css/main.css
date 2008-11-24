@@ -8,7 +8,7 @@
 }
 #b-left, #b-center { font-size: 85%; }
 
-pre {font-size: 130%; border: 1px outset;  width: 800px; margin-bottom: 25px; overflow: auto;}
+pre {font-size: 130%; border: 1px outset;  margin-bottom: 25px; overflow: auto;}
 pre ol, pre li {list-style-type: decimal-leading-zero; list-style-position: inside;}
 pre div {display: inline;}
 
@@ -71,7 +71,7 @@ noindex:-o-prefocus, .rounded-svg {
   background:transparent url(/images/rnd.svg);
   border: none !important; 
 }
-.rounded { margin:25px 0;width:802px; background-color: white; padding: 10px; }
+.rounded { margin:25px 0;background-color: white; padding: 10px; }
 .rounded-css3 {
   border: 1px solid white;
   -moz-border-radius: 12px;     /* mozilla 1.5 */
