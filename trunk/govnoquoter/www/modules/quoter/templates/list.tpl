@@ -120,6 +120,9 @@
                         </tr>
                     </table>{/strip}
                 </div>
+
+                {if $quote->getDescription()}<br />{$quote->getDescription()}{/if}
+
             </td>
             <td>&nbsp;</td>
         </tr>
