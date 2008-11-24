@@ -37,7 +37,7 @@ ul.sub-menu li.right{background:url(../images/sub-menu-right.png) top left no-re
 .block .bottom{background:url(../images/round-bottom.png) bottom no-repeat;height:20px;line-height:20px}
 .block .content{padding:0px 25px 0px 25px;background:#fff}
 
-.right-block{float:left;margin-left:25px}
+.right-block{margin-left:25px}
 .right-block .block{padding-top:25px;width:175px}
 .right-block .block .top{background:url(../images/right-block-top.png) top no-repeat;height:20px;line-height:20px}
 .right-block .block .bottom{background:url(../images/right-block-bottom.png) bottom no-repeat;height:20px;line-height:20px}
@@ -53,12 +53,10 @@ ul.sub-menu li.right{background:url(../images/sub-menu-right.png) top left no-re
 .rblock h2{padding:0px 0px 25px 0px;margin:0px}
 .rblock h2 span{color:#999;padding:0px 15px 0px 15px;font-weight:normal}
 .rblock tr.content td,.rblock td.empty{background:#fff;}
-.rblock table tr td.numbers{background:#E6D6AC;text-align:right;width:35px;font-family:monospace;font-size:13px;line-height:16px;margin-right:5px;vertical-align:top}
 .rblock div.colorCode{border: solid 1px #E6D6AC;}
-.rblock div.numbers{float:left;background:#E6D6AC;text-align:right;width:40px;font-family:monospace;font-size:13px;line-height:16px;margin-right:5px;vertical-align:top}
-.rblock div.code{font-size:13px;line-height:16px;vertical-align:top}
-.rblock td.code{font-size:13px;line-height:16px;vertical-align:top}
-.rblock pre{padding:0px;margin:0px;clear:none}
+.rblock table tr td.numbers{background:#E6D6AC;text-align:right;width:50px;font-family:monospace;font-size:13px;line-height:16px;margin-right:5px;vertical-align:top}
+.rblock table tr td.code{font-size:13px;line-height:16px;vertical-align:top;}
+.rblock pre{padding:0px;margin:0px;}
 .rblock a.more:link,.rblock a.more:visited{display:block;text-decoration:none;border-bottom:1px dotted #dd8c3e;float:left}
 .rblock a.more:hover{border-bottom:1px dotted #8fc6ff}
 .rblock .rate{ float:right}

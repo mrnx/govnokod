@@ -21,6 +21,8 @@
     	<li class="right">&nbsp;</li>
     </ul>
 
+    <div style="clear: both;"></div>
+
     {$content}
 
     <div class="footer">

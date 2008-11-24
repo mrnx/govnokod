@@ -15,6 +15,7 @@
     <script type="text/javascript">
     <!--
     var SITE_PATH = '{$SITE_PATH}';
+    var SITE_LANG = 'ru';
     //-->
     </script>
     {include file='include.external.js.tpl'}

@@ -13,14 +13,18 @@
                 <p class="rate">[ <a href="{url route="withId" action="cool" id=$quote->getId()}" onclick="ajaxvote(this); return false;" title="понравилось!">+</a> {$quote->getRating()} <a href="{url route="withId" action="suxx" id=$quote->getId()}" onclick="ajaxvote(this); return false;" title="отстой!">-</a> ]</p>
                 <h1><a href="{url route="categoryList" name=$quote->getCategory()->getName()|htmlspecialchars}">{$quote->getCategory()->getTitle()|htmlspecialchars}</a> / <a href="{url route="quoteView" id=$quote->getId()}">Говнокод#{$quote->getId()}</a> {$quote->getJip()}</h1>
                 <div class="colorCode" id="colorCode{$quote->getId()}">
-                    <div class="numbers">
-                        {foreach from=$quote->generateLines() item="line" name="lineIterator"}
-                            {$line}{if !$smarty.foreach.lineIterator.last}<br />{/if}
-                        {/foreach}
-                    </div>
-                    <div class="code">
-                        {$quote->getText()|highlite:$quote->getCategory()->getName():$quote->getHighlightedLines():$quote->getId()}
-                    </div>
+                    {strip}<table cellpadding="0" cellspacing="0" style="width: 100%;">
+                        <tr>
+                            <td class="numbers">
+                                {foreach from=$quote->generateLines() item="line" name="lineIterator"}
+                                    {$line}{if !$smarty.foreach.lineIterator.last}<br />{/if}
+                                {/foreach}
+                            </td>
+                            <td class="code">
+                                {$quote->getText()|highlite:$quote->getCategory()->getName():$quote->getHighlightedLines():$quote->getId()}
+                            </td>
+                        </tr>
+                    </table>{/strip}
                 </div>
             </td>
             <td>&nbsp;</td>

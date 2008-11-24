@@ -35,7 +35,8 @@
                                                 <div id="nums" class="linenumbers"></div>
                                             </td>
                                             <td style="vertical-align: top; width: 95%;">
-                                                {form->textarea id="codeArea" name="text" value=$quote->getText() rows="1" cols="50" class="codeArea" onkeyup="numbering(this);" wrap="off"}
+                                                {if $quote->getText()}{assign var="text" value=$quote->getText()}{else}{assign var="text" value="\n\n\n\n\n"}{/if}
+                                                {form->textarea id="codeArea" name="text" value=$text rows="1" cols="50" class="codeArea" onkeyup="numbering(this);" wrap="off"}
                                             </td>
                                         </tr>
                                     </table>

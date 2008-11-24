@@ -23,7 +23,6 @@
 class quote extends simple
 {
     protected $name = 'quoter';
-
     protected $linesCount = 0;
 
     public function getText($linesNum = null)
@@ -32,6 +31,7 @@ class quote extends simple
         if ($linesNum > 0 && $linesNum < $this->getLinesCount()) {
             $text = implode("\n", array_slice(explode("\n", $text), 0, $linesNum));
         }
+
 
         return $text;
     }
