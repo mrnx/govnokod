@@ -1,4 +1,7 @@
-    <div class="numbers">
+{strip}
+    <table cellpadding="0" cellspacing="0" style="width: 100%;">
+        <tr>
+            <td class="numbers">
         {foreach from=$quote->generateLines() item="line" name="lineIterator"}
             {if $smarty.foreach.lineIterator.first && $quote->getLinesCount() > 15}
                 <span id="codefolder{$quote->getId()}" style="float: left;">
@@ -14,7 +17,10 @@
             {/if}
             {if !$smarty.foreach.lineIterator.last}<br />{/if}
         {/foreach}
-    </div>
-    <div class="code">
-        {$quote->getText()|highlite:$quote->getCategory()->getName():$quote->getHighlightedLines():$quote->getId()}
-    </div>
+            </td>
+            <td class="code">
+                {$quote->getText()|highlite:$quote->getCategory()->getName():$quote->getHighlightedLines():$quote->getId()}
+            </td>
+        </tr>
+    </table>
+{/strip}
