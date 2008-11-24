@@ -1,10 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file orginal="global" source-language="en_US" datatype="plaintext">
+  <file orginal="global" source-language="ru" datatype="plaintext">
     <body>
       <trans-unit id="1">
         <source>Copypasta</source>
         <target>Код</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Copypasta language id</source>
+        <target>Язык</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Username</source>
+        <target>Пользователь</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Delete at</source>
+        <target>Хранить до</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Remember me</source>
+        <target>Запомнить меня</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Submit</source>
+        <target>Отправить</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Actions</source>
+        <target>Действия</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Last copypastas</source>
+        <target>Последние правки</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Submit the new Copypasta!</source>
+        <target>Добавить новый код</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Credits</source>
+        <target>Говнокопирайт бай</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>by</source>
+        <target>от</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Submit a correction or amendment below.</source>
+        <target>Внести изменения</target>
       </trans-unit>
     </body>
   </file>

@@ -3,6 +3,11 @@ homepage:
   url:   /
   param: { module: index, action: index }
 
+govnopasta:
+  url:   /:id
+  param: { module: index, action: item }
+  requirements: { id: \d+ }
+
 default_symfony:
   url:   /symfony/:action/*
   param: { module: index }

@@ -3,7 +3,7 @@
   <ul>
   <?php foreach ($copypastas as $copypasta): ?>
     <li>
-      <?php echo link_to(__('by %1%', array('%1%' => $copypasta->getUsername())), 'index/item?id='.$copypasta->getId()) ?><br />
+      <?php echo link_to(__('by').' '.$copypasta->getUsername(), 'index/item?id='.$copypasta->getId()) ?><br />
       <?php echo __('at %1%', array('%1%' => $copypasta->getCreatedAt()))?>
     </li>
   <?php endforeach; ?>
