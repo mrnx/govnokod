@@ -68,7 +68,7 @@ ul.menu li.active {background:url(/images/menu-active.png)}
 ul.menu li.active a:link,ul.menu li.active a:visited {text-decoration:none; color:#8fc6ff}
 
 noindex:-o-prefocus, .rounded-svg {
-  background:transparent url(/images/rnd.svg);
+  background:transparent url(/images/rnd.svg) !important;
   border: none !important; 
 }
 .rounded { margin:25px 0;background-color: white; padding: 10px; }
