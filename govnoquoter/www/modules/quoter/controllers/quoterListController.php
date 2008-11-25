@@ -54,6 +54,9 @@ class quoterListController extends simpleController
         }
 
         $quoteMapper = $this->toolkit->getMapper('quoter', 'quote');
+
+        //$this->setPager($quoteMapper, 20);
+
         $quotes = $quoteMapper->searchAllByCriteria($criteria);
 
         $this->smarty->assign('quotes', $quotes);
