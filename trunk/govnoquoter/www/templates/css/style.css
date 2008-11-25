@@ -7,7 +7,7 @@ A:hover{color:#8fc6ff}
 img{border:0px;vertical-align:middle}
 img,div,li{behavior:url(/templates/images/iepngfix/iepngfix.php)}
 
-h1{font-family:Tahoma;font-size:24px;color:#DD8C3E;font-weight:normal; padding:0px 0px 15px 0px; margin:0px}
+h1{font-family:Tahoma;font-size:24px;color:#DD8C3E;font-weight:normal; padding:0px 0px 25px 0px; margin:0px}
 
 .header a:link,.header a:visited{display:block;font-family:"Trebuchet MS";color:#2F2419;font-size:64px;text-transform:uppercase;text-decoration:none;font-weight:bold;float:left}
 .header a:link img,.header a:visited img{vertical-align:baseline}
