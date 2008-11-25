@@ -71,12 +71,17 @@ class quoterSaveController extends simpleController
             $text = $this->request->getString('text', SC_POST);
             $desciption = $this->request->getString('description', SC_POST);
 
-            $lines = (array)$this->request->getArray('lines', SC_POST);
+            $lines = $this->request->getArray('lines', SC_POST);
+            if (!is_array($lines)) {
+                $lines = array();
+            }
+
             $linesCount = substr_count($text, "\n");
 
             $highlightedLines = array();
             foreach ($lines as $line) {
-                if ($line > 0 && $line < $linesCount && !in_array($line, $highlightedLines)) {
+                echo $line;
+                if ($line > 0 && $line <= $linesCount && !in_array($line, $highlightedLines)) {
                     $highlightedLines[] = $line;
                 }
             }
