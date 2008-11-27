@@ -23,6 +23,11 @@
 class quoteFolder extends simple
 {
     protected $name = 'quoter';
+
+    public function getId()
+    {
+        return 0;
+    }
 }
 
 ?>

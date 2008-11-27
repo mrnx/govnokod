@@ -38,6 +38,15 @@ class quoteFolderMapper extends simpleMapper
      */
     protected $className = 'quoteFolder';
 
+    public function getFolder()
+    {
+        $folder = $this->create();
+        $obj_id = systemToolkit::getInstance()->getObjectId($this->section . '_' . $this->className);
+        $this->register($obj_id);
+        $folder->import(array('obj_id' => $obj_id));
+        return $folder;
+    }
+
     /**
      * Возвращает доменный объект по аргументам
      *
@@ -45,7 +54,7 @@ class quoteFolderMapper extends simpleMapper
      */
     public function convertArgsToObj($args)
     {
-        throw new mzzDONotFoundException();
+        return $this->getFolder();
     }
 }
 

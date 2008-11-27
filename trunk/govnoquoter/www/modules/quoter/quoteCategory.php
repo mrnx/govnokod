@@ -33,6 +33,11 @@ class quoteCategory extends simple
 
         return $this->page;
     }
+
+    public function getJip()
+    {
+        return $this->getJipView($this->name, $this->getName(), get_class($this));
+    }
 }
 
 ?>
