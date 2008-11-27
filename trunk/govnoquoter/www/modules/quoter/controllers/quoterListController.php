@@ -54,10 +54,16 @@ class quoterListController extends simpleController
         }
 
         $quoteMapper = $this->toolkit->getMapper('quoter', 'quote');
-
-        //$this->setPager($quoteMapper, 20);
-
+        $pager = $this->setPager($quoteMapper, 10);
         $quotes = $quoteMapper->searchAllByCriteria($criteria);
+
+        //если получаем список конкретной категории, то есть шанс пересчитать количество элементов в категории
+        if (!$listAll) {
+            if ($category->getQuoteCounts() != $pager->getItemsCount()) {
+                $category->setQuoteCounts($pager->getItemsCount());
+                $categoryMapper->save($category);
+            }
+        }
 
         $this->smarty->assign('quotes', $quotes);
         $this->smarty->assign('listAll', $listAll);

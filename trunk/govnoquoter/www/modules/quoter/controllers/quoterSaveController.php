@@ -93,8 +93,8 @@ class quoterSaveController extends simpleController
             }
 
             $quote->setCategory($categoryId);
-            $quote->setText($text);
-            $quote->setDescription($desciption);
+            $quote->setText(trim($text));
+            $quote->setDescription(substr(trim($desciption), 0, 255));
             $quote->setHighlitedLines(join(', ', $highlightedLines));
             $quoteMapper->save($quote);
 
@@ -113,7 +113,7 @@ class quoterSaveController extends simpleController
 }
 
 function checkCodeLength($text) {
-    $linesCount = substr_count($text, "\n");
+    $linesCount = substr_count(trim($text), "\n");
     return ($linesCount < 100);
 }
 
