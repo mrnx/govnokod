@@ -1,6 +1,8 @@
 {add file="prototype.js"}
 {add file="govnokod.js"}
 {title append=$quote->getCategory()->getTitle()|htmlspecialchars}
+{assign var="number" value=$quote->getId()}
+{title append="Говнокод#$number"}
 
     <table class="rblock">
         <tr>
@@ -27,7 +29,7 @@
                     </table>{/strip}
                 </div>
 
-                {if $quote->getDescription()}<br />{$quote->getDescription()}{/if}
+                {if $quote->getDescription()}<br />{$quote->getDescription()|htmlspecialchars|nl2br}{/if}
             </td>
             <td>&nbsp;</td>
         </tr>

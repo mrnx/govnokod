@@ -121,7 +121,7 @@
                     </table>{/strip}
                 </div>
 
-                {if $quote->getDescription()}<br />{$quote->getDescription()}{/if}
+                {if $quote->getDescription()}<br />{$quote->getDescription()|trim|htmlspecialchars}{/if}
 
             </td>
             <td>&nbsp;</td>
@@ -133,3 +133,7 @@
         </tr>
     </table>
 {/foreach}
+
+{if $pager->getPagesTotal() > 1}
+    {$pager->toString()}
+{/if}
