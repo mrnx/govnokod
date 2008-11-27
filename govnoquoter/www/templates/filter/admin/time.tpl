@@ -1,1 +1,0 @@
-Время: {$timer->getPeriod()|round:3} с., SQL {$timer->getQueriesNum()}/{$timer->getPreparedNum()}: {$timer->getQueriesTime()|number_format:3} с.
