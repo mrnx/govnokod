@@ -15,18 +15,27 @@
             <td>&nbsp;</td>
             <td>
                 <h1>{if $isEdit}Редактирование <a href="{url route="quoteView" id=$quote->getId()}">говнокода#{$quote->getId()}</a>{else}Накласть говнокод{/if}</h1>
+                {foreach from=$errors->export() item="error" name="errorIterator"}
+                {if $smarty.foreach.errorIterator.first}<ul clas="errors">{/if}
+                    <li>{$error}</li>
+                {if $smarty.foreach.errorIterator.last}</ul><br />{/if}
+                {/foreach}
                 <form action="{if $isEdit}{url route="withId" action="edit" id=$quote->getId()}{else}{url route="quoteAdd"}{/if}" method="post">
                     <table width="100%" border="0" cellpadding="5" cellspacing="0">
                         <tr>
-                            <td style="vertical-align: top;">{form->caption name="category_id" value="Язык"}</td>
-                            <td>{form->select name="category_id" options=$categoriesSelect emptyFirst=true value=$currentCategory}</td>
+                            <td style="vertical-align: top; width: 20%;">{form->caption name="category_id" value="Язык:"}</td>
+                            <td style="width: 80%;">{form->select name="category_id" options=$categoriesSelect emptyFirst=true value=$currentCategory}</td>
                         </tr>
                         <tr>
-                            <td style="vertical-align: top;">{form->caption name="description" value="Описание"}</td>
+                            <td style="vertical-align: top;">{form->caption name="description" value="Описание:"}</td>
                             <td>{form->textarea name="description" value=$quote->getDescription() rows="4" cols="50"}</td>
                         </tr>
                         <tr>
-                            <td style="vertical-align: top;">{form->caption name="text" value="Код"}</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;">{form->caption name="text" value="Код:"}</td>
                             <td>
                                 <div id="codeSaveContainer" class="codeInput">
                                     <table cellpadding="0" cellspacing="0" style="width: 100%;">
@@ -43,6 +52,19 @@
                                 </div>
                             </td>
                         </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        {if !$isEdit}<tr>
+                            <td>{form->caption name="captcha" value="Защита от жопашников<br /> и социопатов:"}</td>
+                            <td>{form->captcha name="captcha"}</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        {/if}
                         <tr>
                             <td id="linesInput">&nbsp;</td>
                             <td>{form->submit name="submit" value="Накласть"}</td>

@@ -66,6 +66,12 @@ class quoterSaveController extends simpleController
         $validator->add('callback', 'text', 'Такой длинный код врядли может быть смешным', array('checkCodeLength'));
         $validator->add('required', 'category_id', 'Укажите категорию');
         $validator->add('in', 'category_id', 'Укажите правильную категорию', array_keys($categoriesSelect));
+
+        if (!$isEdit) {
+            $validator->add('required', 'captcha', 'Произвол не пройдёт!');
+            $validator->add('captcha', 'captcha', 'Неверно введен проверочный код!');
+        }
+
         if ($validator->validate()) {
             $categoryId = $this->request->getInteger('category_id', SC_POST);
             $text = $this->request->getString('text', SC_POST);
