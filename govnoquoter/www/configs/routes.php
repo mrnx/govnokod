@@ -4,8 +4,6 @@ $router->addRoute('withAnyParam', new requestRoute(':section/:name/:action', arr
 $router->addRoute('default2', new requestRoute(':section/:action'));
 $router->addRoute('adminDefault', new requestRoute('admin', array('section' => 'admin', 'action' => 'admin')));
 
-$router->addRoute('captcha', new requestRoute('captcha', array('section' => 'captcha', 'action' => 'view')));
-
 $router->addRoute('fmFolder', new requestRoute('fileManager/:name/:action', array('section' => 'fileManager', 'name' => 'root', 'action' => 'get'), array('name' => '.+?', 'action' => '(?:list|upload|edit|delete|get|editFolder|createFolder|deleteFolder|move|moveFolder)')));
 $router->addRoute('fmFolderRoot', new requestRoute('fileManager/:action', array('section' => 'fileManager', 'name' => 'root', 'action' => 'list'), array('name' => '.+?', 'action' => '(?:list|upload)')));
 
@@ -25,6 +23,8 @@ $router->addRoute('quoteAdd', new requestRoute('add', array('section' => 'quoter
 
 $router->addRoute('rss', new requestRoute('rss', array('section' => 'quoter', 'action' => 'rss')));
 $router->addRoute('rssFull', new requestRoute(':name/rss', array('section' => 'quoter', 'action' => 'rss')));
+
+$router->addRoute('captcha', new requestRoute('captcha', array('section' => 'captcha', 'action' => 'view')));
 
 $router->addRoute('admin', new requestRoute('admin/:section_name/:module_name/:params/:action', array('section' => 'admin', 'action' => 'admin'), array('params' => '.*?', 'action' => '(?:admin|editConfig)')));
 $router->addRoute('adminTranslate', new requestRoute('admin/:module_name/:language/translate', array('section' => 'admin', 'action' => 'translate')));
