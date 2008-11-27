@@ -19,7 +19,7 @@
         {/foreach}
             </td>
             <td class="code">
-                {$quote->getText()|highlite:$quote->getCategory()->getName():$quote->getHighlightedLines():$quote->getId()}
+                {$quote->getText()|trim|highlite:$quote->getCategory()->getName():$quote->getHighlightedLines():$quote->getId()}
             </td>
         </tr>
     </table>
