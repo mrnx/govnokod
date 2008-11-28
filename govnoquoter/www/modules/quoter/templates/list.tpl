@@ -6,7 +6,7 @@
     <tr>
         <td style="width: 60%; vertical-align: top;">
             {if $listAll}
-                {title append="говнокод онлайн"}
+                {title append="Говнокод онлайн"}
                 <table class="rblock">
                     <tr>
                         <td style="width:20px"><img src="{$SITE_PATH}/templates/images/rblock-left-top.png" alt="" /></td>
@@ -121,7 +121,7 @@
                     </table>{/strip}
                 </div>
 
-                {if $quote->getDescription()}<br />{$quote->getDescription()|trim|htmlspecialchars}{/if}
+                {if $quote->getDescription() != ''}<br />{$quote->getDescription()|trim|htmlspecialchars}{/if}
 
             </td>
             <td>&nbsp;</td>
