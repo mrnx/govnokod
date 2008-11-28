@@ -2,15 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>{title separator=" — " end=" — "} govnokod.ru</title>
+    <title>{title separator=" — " end=" — "} Govnokod.ru</title>
     <meta name="keywords" content="{meta show="keywords" default='говнокод, смешной код, быдлокод, быдлокодеры, индусы, для программистов, про программистов, индусский код, записки программиста, говно, говнокод на php, mysql, perl'}" />
     <meta name="description" content="{meta show="description" default='Сборник говнокода на различных языках программирования'}" />
     <link rel="stylesheet" type="text/css" href="{$SITE_PATH}/templates/css/style.css" />
-    {*if $listAll|default:true}
+    {if $listAll|default:true}
     <link title="rss govnokod.ru" type="application/rss+xml" rel="alternate" href="{url route="rss"}"/>
     {else}
     <link title="rss govnokod.ru" type="application/rss+xml" rel="alternate" href="{url route="rssFull" name=$category->getName()}"/>
-    {/if*}
+    {/if}
     {include file='include.css.tpl'}
     <script type="text/javascript">
     <!--

@@ -29,7 +29,7 @@
                     </table>{/strip}
                 </div>
 
-                {if $quote->getDescription()}<br />{$quote->getDescription()|htmlspecialchars|nl2br}{/if}
+                {if $quote->getDescription() != ''}<br />{$quote->getDescription()|htmlspecialchars|nl2br}{/if}
             </td>
             <td>&nbsp;</td>
         </tr>
