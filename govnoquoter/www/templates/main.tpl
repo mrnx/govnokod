@@ -6,8 +6,8 @@
         </a>
     </div>
     <div class="add-govno">
-        <a href="{if $listAll|default:true}{url route="quoteAdd"}{else}{url route="quoteAddFull" name=$category->getName()}{/if}"><img src="{$SITE_PATH}/templates/images/icon-plus.png" alt="" /></a>
-        <a href="{if $listAll|default:true}{url route="quoteAdd"}{else}{url route="quoteAddFull" name=$category->getName()}{/if}">Накласть говнокод</a>
+        <a href="{if $listAll|default:true}{url route="quoteAdd"}{else}{url route="quoteAddFull" name=$category->getName()}{/if}" title="Наговнокодить!"><img src="{$SITE_PATH}/templates/images/icon-plus.png" alt="" /></a>
+        <a href="{if $listAll|default:true}{url route="quoteAdd"}{else}{url route="quoteAddFull" name=$category->getName()}{/if}" title="По просьбе трудящихся">Наговнокодить!</a>
     </div>
     <ul class="menu">
         <li class="active"><a href="{url route="default"}">Говнокод</a></li>
