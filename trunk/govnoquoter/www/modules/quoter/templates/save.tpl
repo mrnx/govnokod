@@ -1,7 +1,7 @@
 {if $isEdit}
 {title append="Редактировать говнокод"}
 {else}
-{title append="Накласть говнокод"}
+{title append="Наговнокодить"}
 {/if}
 {add file="prototype.js"}
 {add file="govnokod.js"}
@@ -14,7 +14,7 @@
         <tr class="content">
             <td>&nbsp;</td>
             <td>
-                <h1>{if $isEdit}Редактирование <a href="{url route="quoteView" id=$quote->getId()}">говнокода#{$quote->getId()}</a>{else}Накласть говнокод{/if}</h1>
+                <h1>{if $isEdit}Редактирование <a href="{url route="quoteView" id=$quote->getId()}">говнокода#{$quote->getId()}</a>{else}Наговнокодить{/if}</h1>
                 {foreach from=$errors->export() item="error" name="errorIterator"}
                 {if $smarty.foreach.errorIterator.first}<ul clas="errors">{/if}
                     <li>{$error}</li>
