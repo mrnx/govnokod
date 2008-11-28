@@ -80,3 +80,14 @@ noindex:-o-prefocus, .rounded-svg {
   -opera-border-radius: 12px;
   border-radius: 12px;          /* CSS3 */
 }
+
+.w100 {width: 100%}
+
+select {width: 250px; padding: 2px; height: 20px;}
+textarea {width: 100%; height: 350px;}
+td, th {padding: 3px; vertical-align: top;}
+th {padding-top: 6px; }
+#copypasta_username {width: 213px; padding: 2px;}
+#copypasta_delete_at {width: 180px; padding: 2px;}
+#remember {vertical-align: middle;}
+#submit {font: bold 150% Tahoma, Arial, sans-serif; margin-top: 15px; padding: 5px 15px;}
