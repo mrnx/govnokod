@@ -32,7 +32,16 @@ function smarty_modifier_highlite($source, $language = 'plain', Array $highlight
         $geshi->highlight_lines_extra($highlight);
     }
 
+    /*
+    $css = systemConfig::$pathToApplication . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'langs' . DIRECTORY_SEPARATOR . $language . '.css';
+    if (!file_exists($css)) {
+        file_put_contents($css, $geshi->get_stylesheet());
+    }
+    */
+
+    //$geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
     //$geshi->set_overall_style('width: 1048px; overflow-x: auto;', true);
+    $geshi->enable_classes();
     $code = $geshi->parse_code();
 
     if ($cacheKey && !DEBUG_MODE) {

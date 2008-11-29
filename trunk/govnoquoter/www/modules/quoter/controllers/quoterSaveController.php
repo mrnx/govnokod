@@ -64,8 +64,8 @@ class quoterSaveController extends simpleController
         $validator = new formValidator();
         $validator->add('required', 'text', 'Укажите код');
         $validator->add('callback', 'text', 'Такой длинный код врядли может быть смешным', array('checkCodeLength'));
-        $validator->add('required', 'category_id', 'Укажите категорию');
-        $validator->add('in', 'category_id', 'Укажите правильную категорию', array_keys($categoriesSelect));
+        $validator->add('required', 'category_id', 'Укажите язык');
+        $validator->add('in', 'category_id', 'Укажите правильный язык', array_keys($categoriesSelect));
 
         if (!$isEdit) {
             $validator->add('required', 'captcha', 'Произвол не пройдёт!');
@@ -86,7 +86,6 @@ class quoterSaveController extends simpleController
 
             $highlightedLines = array();
             foreach ($lines as $line) {
-                echo $line;
                 if ($line > 0 && $line <= $linesCount && !in_array($line, $highlightedLines)) {
                     $highlightedLines[] = $line;
                 }

@@ -35,6 +35,7 @@ class quoterQuoteController extends simpleController
         $vote = $this->request->getInteger('vote');
         $oldRating = $quote->getRating();
         $newRating = $oldRating;
+
         switch ($vote) {
             case -1:
                 $newRating = $oldRating - 1;
@@ -48,6 +49,8 @@ class quoterQuoteController extends simpleController
         $ip = $this->request->getServer('REMOTE_ADDR');
         $db = DB::factory();
 
+        $status = $oldRating;
+
         $vote = $db->getOne('SELECT * FROM `quoter_votes` WHERE `ip` = "' . $ip . '" AND `quote_id` = ' . $quote->getId() . ' AND `created` > ' . (time() - 3600 * 2));
         if (!$vote) {
             if ($newRating != $oldRating) {
@@ -59,7 +62,13 @@ class quoterQuoteController extends simpleController
                 $voteData['quote_id'] = $quote->getId();
                 $voteData['created'] = time();
                 $db->autoExecute('quoter_votes', $voteData);
+                $status = $newRating;
             }
+        }
+
+        if ($this->request->getBoolean('ajax', SC_POST)) {
+            $this->smarty->disableMain();
+            return $status;
         }
 
         $url = new url('quoteView');

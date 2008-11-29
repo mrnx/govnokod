@@ -75,13 +75,22 @@ function ajaxvote(aElem) {
     var holder = aElem.up();
     var preloadImg = new Element('img', {src: SITE_PATH + '/templates/images/votepreloader.gif', alt: '', title: 'Данные отправляются на сервер...'});
     holder.update('');
-    holder.appendChild(document.createTextNode('[ '));
     holder.appendChild(preloadImg);
-    holder.appendChild(document.createTextNode(' ] '));
     new Ajax.Request(aElem.href, {
-        method: 'get',
+        method: 'post',
+        parameters: {ajax: true},
         onSuccess: function(transport) {
-            holder.update('[ Голос принят! ]');
+            var updateText = '';
+            switch (transport.responseText) {
+                case 'allready':
+                    updateText = 'уже голосовали';
+                    break;
+
+                default:
+                    updateText = parseInt(transport.responseText);
+                    break;
+            }
+            holder.update(updateText);
         }
     });
 }

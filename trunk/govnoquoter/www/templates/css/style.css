@@ -7,7 +7,7 @@ A:hover{color:#8fc6ff}
 img{border:0px;vertical-align:middle}
 img,div,li{behavior:url(/templates/images/iepngfix/iepngfix.php)}
 
-h1{font-family:Tahoma;font-size:24px;color:#DD8C3E;font-weight:normal; padding:0px 0px 25px 0px; margin:0px}
+h1{font-family:Tahoma;font-size:24px;color:#DD8C3E;font-weight:normal; margin:0px 0px 25px 0px; padding:0px}
 
 .header a:link,.header a:visited{display:block;font-family:"Trebuchet MS";color:#2F2419;font-size:64px;text-transform:uppercase;text-decoration:none;font-weight:bold;float:left}
 .header a:link img,.header a:visited img{vertical-align:baseline}
@@ -30,37 +30,81 @@ ul.sub-menu li a:hover{ color: #000}
 ul.sub-menu li.left{background:url(../images/sub-menu-left.png) top left no-repeat;width:11px}
 ul.sub-menu li.right{background:url(../images/sub-menu-right.png) top left no-repeat;width:11px}
 
+.r1, .r2, .r3, .r4, .r5, .r6, .r7, .r8, .r9, .r10 {
+	display: block;
+	height: 1px;
+	overflow: hidden;
+	font-size:1px;
+}
 
+.r10 { margin: 0 10px; }
+.r9 { margin: 0 9px; }
+.r8 { margin: 0 8px; }
+.r7 { margin: 0 7px; }
+.r6 { margin: 0 6px; }
+.r5 { margin: 0 5px; }
+.r4 { margin: 0 4px; }
+.r3 { margin: 0 3px; }
+.r2 { margin: 0 2px; }
+.r1 { margin: 0 1px; }
 
-.block{padding-top:25px;width:700px}
-.block .top{background:url(../images/round-top.png) top no-repeat;height:20px;line-height:20px}
-.block .bottom{background:url(../images/round-bottom.png) bottom no-repeat;height:20px;line-height:20px}
-.block .content{padding:0px 25px 0px 25px;background:#fff}
+.rounded-box {
+    padding-top: 25px;
+}
 
-.right-block{margin-left:25px}
-.right-block .block{padding-top:25px;width:175px}
-.right-block .block .top{background:url(../images/right-block-top.png) top no-repeat;height:20px;line-height:20px}
-.right-block .block .bottom{background:url(../images/right-block-bottom.png) bottom no-repeat;height:20px;line-height:20px}
-.right-block .block .content{padding:0px 25px 0px 25px;background:url(../images/right-block-bg.png);width:125px}
-.right-block a:link,.right-block a:visited{color:#DD8C3E}
-.right-block a:hover{color:#000}
-.right-block ul{padding:0px;margin:0px;line-height:24px}
+.right-box {
+    float: left;
+    width: 20%;
+    padding-left: 40px;
+}
 
+.inner-box, b { background-color: #FFF; }
 
+.rounded-box .inner-box { padding: 0.4em 1em;}
 
-.rblock{border-collapse:collapse;clear:both; margin-top:25px; width:100%}
-.rblock td{padding:0px}
-.rblock h2{padding:0px 0px 25px 0px;margin:0px}
-.rblock h2 span{color:#999;padding:0px 15px 0px 15px;font-weight:normal}
-.rblock tr.content td,.rblock td.empty{background:#fff;}
-.rblock div.colorCode{border: solid 1px #E6D6AC;}
-.rblock table tr td.numbers{background:#E6D6AC;text-align:right;width:50px;font-family:monospace;font-size:13px;line-height:16px;padding-right:5px;vertical-align:top}
-.rblock table tr td.code{font-size:13px;line-height:16px;vertical-align:top; padding-left: 5px;}
-.rblock pre{padding:0px;margin:0px;overflow-x: auto; width: 1048px;}
-.rblock a.more:link,.rblock a.more:visited{display:block;text-decoration:none;border-bottom:1px dotted #dd8c3e;float:left}
-.rblock a.more:hover{border-bottom:1px dotted #8fc6ff}
-.rblock .rate{ float:right}
-.rblock .rate a:link,.rblock .rate a:visited{text-decoration:none}
+.colorCode{
+    border: solid 1px #E6D6AC;
+    width: 100%;
+    font-size:13px;
+    line-height:16px;
+}
+
+.colorCode ol.linenumbers {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    background:#E6D6AC;
+    text-align:right;
+    vertical-align:top;
+    font-family:monospace;
+    padding-right:5px;
+    width:50px;
+    float: left;
+}
+
+.colorCode ol.linenumbers .folder {
+    float: left;
+}
+
+.colorCode pre {
+    vertical-align:top;
+    padding-left: 5px;
+    margin: 0px;
+    paddin: 0px;
+    overflow-x: auto;
+}
+
+.description {
+    padding-top: 20px;
+    clear: both;
+    font-size: 12px;
+    color: #3F3F3F;
+}
+
+.rate {
+    float: right;
+    font-size: 14px;
+}
 
 div.footer {
     text-align: right;
