@@ -2,136 +2,77 @@
 {add file="effects.js"}
 {add file="govnokod.js"}
 
-<table cellpadding="0" cellspacing="0" style="width: 80%;">
-    <tr>
-        <td style="width: 60%; vertical-align: top;">
-            {if $listAll}
-                {title append="Говнокод онлайн"}
-                <table class="rblock">
-                    <tr>
-                        <td style="width:20px"><img src="{$SITE_PATH}/templates/images/rblock-left-top.png" alt="" /></td>
-                        <td class="empty">&nbsp;</td><td style="width:20px"><img src="{$SITE_PATH}/templates/images/rblock-right-top.png" alt="" /></td>
-                    </tr>
-                    <tr class="content">
-                        <td>&nbsp;</td>
-                        <td>
-                            <h1>Говнокод.ру</h1>
-                            Нашли или выдавили из себя код, который нельзя назвать нормальным, на который без улыбки не взглянешь? Не торопитесь его удалять
-                            или рефакторить — запостите его на говнокод.ру, посмеемся вместе!
-                            <br /><br />
-                            <a href="http://code.google.com/p/govnokod/">http://code.google.com/p/govnokod/</a>
-                        </td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td><img src="{$SITE_PATH}/templates/images/rblock-left-bottom.png" alt="" /></td>
-                        <td class="empty">&nbsp;</td>
-                        <td><img src="{$SITE_PATH}/templates/images/rblock-right-bottom.png" alt="" /></td>
-                    </tr>
-                </table>
-            {else}
-                {if $category->getPage()}
-                    {assign var="pageTitle" value=$category->getPage()->getTitle()}
-                    {assign var="pageContent" value=$category->getPage()->getContent()}
-                {else}
-                    {assign var="pageTitle" value=$category->getTitle()}
-                    {assign var="pageContent" value=""}
-                {/if}
-                {title append=$pageTitle|htmlspecialchars}
+<div class="rounded-box" style="float: left; width: 60%">
+    <b class="r10"></b><b class="r7"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r2"></b><b class="r1"></b><b class="r1"></b><b class="r1"></b>
+    <div class="inner-box">
+{if $listAll}
+    {title append="Говнокод онлайн"}
+        <h1>Говнокод.ру</h1>
+        Нашли или выдавили из себя код, который нельзя назвать нормальным, на который без улыбки не взглянешь? Не торопитесь его удалять
+        или рефакторить — запостите его на говнокод.ру, посмеемся вместе!
+        <p><a href="http://code.google.com/p/govnokod/">http://code.google.com/p/govnokod/</a></p>
+{else}
+    {if $category->getPage()}
+        {assign var="pageTitle" value=$category->getPage()->getTitle()}
+        {assign var="pageContent" value=$category->getPage()->getContent()}
+    {else}
+        {assign var="pageTitle" value=$category->getTitle()}
+        {assign var="pageContent" value=""}
+    {/if}
+    {title append=$pageTitle|htmlspecialchars}
+        <h1>{$pageTitle|htmlspecialchars}</h1>
+        {if $category->getQuoteCounts() == 0}
+        <p>&nbsp;</p>
+        <p>Раздел пуст. <a href="{url route="quoteAddFull" name=$category->getName()}">Пометить</a> место первым.</p>
+        {/if}
+{/if}
+    </div>
+    <b class="r1"></b><b class="r1"></b><b class="r1"></b><b class="r2"></b><b class="r2"></b><b class="r3"></b><b class="r4"></b><b class="r5"></b><b class="r7"></b><b class="r10"></b>
+</div>
 
-                <table class="rblock">
-                    <tr>
-                        <td style="width:20px"><img src="{$SITE_PATH}/templates/images/rblock-left-top.png" alt="" /></td>
-                        <td class="empty">&nbsp;</td><td style="width:20px"><img src="{$SITE_PATH}/templates/images/rblock-right-top.png" alt="" /></td>
-                    </tr>
-                    <tr class="content">
-                        <td>&nbsp;</td>
-                        <td>
-                            <h1>{$pageTitle|htmlspecialchars}</h1>
-                            {$pageContent}
-                            {if $category->getQuoteCounts() == 0}
-                            <br /><br />
-                            Раздел пуст. <a href="{url route="quoteAddFull" name=$category->getName()}">Накласть</a> говнокод первым.
-                            {/if}
-                        </td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td><img src="{$SITE_PATH}/templates/images/rblock-left-bottom.png" alt="" /></td>
-                        <td class="empty">&nbsp;</td>
-                        <td><img src="{$SITE_PATH}/templates/images/rblock-right-bottom.png" alt="" /></td>
-                    </tr>
-                </table>
-            {/if}
-        </td>
-        <td style="width: 20%; vertical-align: top;">
-            <div class="right-block">
-                <div class="block">
-                    <div class="top">&nbsp;</div>
-                        <div class="content">
-                            <ul>
-                                {foreach from=$categories item="category"}
-                                <li><a href="{url route="categoryList" name=$category->getName()|htmlspecialchars}">{$category->getTitle()|htmlspecialchars} ({$category->getQuoteCounts()})</a></li>
-                                {/foreach}
-                            </ul>
-                        </div>
-                    <div class="bottom">&nbsp;</div>
-                </div>
-            </div>
-        </td>
-    </tr>
-</table>
+<div class="rounded-box right-box">
+    <b class="r10"></b><b class="r7"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r2"></b><b class="r1"></b><b class="r1"></b><b class="r1"></b>
+    <div class="inner-box">
+        <ul>{foreach from=$categories item="category"}<li><a href="{url route="categoryList" name=$category->getName()|htmlspecialchars}">{$category->getTitle()|htmlspecialchars} ({$category->getQuoteCounts()})</a></li>{/foreach}</ul>
+    </div>
+    <b class="r1"></b><b class="r1"></b><b class="r1"></b><b class="r2"></b><b class="r2"></b><b class="r3"></b><b class="r4"></b><b class="r5"></b><b class="r7"></b><b class="r10"></b>
+</div>
+<div style="clear: both;"></div>
 {foreach from=$quotes item="quote"}
-    <table class="rblock">
-        <tr>
-            <td style="width:20px"><img src="{$SITE_PATH}/templates/images/rblock-left-top.png" alt="" /></td>
-            <td class="empty">&nbsp;</td><td style="width:20px"><img src="{$SITE_PATH}/templates/images/rblock-right-top.png" alt="" /></td>
-        </tr>
-        <tr class="content">
-            <td>&nbsp;</td>
-            <td>
-                <p class="rate">[ <a href="{url route="withId" action="cool" id=$quote->getId()}" onclick="ajaxvote(this); return false;" title="понравилось!">+</a> {$quote->getRating()} <a href="{url route="withId" action="suxx" id=$quote->getId()}" onclick="ajaxvote(this); return false;" title="отстой!">-</a> ]</p>
-                <h2><a href="{url route="categoryList" name=$quote->getCategory()->getName()|htmlspecialchars}">{$quote->getCategory()->getTitle()|htmlspecialchars}</a> / <a href="{url route="quoteView" id=$quote->getId()}">Говнокод#{$quote->getId()}</a> {$quote->getJip()}</h2>
-                <div class="colorCode" id="colorCode{$quote->getId()}">
-                    {strip}<table cellpadding="0" cellspacing="0" style="width: 100%;">
-                        <tr>
-                            <td class="numbers">
-                            {foreach from=$quote->generateLines(15) item="line" name="lineIterator"}
-                                {if $smarty.foreach.lineIterator.first && $quote->getLinesCount() > 15}
-                                    <span id="codefolder{$quote->getId()}" style="float: left;">
-                                        <a href="{url route="withId" action="" id=$quote->getId()}" onclick="unfoldCode({$quote->getId()}); return false;" title="Развернуть">
-                                            <img src="{$SITE_PATH}/templates/images/nolines_plus.gif" alt="" />
-                                        </a>
-                                    </span> {$line}
-                                {else}
-                                    {$line}
-                                {/if}
-                                {if !$smarty.foreach.lineIterator.last}<br />{/if}
-                            {/foreach}
-                            {if $quote->getLinesCount() > 15}
-                                <br />…<br />
-                                <a href="{url route="withId" action="" id=$quote->getId()}" onclick="unfoldCode({$quote->getId()}); return false;" title="Развернуть">{$quote->getLinesCount()}</a>
-                            {/if}
-                            </td>
-                            <td class="code">
-                                {$quote->getText(15)|highlite:$quote->getCategory()->getName():$quote->getHighlightedLines()}
-                                {if false && $quote->getLinesCount() > 15}<br />{/if}
-                            </td>
-                        </tr>
-                    </table>{/strip}
-                </div>
+{assign var="langName" value=$quote->getCategory()->getName()|htmlspecialchars}
+{add file="langs/$langName.css"}
+<div class="rounded-box" style="width: 100%;">
+    <b class="r10"></b><b class="r7"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r2"></b><b class="r1"></b><b class="r1"></b><b class="r1"></b>
+    <div class="inner-box">
+        <span class="rate"><a href="{url route="quoteVote" action="cool" id=$quote->getId()}" onclick="ajaxvote(this); return false;" title="понравилось!">+</a> {$quote->getRating()} <a href="{url route="quoteVote" action="suxx" id=$quote->getId()}" onclick="ajaxvote(this); return false;" title="отстой!">-</a></span>
+        <h1><a href="{url route="categoryList" name=$langName}">{$quote->getCategory()->getTitle()|htmlspecialchars}</a> / <a href="{url route="quoteView" id=$quote->getId()}">Говнокод#{$quote->getId()}</a> {$quote->getJip()}</h1>
+        <div class="colorCode" id="colorCode{$quote->getId()}">
+            {strip}
+                <ol class="linenumbers">
+                {foreach from=$quote->generateLines(15) item="line" name="lineIterator"}
+                    <li>{if $smarty.foreach.lineIterator.first && $quote->getLinesCount() > 15}
+                        <span id="codefolder{$quote->getId()}" class="folder">
+                            <a href="{url route="quoteView" id=$quote->getId()}" onclick="unfoldCode({$quote->getId()}); return false;" title="Развернуть">
+                                <img src="{$SITE_PATH}/templates/images/nolines_plus.gif" alt="" />
+                            </a>
+                        </span>{/if}
+                    {$line}</li>
+                {/foreach}
+                {if $quote->getLinesCount() > 15}
+                    <li>…</li>
+                    <li><a href="{url route="quoteView" id=$quote->getId()}" onclick="unfoldCode({$quote->getId()}); return false;" title="Развернуть">{$quote->getLinesCount()}</a></li>
+                 {/if}
+                </ol>
+                {assign var="stripcount" value=15}
+                {if $quote->getLinesCount() > 15}{assign var="stripcount" value=17}{/if}
+                {$quote->getText($stripcount)|highlite:$langName:$quote->getHighlightedLines()}
+            {/strip}
+        </div>
 
-                {if $quote->getDescription() != ''}<br />{$quote->getDescription()|trim|htmlspecialchars}{/if}
-
-            </td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td><img src="{$SITE_PATH}/templates/images/rblock-left-bottom.png" alt="" /></td>
-            <td class="empty">&nbsp;</td>
-            <td><img src="{$SITE_PATH}/templates/images/rblock-right-bottom.png" alt="" /></td>
-        </tr>
-    </table>
+        <div class="description">{$quote->getDescription()|htmlspecialchars|nl2br}</div>
+    </div>
+    <b class="r1"></b><b class="r1"></b><b class="r1"></b><b class="r2"></b><b class="r2"></b><b class="r3"></b><b class="r4"></b><b class="r5"></b><b class="r7"></b><b class="r10"></b>
+</div>
 {/foreach}
 
 {if $pager->getPagesTotal() > 1}

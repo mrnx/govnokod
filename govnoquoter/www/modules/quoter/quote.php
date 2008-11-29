@@ -33,7 +33,7 @@ class quote extends simple
         }
 
 
-        return $text;
+        return trim($text);
     }
 
     public function getLinesCount()
