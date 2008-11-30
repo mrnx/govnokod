@@ -8,8 +8,9 @@
 {if $listAll}
     {title append="Говнокод онлайн"}
         <h1>Говнокод.ру</h1>
-        Нашли или выдавили из себя код, который нельзя назвать нормальным, на который без улыбки не взглянешь? Не торопитесь его удалять
-        или рефакторить — запостите его на говнокод.ру, посмеемся вместе!
+        <p>Нашли или выдавили из себя код, который нельзя назвать нормальным, на который без улыбки не взглянешь? Не торопитесь его удалять
+        или рефакторить — запостите его на говнокод.ру, посмеемся вместе!</p>
+        <p>&nbsp;</p>
         <p><a href="http://code.google.com/p/govnokod/">http://code.google.com/p/govnokod/</a></p>
 {else}
     {if $category->getPage()}
@@ -24,6 +25,8 @@
         {if $category->getQuoteCounts() == 0}
         <p>&nbsp;</p>
         <p>Раздел пуст. <a href="{url route="quoteAddFull" name=$category->getName()}">Пометить</a> место первым.</p>
+        {else}
+        {$pageContent}
         {/if}
 {/if}
     </div>
@@ -33,7 +36,7 @@
 <div class="rounded-box right-box">
     <b class="r10"></b><b class="r7"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r2"></b><b class="r1"></b><b class="r1"></b><b class="r1"></b>
     <div class="inner-box">
-        <ul>{foreach from=$categories item="category"}<li><a href="{url route="categoryList" name=$category->getName()|htmlspecialchars}">{$category->getTitle()|htmlspecialchars} ({$category->getQuoteCounts()})</a></li>{/foreach}</ul>
+        <ul>{foreach from=$categories item="cat"}<li><a href="{url route="categoryList" name=$cat->getName()|htmlspecialchars}">{$cat->getTitle()|htmlspecialchars} ({$cat->getQuoteCounts()})</a></li>{/foreach}</ul>
     </div>
     <b class="r1"></b><b class="r1"></b><b class="r1"></b><b class="r2"></b><b class="r2"></b><b class="r3"></b><b class="r4"></b><b class="r5"></b><b class="r7"></b><b class="r10"></b>
 </div>

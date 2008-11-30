@@ -1,11 +1,12 @@
-{add file="prototype.js"}
+{strip}{add file="prototype.js"}
 {add file="govnokod.js"}
 {assign var="number" value=$quote->getId()}
 {assign var="langName" value=$quote->getCategory()->getName()|htmlspecialchars}
 {add file="langs/$langName.css"}
 {title append="Говнокод#$number"}
 {title append=$quote->getCategory()->getTitle()|htmlspecialchars}
-
+{meta description=$quote->getDescription() reset=true}
+{/strip}
 <div class="rounded-box" style="width: 100%;">
     <b class="r10"></b><b class="r7"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r2"></b><b class="r1"></b><b class="r1"></b><b class="r1"></b>
     <div class="inner-box">
@@ -20,3 +21,5 @@
     </div>
     <b class="r1"></b><b class="r1"></b><b class="r1"></b><b class="r2"></b><b class="r2"></b><b class="r3"></b><b class="r4"></b><b class="r5"></b><b class="r7"></b><b class="r10"></b>
 </div>
+
+{load module="comments" section="comments" action="list" id=$quote->getObjId()}

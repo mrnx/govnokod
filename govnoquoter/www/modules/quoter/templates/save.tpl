@@ -7,10 +7,10 @@
 {add file="govnokod.js"}
 {add file="add.css" join=false}
 
-<div class="rounded-box" style="width: 100%;">
-    <b class="r10"></b><b class="r7"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r2"></b><b class="r1"></b><b class="r1"></b><b class="r1"></b>
-    <div class="inner-box">
-        <h1>{if $isEdit}Редактирование <a href="{url route="quoteView" id=$quote->getId()}">говнокода#{$quote->getId()}</a>{else}Наговнокодить{/if}</h1>
+    <div class="rounded-box" style="width: 100%;">
+        <b class="r10"></b><b class="r7"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r2"></b><b class="r1"></b><b class="r1"></b><b class="r1"></b>
+        <div class="inner-box">
+            <h1>{if $isEdit}Редактирование <a href="{url route="quoteView" id=$quote->getId()}">говнокода#{$quote->getId()}</a>{else}Наговнокодить{/if}</h1>
             {foreach from=$errors->export() item="error" name="errorIterator"}
             {if $smarty.foreach.errorIterator.first}<ul clas="errors">{/if}
                 <li>{$error}</li>
@@ -41,7 +41,7 @@
                                         </td>
                                         <td style="vertical-align: top; width: 95%;">
                                             {if $quote->getText()}{assign var="text" value=$quote->getText()}{else}{assign var="text" value="\n\n\n\n\n"}{/if}
-                                            {form->textarea id="codeArea" name="text" value=$text rows="1" cols="50" class="codeArea" onkeyup="numbering(this);" wrap="off"}
+                                            {form->textarea id="form_text" name="text" value=$text rows="1" cols="50" class="codeArea" onkeyup="numbering(this);" wrap="off"}
                                         </td>
                                     </tr>
                                 </table>
@@ -68,8 +68,8 @@
                 </table>
             </form>
         </div>
-    <b class="r1"></b><b class="r1"></b><b class="r1"></b><b class="r2"></b><b class="r2"></b><b class="r3"></b><b class="r4"></b><b class="r5"></b><b class="r7"></b><b class="r10"></b>
-</div>
+        <b class="r1"></b><b class="r1"></b><b class="r1"></b><b class="r2"></b><b class="r2"></b><b class="r3"></b><b class="r4"></b><b class="r5"></b><b class="r7"></b><b class="r10"></b>
+    </div>
     <script type="text/javascript">
         var MAX_LINES = 100;
         var linesCountLast;
@@ -77,5 +77,5 @@
         {foreach from=$lines item="line"}
         selectedLines[{$line}] = true;
         {/foreach}
-        numbering($('codeArea'));
+        numbering($('form_text'));
     </script>

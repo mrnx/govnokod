@@ -75,7 +75,7 @@ class quoterSaveController extends simpleController
         if ($validator->validate()) {
             $categoryId = $this->request->getInteger('category_id', SC_POST);
             $text = $this->request->getString('text', SC_POST);
-            $desciption = $this->request->getString('description', SC_POST);
+            $description = $this->request->getString('description', SC_POST);
 
             $lines = $this->request->getArray('lines', SC_POST);
             if (!is_array($lines)) {
@@ -93,7 +93,12 @@ class quoterSaveController extends simpleController
 
             $quote->setCategory($categoryId);
             $quote->setText(trim($text));
-            $quote->setDescription(substr(trim($desciption), 0, 255));
+
+            $description = substr(trim($description), 0, 1000);
+
+            if ($description) {
+                $quote->setDescription($description);
+            }
             $quote->setHighlitedLines(join(', ', $highlightedLines));
             $quoteMapper->save($quote);
 
