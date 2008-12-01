@@ -1,3 +1,9 @@
+var loadingImage = new Image();
+loadingImage.src = SITE_PATH + '/templates/images/codepreloader.gif';
+
+var votePreloaderImage = new Image();
+votePreloaderImage.src = SITE_PATH + '/templates/images/votepreloader.gif';
+
 var allreadyLoaded = new Array();
 
 function unfoldCode(codeId)
@@ -20,7 +26,7 @@ function unfoldCode(codeId)
 
             var codePreloader = $('codefolder' + codeId);
             if (codePreloader) {
-                var preloadImg = new Element('img', {src: SITE_PATH + '/templates/images/codepreloader.gif', alt: '', title: 'Идёт загрузка...'});
+                var preloadImg = new Element('img', {src: loadingImage.src, alt: '', title: 'Идёт загрузка...'});
                 codePreloader.update(preloadImg);
             }
             new Ajax.Request('/quoter/' + encodeURIComponent(codeId), {
@@ -73,7 +79,7 @@ function foldCode(codeId)
 
 function ajaxvote(aElem) {
     var holder = aElem.up();
-    var preloadImg = new Element('img', {src: SITE_PATH + '/templates/images/votepreloader.gif', alt: '', title: 'Данные отправляются на сервер...'});
+    var preloadImg = new Element('img', {src: votePreloaderImage.src, alt: '', title: 'Данные отправляются на сервер...'});
     holder.update('');
     holder.appendChild(preloadImg);
     new Ajax.Request(aElem.href, {
