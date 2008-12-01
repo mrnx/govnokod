@@ -22,6 +22,8 @@
 
 class quote extends simple
 {
+    const MAX_DESC_CHARS = 2000;
+
     protected $name = 'quoter';
     protected $linesCount = 0;
 
@@ -76,6 +78,12 @@ class quote extends simple
         }
 
         return array_map('intval', $linesArray);
+    }
+
+    public function setDescription($description)
+    {
+        $description = mb_substr($description, 0, self::MAX_DESC_CHARS, 'utf-8');
+        parent::__call('setDescription', array($description));
     }
 
     public function getAcl($name = null)

@@ -1,0 +1,32 @@
+.comment {
+    width: 100%;
+}
+
+.comment .item {
+    background:url(../images/comment-dots.gif) left bottom repeat-x;
+    padding:25px 0px 30px 0px;
+    font-size:15px;
+}
+
+.comment .item h3 {
+    padding:0px;
+    margin:0px;
+    color:#999;
+    font-size:13px;
+    font-weight:normal
+}
+
+.comment .item p {
+    padding:0px;
+    margin:0px;
+}
+
+.addcomment td{
+    vertical-align:top;
+    padding:10px
+}
+
+.addcomment .fielderror {
+    color: red;
+    font-weight: bold;
+}

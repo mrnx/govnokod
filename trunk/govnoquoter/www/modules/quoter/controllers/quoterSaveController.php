@@ -64,6 +64,7 @@ class quoterSaveController extends simpleController
         $validator = new formValidator();
         $validator->add('required', 'text', 'Укажите код');
         $validator->add('callback', 'text', 'Такой длинный код врядли может быть смешным', array('checkCodeLength'));
+        $validator->add('callback', 'description', 'Описание может быть не более ' . quote::MAX_DESC_CHARS . ' символов', array('checkDescLength'));
         $validator->add('required', 'category_id', 'Укажите язык');
         $validator->add('in', 'category_id', 'Укажите правильный язык', array_keys($categoriesSelect));
 
@@ -93,12 +94,7 @@ class quoterSaveController extends simpleController
 
             $quote->setCategory($categoryId);
             $quote->setText(trim($text));
-
-            $description = substr(trim($description), 0, 1000);
-
-            if ($description) {
-                $quote->setDescription($description);
-            }
+            $quote->setDescription($description);
             $quote->setHighlitedLines(join(', ', $highlightedLines));
             $quoteMapper->save($quote);
 
@@ -119,6 +115,10 @@ class quoterSaveController extends simpleController
 function checkCodeLength($text) {
     $linesCount = substr_count(trim($text), "\n");
     return ($linesCount < 100);
+}
+
+function checkDescLength($desc) {
+    return (mb_strlen($desc) < quote::MAX_DESC_CHARS);
 }
 
 ?>
