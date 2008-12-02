@@ -72,6 +72,8 @@
             {/strip}
         </div>
 
+        <span class="codeInfo"><a href="{url route="quoteView" id=$quote->getId()}#comments" title="перейти к списку комментариев">Комментарии({$quote->getCommentsCount()})</a></span>
+
         <div class="description">{$quote->getDescription()|htmlspecialchars|nl2br}</div>
     </div>
     <b class="r1"></b><b class="r1"></b><b class="r1"></b><b class="r2"></b><b class="r2"></b><b class="r3"></b><b class="r4"></b><b class="r5"></b><b class="r7"></b><b class="r10"></b>
