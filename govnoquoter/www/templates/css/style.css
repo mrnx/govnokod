@@ -101,6 +101,12 @@ ul.sub-menu li.right{background:url(../images/sub-menu-right.png) top left no-re
     color: #3F3F3F;
 }
 
+.codeInfo {
+    float: right;
+    font-size: 12px;
+    color: #9F9F9F;
+}
+
 .rate {
     float: right;
     font-size: 14px;

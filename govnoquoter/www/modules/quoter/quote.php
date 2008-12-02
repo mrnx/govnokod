@@ -86,6 +86,13 @@ class quote extends simple
         parent::__call('setDescription', array($description));
     }
 
+    //@todo: убрать это!!!
+    public function setCommentsCountAndSave($count)
+    {
+        $this->setCommentsCount($count);
+        $this->mapper->save($this);
+    }
+
     public function getAcl($name = null)
     {
         $user = systemToolkit::getInstance()->getUser();
