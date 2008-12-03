@@ -22,3 +22,4 @@
     <b class="r1"></b><b class="r1"></b><b class="r1"></b><b class="r2"></b><b class="r2"></b><b class="r3"></b><b class="r4"></b><b class="r5"></b><b class="r7"></b><b class="r10"></b>
 </div>
 {load module="comments" section="comments" action="list" id=$quote->getObjId()}
+{if $commentsCount|default:false && $quote->getCommentsCount() != $commentsCount}{$quote->setCommentsCountAndSave($commentsCount)}{/if}
