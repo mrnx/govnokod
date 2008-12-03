@@ -8,7 +8,7 @@
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES cp1251 */;
 
 SET FOREIGN_KEY_CHECKS=0;
 
@@ -32,12 +32,53 @@ CREATE TABLE `comments_comments` (
   `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `obj_id` INTEGER(11) UNSIGNED DEFAULT NULL,
   `text` TEXT COLLATE utf8_general_ci,
-  `author` INTEGER(11) UNSIGNED DEFAULT NULL,
+  `author` VARCHAR(50) COLLATE utf8_general_ci DEFAULT NULL,
+  `author_ip` CHAR(20) COLLATE utf8_general_ci DEFAULT NULL,
   `time` INTEGER(11) UNSIGNED DEFAULT NULL,
   `folder_id` INTEGER(11) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=1 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=35 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Data for the `comments_comments` table  (LIMIT 0,500)
+#
+
+INSERT INTO `comments_comments` (`id`, `obj_id`, `text`, `author`, `author_ip`, `time`, `folder_id`) VALUES 
+  (1,52,'zhep','2','',1227942640,1),
+  (2,54,'wsdfasdf\r\n','2','',1227944856,2),
+  (3,58,'lkajsdfkljxcv,mnwesdf\r\nas\r\ndf\r\nasdfas\r\ndf\r\nasdfasd\r\nf\r\nasd\r\nfa\r\nsdf\r\nasd\r\nfs\r\ndf\r\nasd\r\nfa\r\nsdf\r\nwdf',NULL,'',1227960648,1),
+  (4,59,'sdfsdf',NULL,'',1227960677,1),
+  (5,60,'sadklfjaslkdjf','sdfskdfj','',1227961524,1),
+  (6,61,'sadklfjaslkdjf','sdfskdfj','',1227962282,1),
+  (7,62,'ыдвлаофдлыва','двыфлаоыва','',1227962423,1),
+  (8,63,'ыдвлаофдлыва','двыфлаоыва','',1227962465,1),
+  (9,64,'<h1>asdf','/><h1>asdf','',1227962535,1),
+  (10,65,'говно','тестер','127.0.0.1',1227962866,1),
+  (11,67,'test','user','127.0.0.1',1228028311,5),
+  (12,68,'text2','user2','127.0.0.1',1228028326,5),
+  (13,71,'zdfdsf','esdf','127.0.0.1',1228055461,6),
+  (14,72,'asdkfjhdskf','sdfklj','127.0.0.1',1228055476,6),
+  (15,73,'sdf','sdf','127.0.0.1',1228055693,6),
+  (16,74,'sdfkj','asdlfkjasldkf','127.0.0.1',1228056570,6),
+  (17,75,'dfklj','test2','127.0.0.1',1228056599,6),
+  (18,77,'asdlfkj\nsdf','striker','127.0.0.1',1228138713,7),
+  (19,78,'sdf','striker2','127.0.0.1',1228138994,7),
+  (20,79,'sdf','striker2','127.0.0.1',1228139024,7),
+  (21,80,'sdf','striker2','127.0.0.1',1228139142,7),
+  (23,82,'asldkfj','test','127.0.0.1',1228139221,7),
+  (24,83,'asldkfj','test','127.0.0.1',1228139269,7),
+  (25,84,'asldkfj','test','127.0.0.1',1228139299,7),
+  (26,85,'asldkfj','test','127.0.0.1',1228139362,7),
+  (27,86,'asldkfj','test','127.0.0.1',1228139375,7),
+  (28,87,'sdklfjdsf','test','127.0.0.1',1228139504,7),
+  (29,88,'Вы жопы','striker','127.0.0.1',1228140041,7),
+  (30,89,'test','zhep','127.0.0.1',1228140956,7),
+  (31,92,'По-моему это всё говно!','striker','127.0.0.1',1228220731,9),
+  (32,93,'tesdf','striker','127.0.0.1',1228221903,6),
+  (33,95,'test','strikerasdklfhaklsdhfkjah','127.0.0.1',1228276218,4),
+  (34,97,'zhep','striker','127.0.0.1',1228276421,11);
+COMMIT;
 
 #
 # Structure for the `comments_commentsFolder` table : 
@@ -52,7 +93,25 @@ CREATE TABLE `comments_commentsFolder` (
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=1 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=12 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Data for the `comments_commentsFolder` table  (LIMIT 0,500)
+#
+
+INSERT INTO `comments_commentsFolder` (`id`, `obj_id`, `parent_id`) VALUES 
+  (1,51,48),
+  (2,53,46),
+  (3,55,50),
+  (4,57,56),
+  (5,66,49),
+  (6,70,69),
+  (7,76,43),
+  (8,90,41),
+  (9,91,40),
+  (10,94,38),
+  (11,96,47);
+COMMIT;
 
 #
 # Structure for the `fileManager_file` table : 
@@ -259,17 +318,29 @@ CREATE TABLE `quoter_quote` (
   `description` TEXT COLLATE utf8_general_ci NOT NULL,
   `rating` INTEGER(11) NOT NULL,
   `active` INTEGER(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  `comments_count` INTEGER(11) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `category_id` (`category_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=9 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=19 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `quoter_quote` table  (LIMIT 0,500)
 #
 
-INSERT INTO `quoter_quote` (`id`, `obj_id`, `category_id`, `created`, `text`, `highlited_lines`, `description`, `rating`, `active`) VALUES 
-  (6,38,3,1227331945,'SELECT *\r\nFROM basenews bs\r\nWHERE \r\n    1 \r\n    AND\r\n    bs.id in (SELECT bsnet.id_basenews FROM basenewscategory bsnet WHERE bsnet.id_s_news_essence = \"3\")\r\nORDER BY bs.datein DESC\r\nLIMIT 0, 10','6','',1,1),
-  (8,40,1,1227353872,'$error = \"Всё хорошо\";\r\n \r\nif (!$_POST[''mail''] || !checkEmail($_POST[''mail''])) {\r\n    $error .= \"Не верный E-mail\";\r\n}\r\n \r\n...\r\n \r\nif ($error == \"Всё хорошо\") {\r\n    $db->query(\"INSERT...\r\n} else {\r\n \r\n...','1, 9','',3,1);
+INSERT INTO `quoter_quote` (`id`, `obj_id`, `category_id`, `created`, `text`, `highlited_lines`, `description`, `rating`, `active`, `comments_count`) VALUES 
+  (6,38,3,1227331945,'SELECT *\r\nFROM basenews bs\r\nWHERE \r\n    1 \r\n    AND\r\n    bs.id in (SELECT bsnet.id_basenews FROM basenewscategory bsnet WHERE bsnet.id_s_news_essence = \"3\")\r\nORDER BY bs.datein DESC\r\nLIMIT 0, 10','6','описание',1,1,0),
+  (8,40,1,1227353872,'$error = \"Всё хорошо\";\r\n \r\nif (!$_POST[''mail''] || !checkEmail($_POST[''mail''])) {\r\n    $error .= \"Не верный E-mail\";\r\n}\r\n \r\n...\r\n \r\nif ($error == \"Всё хорошо\") {\r\n    $db->query(\"INSERT...\r\n} else {\r\n \r\n...','1, 9','',4,1,1),
+  (9,41,1,1227608639,'sa\r\ndf\r\nas\r\ndf\r\nas\r\ndf\r\nwdf','3, 6','',1,1,0),
+  (10,42,1,1227774485,'sdfds','','asdfsdf',1,1,0),
+  (11,43,5,1227774578,'sdfsf','','<h1>test',1,1,12),
+  (12,46,1,1227869406,'<?php\r\n/**\r\n * $URL$$URL$$URL$\r\n *\r\n * MZZ Content Management System (c) 2008\r\n * Website : http://www.mzz.ru\r\n *\r\n * This program is free software and released under\r\n * the GNU Lesser General Public License (See /docs/LGPL.txt).\r\n *\r\n * @link http://www.mzz.ru\r\n * @version $Id$\r\n */\r\n\r\n/**\r\n * quoterListController: контроллер для метода list модуля quoter\r\n *\r\n * @package modules\r\n * @subpackage quoter\r\n * @version 0.1\r\n */\r\n\r\nclass quoterListController extends simpleController\r\n{\r\n    protected function getView()\r\n    {\r\n        $action = $this->request->getAction();\r\n        $listAll = ($action == ''listAll'');\r\n\r\n        $criteria = new criteria;\r\n        $criteria->add(''active'', 1)->setOrderByFieldDesc(''created'');\r\n\r\n        $categoryMapper = $this->toolkit->getMapper(''quoter'', ''quoteCategory'');\r\n        $categories = $categoryMapper->searchAll();\r\n        $this->smarty->assign(''categories'', $categories);\r\n\r\n        if (!$listAll) {\r\n            $name = $this->request->getString(''name'');\r\n\r\n            $category = null;\r\n            foreach ($categories as $cat) {\r\n                if ($cat->getName() == $name) {\r\n                    $category = $cat;\r\n                    break;\r\n                }\r\n            }\r\n\r\n            if (!$category) {\r\n                return $categoryMapper->get404()->run();\r\n            }\r\n\r\n            $criteria->add(''category_id'', $category->getId());\r\n            $this->smarty->assign(''category'', $category);\r\n        }\r\n\r\n        $quoteMapper = $this->toolkit->getMapper(''quoter'', ''quote'');\r\n        $pager = $this->setPager($quoteMapper, 10, true);\r\n        $quotes = $quoteMapper->searchAllByCriteria($criteria);\r\n\r\n        //если получаем список конкретной категории, то есть шанс пересчитать количество элементов в категории\r\n        if (!$listAll) {\r\n            if ($category->getQuoteCounts() != $pager->getItemsCount()) {\r\n                $category->setQuoteCounts($pager->getItemsCount());\r\n                $categoryMapper->save($category);\r\n            }\r\n        }\r\n\r\n        $this->smarty->assign(''quotes'', $quotes);\r\n        $this->smarty->assign(''listAll'', $listAll);\r\n        return $this->smarty->fetch(''quoter/list.tpl'');\r\n    }\r\n}\r\n\r\n?>','23, 34','описание',1,1,0),
+  (13,47,1,1227917115,'<?php\r\n/**\r\n * \r\n *\r\n * MZZ Content Management System (c) 2008\r\n * Website : http://www.mzz.ru\r\n *\r\n * This program is free software and released under\r\n * the GNU Lesser General Public License (See /docs/LGPL.txt).\r\n *\r\n * @link http://www.mzz.ru\r\n * @version $Id$\r\n */\r\n\r\n/**\r\n * quoterListController: контроллер для метода list модуля quoter\r\n *\r\n * @package modules\r\n * @subpackage quoter\r\n * @version 0.1\r\n */\r\n\r\nclass quoterListController extends simpleController\r\n{\r\n    protected function getView()\r\n    {\r\n        $action = $this->request->getAction();\r\n        $listAll = ($action == ''listAll'');\r\n\r\n        $criteria = new criteria;\r\n        $criteria->add(''active'', 1)->setOrderByFieldDesc(''created'');\r\n\r\n        $categoryMapper = $this->toolkit->getMapper(''quoter'', ''quoteCategory'');\r\n        $categories = $categoryMapper->searchAll();\r\n        $this->smarty->assign(''categories'', $categories);\r\n\r\n        if (!$listAll) {\r\n            $name = $this->request->getString(''name'');\r\n\r\n            $category = null;\r\n            foreach ($categories as $cat) {\r\n                if ($cat->getName() == $name) {\r\n                    $category = $cat;\r\n                    break;\r\n                }\r\n            }\r\n\r\n            if (!$category) {\r\n                return $categoryMapper->get404()->run();\r\n            }\r\n\r\n            $criteria->add(''category_id'', $category->getId());\r\n            $this->smarty->assign(''category'', $category);\r\n        }\r\n\r\n        $quoteMapper = $this->toolkit->getMapper(''quoter'', ''quote'');\r\n        $pager = $this->setPager($quoteMapper, 10, true);\r\n        $quotes = $quoteMapper->searchAllByCriteria($criteria);\r\n\r\n        //если получаем список конкретной категории, то есть шанс пересчитать количество элементов в категории\r\n        if (!$listAll) {\r\n            if ($category->getQuoteCounts() != $pager->getItemsCount()) {\r\n                $category->setQuoteCounts($pager->getItemsCount());\r\n                $categoryMapper->save($category);\r\n            }\r\n        }\r\n\r\n        $this->smarty->assign(''quotes'', $quotes);\r\n        $this->smarty->assign(''listAll'', $listAll);\r\n        return $this->smarty->fetch(''quoter/list.tpl'');\r\n    }\r\n}\r\n\r\n?>','','0',2,1,1),
+  (14,48,1,1227939331,'s\r\ndf\r\nas\r\ndf\r\nas\r\ndf','','sdfsdf',0,1,0),
+  (15,49,1,1227939358,'sd\r\nfa\r\nsdf\r\nas\r\ndf','','0',0,1,2),
+  (16,50,1,1227939458,'as\r\ndf\r\nasd\r\nf\r\nasdf','','',0,1,0),
+  (17,56,1,1227958275,'session_start();\r\nif ($_SESSION[''ok''] !== 1){\r\necho \"Сделали , блок сесиией\";\r\n$_SESSION[''ok''] = ''1'';\r\n } else {\r\necho \"Блок!\";\r\n}','2, 4','Mr_Smile: сматрите ) в первый раз на странице должна быть надпись \"Сделали блок сессией\"\r\nMr_Smile:  при последующих обновлениях надпись должн абыть \"Блок\"\r\nMr_Smile: а сколько ни обновляй все кажет \"Сделали блок сессией\"\r\nMr_Smile: я ахутнГ?',0,1,1),
+  (18,69,1,1228053313,'<?php\r\n/**\r\n * $URL$\r\n *\r\n * MZZ Content Management System (c) 2008\r\n * Website : http://www.mzz.ru\r\n *\r\n * This program is free software and released under\r\n * the GNU Lesser General Public License (See /docs/LGPL.txt).\r\n *\r\n * @link http://www.mzz.ru\r\n * @version $Id$\r\n */\r\n\r\nfileLoader::load(''forms/validators/formValidator'');\r\n\r\n/**\r\n * quoterSaveController: контроллер для метода add модуля quoter\r\n *\r\n * @package modules\r\n * @subpackage quoter\r\n * @version 0.1\r\n */\r\n\r\nclass quoterSaveController extends simpleController\r\n{\r\n    protected function getView()\r\n    {\r\n        $action = $this->request->getAction();\r\n        $isEdit = ($action == ''edit'');\r\n\r\n        $quoteMapper = $this->toolkit->getMapper(''quoter'', ''quote'');\r\n        $categoryMapper = $this->toolkit->getMapper(''quoter'', ''quoteCategory'');\r\n        if ($isEdit) {\r\n            $id = $this->request->getInteger(''id'');\r\n            $quote = $quoteMapper->searchById($id);\r\n\r\n            if (!$quote) {\r\n                return $quoteMapper->get404()->run();\r\n            }\r\n        } else {\r\n            $quote = $quoteMapper->create();\r\n        }\r\n\r\n        $currentCategory = (!$isEdit) ? $this->request->getString(''name'') : '''';\r\n        $this->smarty->assign(''currentCategory'', ($isEdit) ? $quote->getCategory()->getId() : null);\r\n\r\n        $categories = $categoryMapper->searchAll();\r\n        $categoriesSelect = array();\r\n        foreach ($categories as $category) {\r\n            if (!$isEdit && $category->getName() == $currentCategory) {\r\n                $this->smarty->assign(''currentCategory'', $category->getId());\r\n            }\r\n            $categoriesSelect[$category->getId()] = $category->getTitle();\r\n        }\r\n\r\n        $lines = $quote->getHighlightedLines();\r\n        $linesPost = $this->request->getArray(''lines'', SC_POST);\r\n        if ($linesPost) {\r\n            $lines = $linesPost;\r\n        }\r\n        $this->smarty->assign(''lines'', $lines);\r\n\r\n        $validator = new formValidator();\r\n        $validator->add(''required'', ''text'', ''Укажите код'');\r\n        $validator->add(''callback'', ''text'', ''Такой длинный код врядли может быть смешным'', array(''checkCodeLength''));\r\n        $validator->add(''required'', ''category_id'', ''Укажите язык'');\r\n        $validator->add(''in'', ''category_id'', ''Укажите правильный язык'', array_keys($categoriesSelect));\r\n\r\n        if (!$isEdit) {\r\n            $validator->add(''required'', ''captcha'', ''Произвол не пройдёт!'');\r\n            $validator->add(''captcha'', ''captcha'', ''Неверно введен проверочный код!'');\r\n        }\r\n\r\n        if ($validator->validate()) {\r\n            $categoryId = $this->request->getInteger(''category_id'', SC_POST);\r\n            $text = $this->request->getString(''text'', SC_POST);\r\n            $description = $this->request->getString(''description'', SC_POST);\r\n\r\n            $lines = $this->request->getArray(''lines'', SC_POST);\r\n            if (!is_array($lines)) {\r\n                $lines = array();\r\n            }\r\n\r\n            $linesCount = substr_count($text, \"\\n\");\r\n\r\n            $highlightedLines = array();\r\n            foreach ($lines as $line) {\r\n                if ($line > 0 && $line <= $linesCount && !in_array($line, $highlightedLines)) {\r\n                    $highlightedLines[] = $line;\r\n                }\r\n            }\r\n\r\n            $quote->setCategory($categoryId);\r\n            $quote->setText(trim($text));\r\n            $quote->setDescription($description);\r\n            $quote->setHighlitedLines(join('', '', $highlightedLines));\r\n            $quoteMapper->save($quote);\r\n\r\n            $url = new url(''quoteView'');','','<?php\r\n/**\r\n * $URL$\r\n *\r\n * MZZ Content Management System (c) 2008\r\n * Website : http://www.mzz.ru\r\n *\r\n * This program is free software and released under\r\n * the GNU Lesser General Public License (See /docs/LGPL.txt).\r\n *\r\n * @link http://www.mzz.ru\r\n * @version $Id$\r\n */\r\n\r\nfileLoader::load(''forms/validators/formValidator'');\r\n\r\n/**\r\n * quoterSaveController: контроллер для метода add модуля quoter\r\n *\r\n * @package modules\r\n * @subpackage quoter\r\n * @version 0.1\r\n */\r\n\r\nclass quoterSaveController extends simpleController\r\n{\r\n    protected function getView()\r\n    {\r\n        $action = $this->request->getAction();\r\n        $isEdit = ($action == ''edit'');\r\n\r\n        $quoteMapper = $this->toolkit->getMapper(''quoter'', ''quote'');\r\n        $categoryMapper = $this->toolkit->getMapper(''quoter'', ''quoteCategory'');\r\n        if ($isEdit) {\r\n            $id = $this->request->getInteger(''id'');\r\n            $quote = $quoteMapper->searchById($id);\r\n\r\n            if (!$quote) {\r\n                return $quoteMapper->get404()->run();\r\n            }\r\n        } else {\r\n            $quote = $quoteMapper->create();\r\n        }\r\n\r\n        $currentCategory = (!$isEdit) ? $this->request->getString(''name'') : '''';\r\n        $this->smarty->assign(''currentCategory'', ($isEdit) ? $quote->getCategory()->getId() : null);\r\n\r\n        $categories = $categoryMapper->searchAll();\r\n        $categoriesSelect = array();\r\n        foreach ($categories as $category) {\r\n            if (!$isEdit && $category->getName() == $currentCategory) {\r\n                $this->smarty->assign(''currentCategory'', $category->getId());\r\n            }\r\n            $categoriesSelect[$category->getId()] = $category->getTitle();\r\n        }\r\n\r\n        $lines = $quote->getHighlightedLines();\r\n        $linesPost = $this->request->getArray(''lines'', SC_POST);\r\n        if ',1,1,6);
 COMMIT;
 
 #
@@ -286,18 +357,19 @@ CREATE TABLE `quoter_quoteCategory` (
   `quote_counts` INTEGER(10) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=6 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=7 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `quoter_quoteCategory` table  (LIMIT 0,500)
 #
 
 INSERT INTO `quoter_quoteCategory` (`id`, `obj_id`, `name`, `title`, `quote_counts`) VALUES 
-  (1,22,'php','PHP',1),
+  (1,22,'php','PHP',10),
   (2,23,'javascript','JavaScript',0),
   (3,34,'mysql','MySQL',1),
   (4,35,'perl','PERL',0),
-  (5,36,'python','Python',0);
+  (5,36,'python','Python',1),
+  (6,45,'cpp','C++',0);
 COMMIT;
 
 #
@@ -313,7 +385,22 @@ CREATE TABLE `quoter_votes` (
   `created` INTEGER(11) NOT NULL,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=1 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=9 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Data for the `quoter_votes` table  (LIMIT 0,500)
+#
+
+INSERT INTO `quoter_votes` (`id`, `ip`, `quote_id`, `created`) VALUES 
+  (1,'127.0.0.1',13,1227926027),
+  (2,'127.0.0.1',12,1227926070),
+  (3,'127.0.0.1',10,1227926174),
+  (4,'127.0.0.1',9,1227926226),
+  (5,'127.0.0.1',8,1227926231),
+  (6,'127.0.0.1',11,1227926590),
+  (7,'127.0.0.1',13,1227936796),
+  (8,'127.0.0.1',18,1228054138);
+COMMIT;
 
 #
 # Structure for the `sys_access` table : 
@@ -348,7 +435,7 @@ CREATE TABLE `sys_access_registry` (
   `class_section_id` INTEGER(11) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`obj_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=41 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=98 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_access_registry` table  (LIMIT 0,500)
@@ -386,7 +473,63 @@ INSERT INTO `sys_access_registry` (`obj_id`, `class_section_id`) VALUES
   (35,55),
   (36,55),
   (38,54),
-  (40,54);
+  (40,54),
+  (41,54),
+  (42,54),
+  (43,54),
+  (44,56),
+  (45,55),
+  (46,54),
+  (47,54),
+  (48,54),
+  (49,54),
+  (50,54),
+  (51,11),
+  (52,10),
+  (53,11),
+  (54,10),
+  (55,11),
+  (56,54),
+  (57,11),
+  (58,10),
+  (59,10),
+  (60,10),
+  (61,10),
+  (62,10),
+  (63,10),
+  (64,10),
+  (65,10),
+  (66,11),
+  (67,10),
+  (68,10),
+  (69,54),
+  (70,11),
+  (71,10),
+  (72,10),
+  (73,10),
+  (74,10),
+  (75,10),
+  (76,11),
+  (77,10),
+  (78,10),
+  (79,10),
+  (80,10),
+  (82,10),
+  (83,10),
+  (84,10),
+  (85,10),
+  (86,10),
+  (87,10),
+  (88,10),
+  (89,10),
+  (90,11),
+  (91,11),
+  (92,10),
+  (93,10),
+  (94,11),
+  (95,10),
+  (96,11),
+  (97,10);
 COMMIT;
 
 #
@@ -401,7 +544,7 @@ CREATE TABLE `sys_actions` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=110 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=111 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_actions` table  (LIMIT 0,500)
@@ -490,7 +633,8 @@ INSERT INTO `sys_actions` (`id`, `name`) VALUES
   (106,'listAll'),
   (107,'add'),
   (108,'quote'),
-  (109,'rss');
+  (109,'rss'),
+  (110,'searchAll');
 COMMIT;
 
 #
@@ -761,7 +905,7 @@ CREATE TABLE `sys_classes_actions` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `class_id` (`class_id`, `action_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=301 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=308 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_classes_actions` table  (LIMIT 0,500)
@@ -934,7 +1078,6 @@ INSERT INTO `sys_classes_actions` (`id`, `class_id`, `action_id`) VALUES
   (252,45,5),
   (253,1,97),
   (254,47,9),
-  (255,47,3),
   (258,48,9),
   (259,48,98),
   (260,49,9),
@@ -958,9 +1101,11 @@ INSERT INTO `sys_classes_actions` (`id`, `class_id`, `action_id`) VALUES
   (290,55,9),
   (291,56,9),
   (292,57,9),
-  (298,57,109),
   (299,55,2),
-  (300,55,1);
+  (300,55,1),
+  (305,57,72),
+  (306,56,74),
+  (307,57,110);
 COMMIT;
 
 #
@@ -1100,7 +1245,7 @@ INSERT INTO `sys_modules` (`id`, `name`, `main_class`, `title`, `icon`, `order`)
   (19,'pager',NULL,'Пейджер',NULL,NULL),
   (20,'simple',NULL,'simple',NULL,NULL),
   (21,'ratings',53,'Рейтинги','',0),
-  (22,'quoter',57,'','',0);
+  (22,'quoter',57,'Цитатник','',0);
 COMMIT;
 
 #
@@ -1113,7 +1258,7 @@ CREATE TABLE `sys_obj_id` (
   `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=41 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=98 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_obj_id` table  (LIMIT 0,500)
@@ -1159,7 +1304,64 @@ INSERT INTO `sys_obj_id` (`id`) VALUES
   (37),
   (38),
   (39),
-  (40);
+  (40),
+  (41),
+  (42),
+  (43),
+  (44),
+  (45),
+  (46),
+  (47),
+  (48),
+  (49),
+  (50),
+  (51),
+  (52),
+  (53),
+  (54),
+  (55),
+  (56),
+  (57),
+  (58),
+  (59),
+  (60),
+  (61),
+  (62),
+  (63),
+  (64),
+  (65),
+  (66),
+  (67),
+  (68),
+  (69),
+  (70),
+  (71),
+  (72),
+  (73),
+  (74),
+  (75),
+  (76),
+  (77),
+  (78),
+  (79),
+  (80),
+  (81),
+  (82),
+  (83),
+  (84),
+  (85),
+  (86),
+  (87),
+  (88),
+  (89),
+  (90),
+  (91),
+  (92),
+  (93),
+  (94),
+  (95),
+  (96),
+  (97);
 COMMIT;
 
 #
@@ -1174,7 +1376,7 @@ CREATE TABLE `sys_obj_id_named` (
   PRIMARY KEY (`obj_id`),
   UNIQUE KEY `name` (`name`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=29 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=45 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_obj_id_named` table  (LIMIT 0,500)
@@ -1191,7 +1393,8 @@ INSERT INTO `sys_obj_id_named` (`obj_id`, `name`) VALUES
   (8,'access_tags_tagsItem'),
   (9,'access_user_userFolder'),
   (27,'user_userFolder'),
-  (28,'user_groupFolder');
+  (28,'user_groupFolder'),
+  (44,'quoter_quoteFolder');
 COMMIT;
 
 #
@@ -1388,7 +1591,7 @@ AUTO_INCREMENT=3 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci'
 #
 
 INSERT INTO `user_userAuth` (`id`, `user_id`, `ip`, `hash`, `obj_id`, `time`) VALUES 
-  (1,2,'127.0.0.1','ff8016044599df55feddb81887319425',NULL,1227319040),
+  (1,2,'127.0.0.1','ff8016044599df55feddb81887319425',NULL,1228272639),
   (2,2,'127.0.0.1','687ff7f98a7f3ea102baee8cf5ab4ffc',NULL,1227331503);
 COMMIT;
 
