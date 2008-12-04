@@ -34,7 +34,6 @@ class quote extends simple
             $text = implode("\n", array_slice(explode("\n", $text), 0, $linesNum));
         }
 
-
         return trim($text);
     }
 
@@ -93,17 +92,20 @@ class quote extends simple
         $this->mapper->save($this);
     }
 
+    //@todo: идентификатор группы moderators(4) убрать
     public function getAcl($name = null)
     {
         $user = systemToolkit::getInstance()->getUser();
 
+        $groups = $user->getGroupsList();
+
         switch ($name) {
             case 'edit':
+                return in_array(MZZ_ROOT_GID, $groups);
+                break;
+
             case 'delete':
-                $groups = $user->getGroupsList();
-                if (in_array(MZZ_ROOT_GID, $groups)) {
-                    return true;
-                }
+                return (in_array(4, $groups) || in_array(MZZ_ROOT_GID, $groups));
                 break;
         }
 

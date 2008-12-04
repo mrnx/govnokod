@@ -36,7 +36,13 @@
 <div class="rounded-box right-box">
     <b class="r10"></b><b class="r7"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r2"></b><b class="r1"></b><b class="r1"></b><b class="r1"></b>
     <div class="inner-box">
-        <ul><li><a href="">Все</a></li>{foreach from=$categories item="cat"}<li><a href="{url route="categoryList" name=$cat->getName()|htmlspecialchars}">{$cat->getTitle()|htmlspecialchars} ({$cat->getQuoteCounts()})</a></li>{/foreach}</ul>
+        {strip}<ul>
+            <li>{if $category|default:false}<a href="/">Все</a>{else}Все{/if}</li>
+            {foreach from=$categories item="cat"}
+            {if $category|default:false && $category->getId() == $cat->getId()}{assign var="isActive" value=true}{else}{assign var="isActive" value=false}{/if}
+            <li>{if !$isActive}<a href="{url route="categoryList" name=$cat->getName()|htmlspecialchars}">{/if}{$cat->getTitle()|htmlspecialchars} ({$cat->getQuoteCounts()}){if !$isActive}</a>{/if}</li>
+            {/foreach}
+        </ul>{/strip}
     </div>
     <b class="r1"></b><b class="r1"></b><b class="r1"></b><b class="r2"></b><b class="r2"></b><b class="r3"></b><b class="r4"></b><b class="r5"></b><b class="r7"></b><b class="r10"></b>
 </div>
