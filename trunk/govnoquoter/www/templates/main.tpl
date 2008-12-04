@@ -16,7 +16,7 @@
     <div style="clear:both"></div>
     <ul class="sub-menu">
         <li class="left">&nbsp;</li>
-    	<li><a href="{url route="search" mode="dabest"}">Лучший</a></li>
+    	<li><a href="{url route="best"}">Лучший</a></li>
     	<li><a href="{url route="search"}">Поиск</a></li>
     	<li class="right">&nbsp;</li>
     </ul>
