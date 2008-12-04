@@ -119,7 +119,15 @@ div.footer {
     color: #3F3F3F;
 }
 
-.pagination{font-size:20px; margin-top: 25px;}
-.pagination span{display:block;margin-right:5px}
-.pagination a:link,.pagination a:visited{display:block;float:left;background:url(../images/page.png) no-repeat;width:39px;text-align:center;height:39px;line-height:39px;margin-right:5px}
-.pagination a.active:link,.pagination a.active:visited{color:#999;text-decoration:none}
+ul.pagination {
+    list-style: none;
+    font-size: 20px;
+    margin-top: 25px;
+}
+
+.pagination li {
+    float: left;
+}
+
+.pagination a:link, .pagination a:visited{display:block;background:url(../images/page.png) no-repeat;width:39px;text-align:center;height:39px;line-height:39px;margin-right:5px}
+.pagination a.active:link, .pagination a.active:visited{color:#999;text-decoration:none}

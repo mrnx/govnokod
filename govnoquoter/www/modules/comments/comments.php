@@ -36,7 +36,7 @@ class comments extends simple
             case 'edit':
             case 'delete':
                 $groups = $user->getGroupsList();
-                if (in_array(MZZ_ROOT_GID, $groups)) {
+                if (in_array(4, $groups) || in_array(MZZ_ROOT_GID, $groups)) {
                     return true;
                 }
                 break;

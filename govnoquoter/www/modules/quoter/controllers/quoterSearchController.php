@@ -52,15 +52,45 @@ class quoterSearchController extends simpleController
         $mode = $this->request->getString('mode');
         switch ($mode) {
             case 'dabest':
+                $time = $this->request->getString('time', SC_GET);
+                switch ($time) {
+                    case 'month':
+                        $nowTime = time();
+                        $lastMonthTime = strtotime('-1 month', $nowTime);
+
+                        $criteria->add('created', $nowTime, criteria::LESS_EQUAL)->add('created', $lastMonthTime, criteria::GREATER_EQUAL);
+                        break;
+
+                    case 'week':
+                        $nowTime = time();
+                        $lastWeekTime = strtotime('-1 week', $nowTime);
+
+                        $criteria->add('created', $nowTime, criteria::LESS_EQUAL)->add('created', $lastWeekTime, criteria::GREATER_EQUAL);
+                        break;
+
+                    case 'ever':
+                    default:
+                        $time = 'ever';
+                        break;
+                }
+
+                $this->smarty->assign('time', $time);
                 $criteria->setOrderByFieldDesc('rating')->setLimit(10);
                 break;
 
             default:
-                $mode = '';
+                $mode = 'word';
+
+                $word = trim($this->request->getString('search', SC_GET));
+                $word = mb_substr($word, 0, 50);
+                if ($word) {
+                    $criteria->add('text', '%' . $word . '%', criteria::LIKE);
+                }
+                $this->smarty->assign('word', $word);
+                $this->setPager($quoteMapper, 10, true);
                 break;
         }
 
-        //$pager = $this->setPager($quoteMapper, 10, true);
         $quotes = $quoteMapper->searchAllByCriteria($criteria);
 
         $this->smarty->assign('quotes', $quotes);
