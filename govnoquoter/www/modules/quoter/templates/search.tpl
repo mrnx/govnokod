@@ -35,10 +35,11 @@
 </div>
 <div style="clear: both;"></div>
 
+{if $word != ''}
 {foreach from=$quotes item="quote"}
     {include file="quoter/listitem.tpl" quote=$quote}
 {foreachelse}
-    <div class="rounded-box" style="width: 100%;">
+<div class="rounded-box" style="width: 100%;">
     <b class="r10"></b><b class="r7"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r2"></b><b class="r1"></b><b class="r1"></b><b class="r1"></b>
     <div class="inner-box">
         <h1>Пусто</h1>
@@ -50,4 +51,5 @@
 
 {if $pager|default:false &&  $pager->getPagesTotal() > 1}
     {$pager->toString()}
+{/if}
 {/if}

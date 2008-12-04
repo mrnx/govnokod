@@ -49,22 +49,26 @@ class quoterSearchController extends simpleController
 
         $this->smarty->assign('category', $category);
 
+        $quotes = array();
+
         $mode = $this->request->getString('mode');
         switch ($mode) {
             default:
+                $this->setPager($quoteMapper, 10, true);
                 $mode = 'word';
 
                 $word = trim($this->request->getString('search', SC_GET));
                 $word = mb_substr($word, 0, 50);
                 if ($word) {
+                    $criteria->add('active', 1)->setOrderByFieldDesc('created');
                     $criteria->add('text', '%' . $word . '%', criteria::LIKE);
+
+                    $quotes = $quoteMapper->searchAllByCriteria($criteria);
                 }
+
                 $this->smarty->assign('word', $word);
-                $this->setPager($quoteMapper, 10, true);
                 break;
         }
-
-        $quotes = $quoteMapper->searchAllByCriteria($criteria);
 
         $this->smarty->assign('quotes', $quotes);
         $this->smarty->assign('mode', $mode);
