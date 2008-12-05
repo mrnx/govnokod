@@ -9,7 +9,7 @@
         <div class="item">
         	<h3>
         	   <span class="rate"><a name="comment{$comment->getId()}">&nbsp;</a><a href="{url}#comment{$smarty.foreach.commentIterator.iteration}" name="comment{$smarty.foreach.commentIterator.iteration}">#{$smarty.foreach.commentIterator.iteration}</a></span>
-        	   {$comment->getAuthor()|htmlspecialchars} <span class="commentDate">({$comment->getTime()|date_i18n:"relative_hour"})</span>{if $comment->getAcl('edit')}, ip: {$comment->getAuthorIp()|htmlspecialchars}{/if} {$comment->getJip()}
+        	   {if $comment->getAuthor() != ''}<em>Говногость</em>{else}{$comment->getAuthor()|htmlspecialchars}{/if} <span class="commentDate">({$comment->getTime()|date_i18n:"relative_hour"})</span>{if $comment->getAcl('edit')}, ip: {$comment->getAuthorIp()|htmlspecialchars}{/if} {$comment->getJip()}
         	</h3>
             <p>{$comment->getText()|htmlspecialchars|nl2br}</p>
         </div>
