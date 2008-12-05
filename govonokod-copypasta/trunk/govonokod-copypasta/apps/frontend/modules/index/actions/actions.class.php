@@ -17,6 +17,8 @@ class indexActions extends sfActions
   */
   public function executeIndex($request)
   {
+    $this->getResponse()->setTitle('Добавление говнокода');
+    
     $form = new CopypastaForm();
     if ($request->isMethod('post'))
     {
@@ -52,6 +54,7 @@ class indexActions extends sfActions
   * @param sfRequest $request A request object
   */
   public  function executeItem($request) {
+    $this->getResponse()->setTitle('Редактирование говнокода под номером '.$request->getParameter('id'));
     $this->forward404Unless($copypasta = CopypastaPeer::retrieveByPK($request->getParameter('id')));
 
     $this->copypasta   = $copypasta;

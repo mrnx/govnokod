@@ -50,6 +50,22 @@
         <source>Submit a correction or amendment below.</source>
         <target>Внести изменения</target>
       </trans-unit>
+      <trans-unit id="13">
+        <source>Posted by %1% at %2%</source>
+        <target>Добавлено %1% (%2%)</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>at %1%</source>
+        <target>%1%</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Govnokode</source>
+        <target>Код</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Govnobash</source>
+        <target>Говнокод</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

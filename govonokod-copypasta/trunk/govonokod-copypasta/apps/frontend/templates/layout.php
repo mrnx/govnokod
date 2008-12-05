@@ -6,7 +6,14 @@
 <?php include_metas() ?>
 
 <?php include_title() ?>
-
+<!--[if IE]>
+<style type="text/css">
+  .rounded-css3 {
+    border: 1px solid #999 !important;
+    background-color: #fff !important;
+  }
+</style>
+<![endif]--> 
 <link rel="shortcut icon" href="/favicon.ico" />
 
 </head>
@@ -17,15 +24,13 @@
   </a>
 
   <ul class="menu">
-    <li class="active"><a href="#">Говнобин</a></li>
-    <li><a href="#">Говнобаш</a></li>
-    <li><a href="#">Говноблог</a></li>
+    <li class="active"><?php echo link_to(__('Govnokode'), '@homepage')?></li>
+    <li><?php echo link_to(__('Govnobash'), 'http://www.govnokod.ru/')?></li>
   </ul>
   
   <div id="b-left" class="rounded rounded-css3 rounded-svg">
     <?php include_partial('index/actions');?><br /><br />
     <?php include_component('index', 'lastCopypastas');?><br />
-    <?php include_partial('global/credits');?>
   </div>
   <div id="b-center" class="rounded rounded-css3 rounded-svg">
     <?php echo $sf_content ?>
