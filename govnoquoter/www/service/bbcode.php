@@ -639,32 +639,12 @@ class bbcode
      */
     protected function handleCode($code, $lang = '')
     {
-        $code = str_replace(array('<br>', '<br />'), '', trim($code));
+        $code = htmlspecialchars_decode(trim(str_replace(array('<br>', '<br />'), '', $code)));
 
-        switch ($lang) {
-            case 'php':
-            case 'cpp':
-            case 'javascript':
-            case 'mysql':
-            case 'python':
-            case 'perl':
-            case 'delphi':
-            case 'java':
-                $code = htmlspecialchars_decode($code);
-                fileLoader::load('libs/geshi/geshi');
-                $geshi = new GeSHi($code, $lang);
-
-                $geshi->set_comments_style(1, 'color: #666666;');
-                $geshi->set_comments_style(2, 'color: #666666;');
-                $geshi->set_comments_style(3, 'color: #0000cc;');
-                $geshi->set_comments_style(4, 'color: #009933;');
-                $geshi->set_comments_style('MULTI', 'color: #666666;');
-
-                return $geshi->parse_code();
-                break;
-        }
-
-        return '<pre class="code">' . $code . '</pre>';
+        fileLoader::load('libs/geshi/geshi');
+        $geshi = new GeSHi($code, $lang);
+        $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
+        return $geshi->parse_code();
     }
 
     /**

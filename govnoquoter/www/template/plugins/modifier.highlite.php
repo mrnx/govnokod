@@ -1,5 +1,5 @@
 <?php
-function smarty_modifier_highlite($source, $language = 'plain', Array $highlight = array(), $cacheKey = null)
+function smarty_modifier_highlite($source, $language = 'text', Array $highlight = array(), $cacheKey = null)
 {
     if ($cacheKey) {
         fileLoader::load('cache');
@@ -10,37 +10,23 @@ function smarty_modifier_highlite($source, $language = 'plain', Array $highlight
     }
 
     fileLoader::load('libs/geshi/geshi');
-    switch ($language) {
-        case 'plain':
-            $geshi = new GeSHi($source, 'text');
-            break;
+    $geshi = new GeSHi($source, $language);
 
-        default:
-            fileLoader::load('libs/geshi/geshi');
-            $geshi = new GeSHi($source, $language);
-
-            $geshi->set_comments_style(1, 'color: #666666;');
-            $geshi->set_comments_style(2, 'color: #666666;');
-            $geshi->set_comments_style(3, 'color: #0000cc;');
-            $geshi->set_comments_style(4, 'color: #009933;');
-            $geshi->set_comments_style('MULTI', 'color: #666666;');
-
-            break;
-    }
+    $geshi->set_comments_style(1, 'color: #666666;');
+    $geshi->set_comments_style(2, 'color: #666666;');
+    $geshi->set_comments_style(3, 'color: #0000cc;');
+    $geshi->set_comments_style(4, 'color: #009933;');
+    $geshi->set_comments_style('MULTI', 'color: #666666;');
 
     if ($highlight) {
         $geshi->highlight_lines_extra($highlight);
     }
-
 
     $css = systemConfig::$pathToApplication . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'langs' . DIRECTORY_SEPARATOR . $language . '.css';
     if (!file_exists($css)) {
         file_put_contents($css, $geshi->get_stylesheet(false));
     }
 
-
-    //$geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
-    //$geshi->set_overall_style('width: 1048px; overflow-x: auto;', true);
     $geshi->enable_classes();
     $code = $geshi->parse_code();
 
