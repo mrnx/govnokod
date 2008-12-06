@@ -637,14 +637,24 @@ class bbcode
      * @param string $code
      * @return string
      */
-    protected function handleCode($code, $lang = '')
+    protected function handleCode($code, $lang = 'text')
     {
+        $lang = strtolower($lang);
         $code = htmlspecialchars_decode(trim(str_replace(array('<br>', '<br />'), '', $code)));
 
         fileLoader::load('libs/geshi/geshi');
         $geshi = new GeSHi($code, $lang);
+        //если такой язык подсветки не найден, то принуждаем использовать простой текст
+        if ($geshi->error() !== false) {
+            $lang = 'text';
+            $geshi->set_language('text');
+        }
+
+        $geshi->set_header_type(GESHI_HEADER_PRE_VALID);
         $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
-        return $geshi->parse_code();
+        $code = $geshi->parse_code();
+        return $code;
+        //return '<div class="codeBlock"><div class="codeName"><em>Код <strong>' . $lang . '</strong>:</em></div>' . $code . '</div>';
     }
 
     /**

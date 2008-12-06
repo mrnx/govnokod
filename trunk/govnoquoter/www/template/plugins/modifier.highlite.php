@@ -12,6 +12,11 @@ function smarty_modifier_highlite($source, $language = 'text', Array $highlight 
     fileLoader::load('libs/geshi/geshi');
     $geshi = new GeSHi($source, $language);
 
+    //если такой язык подсветки не найден, то принуждаем использовать простой текст
+    if ($geshi->error() !== false) {
+        $geshi->set_language('text');
+    }
+
     $geshi->set_comments_style(1, 'color: #666666;');
     $geshi->set_comments_style(2, 'color: #666666;');
     $geshi->set_comments_style(3, 'color: #0000cc;');

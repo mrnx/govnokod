@@ -43,3 +43,11 @@
 .quoteAuthor {
     font-style: italic;
 }
+
+.codeBlock {
+    border: 1px solid #999999;
+    padding: 10px 10px 10px 10px;
+    margin: 2px 2px 2px 2px;
+    font-size: 12px;
+    background: #EFEFEF;
+}
