@@ -12,7 +12,7 @@
         	   <span class="rate"><a name="comment{$comment->getId()}">&nbsp;</a><a href="{url}#comment{$smarty.foreach.commentIterator.iteration}" name="comment{$smarty.foreach.commentIterator.iteration}">#{$smarty.foreach.commentIterator.iteration}</a></span>
         	   {if $comment->getAuthor() == ''}<em>Говногость</em>{else}{$comment->getAuthor()|htmlspecialchars}{/if} <span class="commentDate">({$comment->getTime()|date_i18n:"relative_hour"})</span>{if $comment->getAcl('edit')}, ip: {$comment->getAuthorIp()|htmlspecialchars}{/if} {$comment->getJip()}
         	</h3>
-            {$comment->getText()|trim|htmlspecialchars|nl2br|bbcode}
+            {$comment->getText()|trim|htmlspecialchars|bbcode|nl2br}
         </div>
     {/foreach}
     </div>
