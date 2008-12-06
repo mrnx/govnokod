@@ -44,6 +44,7 @@ class formCaptchaField extends formElement
 
         $attributes['type'] = 'text';
         $attributes['value'] = '';
+        $attributes['style'] = 'font-size: 24px; vertical-align: middle;';
         return $hidden . $image . ' &#8250; ' . $this->renderTag('input', $attributes);
     }
 }
