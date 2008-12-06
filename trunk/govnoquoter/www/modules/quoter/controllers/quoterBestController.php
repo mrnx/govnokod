@@ -70,7 +70,7 @@ class quoterBestController extends simpleController
         }
 
         $this->smarty->assign('time', $time);
-        $criteria->setOrderByFieldDesc('rating')->setLimit(10);
+        $criteria->add('rating', 0, criteria::GREATER)->setOrderByFieldDesc('rating')->setLimit(10);
 
         $quotes = $quoteMapper->searchAllByCriteria($criteria);
 
