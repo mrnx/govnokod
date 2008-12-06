@@ -3,6 +3,7 @@
 }
 
 .comment .item {
+    overflow: auto;
     background:url(../images/comment-dots.gif) left bottom repeat-x;
     padding:25px 0px 30px 0px;
     font-size:15px;
@@ -29,4 +30,16 @@
 .addcomment .fielderror {
     color: red;
     font-weight: bold;
+}
+
+.quote {
+    border: 1px solid #999999;
+    padding: 10px 10px 10px 10px;
+    margin: 2px 2px 2px 2px;
+    font-size: 12px;
+    background: #EEEEEE;
+}
+
+.quoteAuthor {
+    font-style: italic;
 }
