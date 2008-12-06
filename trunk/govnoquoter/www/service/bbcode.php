@@ -39,7 +39,7 @@ class bbcode
      * @var array
      */
     protected $smileys = array(
-    ':)' => 'smile'
+        //':)' => 'smile'
     );
 
     /**
