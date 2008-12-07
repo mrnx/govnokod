@@ -5,7 +5,7 @@
     <b class="r10"></b><b class="r7"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r2"></b><b class="r1"></b><b class="r1"></b><b class="r1"></b>
     <div class="inner-box">
         {assign var="commentsCount" value=$comments|@count}
-        <h2><a name="comments"></a>Комментарии ({$comments|@count}):</h2>
+        <h2><a name="comments"></a>Комментарии ({$comments|@count}): <a href="{url route="rssComments" id=$quote->getId()}" title="Подписка на комментарии"><img src="{$SITE_PATH}/templates/images/rss.jpg" alt="RSS 2.0" /></a></h2>
     {foreach from=$comments item="comment" name="commentIterator"}
         <div class="item">
         	<h3>

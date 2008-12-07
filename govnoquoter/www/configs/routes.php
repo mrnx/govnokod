@@ -40,4 +40,7 @@ $router->addRoute('default', new requestRoute('', array('section' => 'quoter', '
 
 $router->addRoute('tags', new requestRoute(':section/tag/:tag', array('action' => 'searchByTag'), array('tag' => '.+?')));
 
+$router->addRoute('rssComments', new requestRoute('comments/:id/export', array('section' => 'quoter', 'action' => 'exportComments')));
+$router->addRoute('rssAllComments', new requestRoute('comments/all/export', array('section' => 'quoter', 'action' => 'exportAllComments')));
+
 ?>

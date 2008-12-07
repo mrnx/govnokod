@@ -10,9 +10,9 @@
     <pubDate>{"D, d M Y H:i:s"|date:$smarty.now} GMT</pubDate>
     <lastBuildDate></lastBuildDate>
     {*<image>
-        <link>http://habrahabr.ru/</link>
-        <url>http://habrahabr.ru/i/logo.gif</url>
-        <title>Хабрахабр</title>
+        <link>http://govnokod.ru/</link>
+        <url>http://govnokod.ru/logo.gif</url>
+        <title>Govnokod.ru</title>
     </image>*}
     {foreach from=$quotes item="quote"}
     <item>
