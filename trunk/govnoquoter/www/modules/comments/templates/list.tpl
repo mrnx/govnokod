@@ -1,6 +1,6 @@
 {add file="comment.css" join=false}
 {assign var="commentsCount" value=0}
-{if !empty($comments)}
+
 <div class="rounded-box comment">
     <b class="r10"></b><b class="r7"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r2"></b><b class="r1"></b><b class="r1"></b><b class="r1"></b>
     <div class="inner-box">
@@ -14,10 +14,10 @@
         	</h3>
             {$comment->getText()|trim|htmlspecialchars|bbcode|nl2br}
         </div>
+    {foreachelse}
+        <p>Комментариев еще нет</p>
     {/foreach}
     </div>
     <b class="r1"></b><b class="r1"></b><b class="r1"></b><b class="r2"></b><b class="r2"></b><b class="r3"></b><b class="r4"></b><b class="r5"></b><b class="r7"></b><b class="r10"></b>
 </div>
-{/if}
-
 {load module="comments" section="comments" action="post" parent_id=$parent_id}
