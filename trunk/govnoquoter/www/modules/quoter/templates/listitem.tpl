@@ -23,8 +23,8 @@
                  {/if}
                 </ol>
                 {assign var="stripcount" value=15}
-                {if $quote->getLinesCount() > 15}{assign var="stripcount" value=17}{/if}
-                {$quote->getText($stripcount)|highlite:$langName:$quote->getHighlightedLines()}
+                {if $quote->getLinesCount() > 15}{assign var="stripcount" value=17}{assign var="cacheKey" value=null}{else}{assign var="cacheKey" value=$quote->getId()}{/if}
+                {$quote->getText($stripcount)|highlite:$langName:$quote->getHighlightedLines():$cacheKey}
             {/strip}
         </div>
 

@@ -54,7 +54,7 @@ class quoterSearchController extends simpleController
         $mode = $this->request->getString('mode');
         switch ($mode) {
             default:
-                $this->setPager($quoteMapper, 10, true);
+                $this->setPager($quoteMapper, 10, true, 4);
                 $mode = 'word';
 
                 $word = trim($this->request->getString('search', SC_GET));
