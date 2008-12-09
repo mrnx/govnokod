@@ -54,7 +54,7 @@ class quoterListController extends simpleController
         }
 
         $quoteMapper = $this->toolkit->getMapper('quoter', 'quote');
-        $pager = $this->setPager($quoteMapper, 10, true);
+        $pager = $this->setPager($quoteMapper, 10, true, 4);
         $quotes = $quoteMapper->searchAllByCriteria($criteria);
 
         //если получаем список конкретной категории, то есть шанс пересчитать количество элементов в категории
