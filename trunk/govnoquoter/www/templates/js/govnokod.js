@@ -93,7 +93,9 @@ function ajaxvote(aElem) {
                     break;
 
                 default:
-                    updateText = parseInt(transport.responseText);
+                    var newRating = parseInt(transport.responseText);
+                    updateText = new Element('span', {className: ((newRating > 0) ? 'rate_plus' : 'rate_minus')});
+                    updateText.insert(newRating);
                     break;
             }
             holder.update(updateText);

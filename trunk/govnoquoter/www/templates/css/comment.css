@@ -17,6 +17,10 @@
     font-weight:normal
 }
 
+.commentnumber {
+    float: right;
+}
+
 .comment .item p {
     padding:0px;
     margin:0px;
