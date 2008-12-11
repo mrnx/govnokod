@@ -11,9 +11,15 @@
     <lastBuildDate></lastBuildDate>
     {foreach from=$comments item="comment" name="commentsIterator"}
     <item>
+        {if !$exportAll}
         <title>Говнокаммент#{$smarty.foreach.commentsIterator.iteration}</title>
-        {if !$exportAll}<guid isPermaLink="true">{url route="quoteView" id=$quote->getId()}#comment{$comment->getId()}</guid>
-        <link>{url route="quoteView" id=$quote->getId()}#comment{$comment->getId()}</link>{/if}
+        <guid isPermaLink="true">{url route="quoteView" id=$comment->getFolder()->getParentId()}#comment{$comment->getId()}</guid>
+        <link>{url route="quoteView" id=$comment->getFolder()->getParentId()}#comment{$comment->getId()}</link>
+        {else}
+            <title>Говнокаммент#{$comment->getId()}</title>
+            <guid isPermaLink="true">{url route="quoteView" id=$comment->fakeField('quote_id')}#comment{$comment->getId()}</guid>
+            <link>{url route="quoteView" id=$comment->fakeField('quote_id')}#comment{$comment->getId()}</link>
+        {/if}
         <description>
             <![CDATA[
                 {if $comment->getAuthor() == ''}<i>Говногость</i>{else}{$comment->getAuthor()|htmlspecialchars}{/if}:<br />

@@ -28,7 +28,7 @@ class quoterExportCommentsController extends simpleController
         $exportAll = ($action == 'exportAllComments');
 
         $criteria = new criteria;
-        $criteria->setOrderByFieldDesc('time')->setLimit(50);
+        $criteria->setOrderByFieldAsc('time');
 
         $quoteMapper = $this->toolkit->getMapper('quoter', 'quote');
         $commentsMapper = $this->toolkit->getMapper('comments', 'comments', 'comments');
@@ -45,14 +45,15 @@ class quoterExportCommentsController extends simpleController
             $this->smarty->assign('quote', $quote);
             $criteria->add('folder_id.parent_id', $quote->getObjId());
         } else {
-            $criteria->setDistinct();
-            $criteria->addJoin($quoteMapper->getTable(), new criterion('folder_id.parent_id', $quoteMapper->getTable() . '.obj_id', criteria::EQUAL, true), null, criteria::JOIN_INNER);
+            $criteria->setLimit(50);
+            $criteria->addSelectField('quote.id', 'comments___quote_id');
+            $criteria->addJoin($quoteMapper->getTable(), new criterion('folder_id.parent_id', 'quote.obj_id', criteria::EQUAL, true), 'quote', criteria::JOIN_INNER);
         }
 
         $comments = $commentsMapper->searchAllByCriteria($criteria);
 
         $this->smarty->assign('exportAll', $exportAll);
-        $this->smarty->assign('comments', array_reverse($comments));
+        $this->smarty->assign('comments', $comments);
         $this->response->setHeader('Content-type', 'text/xml; charset=utf-8;');
         return $this->smarty->fetch('quoter/exportCommentsRss.tpl');
     }
