@@ -16,7 +16,7 @@
         <guid isPermaLink="true">{url route="quoteView" id=$comment->getFolder()->getParentId()}#comment{$comment->getId()}</guid>
         <link>{url route="quoteView" id=$comment->getFolder()->getParentId()}#comment{$comment->getId()}</link>
         {else}
-            <title>Говнокаммент#{$comment->getId()}</title>
+            <title>Говнокаммент#{$comment->getId()} для Говнокода#{$comment->fakeField('quote_id')}</title>
             <guid isPermaLink="true">{url route="quoteView" id=$comment->fakeField('quote_id')}#comment{$comment->getId()}</guid>
             <link>{url route="quoteView" id=$comment->fakeField('quote_id')}#comment{$comment->getId()}</link>
         {/if}

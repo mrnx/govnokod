@@ -28,7 +28,7 @@ class quoterExportCommentsController extends simpleController
         $exportAll = ($action == 'exportAllComments');
 
         $criteria = new criteria;
-        $criteria->setOrderByFieldAsc('time');
+        $criteria->setOrderByFieldDesc('time');
 
         $quoteMapper = $this->toolkit->getMapper('quoter', 'quote');
         $commentsMapper = $this->toolkit->getMapper('comments', 'comments', 'comments');
@@ -53,7 +53,7 @@ class quoterExportCommentsController extends simpleController
         $comments = $commentsMapper->searchAllByCriteria($criteria);
 
         $this->smarty->assign('exportAll', $exportAll);
-        $this->smarty->assign('comments', $comments);
+        $this->smarty->assign('comments', array_reverse($comments));
         $this->response->setHeader('Content-type', 'text/xml; charset=utf-8;');
         return $this->smarty->fetch('quoter/exportCommentsRss.tpl');
     }
