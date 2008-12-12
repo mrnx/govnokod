@@ -6,22 +6,18 @@
 <?php include_metas() ?>
 
 <?php include_title() ?>
-<!--[if IE]>
-<style type="text/css">
-  .rounded-css3 {
-    border: 1px solid #999 !important;
-    background-color: #fff !important;
-  }
-</style>
-<![endif]--> 
+
 <link rel="shortcut icon" href="/favicon.ico" />
 
 </head>
 <body>
-  <a href="#" class="header">
+  <a href="/" class="header">
     <img src="/images/logo.png" alt="Логотип портала Говнокод.Ру" title="Да, это говно" />
     Govnokod.ru
   </a>
+  
+  <?php echo link_to(image_tag('icon-plus.png'), 'index/index', array('class'=>'add-new-ico'))?>
+  <?php echo link_to('добавить', 'index/index', array('class'=>'add-new'))?>
 
   <ul class="menu">
     <li class="active"><?php echo link_to(__('Govnokode'), '@homepage')?></li>
@@ -29,7 +25,6 @@
   </ul>
   
   <div id="b-left" class="rounded rounded-css3 rounded-svg">
-    <?php include_partial('index/actions');?><br /><br />
     <?php include_component('index', 'lastCopypastas');?><br />
   </div>
   <div id="b-center" class="rounded rounded-css3 rounded-svg">

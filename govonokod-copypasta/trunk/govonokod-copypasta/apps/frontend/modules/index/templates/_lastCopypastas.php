@@ -1,5 +1,5 @@
 <?php if (count($copypastas) > 0): ?>
-  <h2 class="green"><?php echo __('Last copypastas') ?></h2>
+  <h2><?php echo __('Last copypastas') ?></h2>
   <ul>
   <?php foreach ($copypastas as $copypasta): ?>
     <li>
