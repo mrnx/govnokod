@@ -27,6 +27,7 @@
             ]]>
         </description>
         <pubDate>{"D, d M Y H:i:s"|date:$comment->getTime()} GMT</pubDate>
+        <author>{if $comment->getAuthor() == ''}Говногость{else}{$comment->getAuthor()|htmlspecialchars}{/if}</author>
         {if !$exportAll}<category>{$quote->getCategory()->getTitle()}</category>{/if}
     </item>
     {/foreach}

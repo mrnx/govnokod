@@ -113,6 +113,11 @@ ul.sub-menu li.right{background:url(../images/sub-menu-right.png) top left no-re
     font-weight: bold;
 }
 
+.rate a {
+    text-decoration: none;
+}
+
+
 .rate_plus {
     color: #41AF0A;
 }
