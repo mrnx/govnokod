@@ -17,11 +17,11 @@
   </a>
   
   <?php echo link_to(image_tag('icon-plus.png'), 'index/index', array('class'=>'add-new-ico'))?>
-  <?php echo link_to('добавить', 'index/index', array('class'=>'add-new'))?>
+  <?php echo link_to('Добавить!', 'index/index', array('class'=>'add-new'))?>
 
   <ul class="menu">
+    <li><?php echo link_to(__('Govnobash'), 'http://govnokod.ru/')?></li>
     <li class="active"><?php echo link_to(__('Govnokode'), '@homepage')?></li>
-    <li><?php echo link_to(__('Govnobash'), 'http://www.govnokod.ru/')?></li>
   </ul>
   
   <div id="b-left" class="rounded rounded-css3 rounded-svg">
