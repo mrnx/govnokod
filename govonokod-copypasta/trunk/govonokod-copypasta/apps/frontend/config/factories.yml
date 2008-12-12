@@ -24,7 +24,7 @@ all:
     class: sfI18N
     param:
       source:               XLIFF
-      debug:                on
+      debug:                off
       untranslated_prefix:  "[T]"
       untranslated_suffix:  "[/T]"
       cache:

@@ -58,7 +58,7 @@ class indexActions extends sfActions
     $this->forward404Unless($copypasta = CopypastaPeer::retrieveByPK($request->getParameter('id')));
 
     $this->copypasta   = $copypasta;
-    $this->highlighter = new sfGeshi($copypasta->getCopypasta(), $copypasta->getCopypastaLanguage()->getGeshiCode());
+    $this->highlighter = new sfGeshi($copypasta->getCopypasta(), ($copypasta->getCopypastaLanguage() instanceof CopypastaLanguage) ? $copypasta->getCopypastaLanguage()->getGeshiCode() : 'plain');
 
     $this->form        = new CopypastaForm($copypasta);
     $this->form->setDefault('username', is_null($this->getRequest()->getCookie('remember')) ? '' : $this->getRequest()->getCookie('remember'));
