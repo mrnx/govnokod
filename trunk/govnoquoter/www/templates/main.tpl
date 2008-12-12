@@ -26,6 +26,7 @@
     {$content}
 
     <div class="footer">
+        {$timer->toString()}
         © говнокод.ру
-        <img src="{$SITE_PATH}/templates/images/mrHankey.png" alt="Мистер Хэнки" title="Мистер Хэнки" />
+        <a href="http://ru.wikipedia.org/wiki/Мистер_Хэнки,_рождественская_какашка" title="Мистер Хэнки, рождественскаякакашка"><img src="{$SITE_PATH}/templates/images/mrHankey.png" alt="Мистер Хэнки" /></a>
     </div>
