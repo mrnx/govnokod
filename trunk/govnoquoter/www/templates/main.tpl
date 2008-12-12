@@ -27,5 +27,5 @@
 
     <div class="footer">
         © говнокод.ру
-        <a href="http://ru.wikipedia.org/wiki/Мистер_Хэнки,_рождественская_какашка" title="Мистер Хэнки, рождественскаякакашка"><img src="{$SITE_PATH}/templates/images/mrHankey.png" alt="Мистер Хэнки" /></a>
+        <a href="http://ru.wikipedia.org/wiki/Мистер_Хэнки,_рождественская_какашка" title="Мистер Хэнки, рождественская какашка"><img src="{$SITE_PATH}/templates/images/mrHankey.png" alt="Мистер Хэнки" /></a>
     </div>
