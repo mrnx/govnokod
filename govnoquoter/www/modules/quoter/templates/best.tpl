@@ -9,9 +9,11 @@
         <h1>Десятка лучшего{if $category} <a href="{url route="categoryList" name=$category->getName()}">{$category->getTitle()|htmlspecialchars}</a> {/if} говнокода</h1>
         {strip}{capture name="dabestUrl"}{if $category|default:false}{url route="best" name=$category->getName()}{else}{url route="best"}{/if}{/capture}
             <ul>
-                <li>{if $time != 'ever'}<a href="{$smarty.capture.dabestUrl}?time=ever">за всё время</a>{else}за всё время{/if}</li>
-                <li>{if $time != 'month'}<a href="{$smarty.capture.dabestUrl}?time=month">за месяц</a>{else}за месяц{/if}</li>
+                <li>{if $time != 'day'}<a href="{$smarty.capture.dabestUrl}?time=day">за этот день</a>{else}за этот день{/if}</li>
                 <li>{if $time != 'week'}<a href="{$smarty.capture.dabestUrl}?time=week">за неделю</a>{else}за неделю{/if}</li>
+                <li>{if $time != 'month'}<a href="{$smarty.capture.dabestUrl}?time=month">за месяц</a>{else}за месяц{/if}</li>
+                <li>{if $time != 'ever'}<a href="{$smarty.capture.dabestUrl}?time=ever">за всё время</a>{else}за всё время{/if}</li>
+
             </ul>
         {/strip}
     </div>
