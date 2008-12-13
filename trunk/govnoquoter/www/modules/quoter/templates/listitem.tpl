@@ -28,7 +28,7 @@
             {/strip}
         </div>
 
-        <span class="codeInfo"><a href="{url route="quoteView" id=$quote->getId()}#comments" title="перейти к списку комментариев">Комментарии({$quote->getCommentsCount()})</a></span>
+        <span class="codeInfo"><a href="{url route="quoteView" id=$quote->getId()}#comments" title="перейти к списку комментариев">Комментарии ({$quote->getCommentsCount()})</a></span>
 
         <div class="description">{$quote->getDescription()|htmlspecialchars|nl2br}</div>
     </div>
