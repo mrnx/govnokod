@@ -645,7 +645,7 @@ class bbcode
         fileLoader::load('libs/geshi/geshi');
         $geshi = new GeSHi($code, $lang);
         //если такой язык подсветки не найден, то принуждаем использовать простой текст
-        if ($geshi->error() !== false) {
+        if (empty($lang) || $geshi->error() !== false) {
             $lang = 'text';
             $geshi->set_language('text');
         }

@@ -26,6 +26,7 @@ class quoterBestController extends simpleController
     {
         $quoteMapper = $this->toolkit->getMapper('quoter', 'quote');
         $criteria = new criteria;
+        $criteria->add('active', 1);
 
         $categoryMapper = $this->toolkit->getMapper('quoter', 'quoteCategory');
         $categories = $categoryMapper->searchAll();
