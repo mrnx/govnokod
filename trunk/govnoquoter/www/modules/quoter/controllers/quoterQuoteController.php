@@ -27,7 +27,10 @@ class quoterQuoteController extends simpleController
         $id = $this->request->getInteger('id');
         $quoteMapper = $this->toolkit->getMapper('quoter', 'quote');
 
-        $quote = $quoteMapper->searchById($id);
+        $criteria = new criteria;
+        $criteria->add('active', 1)->add('id', $id);
+
+        $quote = $quoteMapper->searchOneByCriteria($criteria);
         if (!$quote) {
             return $quoteMapper->get404()->run();
         }
@@ -51,10 +54,30 @@ class quoterQuoteController extends simpleController
 
         $status = $oldRating;
 
-        $vote = $db->getOne('SELECT * FROM `quoter_votes` WHERE `ip` = "' . $ip . '" AND `quote_id` = ' . $quote->getId() . ' AND `created` > ' . (time() - 3600 * 2));
-        if (!$vote) {
+        $vote_tmp = $db->getOne('SELECT * FROM `quoter_votes` WHERE `ip` = "' . $ip . '" AND `quote_id` = ' . $quote->getId() . ' AND `created` > ' . (time() - quote::VOTE_TIMEOUT));
+        if (!$vote_tmp) {
             if ($newRating != $oldRating) {
                 $quote->setRating($newRating);
+
+                if ($newRating < 0) {
+                    if ($oldRating >= 0) {
+                        $quote->setDeleted(strtotime('+2 days'));
+                    } else {
+                        $deleted = $quote->getDeleted();
+                        switch ($vote) {
+                            case -1:
+                                $quote->setDeleted(strtotime('-2 hours', $deleted));
+                                break;
+
+                            case 1:
+                                $quote->setDeleted(strtotime('+1 hours', $deleted));
+                                break;
+                        }
+                    }
+                } else {
+                    $quote->setDeleted(0);
+                }
+
                 $quoteMapper->save($quote);
 
                 $voteData = array();

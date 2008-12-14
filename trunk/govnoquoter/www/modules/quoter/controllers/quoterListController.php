@@ -27,6 +27,9 @@ class quoterListController extends simpleController
         $action = $this->request->getAction();
         $listAll = ($action == 'listAll');
 
+        $quoteMapper = $this->toolkit->getMapper('quoter', 'quote');
+        $quoteMapper->clearSuxx();
+
         $criteria = new criteria;
         $criteria->add('active', 1)->setOrderByFieldDesc('created');
 
@@ -53,7 +56,6 @@ class quoterListController extends simpleController
             $this->smarty->assign('category', $category);
         }
 
-        $quoteMapper = $this->toolkit->getMapper('quoter', 'quote');
         $pager = $this->setPager($quoteMapper, 10, true, 4);
         $quotes = $quoteMapper->searchAllByCriteria($criteria);
 

@@ -62,6 +62,14 @@ ul.sub-menu li.right{background:url(../images/sub-menu-right.png) top left no-re
 
 .rounded-box .inner-box { padding: 0.4em 1em;}
 
+.suxx-box .inner-box {
+    background: #E1E1E1 url(../images/full_r_bin_.png) no-repeat right bottom;
+}
+
+.suxx-box b {
+    background-color: #E1E1E1;
+}
+
 .colorCode{
     border: solid 1px #E6D6AC;
     width: 100%;
@@ -125,6 +133,15 @@ ul.sub-menu li.right{background:url(../images/sub-menu-right.png) top left no-re
 .rate_minus {
     color: #EF2C34;
     font-size: 15px;
+}
+
+.util {
+    padding-top: 25px;
+    clear: both;
+    color: red;
+    font-size: 15px;
+    font-weight: bold;
+    float: right;
 }
 
 div.footer {

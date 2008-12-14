@@ -65,13 +65,6 @@ class quoteMapper extends simpleMapper
         $categoryMapper = systemToolkit::getInstance()->getMapper('quote', 'quoteCategory', $this->section);
         $fields['category_id']->setQuoteCounts($fields['category_id']->getQuoteCounts() + 1);
         $categoryMapper->save($fields['category_id']);
-        /*
-        $db = DB::factory();
-        $sql = 'UPDATE `' . $categoryMapper->getTable() . '` SET `quote_counts` = `quote_counts` + 1 WHERE `id` = :id';
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam(':id', $fields['category_id']->getId());
-        $stmt->execute();
-        */
     }
 
     public function delete(quote $do)
@@ -82,6 +75,15 @@ class quoteMapper extends simpleMapper
         $categoryMapper->save($category);
 
         parent::delete($do);
+    }
+
+    public function clearSuxx()
+    {
+        $needClear = (rand(1, 4) === 1);
+        if ($needClear) {
+            $query = 'UPDATE ' . $this->getTable() . ' SET `active` = 0 WHERE `rating` < 0 AND `deleted` <= ' . time();
+            $this->db->query($query);
+        }
     }
 
     /**

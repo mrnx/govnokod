@@ -1,6 +1,6 @@
 {assign var="langName" value=$quote->getCategory()->getName()|htmlspecialchars}
 {add file="langs/$langName.css"}
-<div class="rounded-box" style="width: 100%;">
+<div class="rounded-box{if $quote->getRating() < 0} suxx-box{/if}" style="width: 100%;">
     <b class="r10"></b><b class="r7"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r2"></b><b class="r1"></b><b class="r1"></b><b class="r1"></b>
     <div class="inner-box">
         <span class="rate"><a href="{url route="quoteVote" action="cool" id=$quote->getId()}" onclick="ajaxvote(this); return false;" title="понравилось!">+</a> <span class="{if $quote->getRating() > 0}rate_plus{elseif $quote->getRating() < 0}rate_minus{/if}">{$quote->getRating()}</span> <a href="{url route="quoteVote" action="suxx" id=$quote->getId()}" onclick="ajaxvote(this); return false;" title="отстой!">-</a></span>
@@ -27,8 +27,8 @@
                 {$quote->getText($stripcount)|highlite:$langName:$quote->getHighlightedLines():$cacheKey}
             {/strip}
         </div>
-
         <span class="codeInfo"><a href="{url route="quoteView" id=$quote->getId()}#comments" title="перейти к списку комментариев">Комментарии ({$quote->getCommentsCount()})</a></span>
+        {if $quote->getRating() < 0}<div class="util">{$quote->getTimeToDie()}</div>{/if}
 
         <div class="description">{$quote->getDescription()|htmlspecialchars|nl2br}</div>
     </div>

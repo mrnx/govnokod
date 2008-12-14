@@ -22,6 +22,7 @@
 
 class quote extends simple
 {
+    const VOTE_TIMEOUT = 7200;
     const MAX_DESC_CHARS = 2000;
 
     protected $name = 'quoter';
@@ -83,6 +84,39 @@ class quote extends simple
     {
         $description = mb_substr($description, 0, self::MAX_DESC_CHARS, 'utf-8');
         parent::__call('setDescription', array($description));
+    }
+
+    public function getTimeToDie()
+    {
+        $deleteAt = $this->getDeleted() - time();
+
+        if ($deleteAt >= 0) {
+            $daysToEnd = floor($deleteAt / 86400);
+            $hoursToEnd = floor(($deleteAt - ($daysToEnd * 86400)) / 3600);
+            $minutesToEnd = floor((($deleteAt - ($daysToEnd * 86400)) - ($hoursToEnd * 3600)) / 60);
+            $secondsToEnd = floor((($deleteAt - ($daysToEnd * 86400)) - ($hoursToEnd * 3600)) - ($minutesToEnd * 60));
+
+            $result = '';
+            if ($daysToEnd > 0) {
+                $result .= i18n::getMessage('endTime.days', $this->name, 'ru', $daysToEnd) . ' ';
+            }
+
+            if ($daysToEnd > 0 || $hoursToEnd > 0) {
+                $result .= i18n::getMessage('endTime.hours', $this->name, 'ru', $hoursToEnd) . ' ';
+            }
+
+            if (($hoursToEnd > 0 || $minutesToEnd > 0) && $daysToEnd < 1) {
+                $result .= i18n::getMessage('endTime.minutes', $this->name, 'ru', $minutesToEnd) . ' ';
+            }
+
+            if (($minutesToEnd > 0 || $secondsToEnd > 0) && $hoursToEnd < 1) {
+                $result .= i18n::getMessage('endTime.seconds', $this->name, 'ru', $secondsToEnd) . ' ';
+            }
+
+            return $result;
+        }
+
+        return i18n::getMessage('endTime.seconds', $this->name, 'ru', 0) . ' ';
     }
 
     //@todo: убрать это!!!
