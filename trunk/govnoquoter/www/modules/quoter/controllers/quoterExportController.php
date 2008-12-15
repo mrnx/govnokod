@@ -27,7 +27,7 @@ class quoterExportController extends simpleController
         $action = $this->request->getAction();
 
         $criteria = new criteria;
-        $criteriaadd('active', 1)->setOrderByFieldDesc('created')->setLimit(50);
+        $criteria->add('active', 1)->setOrderByFieldDesc('created')->setLimit(50);
 
         $name = $this->request->getString('name');
         if ($name) {
