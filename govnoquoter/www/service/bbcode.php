@@ -25,6 +25,8 @@ fileLoader::load('i18n');
  */
 class bbcode
 {
+    protected $content = '';
+
     /**#@+
     * Состояния парсера
     */
