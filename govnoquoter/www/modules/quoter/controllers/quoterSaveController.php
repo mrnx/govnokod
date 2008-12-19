@@ -59,6 +59,7 @@ class quoterSaveController extends simpleController
         if ($linesPost) {
             $lines = $linesPost;
         }
+
         $this->smarty->assign('lines', $lines);
 
         $validator = new formValidator();
@@ -82,11 +83,11 @@ class quoterSaveController extends simpleController
             if (!is_array($lines)) {
                 $lines = array();
             }
-
-            $linesCount = substr_count($text, "\n");
+            $linesCount = substr_count($text, "\n") + 1;
 
             $highlightedLines = array();
             foreach ($lines as $line) {
+                echo $line . $linesCount;
                 if ($line > 0 && $line <= $linesCount && !in_array($line, $highlightedLines)) {
                     $highlightedLines[] = $line;
                 }
