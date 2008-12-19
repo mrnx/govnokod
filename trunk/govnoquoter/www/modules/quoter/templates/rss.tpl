@@ -21,7 +21,7 @@
         <link>{url route="quoteView" id=$quote->getId()}</link>
         <description>
             <![CDATA[
-                {if $quote->getDescription() != ''}{$quote->getDescription()|htmlspecialchars|nl2br}<br /><br />{/if}
+                {if $quote->getDescription() != ''}{$quote->getDescription()|trim|htmlspecialchars|bbcode|nl2br}<br /><br />{/if}
                 {assign var="stripcount" value=15}
                 {if $quote->getLinesCount() > 15}{assign var="stripcount" value=17}{/if}
                 {$quote->getText($stripcount)|highlite:'text'}

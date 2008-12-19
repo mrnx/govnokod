@@ -30,7 +30,7 @@
         <span class="codeInfo"><a href="{url route="quoteView" id=$quote->getId()}#comments" title="перейти к списку комментариев">Комментарии ({$quote->getCommentsCount()})</a></span>
         {if $quote->getRating() < 0}<div class="util">{$quote->getTimeToDie()}</div>{/if}
 
-        <div class="description">{$quote->getDescription()|htmlspecialchars|nl2br}</div>
+        <div class="description">{$quote->getDescription()|trim|htmlspecialchars|bbcode|nl2br}</div>
     </div>
     <b class="r1"></b><b class="r1"></b><b class="r1"></b><b class="r2"></b><b class="r2"></b><b class="r3"></b><b class="r4"></b><b class="r5"></b><b class="r7"></b><b class="r10"></b>
 </div>
