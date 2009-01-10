@@ -17,11 +17,11 @@
             <tr>
                 <td style="vertical-align: top;">
                     <h2 class="addCommentTitle"><a name="addcomment"></a>Добавить комментарий</h2>
-                    {form action=$action method="post" jip=$isEdit}
+                    <form action="{$action}" method="post">
                     <table class="addcomment">
                         <tr>
                             <td>{form->caption name="username" value="Представьтесь:"}</td>
-                            <td>{if $errors->has('username')}<span class="fielderror">{$errors->get('username')}</span><br />{/if}{form->text name="username" value=$username maxlength="25" size="25" style="font-size:18px;"} {form->checkbox name="remember" label="запомнить" value=$remember}</td>
+                            <td>{if $errors->has('username')}<span class="fielderror">{$errors->get('username')}</span><br />{/if}{form->text name="username" value=$username maxlength="50" size="25" style="font-size:18px;"} {form->checkbox name="remember" label="запомнить" value=$remember}</td>
                         </tr>
                         <tr>
                             <td>{form->caption name="text" value="Наберите:"}</td>
@@ -36,7 +36,7 @@
                         </tr>
                         <tr>
                             <td>&nbsp;</td>
-                            <td>{form->submit name="submit" value="Готово!" style="font-size: 24px;"}</td>
+                            <td>{form->submit name="submit" value="Готово!" style="font-size: 24px;" onclick="this.disable();"}</td>
                         </tr>
                     </table>
                     {form->hidden name="url" value=$url}

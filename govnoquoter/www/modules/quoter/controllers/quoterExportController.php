@@ -37,6 +37,9 @@ class quoterExportController extends simpleController
                 $criteria->add('category_id', $category->getId());
                 $this->smarty->assign('category', $category);
             }
+        } else {
+            $this->response->setHeader('Location', 'http://feeds.feedburner.com/Govnokodru');
+            return;
         }
 
         $quoteMapper = $this->toolkit->getMapper('quoter', 'quote');

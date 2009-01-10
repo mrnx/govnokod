@@ -23,7 +23,7 @@
 
 class comments extends simple
 {
-    const USERNAME_MAX_CHARS = 25;
+    const USERNAME_MAX_CHARS = 50;
     const TEXT_MAX_CHARS = 2000;
 
     protected $name = 'comments';
