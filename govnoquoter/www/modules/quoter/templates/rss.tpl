@@ -22,11 +22,7 @@
         <description>
             <![CDATA[
                 {if $quote->getDescription() != ''}{$quote->getDescription()|trim|htmlspecialchars|bbcode|nl2br}<br /><br />{/if}
-                {assign var="stripcount" value=15}
-                {if $quote->getLinesCount() > 15}{assign var="stripcount" value=17}{/if}
-                {$quote->getText($stripcount)|highlite:'text'}
-                {if $quote->getLinesCount() > 15}<br />
-                <a href="{url route="quoteView" id=$quote->getId()}">далее...</a>{/if}
+                {$quote->getText()|highlite:'text'}
             ]]>
         </description>
         <pubDate>{"D, d M Y H:i:s"|date:$quote->getCreated()} GMT</pubDate>
