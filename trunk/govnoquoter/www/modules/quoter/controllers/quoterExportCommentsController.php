@@ -51,9 +51,12 @@ class quoterExportCommentsController extends simpleController
         }
 
         $comments = $commentsMapper->searchAllByCriteria($criteria);
+        reset($comments);
+        $lastBuildDate = current($comments)->getTime();
 
         $this->smarty->assign('exportAll', $exportAll);
-        $this->smarty->assign('comments', array_reverse($comments));
+        $this->smarty->assign('comments', $comments);
+        $this->smarty->assign('lastBuildDate', $lastBuildDate);
         $this->response->setHeader('Content-type', 'text/xml; charset=utf-8;');
         return $this->smarty->fetch('quoter/exportCommentsRss.tpl');
     }
