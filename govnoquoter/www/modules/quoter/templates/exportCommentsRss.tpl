@@ -2,23 +2,25 @@
 <rss version="2.0">
 <channel>
     <title>Govnokod.ru — {if $exportAll}Все комментарии{else}Комментарии Говнокода#{$quote->getId()}{/if}</title>
-    <link>{if $exportAll}{else}{url route="rssComments" id=$quote->getId()}{/if}</link>
+    <link>{if $exportAll}{url route="rssAllComments"}{else}{url route="rssComments" id=$quote->getId()}{/if}</link>
     <description><![CDATA[Говнокод онлайн]]></description>
     <language>ru</language>
     <managingEditor>govnoed@govnokod.ru (GOVNOkodEDitor)</managingEditor>
     <generator>{$smarty.const.MZZ_NAME} v.{$smarty.const.MZZ_VERSION}-{$smarty.const.MZZ_REVISION}</generator>
     <pubDate>{"D, d M Y H:i:s"|date:$smarty.now} GMT</pubDate>
-    <lastBuildDate></lastBuildDate>
+    <lastBuildDate>{"D, d M Y H:i:s"|date:$lastBuildDate} GMT</lastBuildDate>
+    {assign var="curCommentNum" value=$comments|@count}
     {foreach from=$comments item="comment" name="commentsIterator"}
     <item>
         {if !$exportAll}
-        <title>Говнокаммент#{$smarty.foreach.commentsIterator.iteration}</title>
-        <guid isPermaLink="true">{url route="quoteView" id=$comment->getFolder()->getParentId()}#comment{$comment->getId()}</guid>
-        <link>{url route="quoteView" id=$comment->getFolder()->getParentId()}#comment{$comment->getId()}</link>
+        <title>Говнокаммент#{$curCommentNum}</title>
+        <guid isPermaLink="true">{url route="quoteView" id=$quote->getId()}#comment{$curCommentNum}</guid>
+        <link>{url route="quoteView" id=$quote->getId()}#comment{$curCommentNum}</link>
+        {assign var="curCommentNum" value=$curCommentNum-1}
         {else}
-            <title>Говнокаммент#{$comment->getId()} для Говнокода#{$comment->fakeField('quote_id')}</title>
-            <guid isPermaLink="true">{url route="quoteView" id=$comment->fakeField('quote_id')}#comment{$comment->getId()}</guid>
-            <link>{url route="quoteView" id=$comment->fakeField('quote_id')}#comment{$comment->getId()}</link>
+        <title>Говнокаммент#{$comment->getId()} для Говнокода#{$comment->fakeField('quote_id')}</title>
+        <guid isPermaLink="true">{url route="quoteView" id=$comment->fakeField('quote_id')}#comment{$comment->getId()}</guid>
+        <link>{url route="quoteView" id=$comment->fakeField('quote_id')}#comment{$comment->getId()}</link>
         {/if}
         <description>
             <![CDATA[

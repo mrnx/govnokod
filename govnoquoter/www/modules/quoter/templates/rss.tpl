@@ -8,7 +8,7 @@
     <managingEditor>govnoed@govnokod.ru (GOVNOkodEDitor)</managingEditor>
     <generator>{$smarty.const.MZZ_NAME} v.{$smarty.const.MZZ_VERSION}-{$smarty.const.MZZ_REVISION}</generator>
     <pubDate>{"D, d M Y H:i:s"|date:$smarty.now} GMT</pubDate>
-    <lastBuildDate></lastBuildDate>
+    <lastBuildDate>{"D, d M Y H:i:s"|date:$lastBuildDate} GMT</lastBuildDate>
     {*<image>
         <link>http://govnokod.ru/</link>
         <url>http://govnokod.ru/logo.gif</url>

@@ -37,7 +37,7 @@ class quoterExportController extends simpleController
                 $criteria->add('category_id', $category->getId());
                 $this->smarty->assign('category', $category);
             }
-        } else {
+        } elseif (!$this->request->getBoolean('pass', SC_GET)) {
             $this->response->setHeader('Location', 'http://feeds.feedburner.com/Govnokodru');
             return;
         }
@@ -45,8 +45,11 @@ class quoterExportController extends simpleController
         $quoteMapper = $this->toolkit->getMapper('quoter', 'quote');
         $quotes = $quoteMapper->searchAllByCriteria($criteria);
 
-        $this->smarty->assign('quotes', $quotes);
+        reset($quotes);
+        $lastBuildDate = current($quotes)->getCreated();
 
+        $this->smarty->assign('lastBuildDate', $lastBuildDate);
+        $this->smarty->assign('quotes', $quotes);
         $this->smarty->assign('withCategory', (isset($category)));
 
         if ($action == 'rss') {
