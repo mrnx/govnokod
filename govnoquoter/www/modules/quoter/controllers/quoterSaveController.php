@@ -63,6 +63,7 @@ class quoterSaveController extends simpleController
         $this->smarty->assign('lines', $lines);
 
         $validator = new formValidator();
+        $validator->disableCSRF();
         $validator->add('required', 'text', 'Укажите код');
         $validator->add('callback', 'text', 'Такой длинный код врядли может быть смешным', array('checkCodeLength'));
         $validator->add('callback', 'description', 'Описание может быть не более ' . quote::MAX_DESC_CHARS . ' символов', array('checkDescLength'));
