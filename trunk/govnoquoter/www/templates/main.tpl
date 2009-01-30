@@ -26,6 +26,7 @@
     {$content}
 
     <div class="footer">
+        {if $smarty.const.DEBUG_MODE}{$timer->toString()}<br />{/if}
         © говнокод.ру
         <a href="http://ru.wikipedia.org/wiki/Мистер_Хэнки,_рождественская_какашка" title="Мистер Хэнки, рождественская какашка"><img src="{$SITE_PATH}/templates/images/mrHankey.png" alt="Мистер Хэнки" /></a>
     </div>
