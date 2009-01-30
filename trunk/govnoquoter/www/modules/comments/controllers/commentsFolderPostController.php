@@ -32,6 +32,7 @@ class commentsFolderPostController extends simpleController
         $parent_id = $this->request->getInteger('id');
 
         $validator = new formValidator();
+        $validator->disableCSRF();
         $validator->add('required', 'text', 'Пустые комментарии нам не нужны');
 
         $action = $this->request->getAction();

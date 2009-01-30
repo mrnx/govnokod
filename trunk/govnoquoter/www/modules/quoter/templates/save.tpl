@@ -31,7 +31,7 @@
                         <td>&nbsp;</td>
                     </tr>
                     <tr>
-                        <td style="vertical-align: top;">{form->caption name="text" value="Код:"}</td>
+                        <td style="vertical-align: top;">{form->caption name="text" value="Код:"} (цифры кликабельны)</td>
                         <td>
                             <div id="codeSaveContainer" class="codeInput">
                                 <table cellpadding="0" cellspacing="0" style="width: 100%;">
