@@ -39,7 +39,7 @@ class quoterExportCommentsController extends simpleController
 
             $quote = $quoteMapper->searchById($id);
             if (!$quote) {
-                return $quoteMapper->get404()->run();
+                return $this->forward404($quoteMapper);
             }
 
             $this->smarty->assign('quote', $quote);

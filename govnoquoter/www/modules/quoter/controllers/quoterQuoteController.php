@@ -32,7 +32,7 @@ class quoterQuoteController extends simpleController
 
         $quote = $quoteMapper->searchOneByCriteria($criteria);
         if (!$quote) {
-            return $quoteMapper->get404()->run();
+            return $this->forward404($quoteMapper);
         }
 
         $vote = $this->request->getInteger('vote');

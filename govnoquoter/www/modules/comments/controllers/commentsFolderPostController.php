@@ -65,7 +65,7 @@ class commentsFolderPostController extends simpleController
                     $comment = $commentsMapper->searchById($parent_id);
 
                     if (!$comment) {
-                        return $commentsMapper->get404()->run();
+                        return $this->forward404($commentsMapper);
                     }
 
                     $this->smarty->assign('text', $comment->getText());
@@ -110,13 +110,13 @@ class commentsFolderPostController extends simpleController
                 $comment = $commentsMapper->searchById($parent_id);
 
                 if (!$comment) {
-                    return $commentsMapper->get404()->run();
+                    return $this->forward404($commentsMapper);
                 }
             } else {
                 $commentsFolder = $commentsFolderMapper->searchOneByField('parent_id', $parent_id);
 
                 if (!$commentsFolder) {
-                    return $commentsFolderMapper->get404()->run();
+                    return $this->forward404($commentsFolderMapper);
                 }
 
                 $comment = $commentsMapper->create();

@@ -49,7 +49,7 @@ class quoterListController extends simpleController
             }
 
             if (!$category) {
-                return $categoryMapper->get404()->run();
+                return $this->forward404($categoryMapper);
             }
 
             $criteria->add('category_id', $category->getId());

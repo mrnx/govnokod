@@ -35,7 +35,7 @@ class quoterSaveCategoryController extends simpleController
             $name = $this->request->getString('name');
             $category = $quoteCategoryMapper->searchByName($name);
             if (!$category) {
-                return $quoteCategoryMapper->get404()->run();
+                return $this->forward404($quoteCategoryMapper);
             }
         } else {
             $category = $quoteCategoryMapper->create();
