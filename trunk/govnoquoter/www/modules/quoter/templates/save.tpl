@@ -12,7 +12,7 @@
         <div class="inner-box">
             <h1>{if $isEdit}Редактирование <a href="{url route="quoteView" id=$quote->getId()}">говнокода#{$quote->getId()}</a>{else}Наговнокодить{/if}</h1>
             {foreach from=$errors->export() item="error" name="errorIterator"}
-            {if $smarty.foreach.errorIterator.first}<ul clas="errors">{/if}
+            {if $smarty.foreach.errorIterator.first}<ul class="errors">{/if}
                 <li>{$error}</li>
             {if $smarty.foreach.errorIterator.last}</ul><br />{/if}
             {/foreach}
