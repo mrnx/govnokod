@@ -24,9 +24,11 @@ class quote extends simple
 {
     const VOTE_TIMEOUT = 7200;
     const MAX_DESC_CHARS = 2000;
+    const VOTE_TOKEN_PREFIX = 'votetoken_';
 
     protected $name = 'quoter';
     protected $linesCount = 0;
+    protected $token = null;
 
     public function getText($linesNum = null)
     {
@@ -117,6 +119,22 @@ class quote extends simple
         }
 
         return i18n::getMessage('endTime.seconds', $this->name, 'ru', 0) . ' ';
+    }
+
+    public function getVoteToken()
+    {
+        if (is_null($this->token)) {
+            $session = systemToolkit::getInstance()->getSession();
+            $token = md5(microtime(true) . $this->getId());
+            $session->set($this->getTokenName(), $token);
+            $this->token = $token;
+        }
+        return $this->token;
+    }
+
+    public function getTokenName()
+    {
+        return self::VOTE_TOKEN_PREFIX . $this->getId();
     }
 
     //@todo: убрать это!!!

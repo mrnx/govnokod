@@ -25,6 +25,7 @@ class quoterQuoteController extends simpleController
     protected function getView()
     {
         $id = $this->request->getInteger('id');
+
         $quoteMapper = $this->toolkit->getMapper('quoter', 'quote');
 
         $criteria = new criteria;
@@ -34,6 +35,15 @@ class quoterQuoteController extends simpleController
         if (!$quote) {
             return $this->forward404($quoteMapper);
         }
+
+        $allow = false;
+        $token = $this->request->getString('token', SC_GET);
+        $session = $this->toolkit->getSession();
+        if ($token) {
+            $value = $session->get($quote->getTokenName(), false);
+            $allow = ($value === $token);
+        }
+        $session->destroy($quote->getTokenName());
 
         $vote = $this->request->getInteger('vote');
         $oldRating = $quote->getRating();
@@ -49,14 +59,18 @@ class quoterQuoteController extends simpleController
                 break;
         }
 
+        if (!$allow) {
+            $newRating = $oldRating;
+        }
+
         $ip = $this->request->getServer('REMOTE_ADDR');
         $db = DB::factory();
 
         $status = $oldRating;
 
-        $vote_tmp = $db->getOne('SELECT * FROM `quoter_votes` WHERE `ip` = "' . $ip . '" AND `quote_id` = ' . $quote->getId() . ' AND `created` > ' . (time() - quote::VOTE_TIMEOUT));
-        if (!$vote_tmp) {
-            if ($newRating != $oldRating) {
+        if ($newRating != $oldRating) {
+            $vote_tmp = $db->getOne('SELECT * FROM `quoter_votes` WHERE `ip` = "' . $ip . '" AND `quote_id` = ' . $quote->getId() . ' AND `created` > ' . (time() - quote::VOTE_TIMEOUT));
+            if (!$vote_tmp) {
                 $quote->setRating($newRating);
 
                 if ($newRating < 0) {
