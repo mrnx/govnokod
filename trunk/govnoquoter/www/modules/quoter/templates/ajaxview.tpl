@@ -14,5 +14,5 @@
                     {$line}</li>
                 {/foreach}
                 </ol>
-                {$quote->getText()|highlite:$quote->getCategory()->getName():$quote->getHighlightedLines():$quote->getId()}
+                {$quote->getText()|highlite:$quote->getCategory()->getName():$quote->getHighlightedLines():$quote->getCacheKey()}
             {/strip}

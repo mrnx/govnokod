@@ -3,7 +3,7 @@ function smarty_modifier_highlite($source, $language = 'text', Array $highlight 
 {
     if ($cacheKey) {
         fileLoader::load('cache');
-        $cache = cache::factory('file');
+        $cache = cache::factory(quote::CACHE_NAME);
         if ($code = $cache->get($cacheKey)) {
             return $code;
         }
