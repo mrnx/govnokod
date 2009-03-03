@@ -5,6 +5,8 @@
     <title>{title separator=" — " end=" — "} Govnokod.ru</title>
     <meta name="keywords" content="{meta show="keywords" default='говнокод, смешной код, быдлокод, быдлокодеры, индусы, для программистов, про программистов, индусский код, записки программиста, говно, говнокод на php, mysql, perl'}" />
     <meta name="description" content="{meta show="description" default='Сборник говнокода на различных языках программирования'}" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/animated_favicon.gif" type="image/gif" />
     <link rel="stylesheet" type="text/css" href="{$SITE_PATH}/templates/css/style.css" />
     {if $listAll|default:true}
     <link title="rss govnokod.ru" type="application/rss+xml" rel="alternate" href="{url route="rss"}"/>

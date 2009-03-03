@@ -35,7 +35,7 @@ function smarty_modifier_highlite($source, $language = 'text', Array $highlight 
     $geshi->enable_classes();
     $code = $geshi->parse_code();
 
-    if ($cacheKey && !DEBUG_MODE) {
+    if ($cacheKey) {
         $cache->set($cacheKey, $code, 3600 * 24);
     }
 
