@@ -25,6 +25,8 @@ class quote extends simple
     const VOTE_TIMEOUT = 7200;
     const MAX_DESC_CHARS = 2000;
     const VOTE_TOKEN_PREFIX = 'votetoken_';
+    const CACHE_PREFIX = 'quote_';
+    const CACHE_NAME = 'geshi_code';
 
     protected $name = 'quoter';
     protected $linesCount = 0;
@@ -135,6 +137,11 @@ class quote extends simple
     public function getTokenName()
     {
         return self::VOTE_TOKEN_PREFIX . $this->getId();
+    }
+
+    public function getCacheKey()
+    {
+        return self::CACHE_PREFIX . $this->getId();
     }
 
     //@todo: убрать это!!!

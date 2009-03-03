@@ -100,6 +100,11 @@ class quoterSaveController extends simpleController
             $quote->setHighlitedLines(join(', ', $highlightedLines));
             $quoteMapper->save($quote);
 
+            if ($isEdit) {
+                $cache = cache::factory(quote::CACHE_NAME);
+                $cache->delete($quote->getCacheKey());
+            }
+
             $url = new url('quoteView');
             $url->add('id', $quote->getId());
 

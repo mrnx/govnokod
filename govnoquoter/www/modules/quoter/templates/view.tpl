@@ -14,7 +14,7 @@
         <h1><a href="{url route="categoryList" name=$langName}">{$quote->getCategory()->getTitle()|htmlspecialchars}</a> / <a href="{url route="quoteView" id=$quote->getId()}">Говнокод#{$quote->getId()}</a> {$quote->getJip()}</h1>
         <div class="colorCode" id="colorCode{$quote->getId()}">
             <ol class="linenumbers">{foreach from=$quote->generateLines() item="line" name="lineIterator"}<li>{$line}</li>{/foreach}</ol>
-            {$quote->getText()|highlite:$langName:$quote->getHighlightedLines():$quote->getId()}
+            {$quote->getText()|highlite:$langName:$quote->getHighlightedLines():$quote->getCacheKey()}
         </div>
         {if $quote->getRating() < 0}<div class="util">{$quote->getTimeToDie()}</div>{/if}
         <div class="description">{$quote->getDescription()|trim|htmlspecialchars|bbcode|nl2br}</div>
