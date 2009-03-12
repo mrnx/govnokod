@@ -18,7 +18,7 @@
         <link>{url route="quoteView" id=$quote->getId()}#comment{$curCommentNum}</link>
         {assign var="curCommentNum" value=$curCommentNum-1}
         {else}
-        <title>Говнокаммент#{$comment->getId()} для Говнокода#{$comment->fakeField('quote_id')}</title>
+        <title>Говнокаммент #{$comment->getId()} для Говнокода #{$comment->fakeField('quote_id')}</title>
         <guid isPermaLink="true">{url route="quoteView" id=$comment->fakeField('quote_id')}#comment{$comment->getId()}</guid>
         <link>{url route="quoteView" id=$comment->fakeField('quote_id')}#comment{$comment->getId()}</link>
         {/if}

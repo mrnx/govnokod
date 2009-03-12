@@ -64,6 +64,8 @@ class quoterQuoteController extends simpleController
         }
 
         $ip = $this->request->getServer('REMOTE_ADDR');
+        $ua = $this->request->getServer('HTTP_USER_AGENT');
+
         $db = DB::factory();
 
         $status = $oldRating;
@@ -96,6 +98,8 @@ class quoterQuoteController extends simpleController
 
                 $voteData = array();
                 $voteData['ip'] = $ip;
+                $voteData['useragent'] = $ua;
+                $voteData['value'] = $vote;
                 $voteData['quote_id'] = $quote->getId();
                 $voteData['created'] = time();
                 $db->autoExecute('quoter_votes', $voteData);

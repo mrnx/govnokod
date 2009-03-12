@@ -3,10 +3,13 @@
 }
 
 .comment .item {
-    overflow: auto;
     background:url(../images/comment-dots.gif) left bottom repeat-x;
     padding:25px 0px 30px 0px;
     font-size:15px;
+}
+
+.comment .commentText {
+    overflow: auto;
 }
 
 .comment .item h3 {
@@ -17,8 +20,8 @@
     font-weight:normal
 }
 
-.commentnumber {
-    float: right;
+.commentrate {
+    font-size: 13px;
 }
 
 .comment .item p {

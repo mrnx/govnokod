@@ -9,10 +9,16 @@
     {foreach from=$comments item="comment" name="commentIterator"}
         <div class="item">
         	<h3>
-        	   <span class="commentnumber"><a name="comment{$comment->getId()}">&nbsp;</a><a href="{url}#comment{$smarty.foreach.commentIterator.iteration}" name="comment{$smarty.foreach.commentIterator.iteration}">#{$smarty.foreach.commentIterator.iteration}</a></span>
-        	   {if $comment->getAuthor() == ''}<em>Говногость</em>{else}{$comment->getAuthor()|htmlspecialchars}{/if} <span class="commentDate">({$comment->getTime()|date_i18n:"relative_hour"})</span>{if $comment->getAcl('edit')}, ip: {$comment->getAuthorIp()|htmlspecialchars}{/if} {$comment->getJip()}
+        	   <span class="rate commentrate">
+        	       <a href="{url route="commentVote" action="cool" id=$comment->getId()}?token={$comment->getVoteToken()}" onclick="ajaxvote(this); return false;" title="поддерживаю!">+</a>
+        	       <span class="{if $comment->getRating() > 0}rate_plus{elseif $comment->getRating() < 0}rate_minus{/if}">{$comment->getRating()}</span>
+        	       <a href="{url route="commentVote" action="suxx" id=$comment->getId()}?token={$comment->getVoteToken()}" onclick="ajaxvote(this); return false;" title="отстой!">-</a>
+        	   </span>
+        	   <a name="comment{$comment->getId()}"></a><a href="{url}#comment{$smarty.foreach.commentIterator.iteration}" name="comment{$smarty.foreach.commentIterator.iteration}">#{$smarty.foreach.commentIterator.iteration}</a>
+        	   {if $comment->getAuthor() == ''}<em>Говногость</em>{else}{$comment->getAuthor()|htmlspecialchars}{/if}
+        	   <span class="commentDate">({$comment->getTime()|date_i18n:"relative_hour"}){if $comment->getAcl('edit')}, ip: {$comment->getAuthorIp()|htmlspecialchars}{/if}</span> {$comment->getJip()}
         	</h3>
-            {$comment->getText()|trim|htmlspecialchars|bbcode|nl2br}
+            <div class="commentText">{$comment->getText()|trim|htmlspecialchars|bbcode|nl2br}</div>
         </div>
     {foreachelse}
         <p>Комментариев еще нет</p>
