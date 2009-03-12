@@ -1,8 +1,4 @@
-{if $isEdit}
-{title append="Редактировать говнокод"}
-{else}
-{title append="Наговнокодить"}
-{/if}
+{if $isEdit}{title append="Редактировать говнокод"}{else}{title append="Наговнокодить"}{/if}
 {add file="prototype.js"}
 {add file="govnokod.js"}
 {add file="add.css" join=false}
@@ -10,13 +6,14 @@
     <div class="rounded-box" style="width: 100%;">
         <b class="r10"></b><b class="r7"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r2"></b><b class="r1"></b><b class="r1"></b><b class="r1"></b>
         <div class="inner-box">
-            <h1>{if $isEdit}Редактирование <a href="{url route="quoteView" id=$quote->getId()}">говнокода#{$quote->getId()}</a>{else}Наговнокодить{/if}</h1>
+            <h1>{if $isEdit}Редактирование <a href="{url route="quoteView" id=$quote->getId()}">говнокода #{$quote->getId()}</a>{else}Наговнокодить{/if}</h1>
             {foreach from=$errors->export() item="error" name="errorIterator"}
             {if $smarty.foreach.errorIterator.first}<ul class="errors">{/if}
                 <li>{$error}</li>
             {if $smarty.foreach.errorIterator.last}</ul><br />{/if}
             {/foreach}
-            <form action="{if $isEdit}{url route="withId" action="edit" id=$quote->getId()}{else}{url route="quoteAdd"}{/if}" method="post">
+
+            {form action=$formAction method="post" jip=false}
                 <table width="100%" border="0" cellpadding="5" cellspacing="0">
                     <tr>
                         <td style="vertical-align: top; width: 20%;">{form->caption name="category_id" value="Язык:"}</td>

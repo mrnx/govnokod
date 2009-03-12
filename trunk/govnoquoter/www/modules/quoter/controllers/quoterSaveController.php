@@ -63,12 +63,11 @@ class quoterSaveController extends simpleController
         $this->smarty->assign('lines', $lines);
 
         $validator = new formValidator();
-        $validator->disableCSRF();
-        $validator->add('required', 'text', 'Укажите код');
-        $validator->add('callback', 'text', 'Такой длинный код врядли может быть смешным', array('checkCodeLength'));
-        $validator->add('callback', 'description', 'Описание может быть не более ' . quote::MAX_DESC_CHARS . ' символов', array('checkDescLength'));
         $validator->add('required', 'category_id', 'Укажите язык');
         $validator->add('in', 'category_id', 'Укажите правильный язык', array_keys($categoriesSelect));
+        $validator->add('required', 'text', 'Укажите код');
+        $validator->add('callback', 'text', 'Такой длинный код врядли может быть смешным. Ограничьтесь сотней строк.', array('checkCodeLength'));
+        $validator->add('callback', 'description', 'Описание может быть не более ' . quote::MAX_DESC_CHARS . ' символов', array('checkDescLength'));
 
         if (!$isEdit) {
             $validator->add('required', 'captcha', 'Произвол не пройдёт!');
@@ -88,7 +87,6 @@ class quoterSaveController extends simpleController
 
             $highlightedLines = array();
             foreach ($lines as $line) {
-                echo $line . $linesCount;
                 if ($line > 0 && $line <= $linesCount && !in_array($line, $highlightedLines)) {
                     $highlightedLines[] = $line;
                 }
@@ -108,14 +106,30 @@ class quoterSaveController extends simpleController
             $url = new url('quoteView');
             $url->add('id', $quote->getId());
 
-            $this->response->redirect($url->get());
+            if ($this->request->isAjax()) {
+                return jipTools::redirect();
+            } else {
+                $this->response->redirect($url->get());
+                return;
+            }
+        }
+
+        if ($isEdit) {
+            $url = new url('withId');
+            $url->setAction("edit");
+            $url->add('id', $id);
+        } else {
+            $url = new url('quoteAdd');
         }
 
         $this->smarty->assign('categoriesSelect', $categoriesSelect);
         $this->smarty->assign('isEdit', $isEdit);
         $this->smarty->assign('quote', $quote);
         $this->smarty->assign('errors', $validator->getErrors());
-        return $this->smarty->fetch('quoter/save.tpl');
+        $this->smarty->assign('formAction', $url->get());
+
+        $tpl = ($isEdit && $this->request->isAjax()) ? 'editajax' : 'save';
+        return $this->smarty->fetch('quoter/' . $tpl . '.tpl');
     }
 }
 

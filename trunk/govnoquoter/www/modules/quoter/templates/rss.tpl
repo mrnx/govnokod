@@ -16,7 +16,7 @@
     </image>*}
     {foreach from=$quotes item="quote"}
     <item>
-        <title>{$quote->getCategory()->getTitle()|htmlspecialchars} / Говнокод#{$quote->getId()}</title>
+        <title>{$quote->getCategory()->getTitle()|htmlspecialchars} / Говнокод #{$quote->getId()}</title>
         <guid isPermaLink="true">{url route="quoteView" id=$quote->getId()}</guid>
         <link>{url route="quoteView" id=$quote->getId()}</link>
         <description>
