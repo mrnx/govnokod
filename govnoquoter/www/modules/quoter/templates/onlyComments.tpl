@@ -1,0 +1,1 @@
+{load module="comments" action="list" object=$quote byField="id"}

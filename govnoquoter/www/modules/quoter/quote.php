@@ -17,10 +17,10 @@
  *
  * @package modules
  * @subpackage quoter
- * @version 0.1
+ * @version 0.2
  */
 
-class quote extends simple
+class quote extends entity
 {
     const VOTE_TIMEOUT = 7200;
     const MAX_DESC_CHARS = 2000;
@@ -28,15 +28,24 @@ class quote extends simple
     const CACHE_PREFIX = 'quote_';
     const CACHE_NAME = 'geshi_code';
 
-    protected $name = 'quoter';
     protected $linesCount = 0;
     protected $token = null;
+
+    public function getJip()
+    {
+        return '';
+    }
 
     public function getText($linesNum = null)
     {
         $text = parent::__call('getText', array());
         if ($linesNum > 0 && $linesNum < $this->getLinesCount()) {
-            $text = implode("\n", array_slice(explode("\n", $text), 0, $linesNum));
+            $lines = explode("\n", $text);
+
+            $text = implode("\n", array_slice($lines, 0, $linesNum));
+
+            $lastString = array_pop($lines);
+            $text .= "…\n" . $lastString;
         }
 
         return trim($text);
@@ -48,7 +57,6 @@ class quote extends simple
             $text = $this->getText();
             $lines = substr_count($text, "\n");
             $this->linesCount = $lines < 1 ? 1 : $lines + 1;
-
         }
 
         return $this->linesCount;
@@ -120,7 +128,7 @@ class quote extends simple
             return $result;
         }
 
-        return i18n::getMessage('endTime.seconds', $this->name, 'ru', 0) . ' ';
+        return i18n::getMessage('endTime.seconds', 'quoter', 'ru', 0) . ' ';
     }
 
     public function getVoteToken()

@@ -1,20 +1,18 @@
 {strip}
     <ul class="pagination">
-    {if !is_null($pager->getPrev())}<li><a href="{$pager->getPrev()}" title="Предыдущая страница">&lt;</a></li>{/if}
-    {foreach from=$pages item=current}
-        <li>
-        {if not empty($current.skip)}
-            <a href="#" onclick="return false;">…</a>
-        {elseif not empty($current.current)}
-           <a href="{$current.url}" class="active" title="Страница {$current.page}">{$current.page}</a>
-        {else}
-            <a href="{$current.url}" title="Страница {$current.page}">{$current.page}</a>
-        {/if}
-        </li>
-    {/foreach}
-    {if !is_null($pager->getNext())}
-        <li><a href="{$pager->getNext()}" title="Слудющая страница">&gt;</a></li>
-    {/if}
+        <li>{if !is_null($pager->getPrev())}<a href="{$pager->getPrev()}">&larr; назад</a>{else}&larr; назад{/if}</li>
+        <li>{if !is_null($pager->getNext())}<a href="{$pager->getNext()}">вперёд &rarr;</a>{else}вперёд &rarr;{/if}</li>
     </ul>
-    <div style="clear: both;"></div>
+
+    <ul class="pagination numbered">
+        {foreach from=$pages item=current}
+            {if not empty($current.skip)}
+            <li>…</li>
+            {elseif not empty($current.current)}
+            <li><span>{$current.page}</span></li>
+            {else}
+            <li><a href="{$current.url}">{$current.page}</a></li>
+            {/if}
+        {/foreach}
+    </ul>
 {/strip}

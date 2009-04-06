@@ -13,18 +13,39 @@
 */
 
 /**
- * commentsFolder: класс для работы с ...
+ * commentsFolder: класс для работы с данными
  *
  * @package modules
  * @subpackage comments
- * @version 0.1
+ * @version 0.2
  */
-
-
-class commentsFolder extends simple
+class commentsFolder extends entity
 {
     protected $name = 'comments';
 
+	protected $object = null;
+    protected $objectMapper = null;
+
+    public function getObjectMapper()
+    {
+        if (is_null($this->objectMapper)) {
+            $toolkit = systemToolkit::getInstance();
+            $this->objectMapper = $toolkit->getMapper($this->getModule(), $this->getType());
+        }
+
+        return $this->objectMapper;
+    }
+
+    public function getObject()
+    {
+        if (is_null($this->object)) {
+            $objectMapper = $this->getObjectMapper();
+            $this->object = $objectMapper->searchOneByField($this->getByField(), $this->getParentId());
+        }
+
+        return $this->object;
+    }
+	
     public function getAcl($name = null)
     {
         if ($name == 'list') {

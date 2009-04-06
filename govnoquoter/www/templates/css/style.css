@@ -1,164 +1,642 @@
-body{margin:0px;padding:50px;background:#996633 url(../images/lines-brown.gif);font-family:Arial, Tahoma;font-size:15px;color:#222}
-div, td{}
-A:link, A:visited{color:#dd8c3e;text-decoration:underline}
-A:hover{color:#8fc6ff}
-.input{border: 1px solid #B9B59C;background: #fff;font-family: Arial, Tahoma, Verdana;font-size: 13px;color: #000}
-.inbutton{border:0px;font-family: Arial, Tahoma, Verdana;font-size: 13px;font-weight: bold;background:#fff;color: #BD0000}
-img{border:0px;vertical-align:middle}
-img,div,li{behavior:url(/templates/images/iepngfix/iepngfix.php)}
+/*
+Stylesheet for govnokod.ru
+*/
 
-h1{font-family:Tahoma;font-size:24px;color:#DD8C3E;font-weight:normal; margin:0px 0px 25px 0px; padding:0px}
+body, html
+{
+	background: #f2f0e3;
+	color: #222;
 
-.header a:link,.header a:visited{display:block;font-family:"Trebuchet MS";color:#2F2419;font-size:64px;text-transform:uppercase;text-decoration:none;font-weight:bold;float:left}
-.header a:link img,.header a:visited img{vertical-align:baseline}
+	font-family: "Calibri", "Arial", "Verdana", "Serif";
+	font-size: 16px;
 
-.add-govno{line-height:26px;height:26px;margin-left:725px;padding-top:59px}
-.add-govno a:link,.add-govno a:visited{color:#fff}
-.add-govno a:hover{color:#dd8c3e}
+	min-height: 100%;
+	height: 100%;
 
-ul.menu{padding:0px;margin:0px;clear:both}
-ul.menu li{font-size:18px;display:block;float:left;width:180px;text-transform:uppercase;text-align:center;height:39px;line-height:39px}
-ul.menu li a:link,ul.menu li a:visited{color:#fff}
-ul.menu li a:hover{color:#dd8c3e}
-ul.menu li.active{background:url(../images/menu-active.png)}
-ul.menu li.active a:link,ul.menu li.active a:visited{text-decoration:none;color:#8fc6ff}
+	margin: 0;
+	padding: 0;
+}
 
-ul.sub-menu{padding:0px;margin:0px}
-ul.sub-menu li{display:block;float:left;background:url(../images/sub-menu-bg.png);height:39px;line-height:39px;font-size:13px;text-align:center;width:79px}
-ul.sub-menu li a:link,ul.sub-menu li a:visited{color:#fff}
-ul.sub-menu li a:hover{ color: #000}
-ul.sub-menu li.left{background:url(../images/sub-menu-left.png) top left no-repeat;width:11px}
-ul.sub-menu li.right{background:url(../images/sub-menu-right.png) top left no-repeat;width:11px}
+a
+{
+	color: #0060b6;
+}
 
-.r1, .r2, .r3, .r4, .r5, .r6, .r7, .r8, .r9, .r10 {
+a:hover
+{
+	color: #174c7e;
+}
+
+/* Page wrapper */
+
+div#page
+{
+	margin: 0 4em 0 3em;
+
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+
+	position: relative;
+}
+
+div#content
+{
+	padding: 0 0 70px 0;
+}
+
+/* Page header: navigation and logo */
+
+div#header
+{
+	margin: 0 0 0 0;
+
+	min-width: 800px;
+}
+
+div#header h1
+{
+	margin: 0.4em 0 0 0;
+	padding: 0;
+
+	position: absolute;
+
+	/* Removing text from page but keeping it in markup */
+	text-indent: -600px;
+}
+
+div#header h1 a
+{
 	display: block;
-	height: 1px;
-	overflow: hidden;
-	font-size:1px;
+
+	background: #f2f0e3 url(../images/brand.png) no-repeat;
+
+	width: 286px;
+	height: 174px;
 }
 
-.r10 { margin: 0 10px; }
-.r9 { margin: 0 9px; }
-.r8 { margin: 0 8px; }
-.r7 { margin: 0 7px; }
-.r6 { margin: 0 6px; }
-.r5 { margin: 0 5px; }
-.r4 { margin: 0 4px; }
-.r3 { margin: 0 3px; }
-.r2 { margin: 0 2px; }
-.r1 { margin: 0 1px; }
+/* User panel */
 
-.rounded-box {
-    padding-top: 25px;
+div#userpane
+{
+	position: absolute;
+
+	top: 0;
+	right: 0;
+
+	margin: 0.3em 2.3em 0 0;
+
+	font-size: 0.9em;
 }
 
-.right-box {
-    float: left;
-    width: 20%;
-    padding-left: 40px;
+div#userpane ul
+{
+	margin: 0;
+	padding: 0 0 0 23px;
+
+	list-style: none;
+
+	color: #888;
+
+	background: url(../images/user.png) no-repeat;
 }
 
-.inner-box, b { background-color: #FFF; }
-
-.rounded-box .inner-box { padding: 0.4em 1em;}
-
-.suxx-box .inner-box {
-    background: #E1E1E1 url(../images/full_r_bin_.png) no-repeat right bottom;
+div#userpane ul li
+{
+	display: inline;
 }
 
-.suxx-box b {
-    background-color: #E1E1E1;
+div#userpane ul li a
+{
+	text-decoration: none;
+
+	margin: 0 0.1em;
+
+	border-bottom: dotted 1px #0060b6;
 }
 
-.colorCode{
-    border: solid 1px #E6D6AC;
-    width: 100%;
-    font-size:13px;
-    line-height:16px;
+div#userpane ul li a.feed
+{
+	margin: 0 0 0 3em;
 }
 
-.colorCode ol.linenumbers {
-    list-style: none;
-    margin: 0px;
-    padding: 0px;
-    background:#E6D6AC;
-    text-align:right;
-    vertical-align:top;
-    font-family:monospace;
-    padding-right:5px;
-    width:50px;
-    float: left;
+/* Languages selector and menu navigation */
+
+ol#language, ul#navigation
+{
+	margin: 0 0 0 18em;
+	padding: 0.3em 10em 0 0;
+	list-style: none;
+	font-size: 1.1em;
+	clear: both;
 }
 
-.colorCode ol.linenumbers .folder {
-    float: left;
+ul#navigation
+{
+	padding: 2em 10em 0 0;
+	white-space: nowrap;
 }
 
-.colorCode pre {
-    vertical-align:top;
-    padding-left: 5px;
-    margin: 0px;
-    paddin: 0px;
-    overflow-x: auto;
+ol#language li, ul#navigation li
+{
+	display: -moz-inline-stack;
+	display: inline-block;
+	margin: 0 1em 0.4em 0;
 }
 
-.description {
-    padding-top: 20px;
-    clear: both;
-    font-size: 12px;
-    color: #3F3F3F;
+ul#navigation li
+{
+	margin: 0 0.9em 0.4em 0;
+	min-width: 0;
 }
 
-.codeInfo {
-    float: right;
-    font-size: 12px;
-    color: #9F9F9F;
+ol#language li a, ul#navigation li a
+{
+	padding: 0.3em;
+	color: #0060b6;
 }
 
-.rate {
-    float: right;
-    font-size: 16px;
-    font-weight: bold;
+ul#navigation li.add a
+{
+	margin-left: 0.2em;
+
+	color: #a8606b;
 }
 
-.rate a {
-    text-decoration: none;
+ol#language li a:hover, ol#language li .active, ul#navigation li a:hover, ul#navigation li .active
+{
+	background: #cedbdc;
 }
 
-
-.rate_plus {
-    color: #41AF0A;
+ul#navigation li.add a:hover, ul#navigation li.add .active
+{
+	background: #eacbd0;
 }
 
-.rate_minus {
-    color: #EF2C34;
+ol#language li span
+{
+	text-decoration: none;
+	font-size: 0.7em;
+
+	margin-left: -0.1em;
+
+	color: #888;
 }
 
-.util {
-    padding-top: 25px;
-    clear: both;
-    color: red;
-    font-size: 15px;
-    font-weight: bold;
-    float: right;
+/* Entrance text */
+
+p#entrance
+{
+	margin: 0 10em 1em 20em;
+	padding: 0.9em 0 0 0;
+
+	clear: both;
+	display: block;
+
+	font-size: 1.0em;
+	color: #222;
 }
 
-div.footer {
-    text-align: right;
-    margin-top: 32px;
-    font-size: 10px;
-    color: #3F3F3F;
+/* Posts markup (hAtom microformat) */
+
+.posts
+{
+	width: 100%;
+
+	margin: 4em 0 0 1em;
+	padding: 0;
+
+	list-style: none;
 }
 
-ul.pagination {
-    list-style: none;
-    font-size: 20px;
-    margin-top: 25px;
+.posts .hentry
+{
+	margin: 0 3em 1.4em 0;
+	padding: 1.3em 1.3em 1em 1.3em;
+
+	background: #fff;
+
+	border: solid 2px #ddd;
+	-webkit-border-radius: 1em;
+	-moz-border-radius: 1em;
+	border-radius: 1em;
+
+	min-width: 400px;
+
+	position: relative;
 }
 
-.pagination li {
-    float: left;
+.posts .hentry h2
+{
+	margin: 0 0 0.6em 0;
+	padding: 0;
+
+	font-size: 1.7em;
+	font-weight: 100;
+
+	color: #bbb;
 }
 
-.pagination a:link, .pagination a:visited{display:block;background:url(../images/page.png) no-repeat;width:39px;text-align:center;height:39px;line-height:39px;margin-right:5px}
-.pagination a.active:link, .pagination a.active:visited{color:#999;text-decoration:none}
+.posts .hentry .vote
+{
+	position: absolute;
+	right: 0;
+	top: 22px;
+
+	margin: 0;
+	padding: 0.4em;
+
+	color: #bbb;
+
+	font-size: 1.1em;
+}
+
+.posts .hentry .vote a
+{
+	margin: 0 0.3em;
+	padding: 0 0.3em;
+
+	color: #aaa;
+
+	text-decoration: none;
+	font-size: 1em;
+	font-family: "Arial";
+}
+
+.posts .hentry .vote a.vote-on
+{
+	margin-right: 0;
+}
+
+.posts .hentry .vote a.vote-against
+{
+	margin-left: 0;
+}
+
+.posts .hentry .vote a:hover
+{
+	color: #777;
+}
+
+.posts .hentry .vote strong
+{
+	color: green;
+}
+
+.posts .hentry .entry-content
+{
+    margin: 0;
+	padding: 0;
+	border: solid 1px #ddd;
+	position: relative;
+
+	overflow: none;
+
+	/*
+    overflow: auto;
+	overflow-x: auto;
+	overflow-y: hidden;
+	*/
+}
+
+.posts .hentry .entry-content ol
+{
+    background: #EFEFEF;
+	color: #BFA7A7;
+	float: left;
+
+	padding-right: 0.5em;
+	margin-right: 0.3em;
+	padding-left: 2.3em;
+	list-style: none;
+	text-align: right;
+
+	font-family: "Courier New", "Courier", "monospace";
+}
+
+.posts .hentry .entry-content pre
+{
+    padding: 0;
+    margin: 0;
+
+    overflow: auto;
+	overflow-x: auto;
+	overflow-y: hidden;
+
+	margin-left: 0.3em;
+	font-family: "Courier New", "Courier", "monospace";
+}
+
+.posts .hentry .entry-content a.trigger
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	padding: 0;
+
+	width: 18px;
+	height: 18px;
+
+	background: url(../images/expand.gif) no-repeat;
+	color: #aaa;
+
+	font-size: 0.9em;
+	text-decoration: none;
+	text-indent: -600px;
+}
+
+.posts .hentry .entry-content a.trigger:hover
+{
+	color: #888;
+}
+
+div.entry-comments
+{
+	margin: 0.8em 0 0 0;
+	padding: 0;
+
+	color: #999;
+}
+
+div.entry-comments a
+{
+	text-decoration: none;
+	border-bottom: dotted 1px #0060b6;
+}
+
+div.entry-comments a.selected {
+    border-bottom: 0;
+    color: #000;
+}
+
+div.entry-comments h3
+{
+	margin: 1em 0 0 0;
+	padding: 0;
+
+	font-weight: 100;
+	font-size: 1.5em;
+}
+
+div.entry-comments ul
+{
+	margin: 0.1em 0 0 0;
+	padding: 0;
+
+	border: none;
+
+	list-style: none;
+}
+
+div.entry-comments ul .hcomment
+{
+	margin: 1.3em 0 0 0;
+	padding: 0;
+
+	border: none;
+}
+
+div.entry-comments ul .hcomment ul
+{
+	margin-left: 2.5em;
+}
+
+div.entry-comments ul .hcomment ul .hcomment ul .hcomment ul .hcomment ul .hcomment ul .hcomment ul .hcomment ul .hcomment ul .hcomment ul .hcomment ul .hcomment ul
+{
+	margin-left: 0;
+}
+
+div.entry-comments ul .hcomment a.answer
+{
+	margin-left: 2.8em;
+	padding: 0.2em 0 0 0;
+	display: -moz-inline-stack;
+	display: inline-block;
+    border-bottom: 1px dotted #0060B6;
+	font-size: 0.9em;
+}
+
+div.entry-comments ul .hcomment a.selected
+{
+    border-bottom: 0;
+    color: #000;
+}
+
+div.entry-comments ul .hcomment p
+{
+	margin: 0;
+	padding: 0;
+
+	font-size: 0.9em;
+}
+
+div.entry-comments ul .hcomment p .comment-vote
+{
+	right: 1em;
+
+	position: absolute;
+}
+
+div.entry-comments ul .hcomment p .comment-vote a, div.entry-comments ul .hcomment p .comment-vote strong
+{
+	display: -moz-inline-stack;
+	display: inline-block;
+
+	margin: 0 0.1em;
+
+	vertical-align: middle;
+	text-decoration: none;
+
+	border: none;
+}
+
+div.entry-comments ul .hcomment p .comment-vote a.comment-vote-on
+{
+	background: url(../images/vote.png) no-repeat 0 0;
+	width: 18px;
+	height: 17px;
+}
+
+div.entry-comments ul .hcomment p .comment-vote a.comment-vote-against
+{
+	background: url(../images/vote.png) no-repeat -18px 0;
+	width: 15px;
+	height: 17px;
+}
+
+div.entry-comments ul .hcomment p img
+{
+	width: 28px;
+	height: 28px;
+
+	vertical-align: top;
+
+	border: solid 1px #ddd;
+}
+
+div.entry-comments ul .hcomment p strong
+{
+	color: #000;
+
+	margin-left: 0.6em;
+}
+
+div.entry-comments ul .hcomment p .published
+{
+	margin-left: 0.5em;
+
+	text-decoration: none;
+	border: none;
+
+	color: #aaa;
+}
+
+div.entry-comments ul .hcomment .entry-comment
+{
+	margin: -0.7em 0 0 2.8em;
+	padding: 0;
+
+	color: #333;
+
+	border: none;
+
+	font-size: 0.9em;
+}
+
+/* Form styles */
+
+form
+{
+	margin: 1em 0 0 0;
+}
+
+form dl, form dl dt, form dl dd
+{
+	margin: 0;
+	padding: 0;
+
+	color: #777;
+	font-size: 1.1em;
+}
+
+form dl dt
+{
+	margin: 0.5em 0 0.2em 0;
+}
+
+form dl dd input
+{
+	font-family: "Calibri", "Arial", "Verdana", "Serif";
+	font-size: 1.4em;
+
+	width: 60%;
+}
+
+form dl dd textarea
+{
+	width: 60%;
+
+	font-family: "Calibri", "Arial", "Verdana", "Serif";
+	font-size: 0.9em;
+}
+
+form p input.send
+{
+	font-size: 1.2em;
+
+	padding: 0.2em 0.4em;
+}
+
+form p input#remember
+{
+	margin: 0 0 0 0.7em;
+}
+
+/* Pagination classes */
+
+ul.pagination
+{
+	margin: 0.8em 0 0 1em;
+	padding: 0;
+
+	list-style: none;
+
+	font-size: 1.7em;
+	font-weight: 100;
+
+	color: #888;
+}
+
+ul.numbered
+{
+	margin: 0 0 1em 1em;
+}
+
+ul.pagination li
+{
+	display: inline;
+
+	margin-right: 0.4em;
+
+	font-family: "Arial";
+}
+
+/* Page foooooooooter */
+
+div#footer
+{
+	margin: 0;
+	padding: 0;
+
+	position: absolute;
+
+	bottom: 0 !important;
+	bottom: -1px;
+
+	height: 70px;
+	width: 100%;
+
+	-moz-border-top-left-radius: 1em;
+	-moz-border-top-right-radius: 1em;
+
+}
+
+div#footer address
+{
+	margin: 0 2em 0 1em;
+	padding: 0 1em 0 1em;
+
+	-webkit-border-top-left-radius: 1em;
+	-webkit-border-top-right-radius: 1em;
+    -moz-border-radius-topleft:1em;
+    -moz-border-radius-topright:1em;
+	border-top-left-radius: 1em;
+	border-top-right-radius: 1em;
+
+	background: #92602d;
+	color: #fff;
+
+	font-style: normal;
+
+	height: 100%;
+}
+
+div#footer address span
+{
+	display: block;
+
+	margin: 0;
+	padding: 0.8em 0 0 0.5em;
+}
+
+div#footer address span a
+{
+	color: #fff;
+	text-decoration: underline;
+}
+
+/* Geshi bold line-height hack */
+.kw1, .kw2, .kw3, .kw4 .kw5, .kw6, .kw7, .kw8, .li2, .es_h, .es0, .es1, .es2, .es3, .es4, .es5, .es6, .sy0, .imp {
+    line-height: 16px;
+}

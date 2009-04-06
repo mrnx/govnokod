@@ -19,24 +19,39 @@ fileLoader::load('quoter/quoteCategory');
  *
  * @package modules
  * @subpackage quoter
- * @version 0.1
+ * @version 0.2
  */
 
-class quoteCategoryMapper extends simpleMapper
+class quoteCategoryMapper extends mapper
 {
-    /**
-     * Имя модуля
-     *
-     * @var string
-     */
-    protected $name = 'quoter';
-
     /**
      * Имя класса DataObject
      *
      * @var string
      */
-    protected $className = 'quoteCategory';
+    protected $class = 'quoteCategory';
+    protected $table = 'quoter_quoteCategory';
+
+    protected $map = array(
+        'id' => array(
+            'accessor' => 'getId',
+            'mutator' => 'setId',
+            'options' => array('pk', 'once')
+        ),
+        'name' => array(
+            'accessor' => 'getName',
+            'mutator' => 'setName',
+            'options' => array('once')
+        ),
+        'title' => array(
+            'accessor' => 'getTitle',
+            'mutator' => 'setTitle',
+        ),
+        'quote_counts' => array(
+            'accessor' => 'getQuoteCounts',
+            'mutator' => 'setQuoteCounts'
+        ),
+    );
 
     public function searchByName($name)
     {

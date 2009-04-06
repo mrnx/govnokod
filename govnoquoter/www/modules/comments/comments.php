@@ -13,14 +13,13 @@
 */
 
 /**
- * comments: класс для работы с ...
+ * comments: класс для работы с данными
  *
  * @package modules
  * @subpackage comments
- * @version 0.1.2
+ * @version 0.2
  */
-
-class comments extends simple
+class comments extends entity
 {
     const USERNAME_MAX_CHARS = 50;
     const TEXT_MAX_CHARS = 2000;

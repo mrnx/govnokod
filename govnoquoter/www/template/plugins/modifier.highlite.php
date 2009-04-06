@@ -15,6 +15,11 @@ function smarty_modifier_highlite($source, $language = 'text', Array $highlight 
     //если такой язык подсветки не найден, то принуждаем использовать простой текст
     if ($geshi->error() !== false) {
         $geshi->set_language('text');
+    } else {
+        $css = systemConfig::$pathToApplication . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'langs' . DIRECTORY_SEPARATOR . $language . '.css';
+        if (!file_exists($css)) {
+            file_put_contents($css, $geshi->get_stylesheet(false));
+        }
     }
 
     $geshi->set_comments_style(1, 'color: #666666;');
@@ -27,11 +32,8 @@ function smarty_modifier_highlite($source, $language = 'text', Array $highlight 
         $geshi->highlight_lines_extra($highlight);
     }
 
-    $css = systemConfig::$pathToApplication . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'langs' . DIRECTORY_SEPARATOR . $language . '.css';
-    if (!file_exists($css)) {
-        file_put_contents($css, $geshi->get_stylesheet(false));
-    }
-
+    //$geshi->set_header_type(GESHI_HEADER_NONE);
+    //$geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
     $geshi->enable_classes();
     $code = $geshi->parse_code();
 
