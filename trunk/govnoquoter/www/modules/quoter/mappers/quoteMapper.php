@@ -13,30 +13,77 @@
  */
 
 fileLoader::load('quoter/quote');
+fileLoader::load('orm/plugins/acl_extPlugin');
 
 /**
  * quoteMapper: маппер
  *
  * @package modules
  * @subpackage quoter
- * @version 0.1
+ * @version 0.2
  */
 
-class quoteMapper extends simpleMapper
+class quoteMapper extends mapper
 {
-    /**
-     * Имя модуля
-     *
-     * @var string
-     */
-    protected $name = 'quoter';
-
     /**
      * Имя класса DataObject
      *
      * @var string
      */
-    protected $className = 'quote';
+    protected $class = 'quote';
+    protected $table = 'quoter_quote';
+
+    protected $map = array(
+        'id' => array(
+            'accessor' => 'getId',
+            'mutator' => 'setId',
+            'options' => array('pk', 'once')
+        ),
+        'category_id' => array(
+            'accessor' => 'getCategory',
+            'mutator' => 'setCategory',
+            'relation' => 'one',
+            'foreign_key' => 'id',
+            'mapper' => 'quoter/quoteCategoryMapper'
+        ),
+        'created' => array(
+            'accessor' => 'getCreated',
+            'mutator' => 'setCreated',
+            'options' => array('once',)
+        ),
+        'deleted' => array(
+            'accessor' => 'getDeleted',
+            'mutator' => 'setDeleted'
+        ),
+        'text' => array(
+            'accessor' => 'getText',
+            'mutator' => 'setText'
+        ),
+        'description' => array(
+            'accessor' => 'getDescription',
+            'mutator' => 'setDescription'
+        ),
+        'rating' => array(
+            'accessor' => 'getRating',
+            'mutator' => 'setRating'
+        ),
+        'highlited_lines' => array(
+            'accessor' => 'getHighlitedLines',
+            'mutator' => 'setHighlitedLines'
+        ),
+        'active' => array(
+            'accessor' => 'getIsActive',
+            'mutator' => 'setIsActive'
+        )
+    );
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->attach(new acl_extPlugin(), 'acl');
+        $this->plugins('jip');
+        $this->plugins('comments');
+    }
 
     public function searchById($id)
     {
@@ -79,11 +126,13 @@ class quoteMapper extends simpleMapper
 
     public function clearSuxx()
     {
+        /*
         $needClear = (rand(1, 4) === 1);
         if ($needClear) {
-            $query = 'UPDATE ' . $this->getTable() . ' SET `active` = 0 WHERE `rating` < 0 AND `deleted` <= ' . time();
-            $this->db->query($query);
+            $query = 'UPDATE ' . $this->table() . ' SET `active` = 0 WHERE `rating` < 0 AND `deleted` <= ' . time();
+            $this->db()->query($query);
         }
+        */
     }
 
     /**

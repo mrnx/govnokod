@@ -43,6 +43,12 @@ class quoterViewController extends simpleController
             return $this->smarty->fetch('quoter/ajaxview.tpl');
         }
 
+        $onlyComments = $this->request->getBoolean('onlyComments', SC_GET);
+        if ($onlyComments) {
+            $this->smarty->disableMain();
+            return $this->smarty->fetch('quoter/onlyComments.tpl');
+        }
+
         return $this->smarty->fetch('quoter/view.tpl');
     }
 }

@@ -1,5 +1,34 @@
-{assign var="langName" value=$quote->getCategory()->getName()|htmlspecialchars}
+{assign var="langName" value=$quote->getCategory()->getName()|h}
 {add file="langs/$langName.css"}
+
+    <li class="hentry">
+        <h2><a rel="chapter" href="#">{$quote->getCategory()->getTitle()|h}</a> / <a rel="bookmark" class="entry-title" href="#">Говнокод #{$quote->getId()}</a></h2>
+        <p class="vote">
+            Говносила:
+            <a class="vote-on" href="#">&uarr;</a>
+            <strong>15</strong>
+            <a class="vote-against" href="#">&darr;</a>
+        </p>
+        <div class="entry-content">
+        {if $quote->getLinesCount()-15 > 20}
+            <ol>{foreach from=$quote->generateLines(15) item="line"}<li>{$line}</li>{/foreach}<li>…</li><li>{$quote->getLinesCount()}</li></ol>
+            {$quote->getText(15)|highlite:$langName:$quote->getHighlightedLines()}
+        {else}
+            <ol>{foreach from=$quote->generateLines() item="line"}<li>{$line}</li>{/foreach}</ol>
+            {$quote->getText()|highlite:$langName:$quote->getHighlightedLines()}
+        {/if}
+            <a class="trigger" href="#">показать весь код +</a>
+        </div>
+        <p>
+            {$quote->getDescription()|trim|h|bbcode|nl2br}
+        </p>
+        <div class="entry-comments">
+            <a href="{url route="quoteView" id=$quote->getId()}" onclick="loadComments(this); return false;">Комментарии</a> <span class="count">({$quote->getCommentsCount()})</span>
+        </div>
+    </li>
+
+
+    {*
 <div class="rounded-box{if $quote->getRating() < 0} suxx-box{/if}" style="width: 100%;">
     <b class="r10"></b><b class="r7"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r2"></b><b class="r1"></b><b class="r1"></b><b class="r1"></b>
     <div class="inner-box">
@@ -34,3 +63,5 @@
     </div>
     <b class="r1"></b><b class="r1"></b><b class="r1"></b><b class="r2"></b><b class="r2"></b><b class="r3"></b><b class="r4"></b><b class="r5"></b><b class="r7"></b><b class="r10"></b>
 </div>
+
+*}

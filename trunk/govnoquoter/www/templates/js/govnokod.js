@@ -1,3 +1,96 @@
+var commentsPreloader = new Image();
+commentsPreloader.src = SITE_PATH + '/templates/images/commentsload.gif';
+
+var currentShowTrigger;
+function showCommentForm(formElem, aElemTrigger, durationValue, offsetValue)
+{
+    if (currentShowTrigger) {
+        currentShowTrigger.removeClassName('selected');
+    }
+    currentShowTrigger = aElemTrigger;
+    currentShowTrigger.addClassName('selected');
+
+    durationValue = durationValue || 0.4;
+    offsetValue = offsetValue || 0;
+
+    formElem.show();
+    formElem.action = aElemTrigger.href;
+    formElem.down('textarea').focus();
+    Effect.ScrollTo(formElem, {duration: durationValue, offset: offsetValue});
+}
+
+function moveCommentForm(commentId, folderId, aElemTrigger)
+{
+    var formElem = $('commentForm_' + folderId);
+    var nowHolder = $('answerForm_' + folderId + '_' + commentId);
+    if (formElem && nowHolder) {
+        formElem.remove();
+        nowHolder.update(formElem);
+        showCommentForm(formElem, aElemTrigger, 0.7, -100);
+    }
+}
+
+function loadComments(aElemTrigger)
+{
+    var holder = aElemTrigger.up();
+    var url = aElemTrigger.href;
+    new Insertion.After(aElemTrigger, aElemTrigger.innerHTML);
+    aElemTrigger.remove();
+
+    holder.insert(' ').insert(generateCommentsPreloader());
+
+    new Ajax.Request(url, {
+        method: 'get',
+        parameters: {onlyComments: true},
+        onSuccess: function(transport) {
+            holder.update(transport.responseText);
+        },
+        onFailure: function() {
+            alert('Something went wrong…');
+        }
+    });
+}
+
+function generateCommentsPreloader()
+{
+    var preloader = new Element('img', {src: commentsPreloader.src, 'alt': 'Загрузка…', title: 'Загрузка списка комментариев'});
+    return preloader;
+}
+
+function postCommentsForm(formElem)
+{
+    var data = formElem.serialize(true);
+    data.ajax = true;
+
+    formElem.disable();
+
+    //formElem.down(0).next('input#send').setValue('Отправка комментария…');
+    var baseHolder = formElem.up('.hcomment');
+    var holder = formElem.up();
+    new Ajax.Request(formElem.action, {
+        method: 'post',
+        parameters: data,
+        onSuccess: function(transport) {
+            //formElem.remove();
+            holder.update(transport.responseText);
+            var newComment = null;
+            if (newComment = holder.down('.new')) {
+                newComment.remove();
+
+                var ulForNewComment = new Element('ul');
+                ulForNewComment.insert(newComment);
+
+                baseHolder.insert(ulForNewComment);
+                Effect.ScrollTo(newComment, {duration: 0.7, offset: -100});
+            }
+        },
+        onFailure: function() {
+            alert('Something went wrong…');
+        }
+    });
+}
+
+/*
 var loadingImage = new Image();
 loadingImage.src = SITE_PATH + '/templates/images/codepreloader.gif';
 
@@ -158,3 +251,4 @@ function selectLine(event) {
 
     return false;
 }
+*/

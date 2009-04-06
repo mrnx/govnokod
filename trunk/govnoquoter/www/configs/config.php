@@ -23,7 +23,7 @@ define('SITE_PATH', '');
 define('COOKIE_DOMAIN', '');
 
 define('DEBUG_MODE', 1);
-define('SYSTEM_PATH', realpath(dirname(__FILE__) . '/../../../mzz_stable/system/'));
+define('SYSTEM_PATH', realpath(dirname(__FILE__) . '/../../../mzz/system/'));
 
 /**
  * Идентификатор записи в БД для неавторизированных пользователей

@@ -1,29 +1,44 @@
-{add file="comment.css" join=false}
-{assign var="commentsCount" value=0}
-
-<div class="rounded-box comment">
-    <b class="r10"></b><b class="r7"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r2"></b><b class="r1"></b><b class="r1"></b><b class="r1"></b>
-    <div class="inner-box">
-        {assign var="commentsCount" value=$comments|@count}
-        <h2><a name="comments"></a>Комментарии ({$comments|@count}): <a href="{url route="rssComments" id=$quote->getId()}" title="Подписка на комментарии"><img src="{$SITE_PATH}/templates/images/rss.jpg" alt="RSS 2.0" /></a></h2>
-    {foreach from=$comments item="comment" name="commentIterator"}
-        <div class="item">
-        	<h3>
-        	   <span class="rate commentrate">
-        	       <a href="{url route="commentVote" action="cool" id=$comment->getId()}?token={$comment->getVoteToken()}" onclick="ajaxvote(this); return false;" title="поддерживаю!">+</a>
-        	       <span class="{if $comment->getRating() > 0}rate_plus{elseif $comment->getRating() < 0}rate_minus{/if}">{$comment->getRating()}</span>
-        	       <a href="{url route="commentVote" action="suxx" id=$comment->getId()}?token={$comment->getVoteToken()}" onclick="ajaxvote(this); return false;" title="отстой!">-</a>
-        	   </span>
-        	   <a name="comment{$comment->getId()}"></a><a href="{url}#comment{$smarty.foreach.commentIterator.iteration}" name="comment{$smarty.foreach.commentIterator.iteration}">#{$smarty.foreach.commentIterator.iteration}</a>
-        	   {if $comment->getAuthor() == ''}<em>Говногость</em>{else}{$comment->getAuthor()|htmlspecialchars}{/if}
-        	   <span class="commentDate">({$comment->getTime()|date_i18n:"relative_hour"}){if $comment->getAcl('edit')}, ip: {$comment->getAuthorIp()|htmlspecialchars}{/if}</span> {$comment->getJip()}
-        	</h3>
-            <div class="commentText">{$comment->getText()|trim|htmlspecialchars|bbcode|nl2br}</div>
-        </div>
-    {foreachelse}
-        <p>Комментариев еще нет</p>
+{add file="prototype.js"}
+<div class="entry-comments">
+    <h3>Комментарии <span class="count">({$comments->count()})</span></h3>
+    {if !$comments->isEmpty()}
+    <ul>
+    {foreach from=$comments item="comment" name="commentsIteration"}
+        {strip}{if !$smarty.foreach.commentsIteration.first}
+            {if $comment->getTreeLevel() < $lastLevel}
+                {math equation="x - y + 1" x=$lastLevel y=$comment->getTreeLevel() assign="levelDown"}
+                {"</li></ul>"|@str_repeat:$levelDown}
+                <ul>
+            {elseif $lastLevel == $comment->getTreeLevel()}
+                </li>
+            {else}
+                <ul>
+            {/if}
+        {/if}{/strip}
+        <li class="hcomment">
+            <p>
+                <img src="http://s3.amazonaws.com/twitter_production/profile_images/121187671/Green_love_monster_bigger.png" alt="" />
+                <strong class="entry-author">{$comment->getUser()->getLogin()|h}</strong>
+                <a class="published" name="comment{$comment->getId()}" href="{url}#comment{$comment->getId()}">{$comment->getCreated()|date_format:"%e %b %Y, %H:%M"}</a>
+                <span class="comment-vote">
+                    <strong>0</strong>
+                    <a class="comment-vote-on" href="#"> </a>
+                    <a class="comment-vote-against" href="#"> </a>
+                </span>
+            </p>
+            <div class="entry-comment">
+                {$comment->getText()|h|nl2br}
+            </div>
+            <a class="answer" href="{url route="withId" section="comments" action="post" id=$commentsFolder->getId()}?replyTo={$comment->getId()}" onclick="moveCommentForm({$comment->getId()}, {$commentsFolder->getId()}, this); return false;">Ответить</a>
+            <ul>
+                <li id="answerForm_{$commentsFolder->getId()}_{$comment->getId()}"></li>
+            </ul>
+        {assign var="lastLevel" value=$comment->getTreeLevel()}
     {/foreach}
-    </div>
-    <b class="r1"></b><b class="r1"></b><b class="r1"></b><b class="r2"></b><b class="r2"></b><b class="r3"></b><b class="r4"></b><b class="r5"></b><b class="r7"></b><b class="r10"></b>
+    {math equation="x - y + 1" x=$lastLevel y=1 assign="levelDown"}
+    {"</li></ul>"|@str_repeat:$levelDown}
+    {load module="comments" section="comments" action="post" tplPrefix="list_" hideForm=true id=$commentsFolder onlyForm=true}
+    {else}
+    {load module="comments" section="comments" action="post" tplPrefix="list_" hideForm=false id=$commentsFolder onlyForm=true}
+    {/if}
 </div>
-{load module="comments" section="comments" action="post" parent_id=$parent_id}

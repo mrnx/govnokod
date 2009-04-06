@@ -17,12 +17,11 @@
  *
  * @package modules
  * @subpackage quoter
- * @version 0.1
+ * @version 0.2
  */
 
-class quoteCategory extends simple
+class quoteCategory extends entity
 {
-    protected $name = 'quoter';
     protected $page = false;
 
     public function getPage()
