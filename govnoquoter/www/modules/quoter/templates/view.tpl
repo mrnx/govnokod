@@ -25,6 +25,6 @@
             {$quote->getDescription()|trim|h|bbcode|nl2br}
         </p>
 
-        {load module="comments" action="list" object=$quote byField="id"}
+        {load module="comments" action="list" object=$quote}
     </li>
 </ol>

@@ -14,6 +14,7 @@
 
 fileLoader::load('quoter/quote');
 fileLoader::load('orm/plugins/acl_extPlugin');
+fileLoader::load('orm/plugins/commentsPlugin');
 
 /**
  * quoteMapper: маппер
@@ -82,7 +83,7 @@ class quoteMapper extends mapper
         parent::__construct();
         $this->attach(new acl_extPlugin(), 'acl');
         $this->plugins('jip');
-        $this->plugins('comments');
+        $this->attach(new commentsPlugin(array('extendMap' => true, 'byField' => 'id')));
     }
 
     public function searchById($id)
