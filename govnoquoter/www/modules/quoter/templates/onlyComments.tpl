@@ -1,1 +1,1 @@
-{load module="comments" action="list" object=$quote byField="id"}
+{load module="comments" action="list" tplPrefix="ajax_" object=$quote byField="id"}

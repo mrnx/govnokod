@@ -1,5 +1,3 @@
-{add file="prototype.js"}
-<div class="entry-comments">
     <h3>Комментарии <span class="count">({$comments->count()})</span></h3>
     <ul id="comments_{$commentsFolder->getId()}">
     {foreach from=$comments item="comment" name="commentsIteration"}
@@ -41,4 +39,3 @@
     </ul>
     {if $comments->isEmpty()}{assign var="hideForm" value=false}{else}{assign var="hideForm" value=true}{/if}
     {load module="comments" section="comments" action="post" tplPrefix="list_" hideForm=$hideForm id=$commentsFolder onlyForm=true}
-</div>
