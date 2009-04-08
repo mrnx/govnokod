@@ -37,7 +37,7 @@ function loadComments(aElemTrigger)
     new Insertion.After(aElemTrigger, aElemTrigger.innerHTML);
     aElemTrigger.remove();
 
-    holder.insert(' ').insert(generateCommentsPreloader());
+    holder.insert(' ').insert(new Element('img', {src: commentsPreloader.src, 'alt': 'Загрузка…', title: 'Загрузка списка комментариев'}));
 
     new Ajax.Request(url, {
         method: 'get',
@@ -51,16 +51,52 @@ function loadComments(aElemTrigger)
     });
 }
 
-function generateCommentsPreloader()
-{
-    var preloader = new Element('img', {src: commentsPreloader.src, 'alt': 'Загрузка…', title: 'Загрузка списка комментариев'});
-    return preloader;
-}
-
 function postCommentsForm(formElem)
 {
-    var data = formElem.serialize(true);
-    data.ajax = true;
+    var formParent = formElem.up();
+
+    var reg = /^answerForm_(\d+)_(\d+)$/;
+    var matches = formParent.id.match(reg);
+    if (matches) {
+        var url = formElem.action;
+        var data = formElem.serialize(true);
+        data.ajax = true;
+
+        formElem.disable();
+
+        var folderId = matches[1];
+        var replyTo = matches[2];
+
+        var baseHolder = (replyTo == 0) ? $('comments_' + folderId) : formElem.up('.hcomment');
+
+        new Ajax.Request(url, {
+            method: 'post',
+            parameters: data,
+            onSuccess: function(transport) {
+                if (baseHolder) {
+                    formParent.update(transport.responseText);
+                    var newComment = null;
+                    if (newComment = formParent.down('.new')) {
+                        newComment.remove();
+
+                        if (replyTo != 0) {
+                            var ulForNewComment = new Element('ul');
+                            ulForNewComment.insert(newComment);
+                            newComment = ulForNewComment;
+                        }
+
+                        baseHolder.insert(newComment);
+                        Effect.ScrollTo(newComment, {duration: 0.7, offset: -100});
+                    }
+                }
+            },
+            onFailure: function() {
+                alert('Something went wrong…');
+            }
+        });
+    }
+
+    /*
 
     formElem.disable();
 
@@ -88,6 +124,7 @@ function postCommentsForm(formElem)
             alert('Something went wrong…');
         }
     });
+    */
 }
 
 /*

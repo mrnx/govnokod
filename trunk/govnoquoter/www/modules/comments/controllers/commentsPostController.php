@@ -106,19 +106,17 @@ class commentsPostController extends simpleController
         $this->smarty->assign('errors', $validator->getErrors());
         $this->smarty->assign('hideForm', $this->request->getBoolean('hideForm'));
 
-        $tplPrefix = $this->request->getString('tplPrefix');
-
         $this->smarty->assign('isAjax', $isAjax);
         if ($isAjax) {
             $this->smarty->disableMain();
-            $tplPrefix = 'ajax_';
+            $this->setTemplatePrefix('ajax_');
         }
 
         if (!$backUrl) {
             $backUrl = $this->request->getServer('REQUEST_URI');
         }
         $this->smarty->assign('backUrl', $backUrl);
-        return $this->smarty->fetch('comments/' . $tplPrefix . 'post.tpl');
+        return $this->fetch('comments/post.tpl');
     }
 }
 ?>
