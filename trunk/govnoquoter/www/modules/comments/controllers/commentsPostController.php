@@ -61,7 +61,8 @@ class commentsPostController extends simpleController
         }
 
         $validator = new formValidator('commentSubmit');
-        $validator->add('required', 'text', 'Введите комментарий');
+        $validator->add('required', 'text', 'Введите комментарий!');
+        $validator->add('length', 'text', 'Слишком длинный комментарий! Максимум 2000 символов!', array(0, 2000));
 
         $isAjax = $this->request->getBoolean('ajax', SC_POST);
         $backUrl = $this->request->getString('backUrl', SC_POST);
@@ -76,7 +77,7 @@ class commentsPostController extends simpleController
                 $comment->setTreeParent($commentReply);
             }
 
-            $comment->setText($text);
+            $comment->setText(mzz_trim($text));
             $commentsMapper->save($comment);
 
             if ($isAjax) {
@@ -86,6 +87,17 @@ class commentsPostController extends simpleController
                 return $this->smarty->fetch('comments/post_added_ajax.tpl');
             } else {
                 $this->response->redirect($backUrl . '#comment' . $comment->getId());
+            }
+        }
+
+        //little hack
+        if ($onlyForm) {
+            if (isset($_POST['text'])) {
+                $pathParams = $this->request->getParams();
+
+                $_POST['text'] = '';
+                $this->request->refresh();
+                $this->request->setParams($pathParams);
             }
         }
 
@@ -115,6 +127,7 @@ class commentsPostController extends simpleController
         if (!$backUrl) {
             $backUrl = $this->request->getServer('REQUEST_URI');
         }
+
         $this->smarty->assign('backUrl', $backUrl);
         return $this->fetch('comments/post.tpl');
     }

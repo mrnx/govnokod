@@ -7,7 +7,7 @@
         {/if}
         <div class="entry-comments">
             {form action=$action method="post"}
-                <dl>
+                <dl class="errors">
                     {if !$errors->isEmpty()}
                     <dt>Ошибка компиляции комментария:</dt>
                     <dd>

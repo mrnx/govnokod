@@ -32,18 +32,18 @@ function moveCommentForm(commentId, folderId, aElemTrigger)
 
 function loadComments(aElemTrigger)
 {
-    var holder = aElemTrigger.up();
+    var commentsHolder = aElemTrigger.up();
     var url = aElemTrigger.href;
     new Insertion.After(aElemTrigger, aElemTrigger.innerHTML);
     aElemTrigger.remove();
 
-    holder.insert(' ').insert(new Element('img', {src: commentsPreloader.src, 'alt': 'Загрузка…', title: 'Загрузка списка комментариев'}));
+    commentsHolder.insert(' ').insert(new Element('img', {src: commentsPreloader.src, 'alt': 'Загрузка…', title: 'Загрузка списка комментариев'}));
 
     new Ajax.Request(url, {
         method: 'get',
         parameters: {onlyComments: true},
         onSuccess: function(transport) {
-            holder.update(transport.responseText);
+            commentsHolder.update(transport.responseText);
         },
         onFailure: function() {
             alert('Something went wrong…');
@@ -95,36 +95,6 @@ function postCommentsForm(formElem)
             }
         });
     }
-
-    /*
-
-    formElem.disable();
-
-    //formElem.down(0).next('input#send').setValue('Отправка комментария…');
-    var baseHolder = formElem.up('.hcomment');
-    var holder = formElem.up();
-    new Ajax.Request(formElem.action, {
-        method: 'post',
-        parameters: data,
-        onSuccess: function(transport) {
-            //formElem.remove();
-            holder.update(transport.responseText);
-            var newComment = null;
-            if (newComment = holder.down('.new')) {
-                newComment.remove();
-
-                var ulForNewComment = new Element('ul');
-                ulForNewComment.insert(newComment);
-
-                baseHolder.insert(ulForNewComment);
-                Effect.ScrollTo(newComment, {duration: 0.7, offset: -100});
-            }
-        },
-        onFailure: function() {
-            alert('Something went wrong…');
-        }
-    });
-    */
 }
 
 /*
