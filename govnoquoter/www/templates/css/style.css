@@ -553,6 +553,11 @@ form p input#remember
 	margin: 0 0 0 0.7em;
 }
 
+form dl.errors dd ol
+{
+	color: red;
+}
+
 /* Pagination classes */
 
 ul.pagination
