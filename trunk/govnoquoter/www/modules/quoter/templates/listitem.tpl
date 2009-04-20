@@ -13,11 +13,11 @@
         {if $quote->getLinesCount()-15 > 20}
             <ol>{foreach from=$quote->generateLines(15) item="line"}<li>{$line}</li>{/foreach}<li>…</li><li>{$quote->getLinesCount()}</li></ol>
             {$quote->getText(15)|highlite:$langName:$quote->getHighlightedLines()}
+            <a class="trigger" href="{*url route="quoteView" id=$quote->getId()*}#" onclick="unfoldCode({$quote->getId()}, this); return false;">показать весь код +</a>
         {else}
             <ol>{foreach from=$quote->generateLines() item="line"}<li>{$line}</li>{/foreach}</ol>
             {$quote->getText()|highlite:$langName:$quote->getHighlightedLines()}
         {/if}
-            <a class="trigger" href="#">показать весь код +</a>
         </div>
         <p>
             {$quote->getDescription()|trim|h|bbcode|nl2br}
