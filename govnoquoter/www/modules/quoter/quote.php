@@ -48,7 +48,7 @@ class quote extends entity
             $text .= "…\n" . $lastString;
         }
 
-        return trim($text);
+        return $text;
     }
 
     public function getLinesCount()

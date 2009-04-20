@@ -97,6 +97,67 @@ function postCommentsForm(formElem)
     }
 }
 
+var allreadyLoaded = new Array();
+
+function unfoldCode(codeId, trigger)
+{
+    var entryHolder = trigger.up('.entry-content');
+
+    var currentHeight = entryHolder.getHeight();
+
+    entryHolder.setStyle({overflow: 'hidden', height: currentHeight + 'px;'});
+
+        new Ajax.Request('/quoter/' + encodeURIComponent(codeId), {
+                method: 'get',
+                parameters: {format: 'ajax'},
+                onSuccess: function(transport) {
+                    allreadyLoaded[codeId] = currentHeight;
+                    entryHolder.update(transport.responseText);
+
+                    Effect.BlindDown(entryHolder, {
+                        duration: 0.4,
+                        scaleMode: 'contents',
+                        restoreAfterFinish: false,
+                        scaleFrom: Math.ceil((100 / entryHolder.scrollHeight) * currentHeight)
+                    });
+
+                }
+            });
+
+    /*
+    var unfolderController = $('unfoldCode' + codeId);
+    var folderController = $('foldCode' + codeId);
+    if (unfolderController && folderController) {
+        unfolderController.hide();
+        folderController.show();
+    }
+
+    if (codeContent) {
+        var currentHeight = codeContent.getHeight();
+        if (allreadyLoaded[codeId] > 0) {
+            unfoldCodeEffect(codeContent, currentHeight);
+        } else {
+            codeContent.setStyle('overflow: hidden; height: ' + currentHeight + 'px;');
+
+            var codePreloader = $('codefolder' + codeId);
+            if (codePreloader) {
+                var preloadImg = new Element('img', {src: loadingImage.src, alt: '', title: 'Идёт загрузка...'});
+                codePreloader.update(preloadImg);
+            }
+            new Ajax.Request('/quoter/' + encodeURIComponent(codeId), {
+                method: 'get',
+                parameters: {format: 'ajax'},
+                onSuccess: function(transport) {
+                    allreadyLoaded[codeId] = currentHeight;
+                    codeContent.update(transport.responseText);
+                    unfoldCodeEffect(codeContent, currentHeight);
+                }
+            });
+        }
+    }
+    */
+}
+
 /*
 var loadingImage = new Image();
 loadingImage.src = SITE_PATH + '/templates/images/codepreloader.gif';
