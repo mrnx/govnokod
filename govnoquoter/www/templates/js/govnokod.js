@@ -1,6 +1,9 @@
 var commentsPreloader = new Image();
 commentsPreloader.src = SITE_PATH + '/templates/images/commentsload.gif';
 
+var codePreloader = new Image();
+codePreloader.src = SITE_PATH + '/templates/images/codeload.gif';
+
 var currentShowTrigger;
 function showCommentForm(formElem, aElemTrigger, durationValue, offsetValue)
 {
@@ -97,65 +100,37 @@ function postCommentsForm(formElem)
     }
 }
 
-var allreadyLoaded = new Array();
-
-function unfoldCode(codeId, trigger)
+function unfoldCode(codeId)
 {
+    var trigger = $('trigger_' + codeId);
+    if (!trigger) {
+        return;
+    }
+
     var entryHolder = trigger.up('.entry-content');
+
+    new Insertion.After(trigger, new Element('img', {className: 'preloader', src: codePreloader.src, 'alt': 'Загрузка…', title: 'Загрузка кода…'}));
+    trigger.remove();
 
     var currentHeight = entryHolder.getHeight();
 
-    entryHolder.setStyle({overflow: 'hidden', height: currentHeight + 'px;'});
+    new Ajax.Request('/quoter/' + encodeURIComponent(codeId), {
+        method: 'get',
+        parameters: {format: 'ajax'},
+        onSuccess: function(transport) {
+            entryHolder.update(transport.responseText);
 
-        new Ajax.Request('/quoter/' + encodeURIComponent(codeId), {
-                method: 'get',
-                parameters: {format: 'ajax'},
-                onSuccess: function(transport) {
-                    allreadyLoaded[codeId] = currentHeight;
-                    entryHolder.update(transport.responseText);
-
-                    Effect.BlindDown(entryHolder, {
-                        duration: 0.4,
-                        scaleMode: 'contents',
-                        restoreAfterFinish: false,
-                        scaleFrom: Math.ceil((100 / entryHolder.scrollHeight) * currentHeight)
-                    });
-
-                }
+            Effect.BlindDown(entryHolder, {
+                duration: 0.4,
+                scaleMode: 'contents',
+                restoreAfterFinish: false,
+                scaleFrom: Math.floor((100 / entryHolder.scrollHeight) * currentHeight)
             });
-
-    /*
-    var unfolderController = $('unfoldCode' + codeId);
-    var folderController = $('foldCode' + codeId);
-    if (unfolderController && folderController) {
-        unfolderController.hide();
-        folderController.show();
-    }
-
-    if (codeContent) {
-        var currentHeight = codeContent.getHeight();
-        if (allreadyLoaded[codeId] > 0) {
-            unfoldCodeEffect(codeContent, currentHeight);
-        } else {
-            codeContent.setStyle('overflow: hidden; height: ' + currentHeight + 'px;');
-
-            var codePreloader = $('codefolder' + codeId);
-            if (codePreloader) {
-                var preloadImg = new Element('img', {src: loadingImage.src, alt: '', title: 'Идёт загрузка...'});
-                codePreloader.update(preloadImg);
-            }
-            new Ajax.Request('/quoter/' + encodeURIComponent(codeId), {
-                method: 'get',
-                parameters: {format: 'ajax'},
-                onSuccess: function(transport) {
-                    allreadyLoaded[codeId] = currentHeight;
-                    codeContent.update(transport.responseText);
-                    unfoldCodeEffect(codeContent, currentHeight);
-                }
-            });
+        },
+        onFailure: function() {
+            alert('Something went wrong…');
         }
-    }
-    */
+    });
 }
 
 /*
