@@ -305,13 +305,14 @@ p#entrance
 	color: #BFA7A7;
 	float: left;
 
-	padding-right: 0.5em;
+	padding-right: 0.3em;
 	margin-right: 0.3em;
 	padding-left: 2.3em;
 	list-style: none;
 	text-align: right;
 
 	font-family: "Courier New", "Courier", "monospace";
+	width: 30px;
 }
 
 .posts .hentry .entry-content pre

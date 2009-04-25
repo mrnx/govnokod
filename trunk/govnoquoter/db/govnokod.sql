@@ -1,4 +1,4 @@
-# SQL Manager 2007 for MySQL 4.4.0.3
+# SQL Manager 2007 for MySQL 4.4.0.5
 # ---------------------------------------
 # Host     : localhost
 # Port     : 3306
@@ -37,7 +37,7 @@ CREATE TABLE `comments_comments` (
   `folder_id` INTEGER(11) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=1 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=11 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Structure for the `comments_commentsFolder` table : 
@@ -56,7 +56,7 @@ CREATE TABLE `comments_commentsFolder` (
   UNIQUE KEY `parent_id_2` (`parent_id`, `type`),
   KEY `parent_id` (`parent_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=1 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=14 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Structure for the `comments_commentsVote` table : 
@@ -79,15 +79,6 @@ CREATE TABLE `comments_commentsVote` (
 AUTO_INCREMENT=3 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
-# Data for the `comments_commentsVote` table  (LIMIT 0,500)
-#
-
-INSERT INTO `comments_commentsVote` (`id`, `comment_id`, `value`, `datetime`, `ip_address`, `useragent`, `user_id`) VALUES 
-  (1,892,-1,1236865860,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.7) Gecko/2009021910 Firefox/3.0.7',1),
-  (2,897,1,1236865873,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.7) Gecko/2009021910 Firefox/3.0.7',1);
-COMMIT;
-
-#
 # Structure for the `comments_comments_tree` table : 
 #
 
@@ -101,7 +92,7 @@ CREATE TABLE `comments_comments_tree` (
   `spath` TEXT COLLATE utf8_general_ci,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=1 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=11 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Structure for the `copypasta` table : 
@@ -122,32 +113,6 @@ CREATE TABLE `copypasta` (
 AUTO_INCREMENT=33 CHARACTER SET 'cp1251' COLLATE 'cp1251_general_ci';
 
 #
-# Data for the `copypasta` table  (LIMIT 0,500)
-#
-
-INSERT INTO `copypasta` (`id`, `copypasta_language_id`, `copypasta`, `username`, `delete_at`, `created_at`) VALUES 
-  (14,3,'Ниибёт','User','2009-03-06 01:05:00','2008-11-10 21:31:12'),
-  (15,3,'test','dizzy2','2009-05-06 04:06:00','2008-11-12 20:44:17'),
-  (16,11,'<div class=\"postContent\">Заинтересовался кодингом под Symbian. В пробном проекте нашел такую прелесть:<br/>#define FOREVER for(;;)</div>','User','2008-11-30 00:00:00','2008-11-25 17:09:36'),
-  (17,11,'<div class=\"postContent\">\r\n  Заинтересовался кодингом под Symbian. В пробном проекте нашел такую прелесть:<br/>\r\n  #define FOREVER for(;;)\r\n</div>','User','2008-11-30 00:00:00','2008-11-25 17:10:15'),
-  (18,3,'testasdfasdf','striker','2009-05-06 00:00:00','2008-12-01 09:47:22'),
-  (19,3,'<?php\r\n\terror_reporting(E_ALL); \r\n\techo \"Че ты долбишь? Иди кудa шел <br/>\";\r\n\t\r\n\tfor ($i = 0; $i < 10; $i++) {\r\n\t\techo \"$i <br/ >\";\r\n\t}\r\n\t$string = \"я *** че те надо?\";\r\n\techo \"$string<br />\";\r\n\t\r\n\t$string2 = \"- в душе не чаю.\";\r\n\tprint $string2;\r\n\techo $string . $string2;\r\n?>','батько','2008-12-17 00:00:00','2008-12-06 18:19:41'),
-  (20,3,'<?php\r\n\techo \"<p> Zаказ обработан B \";\r\n\techo date(''H:i, jS F'');\r\n\techo \"</p>\";\r\n\t\r\n\t$total = 0;\r\n\t$total = $_POST[''tireqty''] + $_POST[''oilqty''] + $_POST[''sparkqty''];\r\n\tif( $total == 0)\r\n\t\t{\r\n\t\techo ''Давай заказывай, че ты мне гонишь!'';\r\n\t\t}\r\n\telse\r\n\t\t{\r\n\t\t\techo \"<p> Список вашего заказа:</p>\";\r\n\t\t\tif(!is_numeric($_POST[''tireqty'']))\r\n\t\t\t\t{\r\n\t\t\t\techo ''Ты чего мне тут фуфло пишешь в Автопокрышках, ЦИФРЫ ПИШИ!<br />'';\r\n\t\t\t\t}\r\n\t\t\telse {\r\n\t\t\t\tif ($_POST[''tireqty''] > 0)\r\n\t\t\t\t\techo $_POST[''tireqty'']. '' автопокрышек<br />'';\r\n\t\t\t\t}\r\n\t\t\tif(!is_numeric($_POST[''oilqty'']))\r\n\t\t\t\t{\r\n\t\t\t\techo ''Ты чего мне тут фуфло пишешь в Маслах, ЦИФРЫ ПИШИ!<br />'';\r\n\t\t\t\t}\r\n\t\t\telse {\r\n\t\t\t\tif ( $_POST[''oilqty''] > 0)\r\n\t\t\t\t\techo $_POST[''oilqty'']. '' бутылок с маслом<br />'';\r\n\t\t\t\t}\r\n\t\t\tif(!is_numeric($_POST[''sparkqty'']))\r\n\t\t\t\t{\r\n\t\t\t\techo ''Ты чего мне тут фуфло пишешь в Свечах, ЦИФРЫ ПИШИ!<br />'';\r\n\t\t\t\t}\r\n\t\t\telse {\r\n\t\t\t\t\tif ( $_POST[''sparkqty''] > 0)\r\n\t\t\t\t\t\techo $_POST[''sparkqty'']. '' свечей зажигания<br /><br />'';\r\n\t\t\t\t}\r\n\t\t\techo ''Заказано товаров: ''.$total.''<br />'';\r\n\t\t\t$totalamount = 0.00;\t\r\n\t\t\tdefine(''TIREPRICE'', 100);\r\n\t\t\tdefine(''OILPRICE'', 10);\r\n\t\t\tdefine(''SPARKPRICE'', 4);\r\n\t\t\t$totalamount = $_POST[''tireqty''] * TIREPRICE\r\n\t\t\t\t\t\t + $_POST[''oilqty''] * OILPRICE\r\n\t\t\t\t\t\t + $_POST[''sparkqty''] * SPARKPRICE;\r\n\t\t\techo ''Итого: $''.number_format($totalamount,2, '','','' '').''<br />'';\r\n\t\t\t$taxrate = 0.10; //nalog\r\n\t\t\t$totalamount = $totalamount * (1 + $taxrate);\r\n\t\t\techo ''Общая сумма, включая налог с продаж(''.$taxrate*100 .''%): $''.$totalamount.''<br />'';\r\n\t\t}\r\n?>','Батько','2008-12-24 00:00:00','2008-12-11 13:13:30'),
-  (21,3,'<html>\r\n<head>\r\n  <title>Автозапчасти от Боба</title>\r\n</head>\r\n<body>\r\n\r\n<h1>&#1040;&#1074;&#1090;&#1086;&#1079;&#1072;&#1087;&#1095;&#1072;&#1089;&#1090;&#1080; Kaka&#1096;ku Group</h1>\r\n<h2>Форма заказа</h2>\r\n\r\n<form action=\"processorder.php\" method=post>\r\n<table border=0>\r\n<tr bgcolor=#cccccc>\r\n  <td width=150>Товар</td>\r\n  <td width=15>Количество</td>\r\n</tr>\r\n<tr>\r\n  <td>Автопокрышки</td>\r\n  <td align=\"center\"><input type=\"text\" name=\"tireqty\" size= \"3\" maxlength=\"3\" /></td>\r\n</tr>\r\n<tr>\r\n  <td>Машинное масло</td>\r\n  <td align= \"center\"><input type=\"text\" name=\"oilqty\" size=\"3\" maxlength=\"3\" /></td>\r\n</tr>\r\n<tr>\r\n  <td>Свечи зажигания</td>\r\n  <td align=\"center\"><input type=\"text\" name=\"sparkqty\" size= \"3\" maxlength=\"3\" /></td>\r\n</tr>\r\n<tr>\r\n  <td>Как вы нашли компанию \"Автозапчасти от Боба?\"</td>\r\n  <td><select name=\"find\">\r\n        <option value = \"a\">Я регулярный клиент\r\n        <option value = \"b\">В телевизионной рекламе\r\n        <option value = \"c\">В телефонном справочнике\r\n        <option value = \"d\">Кто-то порекомендовал\r\n      </select>\r\n  </td>\r\n</tr>\r\n<tr>\r\n  <td colspan=\"2\" align=\"center\"><input type=\"submit\" value= \"Отправить заказ\" name=\"\"></td>\r\n</tr>\r\n</table>\r\n</form>\r\n\r\n</body>\r\n</html>\r\n','Батько','2008-12-19 00:00:00','2008-12-11 13:14:46'),
-  (22,11,'<html>\r\n<head>\r\n  <title>Автозапчасти от Боба</title>\r\n</head>\r\n<body>\r\n\r\n<h1>&#1040;&#1074;&#1090;&#1086;&#1079;&#1072;&#1087;&#1095;&#1072;&#1089;&#1090;&#1080; Kaka&#1096;ku Group</h1>\r\n<h2>Форма заказа</h2>\r\n\r\n<form action=\"processorder.php\" method=post>\r\n<table border=0>\r\n<tr bgcolor=#cccccc>\r\n  <td width=150>Товар</td>\r\n  <td width=15>Количество</td>\r\n</tr>\r\n<tr>\r\n  <td>Автопокрышки</td>\r\n  <td align=\"center\"><input type=\"text\" name=\"tireqty\" size= \"3\" maxlength=\"3\" /></td>\r\n</tr>\r\n<tr>\r\n  <td>Машинное масло</td>\r\n  <td align= \"center\"><input type=\"text\" name=\"oilqty\" size=\"3\" maxlength=\"3\" /></td>\r\n</tr>\r\n<tr>\r\n  <td>Свечи зажигания</td>\r\n  <td align=\"center\"><input type=\"text\" name=\"sparkqty\" size= \"3\" maxlength=\"3\" /></td>\r\n</tr>\r\n<tr>\r\n  <td>Как вы нашли компанию \"Автозапчасти от Боба?\"</td>\r\n  <td><select name=\"find\">\r\n        <option value = \"a\">Я регулярный клиент\r\n        <option value = \"b\">В телевизионной рекламе\r\n        <option value = \"c\">В телефонном справочнике\r\n        <option value = \"d\">Кто-то порекомендовал\r\n      </select>\r\n  </td>\r\n</tr>\r\n<tr>\r\n  <td colspan=\"2\" align=\"center\"><input type=\"submit\" value= \"Отправить заказ\" name=\"\"></td>\r\n</tr>\r\n</table>\r\n</form>\r\n\r\n</body>\r\n</html>','Батько','2008-12-31 00:00:00','2008-12-11 13:16:30'),
-  (23,3,'<?php\r\n\r\nif ($_POST[''submit'']) {\r\n    $error = \"\";\r\n    if (isset($_POST[''tireqty'']) && is_numeric($_POST[''tireqty'']) && $_POST[''tireqty''] > 0) {\r\n        $tireqty = $_POST[''tireqty'']\r\n    } else {\r\n        $error .= ''Ты чего мне тут фуфло пишешь в Автопокрышках, ЦИФРЫ ПИШИ!<br />''\r\n    }\r\n    \r\n    if (isset($_POST[''oilqty'']) && is_numeric($_POST[''oilqty'']) && $_POST[''oilqty''] > 0) {\r\n        $oilqty = $_POST[''oilqty'']\r\n    } else {\r\n        $error .= ''Ты чего мне тут фуфло пишешь в Маслах, ЦИФРЫ ПИШИ!<br />''\r\n    }\r\n    \r\n    if (isset($_POST[''sparkqty'']) && is_numeric($_POST[''sparkqty'']) && $_POST[''sparkqty''] > 0) {\r\n        $sparkqty = $_POST[''sparkqty'']\r\n    } else {\r\n        $error .= ''Ты чего мне тут фуфло пишешь в Свечах, ЦИФРЫ ПИШИ!<br />''\r\n    }\r\n    \r\n    if ($error == \"\") {\r\n        echo \"<p> Zаказ обработан B \";\r\n    \techo date(''H:i, d.m.Y'');\r\n    \techo \"</p>\";\r\n        \r\n        echo \"<p> Список вашего заказа:</p>\";\r\n        \r\n        $total = $tireqty + $_POSToilqty + $_POSTsparkqty;\r\n        \r\n        echo $tireqty. '' автопокрышек<br />'';\r\n        echo $oilqty. '' бутылок с маслом<br />'';\r\n        echo $sparkqty. '' свечей зажигания<br /><br />'';\r\n        \r\n        echo ''Заказано товаров: ''.$total.''<br />'';\r\n        $totalamount = 0.00;\t\r\n\t\tdefine(''TIREPRICE'', 100);\r\n\t\tdefine(''OILPRICE'', 10);\r\n\t\tdefine(''SPARKPRICE'', 4);\r\n\t\t$totalamount = $_POST[''tireqty''] * TIREPRICE\r\n            + $_POST[''oilqty''] * OILPRICE\r\n\t\t\t + $_POST[''sparkqty''] * SPARKPRICE;\r\n\t\techo ''Итого: $''.number_format($totalamount,2, '','','' '').''<br />'';\r\n\t\t$taxrate = 0.10; //nalog\r\n\t\t$totalamount = $totalamount * (1 + $taxrate);\r\n\t\techo ''Общая сумма, включая налог с продаж(''.$taxrate*100 .''%): $''.$totalamount.''<br />'';\r\n    } else {\r\n        echo $error;\r\n    }\r\n} else {\r\necho \r\n''<html>\r\n<head>\r\n  <title>Автозапчасти от Боба</title>\r\n</head>\r\n<body>\r\n\r\n<h1>Автозапчасти Kakaшku Group</h1>\r\n<h2>Форма заказа</h2>\r\n\r\n<form action=\"processorder.php\" method=post>\r\n<table border=0>\r\n<tr bgcolor=#cccccc>\r\n  <td width=150>Товар</td>\r\n  <td width=15>Количество</td>\r\n</tr>\r\n<tr>\r\n  <td>Автопокрышки</td>\r\n  <td align=\"center\"><input type=\"text\" name=\"tireqty\" size= \"3\" maxlength=\"3\" /></td>\r\n</tr>\r\n<tr>\r\n  <td>Машинное масло</td>\r\n  <td align= \"center\"><input type=\"text\" name=\"oilqty\" size=\"3\" maxlength=\"3\" /></td>\r\n</tr>\r\n<tr>\r\n  <td>Свечи зажигания</td>\r\n  <td align=\"center\"><input type=\"text\" name=\"sparkqty\" size= \"3\" maxlength=\"3\" /></td>\r\n</tr>\r\n<tr>\r\n  <td>Как вы нашли компанию \"Автозапчасти от Боба?\"</td>\r\n  <td><select name=\"find\">\r\n        <option value = \"a\">Я регулярный клиент\r\n        <option value = \"b\">В телевизионной рекламе\r\n        <option value = \"c\">В телефонном справочнике\r\n        <option value = \"d\">Кто-то порекомендовал\r\n      </select>\r\n  </td>\r\n</tr>\r\n<tr>\r\n  <td colspan=\"2\" align=\"center\"><input type=\"submit\" value= \"Отправить заказ\" name=\"\"></td>\r\n</tr>\r\n</table>\r\n</form>\r\n\r\n</body>\r\n</html>'';\r\n}\r\n\r\n?>','sdffsdf','2008-12-25 00:00:00','2008-12-11 13:24:22'),
-  (24,3,'Test','111','1970-01-01 03:00:01','2008-12-12 02:48:08'),
-  (25,NULL,'wretwrtwer','sadfasdf','2008-12-10 00:00:00','2008-12-12 18:37:33'),
-  (26,NULL,'Test','asketman',NULL,'2008-12-14 09:49:16'),
-  (27,NULL,'Testsadfdsada','asketman',NULL,'2008-12-14 09:49:29'),
-  (28,NULL,'user@z:~/work$ gajim\r\nTraceback (most recent call last):\r\n  File \"gajim.py\", line 3315, in <module>\r\n    Interface()\r\n  File \"gajim.py\", line 3041, in __init__\r\n    cfg_was_read = parser.read()\r\n  File \"/usr/share/gajim/src/common/optparser.py\", line 79, in read\r\n    self.update_config(old_version, new_version)\r\n  File \"/usr/share/gajim/src/common/optparser.py\", line 189, in update_config\r\n    gajim.capscache.load_from_db()\r\n  File \"/usr/share/gajim/src/common/caps.py\", line 154, in load_from_db\r\n    self.logger.iter_caps_data():\r\n  File \"/usr/share/gajim/src/common/logger.py\", line 718, in iter_caps_data\r\n    data = GzipFile(fileobj=StringIO(str(data))).read().split(''\\0'')\r\n  File \"/usr/lib/python2.5/gzip.py\", line 220, in read\r\n    self._read(readsize)\r\n  File \"/usr/lib/python2.5/gzip.py\", line 292, in _read\r\n    self._read_eof()\r\n  File \"/usr/lib/python2.5/gzip.py\", line 313, in _read_eof\r\n    raise IOError, \"Incorrect length of data produced\"\r\nIOError: Incorrect length of data produced\r\n','user',NULL,'2008-12-19 16:02:14'),
-  (29,3,'$comptxt = fopen (\"C:\\SAV\\comp.txt\", \"r\"); //список компов в домене\r\nwhile (!feof($comptxt)) {\r\n//$gr_name=\"\";\r\n$pcname = fgets($comptxt, 4096); //имя компьютера в домене\r\n$pcname=rtrim($pcname); //отрезаем справа переносы и пробелы\r\n$cmd= \"wmic /node:\\\"\".$pcname.\"\\\" group where (sid = \\\"S-1-5-32-544\\\" and localaccount = true) get name|find /V \\\"Name\\\"\"; //получаем имя группы локальных админов\r\n$gr_name=shell_exec($cmd);//оп и готово\r\n$gr_name=rtrim($gr_name); // снова режем пробелы и переносы\r\nif ($gr_name) { //если имя получено (включен комп и есть доступ), то ищем учетки в группе\r\necho $pcname.\"->>\".$gr_name.\"\\r\\n\"; // ТУТ-то они печатаются, ОБЕ переменные\r\nprint_r($gr_name); //Проблема в переменной номер 2!!!!!!!!!!!!!!!!!!!!!\r\n//$pcname=\"SMIRNOV\";\r\n//$gr_name=\"Администраторы\"; //БЛЯДЬ ПОЧЕМУ, если переменные руками указать - они срабатывают. хотя они идентичны. Иначе - нет\r\n$cmd= ''wmic /node:\"''.$pcname.''\" path win32_groupuser where (groupcomponent = \"win32_group.name=\\\"''.$gr_name.''\\\",domain=\\\"''.$pcname.''\\\"\")'';\r\necho $cmd.\"\\r\\n\"; //ТУТ\r\n//$a=var_dump($cmd); // И ТУТ - команда выводится ПРАВИЛЬНАЯ.\r\n//echo $a.\"\\r\\n\";\r\n$admins=`$cmd`; // Но не выполняется нихуя\r\necho $admins.\"\\r\\n\";\r\n}\r\n}\r\nfclose($comptxt);','sd',NULL,'2008-12-22 11:08:29'),
-  (30,3,'// guess current application\r\nif (!isset($app))\r\n{\r\n  $traces = debug_backtrace();\r\n  $caller = $traces[0];\r\n\r\n  $dirPieces = explode(DIRECTORY_SEPARATOR, dirname($caller[''file'']));\r\n  $app = array_pop($dirPieces);\r\n}','asketman',NULL,'2008-12-24 10:04:02'),
-  (31,3,'<?php\r\n// guess current application\r\nif (!isset($app))\r\n{\r\n  $traces = debug_backtrace();\r\n  $caller = $traces[0];\r\n\r\n  $dirPieces = explode(DIRECTORY_SEPARATOR, dirname($caller[''file'']));\r\n  $app = array_pop($dirPieces);\r\n}\r\n?>','asketman',NULL,'2008-12-24 10:04:38'),
-  (32,3,'function Schedule_Events($arraySchedule, $arrayEvents)\r\n\t{\r\n    \t$sorted[''Schedule''] = $this->Schedule($arraySchedule);\r\n    \t$sorted[''Events''] = $this->Events($arrayEvents);\r\n    \t$result = array();\r\n    \tfor($i=0; $i<7; $i++)\r\n    \t{\r\n    \t\t$day[''this''] = mktime(0, 0, 0, date(''n''), ($this->week[''day''][''start''] + $i), date(''Y''));\r\n    \t\t$day[''next''] = mktime(0, 0, 0, date(''n''), ($this->week[''day''][''start''] + $i + 1), date(''Y''));\r\n\r\n    \t\tif(count($sorted[''Schedule'']) > 0)\r\n    \t\t{\r\n            \tfor($a=0; $a<count($sorted[''Schedule''][$i]); $a++)\r\n            \t{\r\n\t\t\t\t\t//\r\n\t\t\t\t\t$start_time = $sorted[''Schedule''][$i][$a][''time''][''start''];\r\n\t\t\t\t\t$end_time = $sorted[''Schedule''][$i][$a][''time''][''end''];\r\n\t\t\t\t\tif(isset($sorted[''Schedule''][$i][$a+1]))\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t$start_time_next = $sorted[''Schedule''][$i][$a+1][''time''][''start''];\r\n\t\t\t\t\t\t$end_time_next = $sorted[''Schedule''][$i][$a+1][''time''][''end''];\r\n\t\t\t\t\t}\r\n\r\n\t\t\t\t\tif(count($sorted[''Events''][$i]) > 0)\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\tforeach($sorted[''Events''][$i] as $key=>$val)\r\n\t\t\t\t\t\t{\r\n\t\t\t\t        \tif($val[''time''][''end''] <= $start_time || $val[''time''][''start''] <= $start_time )\r\n\t\t\t\t        \t{\r\n\t\t\t\t\t\t\t\t$result[$i][] = $val;\r\n\t\t\t\t\t\t\t\tunset($sorted[''Events''][$i][$key]);\r\n\t\t\t\t        \t}\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t}\r\n\t\t\t\t\t$result[$i][] = $sorted[''Schedule''][$i][$a];\r\n\t\t\t\t\tif(count($sorted[''Events''][$i]) > 0)\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\tforeach($sorted[''Events''][$i] as $key=>$val)\r\n\t\t\t\t\t\t{\r\n\t\t\t\t\t\t\tif(($val[''time''][''start''] >= $end_time && $val[''time''][''end''] <= $start_time_next))\r\n\t\t\t\t\t\t\t{\r\n\t\t\t\t\t\t\t\t$result[$i][] = $val;\r\n\t\t\t\t\t\t\t\tunset($sorted[''Events''][$i][$key]);\r\n\t\t\t\t        \t}\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t}\r\n            \t}\r\n\r\n            \tif(count($sorted[''Events''][$i]) > 0)\r\n\t\t\t\t{\r\n\t\t\t\t\t$result[$i] += $sorted[''Events''][$i];\r\n\t\t\t\t\tunset($sorted[''Events''][$i]);\r\n\t\t\t\t}\r\n    \t\t}\r\n    \t\telseif(count($arrayEvents[$i]) > 0)\r\n\t\t\t{\r\n\t\t\t\t$result[$i] = $sorted[''Events''][$i];\r\n\t\t\t\tunset($sorted[''Events''][$i]);\r\n\t\t\t}\r\n    \t}\r\n    \treturn $result;\r\n\t}','qwerty',NULL,'2008-12-27 17:27:08');
-COMMIT;
-
-#
 # Structure for the `copypasta_language` table : 
 #
 
@@ -161,23 +126,6 @@ CREATE TABLE `copypasta_language` (
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
 AUTO_INCREMENT=13 CHARACTER SET 'cp1251' COLLATE 'cp1251_general_ci';
-
-#
-# Data for the `copypasta_language` table  (LIMIT 0,500)
-#
-
-INSERT INTO `copypasta_language` (`id`, `title`, `geshi_code`, `position`) VALUES 
-  (3,'PHP','php',1),
-  (4,'Javascript','javascript',2),
-  (5,'MySQL','mysql',3),
-  (6,'Perl','perl',4),
-  (7,'Python','python',5),
-  (8,'C++','cpp',6),
-  (9,'Bash','bash',7),
-  (10,'Visual basic','vb',8),
-  (11,'XML','xml',9),
-  (12,'INI','ini',10);
-COMMIT;
 
 #
 # Structure for the `fileManager_file` table : 
@@ -225,14 +173,6 @@ CREATE TABLE `fileManager_folder` (
 AUTO_INCREMENT=2 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
-# Data for the `fileManager_folder` table  (LIMIT 0,500)
-#
-
-INSERT INTO `fileManager_folder` (`id`, `name`, `title`, `parent`, `path`, `obj_id`, `filesize`, `exts`) VALUES 
-  (1,'root','/',1,'root',24,NULL,NULL);
-COMMIT;
-
-#
 # Structure for the `fileManager_folder_tree` table : 
 #
 
@@ -251,14 +191,6 @@ CREATE TABLE `fileManager_folder_tree` (
 AUTO_INCREMENT=2 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
-# Data for the `fileManager_folder_tree` table  (LIMIT 0,500)
-#
-
-INSERT INTO `fileManager_folder_tree` (`id`, `lkey`, `rkey`, `level`) VALUES 
-  (1,1,2,1);
-COMMIT;
-
-#
 # Structure for the `fileManager_storage` table : 
 #
 
@@ -272,15 +204,6 @@ CREATE TABLE `fileManager_storage` (
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
 AUTO_INCREMENT=3 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
-# Data for the `fileManager_storage` table  (LIMIT 0,500)
-#
-
-INSERT INTO `fileManager_storage` (`id`, `name`, `path`, `web_path`) VALUES 
-  (1,'local','../files/','/'),
-  (2,'avatars','files/avatars/','/files/avatars/');
-COMMIT;
 
 #
 # Structure for the `page_page` table : 
@@ -306,17 +229,6 @@ CREATE TABLE `page_page` (
 AUTO_INCREMENT=8 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
-# Data for the `page_page` table  (LIMIT 0,500)
-#
-
-INSERT INTO `page_page` (`id`, `obj_id`, `name`, `title`, `content`, `keywords`, `description`, `folder_id`, `allow_comment`, `compiled`, `keywords_reset`, `description_reset`) VALUES 
-  (1,11,'main','','','','',1,1,0,0,0),
-  (5,31,'php','PHP: Hypertext Preprocessor','<p>PHP — язык программирования, созданный для генерирования HTML-страниц на веб-сервере и работы с базами данных. В настоящее время поддерживается подавляющим большинством хостинг-провайдеров. Входит в LAMP — «стандартный» набор для создания веб-сайтов (Linux, Apache, MySQL, PHP (Python или Perl)).</p>\n\n<p>Его широкая распространненость, а также возможность просто писать код, не заморачиваяся над качеством, делает его, пожалуй, наиболее подходящей платформой для говнокода. Термин «говнокодер» часто считается синонимом «пхп—программист» у более «продвинутых» коллег. Несмотря на всё это, существуют люди, способные писать на этом языке не только работающий, но еще и весьма красивый код.</p>\n\n<p>\n    <a href=\"http://php.net/\" title=\"Официальный сайт\">http://php.net/</a><br />\n    <a href=\"http://ru.wikipedia.org/wiki/Php\" title=\"wikipedia\">http://ru.wikipedia.org/wiki/Php</a>\n</p>','','',2,0,0,0,0),
-  (6,51,'javascript','JavaScript','JavaScript — скриптовый язык, чаще всего использующийся при создании сценариев поведения браузера, встраиваемых в веб-страницы. Является одной из реализаций языка ECMAScript.','','',2,0,0,0,0),
-  (7,1250,'cpp','C++','<p>Си++ (англ. C++) — компилируемый строго типизированный язык программирования общего назначения. Поддерживает разные парадигмы программирования: процедурную, обобщённую, функциональную; наибольшее внимание уделено поддержке объектно-ориентированного программирования.</p>\n\n<p>Название «Си++» происходит от Си, в котором унарный оператор ++ обозначает инкремент переменной.</p>\n\n<p>В 1990-х годах язык стал одним из наиболее широко применяемых языков программирования общего назначения.</p>\n\n<p>При создании Си++ стремились сохранить совместимость с языком Си. Большинство программ на Си будут исправно работать и с компилятором Си++. Си++ имеет синтаксис, основанный на синтаксисе Си.</p>\n\n<p><a href=\"http://ru.wikipedia.org/wiki/C%2B%2B\">http://ru.wikipedia.org/wiki/С++</a></p>','','',2,0,0,0,0);
-COMMIT;
-
-#
 # Structure for the `page_pageFolder` table : 
 #
 
@@ -333,15 +245,6 @@ CREATE TABLE `page_pageFolder` (
   KEY `name` (`name`)
 )ENGINE=MyISAM
 AUTO_INCREMENT=3 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
-# Data for the `page_pageFolder` table  (LIMIT 0,500)
-#
-
-INSERT INTO `page_pageFolder` (`id`, `obj_id`, `name`, `title`, `parent`, `path`) VALUES 
-  (1,10,'root','root',1,'root'),
-  (2,30,'languages','Описание языков программирования',2,'root/languages');
-COMMIT;
 
 #
 # Structure for the `page_pageFolder_tree` table : 
@@ -362,15 +265,6 @@ CREATE TABLE `page_pageFolder_tree` (
 AUTO_INCREMENT=3 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
-# Data for the `page_pageFolder_tree` table  (LIMIT 0,500)
-#
-
-INSERT INTO `page_pageFolder_tree` (`id`, `lkey`, `rkey`, `level`) VALUES 
-  (1,1,4,1),
-  (2,2,3,2);
-COMMIT;
-
-#
 # Structure for the `page_page_lang` table : 
 #
 
@@ -386,19 +280,6 @@ CREATE TABLE `page_page_lang` (
   PRIMARY KEY (`id`, `lang_id`)
 )ENGINE=MyISAM
 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
-# Data for the `page_page_lang` table  (LIMIT 0,500)
-#
-
-INSERT INTO `page_page_lang` (`id`, `lang_id`, `title`, `content`, `keywords`, `description`) VALUES 
-  (1,1,'Первая страница','Это <b>первая</b>, главная <strike>страница</strike>\n',NULL,NULL),
-  (1,2,'About us','<strong>mzz</strong> - is a php5 framework for web-applications.',NULL,NULL),
-  (2,1,'404 Not Found','Запрашиваемая страница не найдена!',NULL,NULL),
-  (2,2,'404 Not Found','Page doesn''t exist',NULL,NULL),
-  (4,1,'Доступ запрещён','Доступ запрещён',NULL,NULL),
-  (4,2,'Access not allowed.','Access not allowed. Try to login or register.',NULL,NULL);
-COMMIT;
 
 #
 # Structure for the `quoter_quote` table : 
@@ -422,6 +303,651 @@ CREATE TABLE `quoter_quote` (
   KEY `category_id` (`category_id`)
 )ENGINE=MyISAM
 AUTO_INCREMENT=356 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `quoter_quoteCategory` table : 
+#
+
+DROP TABLE IF EXISTS `quoter_quoteCategory`;
+
+CREATE TABLE `quoter_quoteCategory` (
+  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
+  `obj_id` INTEGER(11) NOT NULL,
+  `name` CHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `title` CHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `quote_counts` INTEGER(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=14 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `quoter_votes` table : 
+#
+
+DROP TABLE IF EXISTS `quoter_votes`;
+
+CREATE TABLE `quoter_votes` (
+  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
+  `ip` VARCHAR(20) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `useragent` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `value` TINYINT(4) NOT NULL,
+  `quote_id` INTEGER(11) NOT NULL,
+  `created` INTEGER(11) NOT NULL,
+  PRIMARY KEY (`id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=11922 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `ratings_ratingsFolder` table : 
+#
+
+DROP TABLE IF EXISTS `ratings_ratingsFolder`;
+
+CREATE TABLE `ratings_ratingsFolder` (
+  `id` INTEGER(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `obj_id` INTEGER(10) UNSIGNED NOT NULL,
+  `parent_id` INTEGER(10) UNSIGNED NOT NULL,
+  `module` CHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `type` CHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `by_field` CHAR(25) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=1 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `sys_access` table : 
+#
+
+DROP TABLE IF EXISTS `sys_access`;
+
+CREATE TABLE `sys_access` (
+  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
+  `action_id` INTEGER(11) UNSIGNED DEFAULT NULL,
+  `class_id` INTEGER(11) DEFAULT NULL,
+  `obj_id` INTEGER(11) DEFAULT NULL,
+  `uid` INTEGER(11) DEFAULT NULL,
+  `gid` INTEGER(11) DEFAULT NULL,
+  `allow` TINYINT(1) UNSIGNED DEFAULT '0',
+  `deny` TINYINT(1) UNSIGNED DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `class_action_id` (`class_id`, `obj_id`, `uid`, `gid`),
+  KEY `obj_id_gid` (`obj_id`, `gid`),
+  KEY `obj_id_uid` (`obj_id`, `uid`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=1 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `sys_access_registry` table : 
+#
+
+DROP TABLE IF EXISTS `sys_access_registry`;
+
+CREATE TABLE `sys_access_registry` (
+  `obj_id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `class_id` INTEGER(11) UNSIGNED DEFAULT NULL,
+  PRIMARY KEY (`obj_id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=2506 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `sys_actions` table : 
+#
+
+DROP TABLE IF EXISTS `sys_actions`;
+
+CREATE TABLE `sys_actions` (
+  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
+  `name` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=111 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `sys_cfg` table : 
+#
+
+DROP TABLE IF EXISTS `sys_cfg`;
+
+CREATE TABLE `sys_cfg` (
+  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
+  `section` INTEGER(11) NOT NULL DEFAULT '0',
+  `module` INTEGER(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `section_module` (`section`, `module`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=27 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `sys_cfg_titles` table : 
+#
+
+DROP TABLE IF EXISTS `sys_cfg_titles`;
+
+CREATE TABLE `sys_cfg_titles` (
+  `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `title` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `title` (`title`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=18 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `sys_cfg_types` table : 
+#
+
+DROP TABLE IF EXISTS `sys_cfg_types`;
+
+CREATE TABLE `sys_cfg_types` (
+  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `title` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=3 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `sys_cfg_values` table : 
+#
+
+DROP TABLE IF EXISTS `sys_cfg_values`;
+
+CREATE TABLE `sys_cfg_values` (
+  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
+  `cfg_id` INTEGER(11) NOT NULL DEFAULT '0',
+  `name` INTEGER(11) NOT NULL DEFAULT '0',
+  `title` INTEGER(11) DEFAULT NULL,
+  `type_id` INTEGER(11) NOT NULL DEFAULT '1',
+  `value` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `cfg_id_name` (`cfg_id`, `name`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=59 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `sys_cfg_vars` table : 
+#
+
+DROP TABLE IF EXISTS `sys_cfg_vars`;
+
+CREATE TABLE `sys_cfg_vars` (
+  `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=16 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `sys_classes` table : 
+#
+
+DROP TABLE IF EXISTS `sys_classes`;
+
+CREATE TABLE `sys_classes` (
+  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
+  `name` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `module_id` INTEGER(11) UNSIGNED DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=60 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `sys_classes_actions` table : 
+#
+
+DROP TABLE IF EXISTS `sys_classes_actions`;
+
+CREATE TABLE `sys_classes_actions` (
+  `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `class_id` INTEGER(11) UNSIGNED DEFAULT NULL,
+  `action_id` INTEGER(11) UNSIGNED DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `class_id` (`class_id`, `action_id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=308 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `sys_classes_sections` table : 
+#
+
+DROP TABLE IF EXISTS `sys_classes_sections`;
+
+CREATE TABLE `sys_classes_sections` (
+  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
+  `class_id` INTEGER(11) DEFAULT NULL,
+  `section_id` INTEGER(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `module_section` (`section_id`, `class_id`),
+  KEY `class_id` (`class_id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=59 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `sys_lang` table : 
+#
+
+DROP TABLE IF EXISTS `sys_lang`;
+
+CREATE TABLE `sys_lang` (
+  `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` CHAR(20) COLLATE utf8_general_ci DEFAULT NULL,
+  `title` CHAR(20) COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=3 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `sys_lang_lang` table : 
+#
+
+DROP TABLE IF EXISTS `sys_lang_lang`;
+
+CREATE TABLE `sys_lang_lang` (
+  `id` INTEGER(11) UNSIGNED NOT NULL,
+  `lang_id` INTEGER(11) UNSIGNED NOT NULL,
+  `name` CHAR(32) COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`, `lang_id`)
+)ENGINE=MyISAM
+ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `sys_modules` table : 
+#
+
+DROP TABLE IF EXISTS `sys_modules`;
+
+CREATE TABLE `sys_modules` (
+  `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `main_class` INTEGER(11) UNSIGNED DEFAULT NULL,
+  `title` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `icon` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `order` INTEGER(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=23 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `sys_obj_id` table : 
+#
+
+DROP TABLE IF EXISTS `sys_obj_id`;
+
+CREATE TABLE `sys_obj_id` (
+  `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=2506 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `sys_obj_id_named` table : 
+#
+
+DROP TABLE IF EXISTS `sys_obj_id_named`;
+
+CREATE TABLE `sys_obj_id_named` (
+  `obj_id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`obj_id`),
+  UNIQUE KEY `name` (`name`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=2506 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `sys_sections` table : 
+#
+
+DROP TABLE IF EXISTS `sys_sections`;
+
+CREATE TABLE `sys_sections` (
+  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
+  `name` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `title` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `order` INTEGER(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`, `id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=21 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `sys_skins` table : 
+#
+
+DROP TABLE IF EXISTS `sys_skins`;
+
+CREATE TABLE `sys_skins` (
+  `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` CHAR(32) COLLATE utf8_general_ci DEFAULT NULL,
+  `title` CHAR(32) COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=3 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `tags_item_rel` table : 
+#
+
+DROP TABLE IF EXISTS `tags_item_rel`;
+
+CREATE TABLE `tags_item_rel` (
+  `id` INTEGER(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `tag_id` INTEGER(10) UNSIGNED DEFAULT NULL,
+  `item_id` INTEGER(10) UNSIGNED DEFAULT NULL,
+  `obj_id` INTEGER(10) UNSIGNED DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `item_id` (`item_id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=1 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `tags_tagCoords` table : 
+#
+
+DROP TABLE IF EXISTS `tags_tagCoords`;
+
+CREATE TABLE `tags_tagCoords` (
+  `rel_id` INTEGER(10) UNSIGNED NOT NULL,
+  `x` INTEGER(11) NOT NULL,
+  `y` INTEGER(11) NOT NULL,
+  `w` INTEGER(11) NOT NULL,
+  `h` INTEGER(11) NOT NULL,
+  PRIMARY KEY (`rel_id`)
+)ENGINE=MyISAM
+ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `tags_tags` table : 
+#
+
+DROP TABLE IF EXISTS `tags_tags`;
+
+CREATE TABLE `tags_tags` (
+  `id` INTEGER(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `tag` VARCHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `obj_id` INTEGER(10) UNSIGNED DEFAULT NULL,
+  PRIMARY KEY (`id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=1 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `tags_tagsItem` table : 
+#
+
+DROP TABLE IF EXISTS `tags_tagsItem`;
+
+CREATE TABLE `tags_tagsItem` (
+  `id` INTEGER(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `item_obj_id` INTEGER(10) UNSIGNED DEFAULT NULL,
+  `obj_id` INTEGER(10) UNSIGNED DEFAULT NULL,
+  `owner` INTEGER(10) UNSIGNED DEFAULT NULL,
+  PRIMARY KEY (`id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=1 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `user_group` table : 
+#
+
+DROP TABLE IF EXISTS `user_group`;
+
+CREATE TABLE `user_group` (
+  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
+  `obj_id` INTEGER(10) UNSIGNED NOT NULL DEFAULT '0',
+  `name` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `is_default` TINYINT(4) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=5 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `user_user` table : 
+#
+
+DROP TABLE IF EXISTS `user_user`;
+
+CREATE TABLE `user_user` (
+  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
+  `obj_id` INTEGER(10) UNSIGNED NOT NULL DEFAULT '0',
+  `login` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `password` VARCHAR(32) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `created` INTEGER(11) DEFAULT NULL,
+  `confirmed` VARCHAR(32) COLLATE utf8_general_ci DEFAULT NULL,
+  `last_login` INTEGER(11) DEFAULT NULL,
+  `language_id` INTEGER(11) DEFAULT NULL,
+  `timezone` INTEGER(11) DEFAULT '3',
+  `skin` INTEGER(11) UNSIGNED DEFAULT '1',
+  PRIMARY KEY (`id`),
+  KEY `login` (`login`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=7 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `user_userAuth` table : 
+#
+
+DROP TABLE IF EXISTS `user_userAuth`;
+
+CREATE TABLE `user_userAuth` (
+  `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` INTEGER(11) UNSIGNED DEFAULT NULL,
+  `ip` CHAR(15) COLLATE utf8_general_ci DEFAULT NULL,
+  `hash` CHAR(32) COLLATE utf8_general_ci DEFAULT NULL,
+  `obj_id` INTEGER(11) UNSIGNED DEFAULT NULL,
+  `time` INTEGER(11) UNSIGNED DEFAULT NULL,
+  PRIMARY KEY (`id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=21 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `user_userGroup_rel` table : 
+#
+
+DROP TABLE IF EXISTS `user_userGroup_rel`;
+
+CREATE TABLE `user_userGroup_rel` (
+  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
+  `group_id` INTEGER(11) DEFAULT NULL,
+  `user_id` INTEGER(11) DEFAULT NULL,
+  `obj_id` INTEGER(11) UNSIGNED DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `group_id` (`group_id`, `user_id`),
+  KEY `user_id` (`user_id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=39 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `user_userOnline` table : 
+#
+
+DROP TABLE IF EXISTS `user_userOnline`;
+
+CREATE TABLE `user_userOnline` (
+  `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` INTEGER(11) DEFAULT NULL,
+  `session` CHAR(32) COLLATE utf8_general_ci DEFAULT NULL,
+  `last_activity` INTEGER(11) DEFAULT NULL,
+  `url` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `ip` CHAR(15) COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`, `session`),
+  KEY `last_activity` (`last_activity`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=377 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Data for the `comments_comments` table  (LIMIT 0,500)
+#
+
+INSERT INTO `comments_comments` (`id`, `obj_id`, `text`, `user_id`, `created`, `folder_id`) VALUES 
+  (1,2467,'asdfasdf',1,1239078253,2),
+  (2,2468,'test',1,1239078265,2),
+  (3,2469,'test',1,1239078268,2),
+  (4,2470,'балалайка!\nф\nыв\nа\nфыва\nфыва\nфыва',1,1239407935,2),
+  (5,2471,'test',1,1239407946,2),
+  (6,2472,'zdfgasdf\n\nsadf\nasdf',1,1239408074,2),
+  (7,2473,'tett',1,1239408263,2),
+  (8,2474,'tettq',1,1239409119,2),
+  (9,2475,'<?php\n/**\n * $URL$\n *\n * MZZ Content Management System (c) 2006\n * Website : http://www.mzz.ru\n *\n * This program is free software and released under\n * the GNU/GPL License (See /docs/GPL.txt).\n *\n * @link http://www.mzz.ru\n * @version $Id$\n*/\n\nfileLoader::load(''forms/validators/formValidator'');\n\n/**\n * commentsPostController: контроллер для метода post модуля comments\n *\n * @package modules\n * @subpackage comments\n * @version 0.1.2\n */\nclass commentsPostController extends simpleController\n{\n    protected function getView()\n    {\n        $user = $this->toolkit->getUser();\n        $access = $this->request->getBoolean(''access'');\n\n        if (!is_null($access) && !$access) {\n            return $user->getId() == MZZ_USER_GUEST_ID ? $this->smarty->fetch(''comments/onlyAuth.tpl'') : $this->smarty->fetch(''comments/deny.tpl'');\n        }\n\n        $commentsFolderMapper = $this->toolkit->getMapper(''comments'', ''commentsFolder'');\n        $commentsMapper = $this->toolkit->getMapper(''comments'', ''comments'');\n        $id = $this->request->getRaw(''id'');\n\n        if ($id instanceof commentsFolder) {\n            $commentsFolder = $id;\n            $id = $commentsFolder->getId();\n        }\n\n        $onlyForm = $this->request->getBoolean(''onlyForm'');\n        if (!isset($commentsFolder)) {\n            $commentsFolder = $commentsFolderMapper->searchById($id);\n            if (!$commentsFolder) {\n                return $this->forward404($commentsFolderMapper);\n            }\n        }',1,1239409468,1),
+  (10,2476,'ну нихера себе!',1,1239410367,2);
+COMMIT;
+
+#
+# Data for the `comments_commentsFolder` table  (LIMIT 0,500)
+#
+
+INSERT INTO `comments_commentsFolder` (`id`, `obj_id`, `parent_id`, `module`, `type`, `by_field`) VALUES 
+  (1,2463,354,'quoter','quote','id'),
+  (2,2464,355,'quoter','quote','id'),
+  (3,2465,353,'quoter','quote','id'),
+  (4,2466,2339,'quoter','quote','obj_id'),
+  (5,2477,352,'quoter','quote','id'),
+  (6,2478,346,'quoter','quote','id'),
+  (7,2479,338,'quoter','quote','id'),
+  (8,2480,325,'quoter','quote','id'),
+  (9,2481,290,'quoter','quote','id'),
+  (10,2482,337,'quoter','quote','id'),
+  (11,2483,343,'quoter','quote','id'),
+  (12,2484,339,'quoter','quote','id'),
+  (13,2485,335,'quoter','quote','id');
+COMMIT;
+
+#
+# Data for the `comments_commentsVote` table  (LIMIT 0,500)
+#
+
+INSERT INTO `comments_commentsVote` (`id`, `comment_id`, `value`, `datetime`, `ip_address`, `useragent`, `user_id`) VALUES 
+  (1,892,-1,1236865860,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.7) Gecko/2009021910 Firefox/3.0.7',1),
+  (2,897,1,1236865873,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.7) Gecko/2009021910 Firefox/3.0.7',1);
+COMMIT;
+
+#
+# Data for the `comments_comments_tree` table  (LIMIT 0,500)
+#
+
+INSERT INTO `comments_comments_tree` (`id`, `path`, `foreign_key`, `level`, `spath`) VALUES 
+  (1,'1/',1,1,'1/'),
+  (2,'1/2/',2,2,'1/2/'),
+  (3,'3/',3,1,'3/'),
+  (4,'4/',4,1,'4/'),
+  (5,'3/5/',5,2,'3/5/'),
+  (6,'6/',6,1,'6/'),
+  (7,'6/7/',7,2,'6/7/'),
+  (8,'6/7/8/',8,3,'6/7/8/'),
+  (9,'9/',9,1,'9/'),
+  (10,'10/',10,1,'10/');
+COMMIT;
+
+#
+# Data for the `copypasta` table  (LIMIT 0,500)
+#
+
+INSERT INTO `copypasta` (`id`, `copypasta_language_id`, `copypasta`, `username`, `delete_at`, `created_at`) VALUES 
+  (14,3,'Ниибёт','User','2009-03-06 01:05:00','2008-11-10 21:31:12'),
+  (15,3,'test','dizzy2','2009-05-06 04:06:00','2008-11-12 20:44:17'),
+  (16,11,'<div class=\"postContent\">Заинтересовался кодингом под Symbian. В пробном проекте нашел такую прелесть:<br/>#define FOREVER for(;;)</div>','User','2008-11-30 00:00:00','2008-11-25 17:09:36'),
+  (17,11,'<div class=\"postContent\">\r\n  Заинтересовался кодингом под Symbian. В пробном проекте нашел такую прелесть:<br/>\r\n  #define FOREVER for(;;)\r\n</div>','User','2008-11-30 00:00:00','2008-11-25 17:10:15'),
+  (18,3,'testasdfasdf','striker','2009-05-06 00:00:00','2008-12-01 09:47:22'),
+  (19,3,'<?php\r\n\terror_reporting(E_ALL); \r\n\techo \"Че ты долбишь? Иди кудa шел <br/>\";\r\n\t\r\n\tfor ($i = 0; $i < 10; $i++) {\r\n\t\techo \"$i <br/ >\";\r\n\t}\r\n\t$string = \"я *** че те надо?\";\r\n\techo \"$string<br />\";\r\n\t\r\n\t$string2 = \"- в душе не чаю.\";\r\n\tprint $string2;\r\n\techo $string . $string2;\r\n?>','батько','2008-12-17 00:00:00','2008-12-06 18:19:41'),
+  (20,3,'<?php\r\n\techo \"<p> Zаказ обработан B \";\r\n\techo date(''H:i, jS F'');\r\n\techo \"</p>\";\r\n\t\r\n\t$total = 0;\r\n\t$total = $_POST[''tireqty''] + $_POST[''oilqty''] + $_POST[''sparkqty''];\r\n\tif( $total == 0)\r\n\t\t{\r\n\t\techo ''Давай заказывай, че ты мне гонишь!'';\r\n\t\t}\r\n\telse\r\n\t\t{\r\n\t\t\techo \"<p> Список вашего заказа:</p>\";\r\n\t\t\tif(!is_numeric($_POST[''tireqty'']))\r\n\t\t\t\t{\r\n\t\t\t\techo ''Ты чего мне тут фуфло пишешь в Автопокрышках, ЦИФРЫ ПИШИ!<br />'';\r\n\t\t\t\t}\r\n\t\t\telse {\r\n\t\t\t\tif ($_POST[''tireqty''] > 0)\r\n\t\t\t\t\techo $_POST[''tireqty'']. '' автопокрышек<br />'';\r\n\t\t\t\t}\r\n\t\t\tif(!is_numeric($_POST[''oilqty'']))\r\n\t\t\t\t{\r\n\t\t\t\techo ''Ты чего мне тут фуфло пишешь в Маслах, ЦИФРЫ ПИШИ!<br />'';\r\n\t\t\t\t}\r\n\t\t\telse {\r\n\t\t\t\tif ( $_POST[''oilqty''] > 0)\r\n\t\t\t\t\techo $_POST[''oilqty'']. '' бутылок с маслом<br />'';\r\n\t\t\t\t}\r\n\t\t\tif(!is_numeric($_POST[''sparkqty'']))\r\n\t\t\t\t{\r\n\t\t\t\techo ''Ты чего мне тут фуфло пишешь в Свечах, ЦИФРЫ ПИШИ!<br />'';\r\n\t\t\t\t}\r\n\t\t\telse {\r\n\t\t\t\t\tif ( $_POST[''sparkqty''] > 0)\r\n\t\t\t\t\t\techo $_POST[''sparkqty'']. '' свечей зажигания<br /><br />'';\r\n\t\t\t\t}\r\n\t\t\techo ''Заказано товаров: ''.$total.''<br />'';\r\n\t\t\t$totalamount = 0.00;\t\r\n\t\t\tdefine(''TIREPRICE'', 100);\r\n\t\t\tdefine(''OILPRICE'', 10);\r\n\t\t\tdefine(''SPARKPRICE'', 4);\r\n\t\t\t$totalamount = $_POST[''tireqty''] * TIREPRICE\r\n\t\t\t\t\t\t + $_POST[''oilqty''] * OILPRICE\r\n\t\t\t\t\t\t + $_POST[''sparkqty''] * SPARKPRICE;\r\n\t\t\techo ''Итого: $''.number_format($totalamount,2, '','','' '').''<br />'';\r\n\t\t\t$taxrate = 0.10; //nalog\r\n\t\t\t$totalamount = $totalamount * (1 + $taxrate);\r\n\t\t\techo ''Общая сумма, включая налог с продаж(''.$taxrate*100 .''%): $''.$totalamount.''<br />'';\r\n\t\t}\r\n?>','Батько','2008-12-24 00:00:00','2008-12-11 13:13:30'),
+  (21,3,'<html>\r\n<head>\r\n  <title>Автозапчасти от Боба</title>\r\n</head>\r\n<body>\r\n\r\n<h1>&#1040;&#1074;&#1090;&#1086;&#1079;&#1072;&#1087;&#1095;&#1072;&#1089;&#1090;&#1080; Kaka&#1096;ku Group</h1>\r\n<h2>Форма заказа</h2>\r\n\r\n<form action=\"processorder.php\" method=post>\r\n<table border=0>\r\n<tr bgcolor=#cccccc>\r\n  <td width=150>Товар</td>\r\n  <td width=15>Количество</td>\r\n</tr>\r\n<tr>\r\n  <td>Автопокрышки</td>\r\n  <td align=\"center\"><input type=\"text\" name=\"tireqty\" size= \"3\" maxlength=\"3\" /></td>\r\n</tr>\r\n<tr>\r\n  <td>Машинное масло</td>\r\n  <td align= \"center\"><input type=\"text\" name=\"oilqty\" size=\"3\" maxlength=\"3\" /></td>\r\n</tr>\r\n<tr>\r\n  <td>Свечи зажигания</td>\r\n  <td align=\"center\"><input type=\"text\" name=\"sparkqty\" size= \"3\" maxlength=\"3\" /></td>\r\n</tr>\r\n<tr>\r\n  <td>Как вы нашли компанию \"Автозапчасти от Боба?\"</td>\r\n  <td><select name=\"find\">\r\n        <option value = \"a\">Я регулярный клиент\r\n        <option value = \"b\">В телевизионной рекламе\r\n        <option value = \"c\">В телефонном справочнике\r\n        <option value = \"d\">Кто-то порекомендовал\r\n      </select>\r\n  </td>\r\n</tr>\r\n<tr>\r\n  <td colspan=\"2\" align=\"center\"><input type=\"submit\" value= \"Отправить заказ\" name=\"\"></td>\r\n</tr>\r\n</table>\r\n</form>\r\n\r\n</body>\r\n</html>\r\n','Батько','2008-12-19 00:00:00','2008-12-11 13:14:46'),
+  (22,11,'<html>\r\n<head>\r\n  <title>Автозапчасти от Боба</title>\r\n</head>\r\n<body>\r\n\r\n<h1>&#1040;&#1074;&#1090;&#1086;&#1079;&#1072;&#1087;&#1095;&#1072;&#1089;&#1090;&#1080; Kaka&#1096;ku Group</h1>\r\n<h2>Форма заказа</h2>\r\n\r\n<form action=\"processorder.php\" method=post>\r\n<table border=0>\r\n<tr bgcolor=#cccccc>\r\n  <td width=150>Товар</td>\r\n  <td width=15>Количество</td>\r\n</tr>\r\n<tr>\r\n  <td>Автопокрышки</td>\r\n  <td align=\"center\"><input type=\"text\" name=\"tireqty\" size= \"3\" maxlength=\"3\" /></td>\r\n</tr>\r\n<tr>\r\n  <td>Машинное масло</td>\r\n  <td align= \"center\"><input type=\"text\" name=\"oilqty\" size=\"3\" maxlength=\"3\" /></td>\r\n</tr>\r\n<tr>\r\n  <td>Свечи зажигания</td>\r\n  <td align=\"center\"><input type=\"text\" name=\"sparkqty\" size= \"3\" maxlength=\"3\" /></td>\r\n</tr>\r\n<tr>\r\n  <td>Как вы нашли компанию \"Автозапчасти от Боба?\"</td>\r\n  <td><select name=\"find\">\r\n        <option value = \"a\">Я регулярный клиент\r\n        <option value = \"b\">В телевизионной рекламе\r\n        <option value = \"c\">В телефонном справочнике\r\n        <option value = \"d\">Кто-то порекомендовал\r\n      </select>\r\n  </td>\r\n</tr>\r\n<tr>\r\n  <td colspan=\"2\" align=\"center\"><input type=\"submit\" value= \"Отправить заказ\" name=\"\"></td>\r\n</tr>\r\n</table>\r\n</form>\r\n\r\n</body>\r\n</html>','Батько','2008-12-31 00:00:00','2008-12-11 13:16:30'),
+  (23,3,'<?php\r\n\r\nif ($_POST[''submit'']) {\r\n    $error = \"\";\r\n    if (isset($_POST[''tireqty'']) && is_numeric($_POST[''tireqty'']) && $_POST[''tireqty''] > 0) {\r\n        $tireqty = $_POST[''tireqty'']\r\n    } else {\r\n        $error .= ''Ты чего мне тут фуфло пишешь в Автопокрышках, ЦИФРЫ ПИШИ!<br />''\r\n    }\r\n    \r\n    if (isset($_POST[''oilqty'']) && is_numeric($_POST[''oilqty'']) && $_POST[''oilqty''] > 0) {\r\n        $oilqty = $_POST[''oilqty'']\r\n    } else {\r\n        $error .= ''Ты чего мне тут фуфло пишешь в Маслах, ЦИФРЫ ПИШИ!<br />''\r\n    }\r\n    \r\n    if (isset($_POST[''sparkqty'']) && is_numeric($_POST[''sparkqty'']) && $_POST[''sparkqty''] > 0) {\r\n        $sparkqty = $_POST[''sparkqty'']\r\n    } else {\r\n        $error .= ''Ты чего мне тут фуфло пишешь в Свечах, ЦИФРЫ ПИШИ!<br />''\r\n    }\r\n    \r\n    if ($error == \"\") {\r\n        echo \"<p> Zаказ обработан B \";\r\n    \techo date(''H:i, d.m.Y'');\r\n    \techo \"</p>\";\r\n        \r\n        echo \"<p> Список вашего заказа:</p>\";\r\n        \r\n        $total = $tireqty + $_POSToilqty + $_POSTsparkqty;\r\n        \r\n        echo $tireqty. '' автопокрышек<br />'';\r\n        echo $oilqty. '' бутылок с маслом<br />'';\r\n        echo $sparkqty. '' свечей зажигания<br /><br />'';\r\n        \r\n        echo ''Заказано товаров: ''.$total.''<br />'';\r\n        $totalamount = 0.00;\t\r\n\t\tdefine(''TIREPRICE'', 100);\r\n\t\tdefine(''OILPRICE'', 10);\r\n\t\tdefine(''SPARKPRICE'', 4);\r\n\t\t$totalamount = $_POST[''tireqty''] * TIREPRICE\r\n            + $_POST[''oilqty''] * OILPRICE\r\n\t\t\t + $_POST[''sparkqty''] * SPARKPRICE;\r\n\t\techo ''Итого: $''.number_format($totalamount,2, '','','' '').''<br />'';\r\n\t\t$taxrate = 0.10; //nalog\r\n\t\t$totalamount = $totalamount * (1 + $taxrate);\r\n\t\techo ''Общая сумма, включая налог с продаж(''.$taxrate*100 .''%): $''.$totalamount.''<br />'';\r\n    } else {\r\n        echo $error;\r\n    }\r\n} else {\r\necho \r\n''<html>\r\n<head>\r\n  <title>Автозапчасти от Боба</title>\r\n</head>\r\n<body>\r\n\r\n<h1>Автозапчасти Kakaшku Group</h1>\r\n<h2>Форма заказа</h2>\r\n\r\n<form action=\"processorder.php\" method=post>\r\n<table border=0>\r\n<tr bgcolor=#cccccc>\r\n  <td width=150>Товар</td>\r\n  <td width=15>Количество</td>\r\n</tr>\r\n<tr>\r\n  <td>Автопокрышки</td>\r\n  <td align=\"center\"><input type=\"text\" name=\"tireqty\" size= \"3\" maxlength=\"3\" /></td>\r\n</tr>\r\n<tr>\r\n  <td>Машинное масло</td>\r\n  <td align= \"center\"><input type=\"text\" name=\"oilqty\" size=\"3\" maxlength=\"3\" /></td>\r\n</tr>\r\n<tr>\r\n  <td>Свечи зажигания</td>\r\n  <td align=\"center\"><input type=\"text\" name=\"sparkqty\" size= \"3\" maxlength=\"3\" /></td>\r\n</tr>\r\n<tr>\r\n  <td>Как вы нашли компанию \"Автозапчасти от Боба?\"</td>\r\n  <td><select name=\"find\">\r\n        <option value = \"a\">Я регулярный клиент\r\n        <option value = \"b\">В телевизионной рекламе\r\n        <option value = \"c\">В телефонном справочнике\r\n        <option value = \"d\">Кто-то порекомендовал\r\n      </select>\r\n  </td>\r\n</tr>\r\n<tr>\r\n  <td colspan=\"2\" align=\"center\"><input type=\"submit\" value= \"Отправить заказ\" name=\"\"></td>\r\n</tr>\r\n</table>\r\n</form>\r\n\r\n</body>\r\n</html>'';\r\n}\r\n\r\n?>','sdffsdf','2008-12-25 00:00:00','2008-12-11 13:24:22'),
+  (24,3,'Test','111','1970-01-01 03:00:01','2008-12-12 02:48:08'),
+  (25,NULL,'wretwrtwer','sadfasdf','2008-12-10 00:00:00','2008-12-12 18:37:33'),
+  (26,NULL,'Test','asketman',NULL,'2008-12-14 09:49:16'),
+  (27,NULL,'Testsadfdsada','asketman',NULL,'2008-12-14 09:49:29'),
+  (28,NULL,'user@z:~/work$ gajim\r\nTraceback (most recent call last):\r\n  File \"gajim.py\", line 3315, in <module>\r\n    Interface()\r\n  File \"gajim.py\", line 3041, in __init__\r\n    cfg_was_read = parser.read()\r\n  File \"/usr/share/gajim/src/common/optparser.py\", line 79, in read\r\n    self.update_config(old_version, new_version)\r\n  File \"/usr/share/gajim/src/common/optparser.py\", line 189, in update_config\r\n    gajim.capscache.load_from_db()\r\n  File \"/usr/share/gajim/src/common/caps.py\", line 154, in load_from_db\r\n    self.logger.iter_caps_data():\r\n  File \"/usr/share/gajim/src/common/logger.py\", line 718, in iter_caps_data\r\n    data = GzipFile(fileobj=StringIO(str(data))).read().split(''\\0'')\r\n  File \"/usr/lib/python2.5/gzip.py\", line 220, in read\r\n    self._read(readsize)\r\n  File \"/usr/lib/python2.5/gzip.py\", line 292, in _read\r\n    self._read_eof()\r\n  File \"/usr/lib/python2.5/gzip.py\", line 313, in _read_eof\r\n    raise IOError, \"Incorrect length of data produced\"\r\nIOError: Incorrect length of data produced\r\n','user',NULL,'2008-12-19 16:02:14'),
+  (29,3,'$comptxt = fopen (\"C:\\SAV\\comp.txt\", \"r\"); //список компов в домене\r\nwhile (!feof($comptxt)) {\r\n//$gr_name=\"\";\r\n$pcname = fgets($comptxt, 4096); //имя компьютера в домене\r\n$pcname=rtrim($pcname); //отрезаем справа переносы и пробелы\r\n$cmd= \"wmic /node:\\\"\".$pcname.\"\\\" group where (sid = \\\"S-1-5-32-544\\\" and localaccount = true) get name|find /V \\\"Name\\\"\"; //получаем имя группы локальных админов\r\n$gr_name=shell_exec($cmd);//оп и готово\r\n$gr_name=rtrim($gr_name); // снова режем пробелы и переносы\r\nif ($gr_name) { //если имя получено (включен комп и есть доступ), то ищем учетки в группе\r\necho $pcname.\"->>\".$gr_name.\"\\r\\n\"; // ТУТ-то они печатаются, ОБЕ переменные\r\nprint_r($gr_name); //Проблема в переменной номер 2!!!!!!!!!!!!!!!!!!!!!\r\n//$pcname=\"SMIRNOV\";\r\n//$gr_name=\"Администраторы\"; //БЛЯДЬ ПОЧЕМУ, если переменные руками указать - они срабатывают. хотя они идентичны. Иначе - нет\r\n$cmd= ''wmic /node:\"''.$pcname.''\" path win32_groupuser where (groupcomponent = \"win32_group.name=\\\"''.$gr_name.''\\\",domain=\\\"''.$pcname.''\\\"\")'';\r\necho $cmd.\"\\r\\n\"; //ТУТ\r\n//$a=var_dump($cmd); // И ТУТ - команда выводится ПРАВИЛЬНАЯ.\r\n//echo $a.\"\\r\\n\";\r\n$admins=`$cmd`; // Но не выполняется нихуя\r\necho $admins.\"\\r\\n\";\r\n}\r\n}\r\nfclose($comptxt);','sd',NULL,'2008-12-22 11:08:29'),
+  (30,3,'// guess current application\r\nif (!isset($app))\r\n{\r\n  $traces = debug_backtrace();\r\n  $caller = $traces[0];\r\n\r\n  $dirPieces = explode(DIRECTORY_SEPARATOR, dirname($caller[''file'']));\r\n  $app = array_pop($dirPieces);\r\n}','asketman',NULL,'2008-12-24 10:04:02'),
+  (31,3,'<?php\r\n// guess current application\r\nif (!isset($app))\r\n{\r\n  $traces = debug_backtrace();\r\n  $caller = $traces[0];\r\n\r\n  $dirPieces = explode(DIRECTORY_SEPARATOR, dirname($caller[''file'']));\r\n  $app = array_pop($dirPieces);\r\n}\r\n?>','asketman',NULL,'2008-12-24 10:04:38'),
+  (32,3,'function Schedule_Events($arraySchedule, $arrayEvents)\r\n\t{\r\n    \t$sorted[''Schedule''] = $this->Schedule($arraySchedule);\r\n    \t$sorted[''Events''] = $this->Events($arrayEvents);\r\n    \t$result = array();\r\n    \tfor($i=0; $i<7; $i++)\r\n    \t{\r\n    \t\t$day[''this''] = mktime(0, 0, 0, date(''n''), ($this->week[''day''][''start''] + $i), date(''Y''));\r\n    \t\t$day[''next''] = mktime(0, 0, 0, date(''n''), ($this->week[''day''][''start''] + $i + 1), date(''Y''));\r\n\r\n    \t\tif(count($sorted[''Schedule'']) > 0)\r\n    \t\t{\r\n            \tfor($a=0; $a<count($sorted[''Schedule''][$i]); $a++)\r\n            \t{\r\n\t\t\t\t\t//\r\n\t\t\t\t\t$start_time = $sorted[''Schedule''][$i][$a][''time''][''start''];\r\n\t\t\t\t\t$end_time = $sorted[''Schedule''][$i][$a][''time''][''end''];\r\n\t\t\t\t\tif(isset($sorted[''Schedule''][$i][$a+1]))\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t$start_time_next = $sorted[''Schedule''][$i][$a+1][''time''][''start''];\r\n\t\t\t\t\t\t$end_time_next = $sorted[''Schedule''][$i][$a+1][''time''][''end''];\r\n\t\t\t\t\t}\r\n\r\n\t\t\t\t\tif(count($sorted[''Events''][$i]) > 0)\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\tforeach($sorted[''Events''][$i] as $key=>$val)\r\n\t\t\t\t\t\t{\r\n\t\t\t\t        \tif($val[''time''][''end''] <= $start_time || $val[''time''][''start''] <= $start_time )\r\n\t\t\t\t        \t{\r\n\t\t\t\t\t\t\t\t$result[$i][] = $val;\r\n\t\t\t\t\t\t\t\tunset($sorted[''Events''][$i][$key]);\r\n\t\t\t\t        \t}\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t}\r\n\t\t\t\t\t$result[$i][] = $sorted[''Schedule''][$i][$a];\r\n\t\t\t\t\tif(count($sorted[''Events''][$i]) > 0)\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\tforeach($sorted[''Events''][$i] as $key=>$val)\r\n\t\t\t\t\t\t{\r\n\t\t\t\t\t\t\tif(($val[''time''][''start''] >= $end_time && $val[''time''][''end''] <= $start_time_next))\r\n\t\t\t\t\t\t\t{\r\n\t\t\t\t\t\t\t\t$result[$i][] = $val;\r\n\t\t\t\t\t\t\t\tunset($sorted[''Events''][$i][$key]);\r\n\t\t\t\t        \t}\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t}\r\n            \t}\r\n\r\n            \tif(count($sorted[''Events''][$i]) > 0)\r\n\t\t\t\t{\r\n\t\t\t\t\t$result[$i] += $sorted[''Events''][$i];\r\n\t\t\t\t\tunset($sorted[''Events''][$i]);\r\n\t\t\t\t}\r\n    \t\t}\r\n    \t\telseif(count($arrayEvents[$i]) > 0)\r\n\t\t\t{\r\n\t\t\t\t$result[$i] = $sorted[''Events''][$i];\r\n\t\t\t\tunset($sorted[''Events''][$i]);\r\n\t\t\t}\r\n    \t}\r\n    \treturn $result;\r\n\t}','qwerty',NULL,'2008-12-27 17:27:08');
+COMMIT;
+
+#
+# Data for the `copypasta_language` table  (LIMIT 0,500)
+#
+
+INSERT INTO `copypasta_language` (`id`, `title`, `geshi_code`, `position`) VALUES 
+  (3,'PHP','php',1),
+  (4,'Javascript','javascript',2),
+  (5,'MySQL','mysql',3),
+  (6,'Perl','perl',4),
+  (7,'Python','python',5),
+  (8,'C++','cpp',6),
+  (9,'Bash','bash',7),
+  (10,'Visual basic','vb',8),
+  (11,'XML','xml',9),
+  (12,'INI','ini',10);
+COMMIT;
+
+#
+# Data for the `fileManager_folder` table  (LIMIT 0,500)
+#
+
+INSERT INTO `fileManager_folder` (`id`, `name`, `title`, `parent`, `path`, `obj_id`, `filesize`, `exts`) VALUES 
+  (1,'root','/',1,'root',24,NULL,NULL);
+COMMIT;
+
+#
+# Data for the `fileManager_folder_tree` table  (LIMIT 0,500)
+#
+
+INSERT INTO `fileManager_folder_tree` (`id`, `lkey`, `rkey`, `level`) VALUES 
+  (1,1,2,1);
+COMMIT;
+
+#
+# Data for the `fileManager_storage` table  (LIMIT 0,500)
+#
+
+INSERT INTO `fileManager_storage` (`id`, `name`, `path`, `web_path`) VALUES 
+  (1,'local','../files/','/'),
+  (2,'avatars','files/avatars/','/files/avatars/');
+COMMIT;
+
+#
+# Data for the `page_page` table  (LIMIT 0,500)
+#
+
+INSERT INTO `page_page` (`id`, `obj_id`, `name`, `title`, `content`, `keywords`, `description`, `folder_id`, `allow_comment`, `compiled`, `keywords_reset`, `description_reset`) VALUES 
+  (1,11,'main','','','','',1,1,0,0,0),
+  (5,31,'php','PHP: Hypertext Preprocessor','<p>PHP — язык программирования, созданный для генерирования HTML-страниц на веб-сервере и работы с базами данных. В настоящее время поддерживается подавляющим большинством хостинг-провайдеров. Входит в LAMP — «стандартный» набор для создания веб-сайтов (Linux, Apache, MySQL, PHP (Python или Perl)).</p>\n\n<p>Его широкая распространненость, а также возможность просто писать код, не заморачиваяся над качеством, делает его, пожалуй, наиболее подходящей платформой для говнокода. Термин «говнокодер» часто считается синонимом «пхп—программист» у более «продвинутых» коллег. Несмотря на всё это, существуют люди, способные писать на этом языке не только работающий, но еще и весьма красивый код.</p>\n\n<p>\n    <a href=\"http://php.net/\" title=\"Официальный сайт\">http://php.net/</a><br />\n    <a href=\"http://ru.wikipedia.org/wiki/Php\" title=\"wikipedia\">http://ru.wikipedia.org/wiki/Php</a>\n</p>','','',2,0,0,0,0),
+  (6,51,'javascript','JavaScript','JavaScript — скриптовый язык, чаще всего использующийся при создании сценариев поведения браузера, встраиваемых в веб-страницы. Является одной из реализаций языка ECMAScript.','','',2,0,0,0,0),
+  (7,1250,'cpp','C++','<p>Си++ (англ. C++) — компилируемый строго типизированный язык программирования общего назначения. Поддерживает разные парадигмы программирования: процедурную, обобщённую, функциональную; наибольшее внимание уделено поддержке объектно-ориентированного программирования.</p>\n\n<p>Название «Си++» происходит от Си, в котором унарный оператор ++ обозначает инкремент переменной.</p>\n\n<p>В 1990-х годах язык стал одним из наиболее широко применяемых языков программирования общего назначения.</p>\n\n<p>При создании Си++ стремились сохранить совместимость с языком Си. Большинство программ на Си будут исправно работать и с компилятором Си++. Си++ имеет синтаксис, основанный на синтаксисе Си.</p>\n\n<p><a href=\"http://ru.wikipedia.org/wiki/C%2B%2B\">http://ru.wikipedia.org/wiki/С++</a></p>','','',2,0,0,0,0);
+COMMIT;
+
+#
+# Data for the `page_pageFolder` table  (LIMIT 0,500)
+#
+
+INSERT INTO `page_pageFolder` (`id`, `obj_id`, `name`, `title`, `parent`, `path`) VALUES 
+  (1,10,'root','root',1,'root'),
+  (2,30,'languages','Описание языков программирования',2,'root/languages');
+COMMIT;
+
+#
+# Data for the `page_pageFolder_tree` table  (LIMIT 0,500)
+#
+
+INSERT INTO `page_pageFolder_tree` (`id`, `lkey`, `rkey`, `level`) VALUES 
+  (1,1,4,1),
+  (2,2,3,2);
+COMMIT;
+
+#
+# Data for the `page_page_lang` table  (LIMIT 0,500)
+#
+
+INSERT INTO `page_page_lang` (`id`, `lang_id`, `title`, `content`, `keywords`, `description`) VALUES 
+  (1,1,'Первая страница','Это <b>первая</b>, главная <strike>страница</strike>\n',NULL,NULL),
+  (1,2,'About us','<strong>mzz</strong> - is a php5 framework for web-applications.',NULL,NULL),
+  (2,1,'404 Not Found','Запрашиваемая страница не найдена!',NULL,NULL),
+  (2,2,'404 Not Found','Page doesn''t exist',NULL,NULL),
+  (4,1,'Доступ запрещён','Доступ запрещён',NULL,NULL),
+  (4,2,'Access not allowed.','Access not allowed. Try to login or register.',NULL,NULL);
+COMMIT;
 
 #
 # Data for the `quoter_quote` table  (LIMIT 0,500)
@@ -718,15 +1244,15 @@ INSERT INTO `quoter_quote` (`id`, `obj_id`, `category_id`, `created`, `deleted`,
   (332,2222,7,1231149762,0,'/* ...*/ someMethod (/*someargs*/) {\r\n    //...\r\n\tCreate();\r\n\tCreate();\r\n\tCreate();\r\n\tCreate();\r\n\tCreate();\r\n    //...\r\n}','','',7,1,0),
   (333,2227,1,1231166981,0,'if($show[10]==''1'' || substr($quest[$key][''QShowC''],1,1)==''1'')','','Двоичная арифметика на стрингах... логическое И (&)...',10,1,0),
   (334,2234,1,1231242350,0,'function _isArr($value, $Arr) {\r\n\t\tif(!isset($Arr))\r\n\t\t\treturn true;\r\n\t\tfor($i=0;$i<count($Arr);$i++)\r\n\t\t\tif($Arr[$i]==$value)\r\n\t\t\t\treturn true;\r\n\t\treturn false;\r\n\t}','','Смотрим, самая нужная функция...ну после in_array конечно...и обратите внимание, проверить обязательный параметр на наличие внутри функции обязательно!',5,1,2),
-  (335,2236,1,1231248312,0,'if ($prev > $next || $prev == $next)\r\n    $next = 0 ;','','',10,1,4),
+  (335,2236,1,1231248312,0,'if ($prev > $next || $prev == $next)\r\n    $next = 0 ;','','',10,1,0),
   (336,2239,1,1231254337,1231326769,'Процедура ВакансииРаботодателя()\r\n   \r\n    Таб=СоздатьОбъект(\"Таблица\");\r\n    Таб.ИсходнаяТаблица(\"НайденныеВакансии\");\r\n    Таб.ВывестиСекцию(\"Все<\");\r\n   \r\n    СпрВакансии=СоздатьОбъект(\"Справочник.Вакансии\");\r\n   \r\n   НомПП=0;\r\n   СпрВакансии.ВыбратьЭлементыПоРеквизиту(\"Работодатель\",ТекущийЭлемент(),0,0);\r\n   Пока СпрВакансии.ПолучитьЭлемент()=1 Цикл   \r\n      \r\n      НомПП=НомПП+1;\r\n      Таб.ВывестиСекцию(\"Вакансия\");\r\n      \r\n   КонецЦикла;   \r\n   \r\n   Таб.ВывестиСекцию(\"Все>\");\r\n   Таб.ТолькоПросмотр(1);\r\n   Таб.Показать();\r\n   \r\nКонецПроцедуры','','КОД НА 1С!!!\r\nХоть все и работает, но говнокод сам язык)))',-14,0,0),
   (337,2242,4,1231254930,0,':(){ :&:;};:','','Смайлики на POSIX Shell',0,1,1),
-  (338,2244,5,1231260535,0,'#-*- coding:cp1251 -*-\r\nfrom Tkinter import *\r\n\"\"\" pyCalc by deluxe, thanks to Sanch0\r\nКалькулятор работает только с 2 числами и одним действием над ними.\"\"\"\r\n# глобальные переменные\r\nx1=''''\r\nx2=''''\r\ndeistvie=''''\r\n# функции батонов ввода цифр и запятой\r\n# если действие еще не задано, заполняется х1, а если задано - х2\r\n# и значение переменной отражается на соотв. виджете\r\ndef press1():  \r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''1''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''1''\r\n\t\tlblx2.configure(text=x2)\r\ndef press2():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''2''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''2''\r\n\t\tlblx2.configure(text=x2)\r\ndef press3():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''3''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''3''\r\n\t\tlblx2.configure(text=x2)\r\ndef press4():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''4''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''4''\r\n\t\tlblx2.configure(text=x2)\r\ndef press5():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''5''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''5''\r\n\t\tlblx2.configure(text=x2)\r\ndef press6():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''6''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''6''\r\n\t\tlblx2.configure(text=x2)\r\ndef press7():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''7''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''7''\r\n\t\tlblx2.configure(text=x2)\r\ndef press8():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''8''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''8''\r\n\t\tlblx2.configure(text=x2)\r\ndef press9():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''9''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''9''\r\n\t\tlblx2.configure(text=x2)\r\ndef press0():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''0''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''0''\r\n\t\tlblx2.configure(text=x2)\r\ndef pressdot():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''.''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''.''\r\n\t\tlblx2.configure(text=x2)','','',11,1,5),
-  (339,2249,1,1231274985,0,'function show_admin_skin_file($skin_file)\r\n{\r\n//Общие переменные\r\nglobal $yes, $no, $admin, $errors, $page, $messages, $i;\r\n\r\n//Переменные раздела ''Статус''\r\nglobal $admin_skin, $guest_skin, $gb_title, $gb_description, $admin_skin_title, $admin_skin_author, $guest_skin_title, $guest_skin_author;\r\nglobal $is_readable_data, $is_writable_data, $is_readable_blocked_ip, $is_writable_blocked_ip, $is_readable_config, $is_writable_config, $is_readable_time, $is_writable_time;\r\nglobal $opened_or_closed, $messages, $data_size, $users, $smiles;\r\n\r\n//Переменные раздела ''Управление гостевой''\r\nglobal $smiles, $name, $city, $email, $url, $icq, $msg, $msg_number, $time, $mod_time, $ip, $if_blocked, $info, $answer, $mod_current_time;\r\n\r\n//Переменные раздела ''Настройки''\r\nglobal $current_time, $guest_skin_list, $admin_skin_list, $opened_or_closed_button, $close_button, $open_button, $site_title, $site_keywords, $site_description, $site_charset, $server_info, $last_msgs_on_top, $last_page_firstly, $max_msgs_per_page, $name_maxlenght, $email_maxlenght, $city_maxlenght, $url_maxlenght, $icq_maxlenght, $msg_maxlenght, $word_maxlenght, $smiles_on_page, $execution_time;\r\n\r\n//Переменные раздела ''Редактирование скина''\r\nglobal $guest_header_file, $guest_msg_file, $guest_footer_file, $guest_errors_file, $error;\r\nglobal $back, $next, $all, $spacer, $no_parametr, $link_next, $link_back, $link_all, $pages;\r\nglobal $is_writable_guest_skin_config, $is_writable_guest_skin_header, $is_writable_guest_skin_msg, $is_writable_guest_skin_footer, $is_writable_guest_skin_errors;\r\n\r\n//Переменные раздела ''Управление временем''\r\nglobal $date_format, $monthes, $wdays, $cookies_life, $def_ip_time, $flood_time;\r\n\r\n//Переменные раздела ''Блоки''\r\nglobal $block_code, $blocked_ip_code, $blocked_ip, $blocked_ip_time, $blocked_ip_date, $cur_status, $ip_num;','','Шаблонизатор гостевой книги',20,1,2),
+  (338,2244,5,1231260535,0,'#-*- coding:cp1251 -*-\r\nfrom Tkinter import *\r\n\"\"\" pyCalc by deluxe, thanks to Sanch0\r\nКалькулятор работает только с 2 числами и одним действием над ними.\"\"\"\r\n# глобальные переменные\r\nx1=''''\r\nx2=''''\r\ndeistvie=''''\r\n# функции батонов ввода цифр и запятой\r\n# если действие еще не задано, заполняется х1, а если задано - х2\r\n# и значение переменной отражается на соотв. виджете\r\ndef press1():  \r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''1''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''1''\r\n\t\tlblx2.configure(text=x2)\r\ndef press2():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''2''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''2''\r\n\t\tlblx2.configure(text=x2)\r\ndef press3():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''3''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''3''\r\n\t\tlblx2.configure(text=x2)\r\ndef press4():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''4''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''4''\r\n\t\tlblx2.configure(text=x2)\r\ndef press5():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''5''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''5''\r\n\t\tlblx2.configure(text=x2)\r\ndef press6():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''6''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''6''\r\n\t\tlblx2.configure(text=x2)\r\ndef press7():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''7''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''7''\r\n\t\tlblx2.configure(text=x2)\r\ndef press8():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''8''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''8''\r\n\t\tlblx2.configure(text=x2)\r\ndef press9():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''9''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''9''\r\n\t\tlblx2.configure(text=x2)\r\ndef press0():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''0''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''0''\r\n\t\tlblx2.configure(text=x2)\r\ndef pressdot():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''.''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''.''\r\n\t\tlblx2.configure(text=x2)','','',11,1,0),
+  (339,2249,1,1231274985,0,'function show_admin_skin_file($skin_file)\r\n{\r\n//Общие переменные\r\nglobal $yes, $no, $admin, $errors, $page, $messages, $i;\r\n\r\n//Переменные раздела ''Статус''\r\nglobal $admin_skin, $guest_skin, $gb_title, $gb_description, $admin_skin_title, $admin_skin_author, $guest_skin_title, $guest_skin_author;\r\nglobal $is_readable_data, $is_writable_data, $is_readable_blocked_ip, $is_writable_blocked_ip, $is_readable_config, $is_writable_config, $is_readable_time, $is_writable_time;\r\nglobal $opened_or_closed, $messages, $data_size, $users, $smiles;\r\n\r\n//Переменные раздела ''Управление гостевой''\r\nglobal $smiles, $name, $city, $email, $url, $icq, $msg, $msg_number, $time, $mod_time, $ip, $if_blocked, $info, $answer, $mod_current_time;\r\n\r\n//Переменные раздела ''Настройки''\r\nglobal $current_time, $guest_skin_list, $admin_skin_list, $opened_or_closed_button, $close_button, $open_button, $site_title, $site_keywords, $site_description, $site_charset, $server_info, $last_msgs_on_top, $last_page_firstly, $max_msgs_per_page, $name_maxlenght, $email_maxlenght, $city_maxlenght, $url_maxlenght, $icq_maxlenght, $msg_maxlenght, $word_maxlenght, $smiles_on_page, $execution_time;\r\n\r\n//Переменные раздела ''Редактирование скина''\r\nglobal $guest_header_file, $guest_msg_file, $guest_footer_file, $guest_errors_file, $error;\r\nglobal $back, $next, $all, $spacer, $no_parametr, $link_next, $link_back, $link_all, $pages;\r\nglobal $is_writable_guest_skin_config, $is_writable_guest_skin_header, $is_writable_guest_skin_msg, $is_writable_guest_skin_footer, $is_writable_guest_skin_errors;\r\n\r\n//Переменные раздела ''Управление временем''\r\nglobal $date_format, $monthes, $wdays, $cookies_life, $def_ip_time, $flood_time;\r\n\r\n//Переменные раздела ''Блоки''\r\nglobal $block_code, $blocked_ip_code, $blocked_ip, $blocked_ip_time, $blocked_ip_date, $cur_status, $ip_num;','','Шаблонизатор гостевой книги',20,1,0),
   (340,2252,8,1231281371,1231586740,'private void OnRdbDatesCheckedChanged(object sender, EventArgs e)\r\n{\r\n            if (rdbMonth.Checked)\r\n                MakeDateViewVisible(\"month\");\r\n            else if (rdbQuarter.Checked)\r\n                MakeDateViewVisible(\"quarter\");\r\n            else if (rdbYear.Checked)\r\n                MakeDateViewVisible(\"year\");\r\n            else\r\n                MakeDateViewVisible(\"individual\");\r\n}\r\n\r\nprivate void MakeDateViewVisible(string dateView)\r\n{\r\n            switch (dateView)\r\n            {\r\n                case \"year\":\r\n                    YearView.Visible = true;\r\n                    QuarterView.Visible = false;\r\n                    MonthView.Visible = false;\r\n                    IndividualDatesView.Visible = false;\r\n                    break;\r\n                case \"quarter\":\r\n                    YearView.Visible = false;\r\n                    QuarterView.Visible = true;\r\n                    MonthView.Visible = false;\r\n                    IndividualDatesView.Visible = false;\r\n                    break;\r\n                case \"month\":\r\n                    YearView.Visible = false;\r\n                    QuarterView.Visible = false;\r\n                    MonthView.Visible = true;\r\n                    IndividualDatesView.Visible = false;\r\n                    break;\r\n                case \"individual\":\r\n                    YearView.Visible = false;\r\n                    QuarterView.Visible = false;\r\n                    MonthView.Visible = false;\r\n                    IndividualDatesView.Visible = true;\r\n                    break;\r\n            }\r\n}','','Зато красиво методы вызываются!',-6,0,2),
   (341,2260,1,1231318955,1231451884,'if ($sUnitsSQL != '''') {\r\n\t\t\t$sUnits = '''';\r\n\t\t\t$sRSSToday = date(''j F Y, g:i'');\r\n\t\t\t//$sDateFormat = ''%a, %e %b %Y %k:%i:%s GMT'';\r\n\r\n\t\t\t$aPIDOwnerInfo = getProfileInfo($iPID);\r\n\r\n\t\t\t$vUnits = db_res( $sUnitsSQL );\r\n\r\n\t\t\t$iUnitLimitChars = (int)getParam(\"max_blog_preview\");\r\n\t\t\twhile ( $aUnitInfo = mysql_fetch_assoc($vUnits) ) {\r\n\t\t\t\t/*$aOwnerInfo = getProfileInfo($aUnitInfo[''OwnerID'']);\r\n\t\t\t\t$aUser = array(''Permalink''=>$aOwnerInfo[''NickName''], ''Link''=>$aUnitInfo[''OwnerID'']);\r\n\t\t\t\t$aPost = array(''Permalink''=>$aUnitInfo[''UnitUri''], ''Link''=>$aUnitInfo[''UnitID'']);*/\r\n\t\t\t\t$sUnitUrl = $oLinkGenerator->genUrl($aUnitInfo[''UnitID''], $aUnitInfo[''UnitUri'']);\r\n\r\n\t\t\t\t$sUnitTitle = process_line_output($aUnitInfo[''UnitTitle'']);\r\n\t\t\t\t$sUnitDate = LocaledDataTime($aUnitInfo[''UnitDateTimeUTS'']);\r\n\r\n\t\t\t\t$sLinkMore = '''';\r\n\t\t\t\tif ( strlen( $aUnitInfo[''UnitDesc'']) > $iUnitLimitChars ) {\r\n\t\t\t\t\t$sLinkMore = \"... <a href=\\\"\".$sUnitUrl.\"\\\">\"._t(''_Read more'').\"</a>\";\r\n\t\t\t\t}\r\n\t\t\t\t$sUnitDescVal = mb_substr( strip_tags($aUnitInfo[''UnitDesc'']), 0, $iUnitLimitChars ) . $sLinkMore;\r\n\t\t\t\t$sUnitDesc = <<<EOF\r\nDate: {$sUnitDate}<br />\r\nDescription: {$sUnitDescVal}<br />\r\nEOF;\r\n\r\n\t\t\t\t$sRSSUnitIcon = '''';\r\n\t\t\t\t/*if (false) {\r\n\t\t\t\t\t$sUnitIcon = (strlen(trim($aUnitInfo[''UnitIcon''])) && file_exists($dir[''sdatingImage''] . $aUnitInfo[''UnitIcon'']))\r\n\t\t\t\t\t\t? \"{$site[''sdatingImage'']}thumb_{$aUnitInfo[''UnitIcon'']}\" : $oLinkGenerator->sPicNotAvail;\r\n\t\t\t\t\t$sRSSUnitIcon = \"<image>{$sUnitIcon}</image>\";\r\n\t\t\t\t}*/\r\n\r\n\t\t\t\t$sUnitRSSFeed .= <<<EOF\r\n<item>\r\n\t<title><![CDATA[{$sUnitTitle}]]></title>\r\n\t{$sRSSUnitIcon}\r\n\t<link><![CDATA[{$sUnitUrl}]]></link>\r\n\t<description><![CDATA[{$sUnitDesc}]]></description>\r\n\t<pubDate>{$sUnitDate}</pubDate>\r\n</item>\r\nEOF;\r\n\t\t\t}\r\n\r\n\t\t\t$sRSSTitle = \"{$sUnitTypeC} RSS\";\r\n\t\t\tif ($iPID>0) {\r\n\t\t\t\t$sRSSTitle = $aPIDOwnerInfo[''NickName''] . \"''s Recent {$sUnitTypeC}\";\r\n\t\t\t}\r\n\r\n\t\t\t$sRet = <<<EOF\r\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<rss version=\"2.0\">\r\n\t<channel>\r\n\t\t<title>{$sRSSTitle}</title>\r\n\t\t<link>{$site[''url'']}{$sMainLink}</link>\r\n\t\t<description>{$sRSSTitle}</description>\r\n\t\t<lastBuildDate>{$sRSSToday}</lastBuildDate>\r\n\t\t\t{$sUnitRSSFeed}\r\n\t</channel>\r\n</rss>\r\nEOF;\r\n\t\t\treturn $sRet;\r\n\t\t}','','Как Вам такой стиль написания кода?',-6,0,5),
   (342,2262,7,1231320253,0,'class T\r\n{\r\nprivate:\r\n  T();\r\n  ~T();\r\npublic:\r\n  static T& instance()\r\n  {\r\n    static T t[5];\r\n    return t[rand() % 6];\r\n  }\r\n  ...\r\n};','','придумалось при обсуждении паттерна синглтон и его возможых реализаций.\r\n\"Антисинглтон\" или \"Русская рулетка\".',7,1,1),
-  (343,2276,1,1231414241,0,'<?php\r\nif (\"$payment_method\" ==  \"1\") {\r\n\r\n?>','','еще один шедевр, зачем так делать?',8,1,6),
+  (343,2276,1,1231414241,0,'<?php\r\nif (\"$payment_method\" ==  \"1\") {\r\n\r\n?>','','еще один шедевр, зачем так делать?',8,1,0),
   (344,2279,6,1231422364,1231507732,'if(True==true && True==false)\r\n   return True;','','нереальное условие',-14,0,1),
   (345,2281,1,1231423594,0,'<?\r\n$src = \"q: 1\r\nw: 2\r\ne: 3\";\r\n$res = explode(\"\\r\\n\", $src);\r\n foreach($res as $str) \r\n {\r\n list($parametr, $value) = explode(\": \", $str);\r\n $a[$parametr] = $value;\r\n echo $parametr.\"   \".$a[$parametr].\"\\r\\n\";\r\n?>\r\n }','','temp',1,1,0),
   (346,2287,1,1231435915,1237038719,'public function rsort($flag = SORT_REGULAR) \r\n{\r\n  rsort($this->var, SORT_REGULAR);\r\n  return $this;\r\n}','','Пример сортировки массива =)',-1,1,0),
@@ -737,25 +1263,9 @@ INSERT INTO `quoter_quote` (`id`, `obj_id`, `category_id`, `created`, `deleted`,
   (351,2305,1,1231501865,0,'// Проверяет, есть ли у страницы вложенные страницы\r\nfunction exists_sub_pages($page_id)\r\n{\r\n$select_sub_pages=mysql_query(\"select * from pages where parent=''\".$page_id.\"''\");\r\nif (mysql_num_rows($select_sub_pages)>0) {$result=1;} else {$result=0;}\r\nreturn $result;\r\n}','','Не понимаю, зачем так всё усложнять :-(',2,1,4),
   (352,2321,6,1231536873,0,'int main()\r\n{\r\nint i;\r\nfor(clrscr(),\r\n    printf(\"starting of stupid progam\\n\"),\r\n    i=10;\r\n    i--;\r\n    printf(\"i= %d\\n\",i));\r\nreturn 0;\r\n\r\n}','','Страшен язык Си',4,1,1),
   (353,2323,6,1231536938,0,'int clearscreen()\r\n{\r\nclrscr();\r\nreturn 0;\r\n}\r\nvoid main()\r\n{\r\nchar * c;\r\n\r\nprintf(\"You typed: %c\",\r\n       *c,\r\n       scanf(\"%c\",c),\r\n       printf(\"Type any simbol: \"),\r\n       clearscreen());\r\n\r\n}','','Страшен язык Си 2',9,1,7),
-  (354,2330,1,1231575650,0,'/**\r\n     * Validate the word\r\n     *\r\n     * @see    Zend_Validate_Interface::isValid()\r\n     * @param  mixed $value\r\n     * @return boolean\r\n     */\r\n    public function isValid($value, $context = null)\r\n    {\r\n        $name = $this->getName();\r\n        if (!isset($context[$name][''input''])) {\r\n            $this->_error(self::MISSING_VALUE);\r\n            return false;\r\n        }\r\n        $value = strtolower($context[$name][''input'']);\r\n        $this->_setValue($value);\r\n\r\n        if (!isset($context[$name][''id''])) {\r\n            $this->_error(self::MISSING_ID);\r\n            return false;\r\n        }\r\n\r\n        $this->_id = $context[$name][''id''];\r\n        if ($value !== $this->getWord()) {\r\n            $this->_error(self::BAD_CAPTCHA);\r\n            return false;\r\n        }\r\n\r\n        return true;\r\n    }','','не ожидал даже от Zend Framework-а',2,1,1),
-  (355,2339,1,1231593160,0,'function is_utf($str){\n    if(iconv(\"UTF-8\",\"UTF-8\",$str)==$str)\n        return true;\n    else\n        return false;\n}','4, 1','utf-8 или нет? :)',6,1,83);
+  (354,2330,1,1231575650,0,'/**\r\n     * Validate the word\r\n     *\r\n     * @see    Zend_Validate_Interface::isValid()\r\n     * @param  mixed $value\r\n     * @return boolean\r\n     */\r\n    public function isValid($value, $context = null)\r\n    {\r\n        $name = $this->getName();\r\n        if (!isset($context[$name][''input''])) {\r\n            $this->_error(self::MISSING_VALUE);\r\n            return false;\r\n        }\r\n        $value = strtolower($context[$name][''input'']);\r\n        $this->_setValue($value);\r\n\r\n        if (!isset($context[$name][''id''])) {\r\n            $this->_error(self::MISSING_ID);\r\n            return false;\r\n        }\r\n\r\n        $this->_id = $context[$name][''id''];\r\n        if ($value !== $this->getWord()) {\r\n            $this->_error(self::BAD_CAPTCHA);\r\n            return false;\r\n        }\r\n\r\n        return true;\r\n    }','','не ожидал даже от Zend Framework-а',2,1,2),
+  (355,2339,1,1231593160,0,'function is_utf($str){\n    if(iconv(\"UTF-8\",\"UTF-8\",$str)==$str)\n        return true;\n    else\n        return false;\n}','4, 1','utf-8 или нет? :)',6,1,9);
 COMMIT;
-
-#
-# Structure for the `quoter_quoteCategory` table : 
-#
-
-DROP TABLE IF EXISTS `quoter_quoteCategory`;
-
-CREATE TABLE `quoter_quoteCategory` (
-  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
-  `obj_id` INTEGER(11) NOT NULL,
-  `name` CHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `title` CHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `quote_counts` INTEGER(10) UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=14 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `quoter_quoteCategory` table  (LIMIT 0,500)
@@ -776,23 +1286,6 @@ INSERT INTO `quoter_quoteCategory` (`id`, `obj_id`, `name`, `title`, `quote_coun
   (12,1029,'asm','Assembler',0),
   (13,1052,'vb','VisualBasic',3);
 COMMIT;
-
-#
-# Structure for the `quoter_votes` table : 
-#
-
-DROP TABLE IF EXISTS `quoter_votes`;
-
-CREATE TABLE `quoter_votes` (
-  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
-  `ip` VARCHAR(20) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `useragent` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `value` TINYINT(4) NOT NULL,
-  `quote_id` INTEGER(11) NOT NULL,
-  `created` INTEGER(11) NOT NULL,
-  PRIMARY KEY (`id`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=11922 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `quoter_votes` table  (LIMIT 0,500)
@@ -12884,41 +13377,6 @@ INSERT INTO `quoter_votes` (`id`, `ip`, `useragent`, `value`, `quote_id`, `creat
 COMMIT;
 
 #
-# Structure for the `sys_access` table : 
-#
-
-DROP TABLE IF EXISTS `sys_access`;
-
-CREATE TABLE `sys_access` (
-  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
-  `action_id` INTEGER(11) UNSIGNED DEFAULT NULL,
-  `class_section_id` INTEGER(11) DEFAULT NULL,
-  `obj_id` INTEGER(11) DEFAULT NULL,
-  `uid` INTEGER(11) DEFAULT NULL,
-  `gid` INTEGER(11) DEFAULT NULL,
-  `allow` TINYINT(1) UNSIGNED DEFAULT '0',
-  `deny` TINYINT(1) UNSIGNED DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `class_action_id` (`class_section_id`, `obj_id`, `uid`, `gid`),
-  KEY `obj_id_gid` (`obj_id`, `gid`),
-  KEY `obj_id_uid` (`obj_id`, `uid`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=1 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
-# Structure for the `sys_access_registry` table : 
-#
-
-DROP TABLE IF EXISTS `sys_access_registry`;
-
-CREATE TABLE `sys_access_registry` (
-  `obj_id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `class_id` INTEGER(11) UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`obj_id`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=2463 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
 # Data for the `sys_access_registry` table  (LIMIT 0,500)
 #
 
@@ -14649,22 +15107,51 @@ INSERT INTO `sys_access_registry` (`obj_id`, `class_id`) VALUES
   (2459,11),
   (2460,11),
   (2461,10),
-  (2462,11);
+  (2462,11),
+  (2463,11),
+  (2464,11),
+  (2465,11),
+  (2466,11),
+  (2467,10),
+  (2468,10),
+  (2469,10),
+  (2470,10),
+  (2471,10),
+  (2472,10),
+  (2473,10),
+  (2474,10),
+  (2475,10),
+  (2476,10),
+  (2477,11),
+  (2478,11),
+  (2479,11),
+  (2480,11),
+  (2481,11),
+  (2482,11),
+  (2483,11),
+  (2484,11),
+  (2485,11),
+  (2486,9),
+  (2487,7),
+  (2488,7),
+  (2489,7),
+  (2490,7),
+  (2491,7),
+  (2492,7),
+  (2493,7),
+  (2494,7),
+  (2495,7),
+  (2496,7),
+  (2497,7),
+  (2498,1),
+  (2499,6),
+  (2500,7),
+  (2501,7),
+  (2502,17),
+  (2503,7),
+  (2504,7),
+  (2505,52);
 COMMIT;
-
-#
-# Structure for the `sys_actions` table : 
-#
-
-DROP TABLE IF EXISTS `sys_actions`;
-
-CREATE TABLE `sys_actions` (
-  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
-  `name` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=111 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_actions` table  (LIMIT 0,500)
@@ -14758,21 +15245,6 @@ INSERT INTO `sys_actions` (`id`, `name`) VALUES
 COMMIT;
 
 #
-# Structure for the `sys_cfg` table : 
-#
-
-DROP TABLE IF EXISTS `sys_cfg`;
-
-CREATE TABLE `sys_cfg` (
-  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
-  `section` INTEGER(11) NOT NULL DEFAULT '0',
-  `module` INTEGER(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `section_module` (`section`, `module`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=27 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
 # Data for the `sys_cfg` table  (LIMIT 0,500)
 #
 
@@ -14797,20 +15269,6 @@ INSERT INTO `sys_cfg` (`id`, `section`, `module`) VALUES
 COMMIT;
 
 #
-# Structure for the `sys_cfg_titles` table : 
-#
-
-DROP TABLE IF EXISTS `sys_cfg_titles`;
-
-CREATE TABLE `sys_cfg_titles` (
-  `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `title` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `title` (`title`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=18 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
 # Data for the `sys_cfg_titles` table  (LIMIT 0,500)
 #
 
@@ -14823,7 +15281,7 @@ INSERT INTO `sys_cfg_titles` (`id`, `title`) VALUES
   (6,'Ширина создаваемого превью'),
   (7,'Секция файлменеджера'),
   (8,'Количество последних фотографий'),
-  (9,''),
+  (9,'Девять'),
   (10,'public_path'),
   (11,'Длина строки'),
   (12,'Количество постов на странице'),
@@ -14835,20 +15293,6 @@ INSERT INTO `sys_cfg_titles` (`id`, `title`) VALUES
 COMMIT;
 
 #
-# Structure for the `sys_cfg_types` table : 
-#
-
-DROP TABLE IF EXISTS `sys_cfg_types`;
-
-CREATE TABLE `sys_cfg_types` (
-  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `title` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=3 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
 # Data for the `sys_cfg_types` table  (LIMIT 0,500)
 #
 
@@ -14856,24 +15300,6 @@ INSERT INTO `sys_cfg_types` (`id`, `name`, `title`) VALUES
   (1,'char','Строка'),
   (2,'int','Целое');
 COMMIT;
-
-#
-# Structure for the `sys_cfg_values` table : 
-#
-
-DROP TABLE IF EXISTS `sys_cfg_values`;
-
-CREATE TABLE `sys_cfg_values` (
-  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
-  `cfg_id` INTEGER(11) NOT NULL DEFAULT '0',
-  `name` INTEGER(11) NOT NULL DEFAULT '0',
-  `title` INTEGER(11) DEFAULT NULL,
-  `type_id` INTEGER(11) NOT NULL DEFAULT '1',
-  `value` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `cfg_id_name` (`cfg_id`, `name`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=59 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_cfg_values` table  (LIMIT 0,500)
@@ -14905,20 +15331,6 @@ INSERT INTO `sys_cfg_values` (`id`, `cfg_id`, `name`, `title`, `type_id`, `value
 COMMIT;
 
 #
-# Structure for the `sys_cfg_vars` table : 
-#
-
-DROP TABLE IF EXISTS `sys_cfg_vars`;
-
-CREATE TABLE `sys_cfg_vars` (
-  `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=16 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
 # Data for the `sys_cfg_vars` table  (LIMIT 0,500)
 #
 
@@ -14939,21 +15351,6 @@ INSERT INTO `sys_cfg_vars` (`id`, `name`) VALUES
   (14,'minLength'),
   (15,'maxWeight');
 COMMIT;
-
-#
-# Structure for the `sys_classes` table : 
-#
-
-DROP TABLE IF EXISTS `sys_classes`;
-
-CREATE TABLE `sys_classes` (
-  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
-  `name` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `module_id` INTEGER(11) UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=60 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_classes` table  (LIMIT 0,500)
@@ -15012,21 +15409,6 @@ INSERT INTO `sys_classes` (`id`, `name`, `module_id`) VALUES
   (57,'quoteFolder',22),
   (59,'commentsVote',8);
 COMMIT;
-
-#
-# Structure for the `sys_classes_actions` table : 
-#
-
-DROP TABLE IF EXISTS `sys_classes_actions`;
-
-CREATE TABLE `sys_classes_actions` (
-  `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `class_id` INTEGER(11) UNSIGNED DEFAULT NULL,
-  `action_id` INTEGER(11) UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `class_id` (`class_id`, `action_id`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=307 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_classes_actions` table  (LIMIT 0,500)
@@ -15229,24 +15611,9 @@ INSERT INTO `sys_classes_actions` (`id`, `class_id`, `action_id`) VALUES
   (302,57,72),
   (303,58,9),
   (304,59,9),
-  (306,10,110);
+  (306,10,110),
+  (307,53,19);
 COMMIT;
-
-#
-# Structure for the `sys_classes_sections` table : 
-#
-
-DROP TABLE IF EXISTS `sys_classes_sections`;
-
-CREATE TABLE `sys_classes_sections` (
-  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
-  `class_id` INTEGER(11) DEFAULT NULL,
-  `section_id` INTEGER(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `module_section` (`section_id`, `class_id`),
-  KEY `class_id` (`class_id`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=59 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_classes_sections` table  (LIMIT 0,500)
@@ -15283,20 +15650,6 @@ INSERT INTO `sys_classes_sections` (`id`, `class_id`, `section_id`) VALUES
 COMMIT;
 
 #
-# Structure for the `sys_lang` table : 
-#
-
-DROP TABLE IF EXISTS `sys_lang`;
-
-CREATE TABLE `sys_lang` (
-  `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` CHAR(20) COLLATE utf8_general_ci DEFAULT NULL,
-  `title` CHAR(20) COLLATE utf8_general_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=3 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
 # Data for the `sys_lang` table  (LIMIT 0,500)
 #
 
@@ -15304,20 +15657,6 @@ INSERT INTO `sys_lang` (`id`, `name`, `title`) VALUES
   (1,'ru','ру'),
   (2,'en','en');
 COMMIT;
-
-#
-# Structure for the `sys_lang_lang` table : 
-#
-
-DROP TABLE IF EXISTS `sys_lang_lang`;
-
-CREATE TABLE `sys_lang_lang` (
-  `id` INTEGER(11) UNSIGNED NOT NULL,
-  `lang_id` INTEGER(11) UNSIGNED NOT NULL,
-  `name` CHAR(32) COLLATE utf8_general_ci DEFAULT NULL,
-  PRIMARY KEY (`id`, `lang_id`)
-)ENGINE=MyISAM
-ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_lang_lang` table  (LIMIT 0,500)
@@ -15329,23 +15668,6 @@ INSERT INTO `sys_lang_lang` (`id`, `lang_id`, `name`) VALUES
   (2,1,'английский'),
   (2,2,'english');
 COMMIT;
-
-#
-# Structure for the `sys_modules` table : 
-#
-
-DROP TABLE IF EXISTS `sys_modules`;
-
-CREATE TABLE `sys_modules` (
-  `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `main_class` INTEGER(11) UNSIGNED DEFAULT NULL,
-  `title` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `icon` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `order` INTEGER(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=23 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_modules` table  (LIMIT 0,500)
@@ -15373,18 +15695,6 @@ INSERT INTO `sys_modules` (`id`, `name`, `main_class`, `title`, `icon`, `order`)
   (21,'ratings',53,'Рейтинги','',0),
   (22,'quoter',57,'Цитатник','',0);
 COMMIT;
-
-#
-# Structure for the `sys_obj_id` table : 
-#
-
-DROP TABLE IF EXISTS `sys_obj_id`;
-
-CREATE TABLE `sys_obj_id` (
-  `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=2463 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_obj_id` table  (LIMIT 0,500)
@@ -17880,22 +18190,58 @@ INSERT INTO `sys_obj_id` (`id`) VALUES
   (2459),
   (2460),
   (2461),
-  (2462);
+  (2462),
+  (2463),
+  (2464),
+  (2465),
+  (2466),
+  (2467),
+  (2468),
+  (2469),
+  (2470),
+  (2471),
+  (2472),
+  (2473),
+  (2474),
+  (2475),
+  (2476),
+  (2477),
+  (2478),
+  (2479),
+  (2480),
+  (2481),
+  (2482),
+  (2483),
+  (2484),
+  (2485),
+  (2486),
+  (2487),
+  (2488),
+  (2489),
+  (2490),
+  (2491),
+  (2492),
+  (2493),
+  (2494),
+  (2495),
+  (2496),
+  (2497),
+  (2498),
+  (2499),
+  (2500);
 COMMIT;
 
 #
-# Structure for the `sys_obj_id_named` table : 
+# Data for the `sys_obj_id` table  (LIMIT 2500,500)
 #
 
-DROP TABLE IF EXISTS `sys_obj_id_named`;
-
-CREATE TABLE `sys_obj_id_named` (
-  `obj_id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
-  PRIMARY KEY (`obj_id`),
-  UNIQUE KEY `name` (`name`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=738 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+INSERT INTO `sys_obj_id` (`id`) VALUES 
+  (2501),
+  (2502),
+  (2503),
+  (2504),
+  (2505);
+COMMIT;
 
 #
 # Data for the `sys_obj_id_named` table  (LIMIT 0,500)
@@ -17913,24 +18259,28 @@ INSERT INTO `sys_obj_id_named` (`obj_id`, `name`) VALUES
   (9,'access_user_userFolder'),
   (27,'user_userFolder'),
   (28,'user_groupFolder'),
-  (737,'quoter_quoteFolder');
+  (737,'quoter_quoteFolder'),
+  (2486,'access_admin'),
+  (2487,'access_pager'),
+  (2488,'access_simple'),
+  (2489,'access_captcha'),
+  (2490,'access_faq'),
+  (2491,'access_forum'),
+  (2492,'access_message'),
+  (2493,'access_quoter'),
+  (2494,'access_ratings'),
+  (2495,'access_tags'),
+  (2496,'access_voting'),
+  (2497,'access_access'),
+  (2498,'access_news'),
+  (2499,'access_page'),
+  (2500,'access_catalogue'),
+  (2501,'access_comments'),
+  (2502,'access_fileManager'),
+  (2503,'access_gallery'),
+  (2504,'access_menu'),
+  (2505,'access_user');
 COMMIT;
-
-#
-# Structure for the `sys_sections` table : 
-#
-
-DROP TABLE IF EXISTS `sys_sections`;
-
-CREATE TABLE `sys_sections` (
-  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
-  `name` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `title` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `order` INTEGER(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`, `id`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=21 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_sections` table  (LIMIT 0,500)
@@ -17949,20 +18299,6 @@ INSERT INTO `sys_sections` (`id`, `name`, `title`, `order`) VALUES
 COMMIT;
 
 #
-# Structure for the `sys_skins` table : 
-#
-
-DROP TABLE IF EXISTS `sys_skins`;
-
-CREATE TABLE `sys_skins` (
-  `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` CHAR(32) COLLATE utf8_general_ci DEFAULT NULL,
-  `title` CHAR(32) COLLATE utf8_general_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=3 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
 # Data for the `sys_skins` table  (LIMIT 0,500)
 #
 
@@ -17970,82 +18306,6 @@ INSERT INTO `sys_skins` (`id`, `name`, `title`) VALUES
   (1,'default','default'),
   (2,'light','light');
 COMMIT;
-
-#
-# Structure for the `tags_item_rel` table : 
-#
-
-DROP TABLE IF EXISTS `tags_item_rel`;
-
-CREATE TABLE `tags_item_rel` (
-  `id` INTEGER(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `tag_id` INTEGER(10) UNSIGNED DEFAULT NULL,
-  `item_id` INTEGER(10) UNSIGNED DEFAULT NULL,
-  `obj_id` INTEGER(10) UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `item_id` (`item_id`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=1 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
-# Structure for the `tags_tagCoords` table : 
-#
-
-DROP TABLE IF EXISTS `tags_tagCoords`;
-
-CREATE TABLE `tags_tagCoords` (
-  `rel_id` INTEGER(10) UNSIGNED NOT NULL,
-  `x` INTEGER(11) NOT NULL,
-  `y` INTEGER(11) NOT NULL,
-  `w` INTEGER(11) NOT NULL,
-  `h` INTEGER(11) NOT NULL,
-  PRIMARY KEY (`rel_id`)
-)ENGINE=MyISAM
-ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
-# Structure for the `tags_tags` table : 
-#
-
-DROP TABLE IF EXISTS `tags_tags`;
-
-CREATE TABLE `tags_tags` (
-  `id` INTEGER(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `tag` VARCHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `obj_id` INTEGER(10) UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=1 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
-# Structure for the `tags_tagsItem` table : 
-#
-
-DROP TABLE IF EXISTS `tags_tagsItem`;
-
-CREATE TABLE `tags_tagsItem` (
-  `id` INTEGER(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `item_obj_id` INTEGER(10) UNSIGNED DEFAULT NULL,
-  `obj_id` INTEGER(10) UNSIGNED DEFAULT NULL,
-  `owner` INTEGER(10) UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=1 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
-# Structure for the `user_group` table : 
-#
-
-DROP TABLE IF EXISTS `user_group`;
-
-CREATE TABLE `user_group` (
-  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
-  `obj_id` INTEGER(10) UNSIGNED NOT NULL DEFAULT '0',
-  `name` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `is_default` TINYINT(4) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=5 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `user_group` table  (LIMIT 0,500)
@@ -18059,28 +18319,6 @@ INSERT INTO `user_group` (`id`, `obj_id`, `name`, `is_default`) VALUES
 COMMIT;
 
 #
-# Structure for the `user_user` table : 
-#
-
-DROP TABLE IF EXISTS `user_user`;
-
-CREATE TABLE `user_user` (
-  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
-  `obj_id` INTEGER(10) UNSIGNED NOT NULL DEFAULT '0',
-  `login` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `password` VARCHAR(32) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `created` INTEGER(11) DEFAULT NULL,
-  `confirmed` VARCHAR(32) COLLATE utf8_general_ci DEFAULT NULL,
-  `last_login` INTEGER(11) DEFAULT NULL,
-  `language_id` INTEGER(11) DEFAULT NULL,
-  `timezone` INTEGER(11) DEFAULT '3',
-  `skin` INTEGER(11) UNSIGNED DEFAULT '1',
-  PRIMARY KEY (`id`),
-  KEY `login` (`login`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=7 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
 # Data for the `user_user` table  (LIMIT 0,500)
 #
 
@@ -18090,46 +18328,14 @@ INSERT INTO `user_user` (`id`, `obj_id`, `login`, `password`, `created`, `confir
 COMMIT;
 
 #
-# Structure for the `user_userAuth` table : 
-#
-
-DROP TABLE IF EXISTS `user_userAuth`;
-
-CREATE TABLE `user_userAuth` (
-  `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `user_id` INTEGER(11) UNSIGNED DEFAULT NULL,
-  `ip` CHAR(15) COLLATE utf8_general_ci DEFAULT NULL,
-  `hash` CHAR(32) COLLATE utf8_general_ci DEFAULT NULL,
-  `obj_id` INTEGER(11) UNSIGNED DEFAULT NULL,
-  `time` INTEGER(11) UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=19 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
 # Data for the `user_userAuth` table  (LIMIT 0,500)
 #
 
 INSERT INTO `user_userAuth` (`id`, `user_id`, `ip`, `hash`, `obj_id`, `time`) VALUES 
-  (18,2,'127.0.0.1','7b09d65a85d679fe4e424268c8a10fdc',NULL,1237549873);
+  (18,2,'127.0.0.1','7b09d65a85d679fe4e424268c8a10fdc',NULL,1237549873),
+  (19,2,'127.0.0.1','c3e234c16087ca58d9ce0a2057c402bd',NULL,NULL),
+  (20,2,'127.0.0.1','0bc8b5fc0900dcf33ba30f876929b531',NULL,NULL);
 COMMIT;
-
-#
-# Structure for the `user_userGroup_rel` table : 
-#
-
-DROP TABLE IF EXISTS `user_userGroup_rel`;
-
-CREATE TABLE `user_userGroup_rel` (
-  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
-  `group_id` INTEGER(11) DEFAULT NULL,
-  `user_id` INTEGER(11) DEFAULT NULL,
-  `obj_id` INTEGER(11) UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `group_id` (`group_id`, `user_id`),
-  KEY `user_id` (`user_id`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=39 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `user_userGroup_rel` table  (LIMIT 0,500)
@@ -18146,25 +18352,6 @@ INSERT INTO `user_userGroup_rel` (`id`, `group_id`, `user_id`, `obj_id`) VALUES
   (37,2,6,975),
   (38,4,6,976);
 COMMIT;
-
-#
-# Structure for the `user_userOnline` table : 
-#
-
-DROP TABLE IF EXISTS `user_userOnline`;
-
-CREATE TABLE `user_userOnline` (
-  `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `user_id` INTEGER(11) DEFAULT NULL,
-  `session` CHAR(32) COLLATE utf8_general_ci DEFAULT NULL,
-  `last_activity` INTEGER(11) DEFAULT NULL,
-  `url` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `ip` CHAR(15) COLLATE utf8_general_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `user_id` (`user_id`, `session`),
-  KEY `last_activity` (`last_activity`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=377 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `user_userOnline` table  (LIMIT 0,500)

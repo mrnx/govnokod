@@ -67,6 +67,7 @@ class contentFilter implements iFilter
         $smarty->assign('current_path', $request->getPath());
         $smarty->assign('current_lang', $toolkit->getLocale()->getName());
         $smarty->assign('available_langs', $toolkit->getLocale()->searchAll());
+        $smarty->assign('CURRENT_LANG', 'ru');
 
         // если вывода ещё не было (не 404 страница), или был (404, но вернувшая false - что значит что должен быть запущен стандартный запуск через активный шаблон)
         if (!isset($output) || $output === false) {
@@ -108,5 +109,4 @@ class contentFilter implements iFilter
         throw new mzzRuntimeException('Не найден активный шаблон: <i>' . $path . '/' . $tpl_name . '</i>');
     }
 }
-
 ?>
