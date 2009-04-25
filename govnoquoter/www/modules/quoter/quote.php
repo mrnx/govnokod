@@ -152,13 +152,6 @@ class quote extends entity
         return self::CACHE_PREFIX . $this->getId();
     }
 
-    //@todo: убрать это!!!
-    public function setCommentsCountAndSave($count)
-    {
-        $this->setCommentsCount($count);
-        $this->mapper->save($this);
-    }
-
     //@todo: идентификатор группы moderators(4) убрать
     public function getAcl($name = null)
     {
@@ -179,5 +172,4 @@ class quote extends entity
         return false;
     }
 }
-
 ?>

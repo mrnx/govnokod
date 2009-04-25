@@ -72,6 +72,15 @@ class commentsFolderListController extends simpleController
 
         $comments = $commentsFolder->getComments();
 
+        //lazy проверка на количество камментов
+        if ($objectMapper->isAttached('comments')) {
+            $commentsCount = $comments->count();
+            if ($object->getCommentsCount() != $commentsCount) {
+                $object->setCommentsCount($commentsCount);
+                $objectMapper->save($object);
+            }
+        }
+
         $this->smarty->assign('commentsFolder', $commentsFolder);
         $this->smarty->assign('comments', $comments);
         return $this->fetch('comments/list.tpl');
