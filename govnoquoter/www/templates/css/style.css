@@ -306,7 +306,7 @@ p#entrance
 	float: left;
 
 	padding-right: 0.3em;
-	margin-right: 0.3em;
+	margin-right: 0.1em;
 	padding-left: 2.3em;
 	list-style: none;
 	text-align: right;
@@ -324,7 +324,6 @@ p#entrance
 	overflow-x: auto;
 	overflow-y: hidden;
 
-	margin-left: 0.3em;
 	font-family: "Courier New", "Courier", "monospace";
 }
 

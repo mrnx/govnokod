@@ -7,18 +7,20 @@
         {/if}
         <div class="entry-comments">
             {form action=$action method="post"}
+                {if !$errors->isEmpty()}
                 <dl class="errors">
-                    {if !$errors->isEmpty()}
                     <dt>Ошибка компиляции комментария:</dt>
                     <dd>
-                        <ul>
+                        <ol>
                         {foreach from=$errors item="error"}
                             <li>{$error}</li>
                         {/foreach}
-                        </ul>
+                        </ol>
                     </dd>
-                    {/if}
-                    <dt>{set name="formTextCaptionLabel"}Я, <strong>{$user->getLogin()|h}</strong>, находясь в здравом уме и твердой памяти, торжественно заявляю:{/set}{form->caption name="text" value=$formTextCaptionLabel}</dt>
+                </dl>
+                {/if}
+                <dl>
+                    <dt>{set name="formTextCaptionLabel"}Я, <strong>{$user->getLogin()|h}</strong>, находясь в здравом уме и твердой памяти, торжественно заявляю:{/set}{form->caption name="text" value=$formTextCaptionLabel onError=""}</dt>
                     <dd>{form->textarea name="text" value=$comment->getText() rows="5" cols="5"}</dd>
                 </dl>
                 <p>

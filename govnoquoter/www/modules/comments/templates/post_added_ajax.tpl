@@ -1,6 +1,6 @@
         <li class="hcomment new">
             <p>
-                <img src="http://s3.amazonaws.com/twitter_production/profile_images/121187671/Green_love_monster_bigger.png" alt="" />
+                <img src="{$SITE_PATH}/files/avatars/16.gif" alt="" />
                 <strong class="entry-author">{$comment->getUser()->getLogin()|h}</strong>
                 <a class="published" name="comment{$comment->getId()}" href="{url}#comment{$comment->getId()}">{$comment->getCreated()|date_format:"%e %b %Y, %H:%M"}</a>
                 <span class="comment-vote">

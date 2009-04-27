@@ -17,16 +17,25 @@ function showCommentForm(formElem, aElemTrigger, durationValue, offsetValue)
     offsetValue = offsetValue || 0;
 
     formElem.show();
-    formElem.action = aElemTrigger.href;
+    formElem.action = currentShowTrigger.href;
     formElem.down('textarea').focus();
     Effect.ScrollTo(formElem, {duration: durationValue, offset: offsetValue});
 }
 
 function moveCommentForm(commentId, folderId, aElemTrigger)
 {
+    if (aElemTrigger == currentShowTrigger) {
+        return;
+    }
+
     var formElem = $('commentForm_' + folderId);
     var nowHolder = $('answerForm_' + folderId + '_' + commentId);
     if (formElem && nowHolder) {
+        var errors = formElem.down('dl.errors');
+        if (errors) {
+            errors.remove();
+        }
+
         formElem.remove();
         nowHolder.update(formElem);
         showCommentForm(formElem, aElemTrigger, 0.7, -100);
@@ -124,7 +133,7 @@ function unfoldCode(codeId)
                 duration: 0.4,
                 scaleMode: 'contents',
                 restoreAfterFinish: false,
-                scaleFrom: Math.floor((100 / entryHolder.scrollHeight) * currentHeight)
+                scaleFrom: Math.ceil((100 / entryHolder.scrollHeight) * currentHeight)
             });
         },
         onFailure: function() {
