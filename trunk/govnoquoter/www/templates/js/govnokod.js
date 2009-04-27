@@ -49,7 +49,8 @@ function loadComments(aElemTrigger)
     new Insertion.After(aElemTrigger, aElemTrigger.innerHTML);
     aElemTrigger.remove();
 
-    commentsHolder.insert(' ').insert(new Element('img', {src: commentsPreloader.src, 'alt': 'Загрузка…', title: 'Загрузка списка комментариев'}));
+    var preloader = new Element('img', {src: commentsPreloader.src, 'alt': 'Загрузка…', title: 'Загрузка списка комментариев'});
+    commentsHolder.insert(' ').insert(preloader);
 
     new Ajax.Request(url, {
         method: 'get',
@@ -58,7 +59,8 @@ function loadComments(aElemTrigger)
             commentsHolder.update(transport.responseText);
         },
         onFailure: function() {
-            alert('Something went wrong…');
+            preloader.remove();
+            alert("Ошибка загрузки списка комментариев!\nОбновите страницу и попытайтесь еще раз…");
         }
     });
 }
