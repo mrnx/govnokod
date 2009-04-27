@@ -14,7 +14,7 @@
             {/if}
         {/if}{/strip}
         <li class="hcomment">
-        <p>
+            <p>
                 <img src="{$SITE_PATH}/files/avatars/16.gif" alt="" />
                 <strong class="entry-author">{$comment->getUser()->getLogin()|h}</strong>
                 <a class="published" name="comment{$comment->getId()}" href="{url}#comment{$comment->getId()}" title="{$comment->getCreated()|date_i18n}">{$comment->getCreated()|date_i18n:'relative_hour'}</a>

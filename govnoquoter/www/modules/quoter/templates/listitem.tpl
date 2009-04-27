@@ -3,10 +3,7 @@
     <li class="hentry">
         <h2><a rel="chapter" href="{url route="categoryList" name=$langName}">{$quote->getCategory()->getTitle()|h}</a> / <a rel="bookmark" class="entry-title" href="{url route="quoteView" id=$quote->getId()}">Говнокод #{$quote->getId()}</a></h2>
         <p class="vote">
-            Рейт:
-            <a class="vote-on" href="#">&uarr;</a>
-            <strong>15</strong>
-            <a class="vote-against" href="#">&darr;</a>
+            {load module="ratings" section="ratings" action="view" object=$quote}
         </p>
         <div class="entry-content">
         {if $quote->getLinesCount() > 30}
