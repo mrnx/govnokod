@@ -135,7 +135,11 @@ function unfoldCode(codeId)
                 duration: 0.4,
                 scaleMode: 'contents',
                 restoreAfterFinish: false,
-                scaleFrom: Math.ceil((100 / entryHolder.scrollHeight) * currentHeight)
+                scaleFrom: Math.ceil((100 / entryHolder.scrollHeight) * currentHeight),
+                afterFinishInternal: function(effect) {
+                    effect.element.undoClipping();
+                    effect.element.setStyle({height: ''});
+                }
             });
         },
         onFailure: function() {
