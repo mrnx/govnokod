@@ -3948,7 +3948,7 @@ class GeSHi {
             }
         } else {
             if ($this->header_type == GESHI_HEADER_PRE) {
-                return "<pre$attributes>$header"  .
+                return "<pre$attributes><code>$header"  .
                     ($this->force_code_block ? '<div>' : '');
             } else {
                 return "<div$attributes>$header" .
@@ -4007,7 +4007,7 @@ class GeSHi {
                 return "</ol>$footer</pre>";
             }
             return ($this->force_code_block ? '</div>' : '') .
-                "$footer</pre>";
+                "$footer</code></pre>";
         }
     }
 
