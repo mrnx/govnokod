@@ -31,11 +31,6 @@ class quote extends entity
     protected $linesCount = 0;
     protected $token = null;
 
-    public function getJip()
-    {
-        return '';
-    }
-
     public function getText($linesNum = null)
     {
         $text = parent::__call('getText', array());
@@ -155,6 +150,7 @@ class quote extends entity
     //@todo: идентификатор группы moderators(4) убрать
     public function getAcl($name = null)
     {
+        return true;
         $user = systemToolkit::getInstance()->getUser();
 
         $groups = $user->getGroupsList();

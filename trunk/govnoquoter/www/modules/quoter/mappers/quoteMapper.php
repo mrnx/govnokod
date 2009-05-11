@@ -15,6 +15,7 @@
 fileLoader::load('quoter/quote');
 fileLoader::load('orm/plugins/acl_extPlugin');
 fileLoader::load('orm/plugins/commentsPlugin');
+fileLoader::load('orm/plugins/ratingsPlugin');
 
 /**
  * quoteMapper: маппер
@@ -80,10 +81,12 @@ class quoteMapper extends mapper
 
     public function __construct()
     {
+        $this->attach(new ratingsPlugin(array('byField' => 'id')));
         parent::__construct();
         $this->attach(new acl_extPlugin(), 'acl');
         $this->plugins('jip');
         $this->attach(new commentsPlugin(array('extendMap' => true, 'byField' => 'id')));
+
     }
 
     public function searchById($id)
@@ -110,14 +113,14 @@ class quoteMapper extends mapper
      */
     protected function afterInsert(&$fields)
     {
-        $categoryMapper = systemToolkit::getInstance()->getMapper('quote', 'quoteCategory', $this->section);
+        $categoryMapper = systemToolkit::getInstance()->getMapper('quote', 'quoteCategory');
         $fields['category_id']->setQuoteCounts($fields['category_id']->getQuoteCounts() + 1);
         $categoryMapper->save($fields['category_id']);
     }
 
     public function delete(quote $do)
     {
-        $categoryMapper = systemToolkit::getInstance()->getMapper('quote', 'quoteCategory', $this->section);
+        $categoryMapper = systemToolkit::getInstance()->getMapper('quote', 'quoteCategory');
         $category = $do->getCategory();
         $category->setQuoteCounts($category->getQuoteCounts() - 1);
         $categoryMapper->save($category);

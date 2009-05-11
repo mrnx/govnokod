@@ -3,11 +3,7 @@
                 <img src="{$SITE_PATH}/files/avatars/16.gif" alt="" />
                 <strong class="entry-author">{$comment->getUser()->getLogin()|h}</strong>
                 <a class="published" name="comment{$comment->getId()}" href="{url}#comment{$comment->getId()}">{$comment->getCreated()|date_format:"%e %b %Y, %H:%M"}</a>
-                <span class="comment-vote">
-                    <strong>0</strong>
-                    <a class="comment-vote-on" href="#"> </a>
-                    <a class="comment-vote-against" href="#"> </a>
-                </span>
+                {load module="ratings" section="ratings" action="view" object=$comment tplPrefix="comments_"}
             </p>
             <div class="entry-comment">
                 {$comment->getText()|h|nl2br}
