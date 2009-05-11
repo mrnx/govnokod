@@ -1,9 +1,9 @@
 {assign var="langName" value=$quote->getCategory()->getName()|h}
 {add file="langs/$langName.css"}
     <li class="hentry">
-        <h2><a rel="chapter" href="{url route="categoryList" name=$langName}">{$quote->getCategory()->getTitle()|h}</a> / <a rel="bookmark" class="entry-title" href="{url route="quoteView" id=$quote->getId()}">Говнокод #{$quote->getId()}</a></h2>
+        <h2><a rel="chapter" href="{url route="categoryList" name=$langName}">{$quote->getCategory()->getTitle()|h}</a> / <a rel="bookmark" class="entry-title" href="{url route="quoteView" id=$quote->getId()}">Говнокод #{$quote->getId()}</a> {$quote->getJip()}</h2>
         <p class="vote">
-            {load module="ratings" section="ratings" action="view" object=$quote}
+            {load module="ratings" section="ratings" action="view" object=$quote tplPrefix="quote_"}
         </p>
         <div class="entry-content">
         {if $quote->getLinesCount() > 30}
