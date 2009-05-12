@@ -23,37 +23,34 @@ class ratingsRateController extends simpleController
 {
     protected function getView()
     {
-        $id = $this->request->getInteger('id');
         $ratingsFolderMapper = $this->toolkit->getMapper('ratings', 'ratingsFolder');
 
-        $ratingsFolder = $ratingsFolderMapper->searchById($id);
+        $alias = $this->request->getString('alias');
 
+        $ratingsFolder = $ratingsFolderMapper->searchByAlias($alias);
         if (!$ratingsFolder) {
             return $this->forward404($ratingsFolderMapper);
         }
 
-        switch ($ratingsFolder->getType()) {
-            case 'quote':
-                $rate = $this->request->getInteger('rate');
+        $objectMapper = $ratingsFolder->getObjectMapper();
+        if (!$objectMapper->isAttached('ratings')) {
+            throw new mzzRuntimeException('Please, add a ratings plugin for ' . get_class($objectMapper) . '!');
+        }
 
-                switch ($rate) {
-                    case 1:
-                    case -1:
-                        $newRating = $ratingsFolder->getRating() + $rate;
-                        $ratingsFolder->setRating($newRating);
-                        $ratingsFolderMapper->save($ratingsFolder);
+        $param = $this->request->getString('param');
+        $object = $ratingsFolder->getRatedObject($param);
 
-                        $quoteMapper = $ratingsFolder->getObjectMapper();
-                        $quote = $ratingsFolder->getObject();
+        if (!$object) {
+            //return $this->forward404($objectMapper);
+            return $this->forward404($ratingsFolderMapper);
+        }
 
-                        $quote->setRating($ratingsFolder->getRating());
-
-                        $backUrl = new url('quoteView');
-                        $backUrl->add('id', $quote->getId());
-
-                        $this->redirect($backUrl->get());
-                        break;
-                }
+        switch ($alias) {
+            case 'govnokod':
+                $object->setRating(1);
+                $backUrl = new url('quoteView');
+                $backUrl->add('id', $object->getId());
+                $this->redirect($backUrl->get());
                 break;
         }
     }

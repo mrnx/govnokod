@@ -3,7 +3,10 @@
     <li class="hentry">
         <h2><a rel="chapter" href="{url route="categoryList" name=$langName}">{$quote->getCategory()->getTitle()|h}</a> / <a rel="bookmark" class="entry-title" href="{url route="quoteView" id=$quote->getId()}">Говнокод #{$quote->getId()}</a> {$quote->getJip()}</h2>
         <p class="vote">
-            {load module="ratings" section="ratings" action="view" object=$quote tplPrefix="quote_"}
+            Сила:
+            <a class="vote-on" href="{url route="rate" type="govnokod" param=$quote->getId() vote="on"}">&uarr;</a>
+            <strong>{$quote->getRating()}</strong>
+            <a class="vote-against" href="{url route="rate" type="govnokod" param=$quote->getId() vote="against"}">&darr;</a>
         </p>
         <div class="entry-content">
         {if $quote->getLinesCount() > 30}

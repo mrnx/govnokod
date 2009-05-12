@@ -18,11 +18,13 @@ $router->addRoute('aclDefaultAction', new requestRoute('access/:id', array('sect
 
 $router->addRoute('categoryList', new requestRoute(':name', array('section' => 'quoter', 'action' => 'list')));
 $router->addRoute('quoteView', new requestRoute(':id', array('section' => 'quoter', 'action' => 'view'), array('id' => '\d+')));
-$router->addRoute('commentVote', new requestRoute('comments/:id/:action', array('section' => 'comments', 'action' => '(?:cool|suxx)'), array('id' => '\d+')));
+//$router->addRoute('commentVote', new requestRoute('comments/:id/:action', array('section' => 'comments', 'action' => '(?:cool|suxx)'), array('id' => '\d+')));
 $router->addRoute('quoteAddFull', new requestRoute(':name/add', array('section' => 'quoter', 'action' => 'add')));
 $router->addRoute('quoteAdd', new requestRoute('add', array('section' => 'quoter', 'action' => 'add')));
 $router->addRoute('search', new requestRoute('search/:name/:mode', array('section' => 'quoter', 'action' => 'search', 'name' => '', 'mode' => 'word')));
 $router->addRoute('best', new requestRoute('best/:name', array('section' => 'quoter', 'action' => 'best', 'name' => '')));
+
+$router->addRoute('rate', new requestRoute('ratings/:alias/:param/:vote', array('section' => 'ratings', 'action' => 'rate'), array('param' => '.+?')));
 
 $router->addRoute('rss', new requestRoute('rss', array('section' => 'quoter', 'action' => 'rss')));
 $router->addRoute('rssFull', new requestRoute(':name/rss', array('section' => 'quoter', 'action' => 'rss')));

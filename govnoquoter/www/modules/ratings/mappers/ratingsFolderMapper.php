@@ -37,25 +37,25 @@ class ratingsFolderMapper extends mapper
             'mutator' => 'setId',
             'options' => array('pk','once')
          ),
-        'parent_id' => array(
-            'accessor' => 'getParentId',
-            'mutator' => 'setParentId',
-            'options' => array('once'),
-        ),
         'module' => array(
             'accessor' => 'getModule',
             'mutator' => 'setModule',
-            'options' => array('once'),
+            'options' => array('ro'),
+        ),
+        'alias' => array(
+            'accessor' => 'getAlias',
+            'mutator' => 'setAlias',
+            'options' => array('ro'),
         ),
         'type' => array(
             'accessor' => 'getType',
             'mutator' => 'setType',
-            'options' => array('once'),
+            'options' => array('ro'),
         ),
         'by_field' => array(
             'accessor' => 'getByField',
             'mutator' => 'setByField',
-            'options' => array('once'),
+            'options' => array('ro'),
         ),
         'rating' => array(
             'accessor' => 'getRating',
@@ -75,11 +75,9 @@ class ratingsFolderMapper extends mapper
         return $this->searchByKey($id);
     }
 
-    public function searchFolder($parentType, $parentId)
+    public function searchByAlias($alias)
     {
-        $criteria = new criteria;
-        $criteria->add('type', $parentType)->add('parent_id', $parentId);
-        return $this->searchOneByCriteria($criteria);
+        return $this->searchOneByField('alias', $alias);
     }
 
     public function convertArgsToObj($args)

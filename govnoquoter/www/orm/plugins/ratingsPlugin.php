@@ -22,25 +22,33 @@
 class ratingsPlugin extends observer
 {
     protected $options = array(
-        'byField' => 'obj_id'
+        'rating_field' => 'rating'
     );
 
     protected function updateMap(& $map)
     {
-        $map['ratingsFolder'] = array(
-            'accessor' => 'getRatingsFolder',
-            'mutator' => 'setRatingsFolder',
-            'relation' => 'one',
-            'local_key' => $this->getByField(),
-            'foreign_key' => 'parent_id',
-            'mapper' => 'ratings/ratingsFolderMapper',
-            'options' => array('ro')
+        $map[$this->options['rating_field']] = array(
+            'accessor' => 'getRating',
+            'mutator' => 'setRating'
         );
     }
 
-    public function getByField()
+    /*
+    public function postDelete(entity $object)
     {
-        return $this->options['byField'];
+        $toolkit = systemToolkit::getInstance();
+        $commentsFolderMapper = $toolkit->getMapper('comments', 'commentsFolder');
+
+        $objectType = get_class($object);
+
+        $map = $this->mapper->map();
+
+        $objectId = $object->$map[$this->getByField()]['accessor']();
+        $commentsFolder = $commentsFolderMapper->searchFolder($objectType, $objectId);
+        if ($commentsFolder) {
+            $commentsFolderMapper->delete($commentsFolder);
+        }
     }
+    */
 }
 ?>
