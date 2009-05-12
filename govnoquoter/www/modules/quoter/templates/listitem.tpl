@@ -4,9 +4,9 @@
         <h2><a rel="chapter" href="{url route="categoryList" name=$langName}">{$quote->getCategory()->getTitle()|h}</a> / <a rel="bookmark" class="entry-title" href="{url route="quoteView" id=$quote->getId()}">Говнокод #{$quote->getId()}</a> {$quote->getJip()}</h2>
         <p class="vote">
             Сила:
-            <a class="vote-on" href="{url route="rate" type="govnokod" param=$quote->getId() vote="on"}">&uarr;</a>
+            <a class="vote-on" href="{url route="rate" alias="govnokod" param=$quote->getId() vote="on"}" title="Плюсану!" onclick="vote(this); return false;">&uarr;</a>
             <strong>{$quote->getRating()}</strong>
-            <a class="vote-against" href="{url route="rate" type="govnokod" param=$quote->getId() vote="against"}">&darr;</a>
+            <a class="vote-against" href="{url route="rate" alias="govnokod" param=$quote->getId() vote="against"}" title="Минусну!" onclick="vote(this); return false;">&darr;</a>
         </p>
         <div class="entry-content">
         {if $quote->getLinesCount() > 30}

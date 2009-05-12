@@ -389,16 +389,6 @@ class locale
         $array = range(-12, 12);
         return array_combine($array, $array);
     }
-
-    /**
-     * Является ли текущее время "летним"
-     *
-     * @return boolean
-     */
-    public static function isSummerTime()
-    {
-        return strtotime('last sunday april 2008') < strtotime('today') && strtotime('last sunday november 2008') > strtotime('today');
-    }
 }
 
 ?>
