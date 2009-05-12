@@ -37,26 +37,16 @@ CREATE TABLE `comments_comments` (
   `folder_id` INTEGER(11) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=14 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=4 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `comments_comments` table  (LIMIT 0,500)
 #
 
 INSERT INTO `comments_comments` (`id`, `obj_id`, `text`, `user_id`, `created`, `folder_id`) VALUES 
-  (1,2467,'asdfasdf',1,1239078253,2),
-  (2,2468,'test',1,1239078265,2),
-  (3,2469,'test',1,1239078268,2),
-  (4,2470,'балалайка!\nф\nыв\nа\nфыва\nфыва\nфыва',1,1239407935,2),
-  (5,2471,'test',1,1239407946,2),
-  (6,2472,'zdfgasdf\n\nsadf\nasdf',1,1239408074,2),
-  (7,2473,'tett',1,1239408263,2),
-  (8,2474,'tettq',1,1239409119,2),
-  (9,2475,'<?php\n/**\n * $URL$\n *\n * MZZ Content Management System (c) 2006\n * Website : http://www.mzz.ru\n *\n * This program is free software and released under\n * the GNU/GPL License (See /docs/GPL.txt).\n *\n * @link http://www.mzz.ru\n * @version $Id$\n*/\n\nfileLoader::load(''forms/validators/formValidator'');\n\n/**\n * commentsPostController: контроллер для метода post модуля comments\n *\n * @package modules\n * @subpackage comments\n * @version 0.1.2\n */\nclass commentsPostController extends simpleController\n{\n    protected function getView()\n    {\n        $user = $this->toolkit->getUser();\n        $access = $this->request->getBoolean(''access'');\n\n        if (!is_null($access) && !$access) {\n            return $user->getId() == MZZ_USER_GUEST_ID ? $this->smarty->fetch(''comments/onlyAuth.tpl'') : $this->smarty->fetch(''comments/deny.tpl'');\n        }\n\n        $commentsFolderMapper = $this->toolkit->getMapper(''comments'', ''commentsFolder'');\n        $commentsMapper = $this->toolkit->getMapper(''comments'', ''comments'');\n        $id = $this->request->getRaw(''id'');\n\n        if ($id instanceof commentsFolder) {\n            $commentsFolder = $id;\n            $id = $commentsFolder->getId();\n        }\n\n        $onlyForm = $this->request->getBoolean(''onlyForm'');\n        if (!isset($commentsFolder)) {\n            $commentsFolder = $commentsFolderMapper->searchById($id);\n            if (!$commentsFolder) {\n                return $this->forward404($commentsFolderMapper);\n            }\n        }',1,1239409468,1),
-  (10,2476,'ну нихера себе!',1,1239410367,2),
-  (11,2507,'asdf',2,1240800287,2),
-  (12,2508,'asdf',2,1240800312,2),
-  (13,2509,'asdf',2,1240800318,2);
+  (1,2565,'test',2,1242007848,1),
+  (2,2566,'asdf',2,1242007971,1),
+  (3,2567,'dfgdfg',2,1242007974,1);
 COMMIT;
 
 #
@@ -76,27 +66,14 @@ CREATE TABLE `comments_commentsFolder` (
   UNIQUE KEY `parent_id_2` (`parent_id`, `type`),
   KEY `parent_id` (`parent_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=15 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=2 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `comments_commentsFolder` table  (LIMIT 0,500)
 #
 
 INSERT INTO `comments_commentsFolder` (`id`, `obj_id`, `parent_id`, `module`, `type`, `by_field`) VALUES 
-  (1,2463,354,'quoter','quote','id'),
-  (2,2464,355,'quoter','quote','id'),
-  (3,2465,353,'quoter','quote','id'),
-  (4,2466,2339,'quoter','quote','obj_id'),
-  (5,2477,352,'quoter','quote','id'),
-  (6,2478,346,'quoter','quote','id'),
-  (7,2479,338,'quoter','quote','id'),
-  (8,2480,325,'quoter','quote','id'),
-  (9,2481,290,'quoter','quote','id'),
-  (10,2482,337,'quoter','quote','id'),
-  (11,2483,343,'quoter','quote','id'),
-  (12,2484,339,'quoter','quote','id'),
-  (13,2485,335,'quoter','quote','id'),
-  (14,2506,349,'quoter','quote','id');
+  (1,2564,355,'quoter','quote','id');
 COMMIT;
 
 #
@@ -142,16 +119,16 @@ CREATE TABLE `comments_comments_tree` (
   `spath` TEXT COLLATE utf8_general_ci,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=14 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=17 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `comments_comments_tree` table  (LIMIT 0,500)
 #
 
 INSERT INTO `comments_comments_tree` (`id`, `path`, `foreign_key`, `level`, `spath`) VALUES 
-  (1,'1/',1,1,'1/'),
-  (2,'1/2/',2,2,'1/2/'),
-  (3,'3/',3,1,'3/'),
+  (1,'1/',1,1,'14/'),
+  (2,'2/',2,1,'15/'),
+  (3,'1/3/',3,2,'14/16/'),
   (4,'4/',4,1,'4/'),
   (5,'3/5/',5,2,'3/5/'),
   (6,'6/',6,1,'6/'),
@@ -161,7 +138,10 @@ INSERT INTO `comments_comments_tree` (`id`, `path`, `foreign_key`, `level`, `spa
   (10,'10/',10,1,'10/'),
   (11,'6/7/8/11/',11,4,'6/7/8/11/'),
   (12,'12/',12,1,'12/'),
-  (13,'12/13/',13,2,'12/13/');
+  (13,'12/13/',13,2,'12/13/'),
+  (14,'1/',1,1,'14/'),
+  (15,'2/',2,1,'15/'),
+  (16,'1/3/',3,2,'14/16/');
 COMMIT;
 
 #
@@ -781,12 +761,12 @@ INSERT INTO `quoter_quote` (`id`, `obj_id`, `category_id`, `created`, `deleted`,
   (334,2234,1,1231242350,0,'function _isArr($value, $Arr) {\r\n\t\tif(!isset($Arr))\r\n\t\t\treturn true;\r\n\t\tfor($i=0;$i<count($Arr);$i++)\r\n\t\t\tif($Arr[$i]==$value)\r\n\t\t\t\treturn true;\r\n\t\treturn false;\r\n\t}','','Смотрим, самая нужная функция...ну после in_array конечно...и обратите внимание, проверить обязательный параметр на наличие внутри функции обязательно!',5,1,2),
   (335,2236,1,1231248312,0,'if ($prev > $next || $prev == $next)\r\n    $next = 0 ;','','',10,1,0),
   (336,2239,1,1231254337,1231326769,'Процедура ВакансииРаботодателя()\r\n   \r\n    Таб=СоздатьОбъект(\"Таблица\");\r\n    Таб.ИсходнаяТаблица(\"НайденныеВакансии\");\r\n    Таб.ВывестиСекцию(\"Все<\");\r\n   \r\n    СпрВакансии=СоздатьОбъект(\"Справочник.Вакансии\");\r\n   \r\n   НомПП=0;\r\n   СпрВакансии.ВыбратьЭлементыПоРеквизиту(\"Работодатель\",ТекущийЭлемент(),0,0);\r\n   Пока СпрВакансии.ПолучитьЭлемент()=1 Цикл   \r\n      \r\n      НомПП=НомПП+1;\r\n      Таб.ВывестиСекцию(\"Вакансия\");\r\n      \r\n   КонецЦикла;   \r\n   \r\n   Таб.ВывестиСекцию(\"Все>\");\r\n   Таб.ТолькоПросмотр(1);\r\n   Таб.Показать();\r\n   \r\nКонецПроцедуры','','КОД НА 1С!!!\r\nХоть все и работает, но говнокод сам язык)))',-14,0,0),
-  (337,2242,4,1231254930,0,':(){ :&:;};:','','Смайлики на POSIX Shell',0,1,1),
+  (337,2242,4,1231254930,0,':(){ :&:;};:','','Смайлики на POSIX Shell',0,1,0),
   (338,2244,5,1231260535,0,'#-*- coding:cp1251 -*-\r\nfrom Tkinter import *\r\n\"\"\" pyCalc by deluxe, thanks to Sanch0\r\nКалькулятор работает только с 2 числами и одним действием над ними.\"\"\"\r\n# глобальные переменные\r\nx1=''''\r\nx2=''''\r\ndeistvie=''''\r\n# функции батонов ввода цифр и запятой\r\n# если действие еще не задано, заполняется х1, а если задано - х2\r\n# и значение переменной отражается на соотв. виджете\r\ndef press1():  \r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''1''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''1''\r\n\t\tlblx2.configure(text=x2)\r\ndef press2():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''2''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''2''\r\n\t\tlblx2.configure(text=x2)\r\ndef press3():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''3''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''3''\r\n\t\tlblx2.configure(text=x2)\r\ndef press4():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''4''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''4''\r\n\t\tlblx2.configure(text=x2)\r\ndef press5():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''5''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''5''\r\n\t\tlblx2.configure(text=x2)\r\ndef press6():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''6''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''6''\r\n\t\tlblx2.configure(text=x2)\r\ndef press7():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''7''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''7''\r\n\t\tlblx2.configure(text=x2)\r\ndef press8():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''8''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''8''\r\n\t\tlblx2.configure(text=x2)\r\ndef press9():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''9''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''9''\r\n\t\tlblx2.configure(text=x2)\r\ndef press0():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''0''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''0''\r\n\t\tlblx2.configure(text=x2)\r\ndef pressdot():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''.''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''.''\r\n\t\tlblx2.configure(text=x2)','','',11,1,0),
   (339,2249,1,1231274985,0,'function show_admin_skin_file($skin_file)\r\n{\r\n//Общие переменные\r\nglobal $yes, $no, $admin, $errors, $page, $messages, $i;\r\n\r\n//Переменные раздела ''Статус''\r\nglobal $admin_skin, $guest_skin, $gb_title, $gb_description, $admin_skin_title, $admin_skin_author, $guest_skin_title, $guest_skin_author;\r\nglobal $is_readable_data, $is_writable_data, $is_readable_blocked_ip, $is_writable_blocked_ip, $is_readable_config, $is_writable_config, $is_readable_time, $is_writable_time;\r\nglobal $opened_or_closed, $messages, $data_size, $users, $smiles;\r\n\r\n//Переменные раздела ''Управление гостевой''\r\nglobal $smiles, $name, $city, $email, $url, $icq, $msg, $msg_number, $time, $mod_time, $ip, $if_blocked, $info, $answer, $mod_current_time;\r\n\r\n//Переменные раздела ''Настройки''\r\nglobal $current_time, $guest_skin_list, $admin_skin_list, $opened_or_closed_button, $close_button, $open_button, $site_title, $site_keywords, $site_description, $site_charset, $server_info, $last_msgs_on_top, $last_page_firstly, $max_msgs_per_page, $name_maxlenght, $email_maxlenght, $city_maxlenght, $url_maxlenght, $icq_maxlenght, $msg_maxlenght, $word_maxlenght, $smiles_on_page, $execution_time;\r\n\r\n//Переменные раздела ''Редактирование скина''\r\nglobal $guest_header_file, $guest_msg_file, $guest_footer_file, $guest_errors_file, $error;\r\nglobal $back, $next, $all, $spacer, $no_parametr, $link_next, $link_back, $link_all, $pages;\r\nglobal $is_writable_guest_skin_config, $is_writable_guest_skin_header, $is_writable_guest_skin_msg, $is_writable_guest_skin_footer, $is_writable_guest_skin_errors;\r\n\r\n//Переменные раздела ''Управление временем''\r\nglobal $date_format, $monthes, $wdays, $cookies_life, $def_ip_time, $flood_time;\r\n\r\n//Переменные раздела ''Блоки''\r\nglobal $block_code, $blocked_ip_code, $blocked_ip, $blocked_ip_time, $blocked_ip_date, $cur_status, $ip_num;','','Шаблонизатор гостевой книги',20,1,0),
   (340,2252,8,1231281371,1231586740,'private void OnRdbDatesCheckedChanged(object sender, EventArgs e)\r\n{\r\n            if (rdbMonth.Checked)\r\n                MakeDateViewVisible(\"month\");\r\n            else if (rdbQuarter.Checked)\r\n                MakeDateViewVisible(\"quarter\");\r\n            else if (rdbYear.Checked)\r\n                MakeDateViewVisible(\"year\");\r\n            else\r\n                MakeDateViewVisible(\"individual\");\r\n}\r\n\r\nprivate void MakeDateViewVisible(string dateView)\r\n{\r\n            switch (dateView)\r\n            {\r\n                case \"year\":\r\n                    YearView.Visible = true;\r\n                    QuarterView.Visible = false;\r\n                    MonthView.Visible = false;\r\n                    IndividualDatesView.Visible = false;\r\n                    break;\r\n                case \"quarter\":\r\n                    YearView.Visible = false;\r\n                    QuarterView.Visible = true;\r\n                    MonthView.Visible = false;\r\n                    IndividualDatesView.Visible = false;\r\n                    break;\r\n                case \"month\":\r\n                    YearView.Visible = false;\r\n                    QuarterView.Visible = false;\r\n                    MonthView.Visible = true;\r\n                    IndividualDatesView.Visible = false;\r\n                    break;\r\n                case \"individual\":\r\n                    YearView.Visible = false;\r\n                    QuarterView.Visible = false;\r\n                    MonthView.Visible = false;\r\n                    IndividualDatesView.Visible = true;\r\n                    break;\r\n            }\r\n}','','Зато красиво методы вызываются!',-6,0,2),
   (341,2260,1,1231318955,1231451884,'if ($sUnitsSQL != '''') {\r\n\t\t\t$sUnits = '''';\r\n\t\t\t$sRSSToday = date(''j F Y, g:i'');\r\n\t\t\t//$sDateFormat = ''%a, %e %b %Y %k:%i:%s GMT'';\r\n\r\n\t\t\t$aPIDOwnerInfo = getProfileInfo($iPID);\r\n\r\n\t\t\t$vUnits = db_res( $sUnitsSQL );\r\n\r\n\t\t\t$iUnitLimitChars = (int)getParam(\"max_blog_preview\");\r\n\t\t\twhile ( $aUnitInfo = mysql_fetch_assoc($vUnits) ) {\r\n\t\t\t\t/*$aOwnerInfo = getProfileInfo($aUnitInfo[''OwnerID'']);\r\n\t\t\t\t$aUser = array(''Permalink''=>$aOwnerInfo[''NickName''], ''Link''=>$aUnitInfo[''OwnerID'']);\r\n\t\t\t\t$aPost = array(''Permalink''=>$aUnitInfo[''UnitUri''], ''Link''=>$aUnitInfo[''UnitID'']);*/\r\n\t\t\t\t$sUnitUrl = $oLinkGenerator->genUrl($aUnitInfo[''UnitID''], $aUnitInfo[''UnitUri'']);\r\n\r\n\t\t\t\t$sUnitTitle = process_line_output($aUnitInfo[''UnitTitle'']);\r\n\t\t\t\t$sUnitDate = LocaledDataTime($aUnitInfo[''UnitDateTimeUTS'']);\r\n\r\n\t\t\t\t$sLinkMore = '''';\r\n\t\t\t\tif ( strlen( $aUnitInfo[''UnitDesc'']) > $iUnitLimitChars ) {\r\n\t\t\t\t\t$sLinkMore = \"... <a href=\\\"\".$sUnitUrl.\"\\\">\"._t(''_Read more'').\"</a>\";\r\n\t\t\t\t}\r\n\t\t\t\t$sUnitDescVal = mb_substr( strip_tags($aUnitInfo[''UnitDesc'']), 0, $iUnitLimitChars ) . $sLinkMore;\r\n\t\t\t\t$sUnitDesc = <<<EOF\r\nDate: {$sUnitDate}<br />\r\nDescription: {$sUnitDescVal}<br />\r\nEOF;\r\n\r\n\t\t\t\t$sRSSUnitIcon = '''';\r\n\t\t\t\t/*if (false) {\r\n\t\t\t\t\t$sUnitIcon = (strlen(trim($aUnitInfo[''UnitIcon''])) && file_exists($dir[''sdatingImage''] . $aUnitInfo[''UnitIcon'']))\r\n\t\t\t\t\t\t? \"{$site[''sdatingImage'']}thumb_{$aUnitInfo[''UnitIcon'']}\" : $oLinkGenerator->sPicNotAvail;\r\n\t\t\t\t\t$sRSSUnitIcon = \"<image>{$sUnitIcon}</image>\";\r\n\t\t\t\t}*/\r\n\r\n\t\t\t\t$sUnitRSSFeed .= <<<EOF\r\n<item>\r\n\t<title><![CDATA[{$sUnitTitle}]]></title>\r\n\t{$sRSSUnitIcon}\r\n\t<link><![CDATA[{$sUnitUrl}]]></link>\r\n\t<description><![CDATA[{$sUnitDesc}]]></description>\r\n\t<pubDate>{$sUnitDate}</pubDate>\r\n</item>\r\nEOF;\r\n\t\t\t}\r\n\r\n\t\t\t$sRSSTitle = \"{$sUnitTypeC} RSS\";\r\n\t\t\tif ($iPID>0) {\r\n\t\t\t\t$sRSSTitle = $aPIDOwnerInfo[''NickName''] . \"''s Recent {$sUnitTypeC}\";\r\n\t\t\t}\r\n\r\n\t\t\t$sRet = <<<EOF\r\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<rss version=\"2.0\">\r\n\t<channel>\r\n\t\t<title>{$sRSSTitle}</title>\r\n\t\t<link>{$site[''url'']}{$sMainLink}</link>\r\n\t\t<description>{$sRSSTitle}</description>\r\n\t\t<lastBuildDate>{$sRSSToday}</lastBuildDate>\r\n\t\t\t{$sUnitRSSFeed}\r\n\t</channel>\r\n</rss>\r\nEOF;\r\n\t\t\treturn $sRet;\r\n\t\t}','','Как Вам такой стиль написания кода?',-6,0,5),
-  (342,2262,7,1231320253,0,'class T\r\n{\r\nprivate:\r\n  T();\r\n  ~T();\r\npublic:\r\n  static T& instance()\r\n  {\r\n    static T t[5];\r\n    return t[rand() % 6];\r\n  }\r\n  ...\r\n};','','придумалось при обсуждении паттерна синглтон и его возможых реализаций.\r\n\"Антисинглтон\" или \"Русская рулетка\".',7,1,1),
+  (342,2262,7,1231320253,0,'class T\r\n{\r\nprivate:\r\n  T();\r\n  ~T();\r\npublic:\r\n  static T& instance()\r\n  {\r\n    static T t[5];\r\n    return t[rand() % 6];\r\n  }\r\n  ...\r\n};','','придумалось при обсуждении паттерна синглтон и его возможых реализаций.\r\n\"Антисинглтон\" или \"Русская рулетка\".',7,1,0),
   (343,2276,1,1231414241,0,'<?php\r\nif (\"$payment_method\" ==  \"1\") {\r\n\r\n?>','','еще один шедевр, зачем так делать?',8,1,0),
   (344,2279,6,1231422364,1231507732,'if(True==true && True==false)\r\n   return True;','','нереальное условие',-14,0,1),
   (345,2281,1,1231423594,0,'<?\r\n$src = \"q: 1\r\nw: 2\r\ne: 3\";\r\n$res = explode(\"\\r\\n\", $src);\r\n foreach($res as $str) \r\n {\r\n list($parametr, $value) = explode(\": \", $str);\r\n $a[$parametr] = $value;\r\n echo $parametr.\"   \".$a[$parametr].\"\\r\\n\";\r\n?>\r\n }','','temp',1,1,0),
@@ -794,12 +774,12 @@ INSERT INTO `quoter_quote` (`id`, `obj_id`, `category_id`, `created`, `deleted`,
   (347,2293,1,1231438002,0,'function newuser($username){\r\n  return;\r\n  /*\r\n    ДВАДЦАТЬ СТРОК КОДА\r\n  */\r\n  //не пойму почему не работает:ФИО Программиста\r\n}','','наследие от предыдущих программистов проекта',17,1,1),
   (348,2296,1,1231486629,1231598466,'public function buildCriteria($table, $conditions)\r\n    {\r\n        $source_table = $table->getTableName();\r\n        $criteria = new criteria($source_table, ''keyword'');\r\n\r\n        foreach ($conditions as $field => $conds) {\r\n\r\n\r\n            if (is_array($conds)) {\r\n\r\n                if (isset($conds[''plus''])) {\r\n                    $word = array_shift($conds[''plus'']);\r\n                    $like_criterion = new criterion($field, ''%'' . $word . ''%'', criteria::LIKE);\r\n                    foreach ($conds[''plus''] as $word) {\r\n                        $like_criterion->addOr(new criterion($field, ''%'' . $word . ''%'', criteria::LIKE));\r\n                    }\r\n                }\r\n\r\n                if (isset($conds[''minus''])) {\r\n                    $word = array_shift($conds[''minus'']);\r\n                    $not_like_criterion = new criterion($field, ''%'' . $word . ''%'', criteria::NOT_LIKE);\r\n                    foreach ($conds[''minus''] as $word) {\r\n                        $not_like_criterion->addAnd(new criterion($field, ''%'' . $word . ''%'', criteria::NOT_LIKE));\r\n                    }\r\n                }\r\n\r\n                if (isset($conds[''less''])) {\r\n                    if (!is_array($conds[''less''])) {\r\n                        $conds[''less''] = array($conds[''less'']);\r\n                    }\r\n\r\n                    $word = array_shift($conds[''less'']);\r\n                    $less_criterion = new criterion($field, $word, criteria::LESS);\r\n\r\n                    foreach ($conds[''less''] as $word) {\r\n                        $less_criterion->addAnd(new criterion($field, $word, criteria::LESS));\r\n                    }\r\n                }\r\n\r\n                if (isset($conds[''less_eq''])) {\r\n                    if (!is_array($conds[''less_eq''])) {\r\n                        $conds[''less_eq''] = array($conds[''less_eq'']);\r\n                    }\r\n\r\n                    $word = array_shift($conds[''less_eq'']);\r\n                    $less_eq_criterion = new criterion($field, $word, criteria::LESS_EQUAL );\r\n\r\n                    foreach ($conds[''less_eq''] as $word) {\r\n                        $less_eq_criterion->addAnd(new criterion($field, $word, criteria::LESS_EQUAL));\r\n                    }\r\n                }\r\n            }\r\n        }\r\n\r\n        $main_criterion = new criterion();\r\n\r\n        if (!empty($like_criterion)) {\r\n            $main_criterion->add($like_criterion);\r\n            $add_method = ''addAnd'';\r\n        }\r\n\r\n        if (!empty($not_like_criterion)) {\r\n            if (empty($add_method)) {\r\n                $add_method = ''add'';\r\n            }\r\n            $main_criterion->$add_method($not_like_criterion);\r\n        }\r\n\r\n        if (!empty($less_criterion)) {\r\n            if (empty($add_method)) {\r\n                $add_method = ''add'';\r\n            }\r\n            $main_criterion->$add_method($less_criterion);\r\n        }\r\n\r\n        if (!empty($less_eq_criterion)) {\r\n            if (empty($add_method)) {\r\n                $add_method = ''add'';\r\n            }\r\n            $main_criterion->$add_method($less_eq_criterion);\r\n        }\r\n\r\n        $criteria->add($main_criterion);\r\n\r\n        return $criteria;\r\n\r\n    }\r\n\r\n\r\npublic function testBuildCriteria()\r\n    {\r\n        $table = new mockStubKeywordTable();\r\n        $table->setReturnValue(''getTableName'', ''test_table'');\r\n\r\n        $query = $this->keywordQuery;\r\n\r\n        $data[''field1''][''less''] = 5;\r\n        $data[''field2''][''less_eq''] = 10;\r\n/*        $data[''field2''][''greater_eq''] = 11;\r\n        $data[''field3''][''greater''] = 12;','','требуется рефакторинг',-9,0,1),
   (349,2298,1,1231487830,0,'<?php\r\n\r\nfunction drop_dir ( $dir_id )\r\n{\r\n\t$query\t=\tmysql_query ( \"SELECT `id` FROM `dirs` WHERE `subid`=\" . $dir_id );\r\n\twhile ( $row\t=\tmysql_fetch_array ( $query ) )\r\n\t{\r\n\t\t$n_query\t=\tmysql_query ( \"SELECT `id` FROM `dirs` WHERE `subid`=\" . $row[''id''] );\r\n\t\twhile ( $n_row\t=\tmysql_fetch_array ( $query ) )\r\n\t\t{\r\n\t\t\t$n2_query\t=\tmysql_query ( \"SELECT `id` FROM `dirs` WHERE `subid`=\" . $n_row[''id''] );\r\n\t\t\twhile ( $n2_row\t=\tmysql_fetch_array ( $n2_query ) )\r\n\t\t\t{\r\n\t\t\t\tmysql_query ( \"DELETE FROM `dirs` WHERE `id`=\" . $n2_row[''id''] );\r\n\t\t\t} // Неужто блядь кто то дальше вложит\r\n\t\t\tmysql_query ( \"DELETE FROM `dirs` WHERE `id`=\" . $n_row[''id''] );\r\n\t\t}\r\n\t\tmysql_query ( \"DELETE FROM `dirs` WHERE `id`=\" . $row[''id''] );\r\n\t}\r\n\tmysql_query ( \"DELETE FROM `dirs` WHERE `id`=\" . $dir );\r\n\tRETURN TRUE;\r\n}\r\n\r\n?>','','(c) Я, 2007',21,1,0),
-  (350,2303,1,1231501764,0,'if (@mysql_query(\"CREATE TABLE `cms_attributes_\".$a.\"` (`element_id` int(5))\")) {}','','Реальный код..\r\nВидимо, человек любит индусов и начал им подражать)',1,1,2),
-  (351,2305,1,1231501865,0,'// Проверяет, есть ли у страницы вложенные страницы\r\nfunction exists_sub_pages($page_id)\r\n{\r\n$select_sub_pages=mysql_query(\"select * from pages where parent=''\".$page_id.\"''\");\r\nif (mysql_num_rows($select_sub_pages)>0) {$result=1;} else {$result=0;}\r\nreturn $result;\r\n}','','Не понимаю, зачем так всё усложнять :-(',2,1,4),
+  (350,2303,1,1231501764,0,'if (@mysql_query(\"CREATE TABLE `cms_attributes_\".$a.\"` (`element_id` int(5))\")) {}','','Реальный код..\r\nВидимо, человек любит индусов и начал им подражать)',1,1,0),
+  (351,2305,1,1231501865,0,'// Проверяет, есть ли у страницы вложенные страницы\r\nfunction exists_sub_pages($page_id)\r\n{\r\n$select_sub_pages=mysql_query(\"select * from pages where parent=''\".$page_id.\"''\");\r\nif (mysql_num_rows($select_sub_pages)>0) {$result=1;} else {$result=0;}\r\nreturn $result;\r\n}','','Не понимаю, зачем так всё усложнять :-(',2,1,0),
   (352,2321,6,1231536873,0,'int main()\r\n{\r\nint i;\r\nfor(clrscr(),\r\n    printf(\"starting of stupid progam\\n\"),\r\n    i=10;\r\n    i--;\r\n    printf(\"i= %d\\n\",i));\r\nreturn 0;\r\n\r\n}','','Страшен язык Си',4,1,1),
   (353,2323,6,1231536938,0,'int clearscreen()\r\n{\r\nclrscr();\r\nreturn 0;\r\n}\r\nvoid main()\r\n{\r\nchar * c;\r\n\r\nprintf(\"You typed: %c\",\r\n       *c,\r\n       scanf(\"%c\",c),\r\n       printf(\"Type any simbol: \"),\r\n       clearscreen());\r\n\r\n}','','Страшен язык Си 2',9,1,0),
   (354,2330,1,1231575650,0,'/**\r\n     * Validate the word\r\n     *\r\n     * @see    Zend_Validate_Interface::isValid()\r\n     * @param  mixed $value\r\n     * @return boolean\r\n     */\r\n    public function isValid($value, $context = null)\r\n    {\r\n        $name = $this->getName();\r\n        if (!isset($context[$name][''input''])) {\r\n            $this->_error(self::MISSING_VALUE);\r\n            return false;\r\n        }\r\n        $value = strtolower($context[$name][''input'']);\r\n        $this->_setValue($value);\r\n\r\n        if (!isset($context[$name][''id''])) {\r\n            $this->_error(self::MISSING_ID);\r\n            return false;\r\n        }\r\n\r\n        $this->_id = $context[$name][''id''];\r\n        if ($value !== $this->getWord()) {\r\n            $this->_error(self::BAD_CAPTCHA);\r\n            return false;\r\n        }\r\n\r\n        return true;\r\n    }','','не ожидал даже от Zend Framework-а',2,1,1),
-  (355,2339,1,1231593160,0,'function is_utf($str){\n    if(iconv(\"UTF-8\",\"UTF-8\",$str)==$str)\n        return true;\n    else\n        return false;\n}','4, 1','utf-8 или нет? :)',6,1,12);
+  (355,2339,1,1231593160,0,'function is_utf($str){\n    if(iconv(\"UTF-8\",\"UTF-8\",$str)==$str)\n        return true;\n    else\n        return false;\n}','4, 1','utf-8 или нет? :)',6,1,3);
 COMMIT;
 
 #
@@ -12953,29 +12933,21 @@ DROP TABLE IF EXISTS `ratings_ratingsFolder`;
 CREATE TABLE `ratings_ratingsFolder` (
   `id` INTEGER(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `obj_id` INTEGER(10) UNSIGNED NOT NULL,
-  `parent_id` INTEGER(10) UNSIGNED NOT NULL,
+  `alias` CHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `module` CHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `type` CHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `by_field` CHAR(25) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `rating` INTEGER(11) NOT NULL,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=11 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=2 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `ratings_ratingsFolder` table  (LIMIT 0,500)
 #
 
-INSERT INTO `ratings_ratingsFolder` (`id`, `obj_id`, `parent_id`, `module`, `type`, `by_field`) VALUES 
-  (1,2510,2339,'quoter','quote','obj_id'),
-  (2,2511,2330,'quoter','quote','obj_id'),
-  (3,2512,2323,'quoter','quote','obj_id'),
-  (4,2513,2321,'quoter','quote','obj_id'),
-  (5,2514,2305,'quoter','quote','obj_id'),
-  (6,2515,2303,'quoter','quote','obj_id'),
-  (7,2516,2298,'quoter','quote','obj_id'),
-  (8,2517,2293,'quoter','quote','obj_id'),
-  (9,2518,2287,'quoter','quote','obj_id'),
-  (10,2519,2281,'quoter','quote','obj_id');
+INSERT INTO `ratings_ratingsFolder` (`id`, `obj_id`, `alias`, `module`, `type`, `by_field`, `rating`) VALUES 
+  (1,2880,'govnokod','quoter','quote','id',0);
 COMMIT;
 
 #
@@ -13011,7 +12983,7 @@ CREATE TABLE `sys_access_registry` (
   `class_id` INTEGER(11) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`obj_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=2520 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=2611 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_access_registry` table  (LIMIT 0,500)
@@ -14801,7 +14773,98 @@ INSERT INTO `sys_access_registry` (`obj_id`, `class_id`) VALUES
   (2516,53),
   (2517,53),
   (2518,53),
-  (2519,53);
+  (2519,53),
+  (2520,11),
+  (2521,11),
+  (2522,53),
+  (2523,53),
+  (2524,53),
+  (2525,53),
+  (2526,53),
+  (2527,53),
+  (2528,53),
+  (2529,53),
+  (2530,53),
+  (2531,53),
+  (2532,11),
+  (2533,53),
+  (2534,53),
+  (2535,53),
+  (2536,53),
+  (2537,53),
+  (2538,53),
+  (2539,53),
+  (2540,53),
+  (2541,53),
+  (2542,53),
+  (2543,53),
+  (2544,53),
+  (2545,53),
+  (2546,53),
+  (2547,53),
+  (2548,53),
+  (2549,53),
+  (2550,53),
+  (2551,53),
+  (2552,53),
+  (2553,53),
+  (2554,53),
+  (2555,53),
+  (2556,53),
+  (2557,53),
+  (2558,53),
+  (2559,53),
+  (2560,53),
+  (2561,53),
+  (2562,53),
+  (2563,11),
+  (2564,11),
+  (2565,10),
+  (2566,10),
+  (2567,10),
+  (2568,53),
+  (2569,53),
+  (2570,53),
+  (2571,53),
+  (2572,53),
+  (2573,53),
+  (2574,53),
+  (2575,53),
+  (2576,53),
+  (2577,53),
+  (2578,53),
+  (2579,53),
+  (2580,53),
+  (2581,53),
+  (2582,53),
+  (2583,53),
+  (2584,53),
+  (2585,53),
+  (2586,53),
+  (2587,53),
+  (2588,53),
+  (2589,53),
+  (2590,53),
+  (2591,53),
+  (2592,53),
+  (2593,53),
+  (2594,53),
+  (2595,53),
+  (2596,53),
+  (2597,53),
+  (2598,53),
+  (2599,53),
+  (2600,53),
+  (2601,53),
+  (2602,53),
+  (2603,53),
+  (2604,53),
+  (2605,53),
+  (2606,53),
+  (2607,53),
+  (2608,53),
+  (2609,53),
+  (2610,53);
 COMMIT;
 
 #
@@ -15537,7 +15600,7 @@ CREATE TABLE `sys_obj_id` (
   `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=2520 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=2612 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_obj_id` table  (LIMIT 0,500)
@@ -18097,7 +18160,99 @@ INSERT INTO `sys_obj_id` (`id`) VALUES
   (2516),
   (2517),
   (2518),
-  (2519);
+  (2519),
+  (2520),
+  (2521),
+  (2522),
+  (2523),
+  (2524),
+  (2525),
+  (2526),
+  (2527),
+  (2528),
+  (2529),
+  (2530),
+  (2531),
+  (2532),
+  (2533),
+  (2534),
+  (2535),
+  (2536),
+  (2537),
+  (2538),
+  (2539),
+  (2540),
+  (2541),
+  (2542),
+  (2543),
+  (2544),
+  (2545),
+  (2546),
+  (2547),
+  (2548),
+  (2549),
+  (2550),
+  (2551),
+  (2552),
+  (2553),
+  (2554),
+  (2555),
+  (2556),
+  (2557),
+  (2558),
+  (2559),
+  (2560),
+  (2561),
+  (2562),
+  (2563),
+  (2564),
+  (2565),
+  (2566),
+  (2567),
+  (2568),
+  (2569),
+  (2570),
+  (2571),
+  (2572),
+  (2573),
+  (2574),
+  (2575),
+  (2576),
+  (2577),
+  (2578),
+  (2579),
+  (2580),
+  (2581),
+  (2582),
+  (2583),
+  (2584),
+  (2585),
+  (2586),
+  (2587),
+  (2588),
+  (2589),
+  (2590),
+  (2591),
+  (2592),
+  (2593),
+  (2594),
+  (2595),
+  (2596),
+  (2597),
+  (2598),
+  (2599),
+  (2600),
+  (2601),
+  (2602),
+  (2603),
+  (2604),
+  (2605),
+  (2606),
+  (2607),
+  (2608),
+  (2609),
+  (2610),
+  (2611);
 COMMIT;
 
 #

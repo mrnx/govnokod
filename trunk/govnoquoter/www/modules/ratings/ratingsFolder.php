@@ -24,7 +24,6 @@ class ratingsFolder extends entity
 {
     protected $name = 'ratings';
 
-    protected $object = null;
     protected $objectMapper = null;
 
     public function getObjectMapper()
@@ -37,14 +36,9 @@ class ratingsFolder extends entity
         return $this->objectMapper;
     }
 
-    public function getObject()
+    public function getRatedObject($param)
     {
-        if (is_null($this->object)) {
-            $objectMapper = $this->getObjectMapper();
-            $this->object = $objectMapper->searchOneByField($this->getByField(), $this->getParentId());
-        }
-
-        return $this->object;
+        return $this->getObjectMapper()->searchOneByField($this->getByField(), $param);
     }
 
     /*

@@ -38,28 +38,27 @@ class ratingsViewController extends simpleController
 
         $objectMapper = $this->toolkit->getMapper($objectModule, $objectType);
 
-        if ($objectMapper->isAttached('ratings')) {
-            $byField = $objectMapper->plugin('ratings')->getByField();
+        if ($objectMapper->isAttached('obj_id')) {
+            //Если есть плагин obj_id, то связь будет по полю obj_id
+            $byField = $objectMapper->plugin('obj_id')->getObjIdField();
         } else {
-            throw new mzzInvalidParameterException('Attach a ratingsPlugin for rate object');
+            //иначе пробуем связаться по первичному ключу
+            $byField = $objectMapper->pk();
         }
 
-        $ratingsFolder = $object->getRatingsFolder();
+        $map = $objectMapper->map();
+        if (!isset($map[$byField])) {
+            throw new mzzInvalidParameterException('Invalid byField value for ratings');
+        }
 
+        $objectId = $object->$map[$byField]['accessor']();
+
+        if (!is_numeric($objectId)) {
+            throw new mzzInvalidParameterException('Invalid objectId for ratings');
+        }
+
+        $ratingsFolder = $ratingsFolderMapper->searchFolder($objectType, $objectId);
         if (!$ratingsFolder) {
-            $map = $objectMapper->map();
-            if (!isset($map[$byField])) {
-                throw new mzzInvalidParameterException('Invalid byField value for ratings');
-            }
-
-            $objectId = $object->$map[$byField]['accessor']();
-
-            if (!is_numeric($objectId)) {
-                throw new mzzInvalidParameterException('Invalid objectId for ratings');
-            }
-
-            //$ratingsFolder = $ratingsFolderMapper->searchFolder($objectType, $objectId);
-
             $ratingsFolder = $ratingsFolderMapper->create();
             $ratingsFolder->setModule($objectModule);
             $ratingsFolder->setType($objectType);
