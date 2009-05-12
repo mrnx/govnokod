@@ -35,7 +35,7 @@ class ratingsFolderMapper extends mapper
         'id' => array(
             'accessor' => 'getId',
             'mutator' => 'setId',
-            'options' => array('pk','once')
+            'options' => array('pk', 'once')
          ),
         'module' => array(
             'accessor' => 'getModule',
@@ -56,10 +56,6 @@ class ratingsFolderMapper extends mapper
             'accessor' => 'getByField',
             'mutator' => 'setByField',
             'options' => array('ro'),
-        ),
-        'rating' => array(
-            'accessor' => 'getRating',
-            'mutator' => 'setRating'
         )
     );
 

@@ -22,7 +22,8 @@
 class ratingsPlugin extends observer
 {
     protected $options = array(
-        'rating_field' => 'rating'
+        'rating_field' => 'rating',
+        'rating_count_field' => null
     );
 
     protected function updateMap(& $map)
@@ -31,6 +32,18 @@ class ratingsPlugin extends observer
             'accessor' => 'getRating',
             'mutator' => 'setRating'
         );
+
+        if ($this->isWithRatingCountField()) {
+            $map[$this->options['rating_count_field']] = array(
+                'accessor' => 'getRatingCount',
+                'mutator' => 'setRatingCount'
+            );
+        }
+    }
+
+    public function isWithRatingCountField()
+    {
+        return !is_null($this->options['rating_count_field']);
     }
 
     /*

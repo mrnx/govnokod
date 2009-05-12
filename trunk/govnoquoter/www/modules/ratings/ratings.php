@@ -17,10 +17,9 @@
  *
  * @package modules
  * @subpackage ratings
- * @version 0.1
+ * @version 0.2
  */
-
-class ratings extends simple
+class ratings extends entity
 {
     protected $name = 'ratings';
 }

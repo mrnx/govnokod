@@ -45,14 +45,55 @@ class ratingsRateController extends simpleController
             return $this->forward404($ratingsFolderMapper);
         }
 
+        //@todo: допустимые значения вынести лучше в БД
         switch ($alias) {
             case 'govnokod':
-                $object->setRating(1);
+                $vote = $this->request->getString('vote');
+                switch ($vote) {
+                    case 'on':
+                        $rateValue = 1;
+                        break;
+
+                    case 'against':
+                        $rateValue = -1;
+                        break;
+                }
+
+                if (isset($rateValue)) {
+                    $user = $this->toolkit->getUser();
+
+                    $ip = $this->request->getServer('REMOTE_ADDR');
+                    $ua = $this->request->getServer('HTTP_USER_AGENT');
+
+                    $ratingsMapper = $this->toolkit->getMapper('ratings', 'ratings');
+                    $criteria = new criteria;
+                    $criteria->add('ip_address', $ip)->add('folder_id', $ratingsFolder->getId());
+                    $criteria->add('parent_id', $object->getId())->add('created', time() - 7200, criteria::GREATER); //таймаут голосования - 2 часа
+                    $rate = $ratingsMapper->searchOneByCriteria($criteria);
+
+                    if (!$rate) {
+                        $object->setRating($object->getRating() + $rateValue);
+                        $object->setRatingCount($object->getRatingCount() + 1);
+                        $objectMapper->save($object);
+
+                        $rate = $ratingsMapper->create();
+                        $rate->setUser($user->getId());
+                        $rate->setFolder($ratingsFolder->getId());
+                        $rate->setIpAddress($ip);
+                        $rate->setUserAgent($ua);
+                        $rate->setRateValue($rateValue);
+                        $rate->setParent($object->getId());
+                        $ratingsMapper->save($rate);
+                    }
+                }
+
                 $backUrl = new url('quoteView');
                 $backUrl->add('id', $object->getId());
                 $this->redirect($backUrl->get());
                 break;
         }
+
+        return $this->forward404($ratingsFolderMapper);
     }
 }
 ?>

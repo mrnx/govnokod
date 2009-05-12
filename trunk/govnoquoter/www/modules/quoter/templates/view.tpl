@@ -11,10 +11,10 @@
     <li class="hentry">
         <h2><a rel="chapter" href="#">{$quote->getCategory()->getTitle()|h}</a> / <a rel="bookmark" class="entry-title" href="#">Говнокод #{$quote->getId()}</a></h2>
         <p class="vote">
-            Рейт:
-            <a class="vote-on" href="#">&uarr;</a>
-            <strong>15</strong>
-            <a class="vote-against" href="#">&darr;</a>
+            Сила:
+            <a class="vote-on" href="{url route="rate" alias="govnokod" param=$quote->getId() vote="on"}" title="Плюсану!">&uarr;</a>
+            <strong>{$quote->getRating()}</strong>
+            <a class="vote-against" href="{url route="rate" alias="govnokod" param=$quote->getId() vote="against"}" title="Минусну!">&darr;</a>
         </p>
         <div class="entry-content">
             <ol>{foreach from=$quote->generateLines() item="line"}<li>{$line}</li>{/foreach}</ol>

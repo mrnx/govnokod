@@ -4,6 +4,9 @@ commentsPreloader.src = SITE_PATH + '/templates/images/commentsload.gif';
 var codePreloader = new Image();
 codePreloader.src = SITE_PATH + '/templates/images/codeload.gif';
 
+var votePreloader = new Image();
+votePreloader.src = SITE_PATH + '/templates/images/govnovote.gif';
+
 var currentShowTrigger;
 function showCommentForm(formElem, aElemTrigger, durationValue, offsetValue)
 {
@@ -146,6 +149,15 @@ function unfoldCode(codeId)
             alert('Something went wrong…');
         }
     });
+}
+
+function vote(trigger)
+{
+    var holder = trigger.up('p.vote');
+    if (holder) {
+        holder.down('strong').update(new Element('img', {className: 'preloader', src: votePreloader.src, 'alt': 'Загрузка…', title: 'Загрузка…'}));
+        //holder.down('a');
+    }
 }
 
 /*
