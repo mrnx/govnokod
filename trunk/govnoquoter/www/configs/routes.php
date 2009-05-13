@@ -22,7 +22,7 @@ $router->addRoute('quoteView', new requestRoute(':id', array('section' => 'quote
 $router->addRoute('quoteAddFull', new requestRoute(':name/add', array('section' => 'quoter', 'action' => 'add')));
 $router->addRoute('quoteAdd', new requestRoute('add', array('section' => 'quoter', 'action' => 'add')));
 $router->addRoute('search', new requestRoute('search/:name/:mode', array('section' => 'quoter', 'action' => 'search', 'name' => '', 'mode' => 'word')));
-$router->addRoute('best', new requestRoute('best/:name', array('section' => 'quoter', 'action' => 'best', 'name' => '')));
+$router->addRoute('best', new requestRoute('best/:nomination/:name', array('section' => 'quoter', 'action' => 'best', 'nomination' => 'rating', 'name' => '')));
 
 $router->addRoute('rate', new requestRoute('ratings/:alias/:param/:vote', array('section' => 'ratings', 'action' => 'rate'), array('param' => '.+?')));
 

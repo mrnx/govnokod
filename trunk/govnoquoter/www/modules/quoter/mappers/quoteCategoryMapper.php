@@ -43,6 +43,10 @@ class quoteCategoryMapper extends mapper
             'mutator' => 'setName',
             'options' => array('once')
         ),
+        'highlite_name' => array(
+            'accessor' => 'getHighliteName',
+            'mutator' => 'setHighliteName'
+        ),
         'title' => array(
             'accessor' => 'getTitle',
             'mutator' => 'setTitle',
@@ -56,6 +60,14 @@ class quoteCategoryMapper extends mapper
     public function searchByName($name)
     {
         return $this->searchOneByField('name', $name);
+    }
+
+    public function searchAllWithQuotes()
+    {
+        $criteria = new criteria;
+        $criteria->add('quote_counts', 0, criteria::GREATER)->setOrderByFieldDesc('quote_counts');
+
+        return $this->searchAllByCriteria($criteria);
     }
 
     public function getPage(quoteCategory $category)

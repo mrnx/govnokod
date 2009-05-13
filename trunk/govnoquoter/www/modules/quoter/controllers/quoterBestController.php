@@ -28,21 +28,16 @@ class quoterBestController extends simpleController
         $criteria = new criteria;
         $criteria->add('active', 1);
 
-        $categoryMapper = $this->toolkit->getMapper('quoter', 'quoteCategory');
-        $categories = $categoryMapper->searchAll();
-        $this->smarty->assign('categories', $categories);
-
-        $name = $this->request->getString('name');
-
         $category = null;
-        foreach ($categories as $cat) {
-            if ($cat->getName() == $name) {
-                $category = $cat;
-                break;
-            }
-        }
+        $name = $this->request->getString('name');
+        if ($name) {
+            $categoryMapper = $this->toolkit->getMapper('quoter', 'quoteCategory');
+            $category = $categoryMapper->searchByName($name);
 
-        if ($category) {
+            if (!$category) {
+                return $this->forward404($categoryMapper);
+            }
+
             $criteria->add('category_id', $category->getId());
         }
 
@@ -77,7 +72,21 @@ class quoterBestController extends simpleController
         }
 
         $this->smarty->assign('time', $time);
-        $criteria->add('rating', 0, criteria::GREATER)->setOrderByFieldDesc('rating')->setLimit(10);
+
+        $nomination = $this->request->getString('nomination');
+        switch ($nomination) {
+            case 'comments':
+                $criteria->add('comments_count', 0, criteria::GREATER)->setOrderByFieldDesc('comments_count')->setLimit(10);
+                break;
+
+            case 'rating':
+            default:
+                $nomination = 'rating';
+                $criteria->add('rating', 0, criteria::GREATER)->setOrderByFieldDesc('rating')->setLimit(10);
+                break;
+        }
+
+        $this->smarty->assign('nomination', $nomination);
 
         $quotes = $quoteMapper->searchAllByCriteria($criteria);
 

@@ -155,8 +155,19 @@ function vote(trigger)
 {
     var holder = trigger.up('p.vote');
     if (holder) {
-        holder.down('strong').update(new Element('img', {className: 'preloader', src: votePreloader.src, 'alt': 'Загрузка…', title: 'Загрузка…'}));
-        //holder.down('a');
+        var url = trigger.href;
+        holder.update(new Element('img', {className: 'preloader', src: votePreloader.src, 'alt': 'Загрузка…', title: 'Идёт учет голоса…'}));
+
+        new Ajax.Request(url, {
+            method: 'get',
+            parameters: {format: 'ajax'},
+            onSuccess: function(transport) {
+                holder.update(transport.responseText);
+            },
+            onFailure: function() {
+                alert('Something went wrong…');
+            }
+        });
     }
 }
 

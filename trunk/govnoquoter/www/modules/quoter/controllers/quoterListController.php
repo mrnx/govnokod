@@ -33,20 +33,11 @@ class quoterListController extends simpleController
         $criteria = new criteria;
         $criteria->add('active', 1)->setOrderByFieldDesc('created');
 
-        $categoryMapper = $this->toolkit->getMapper('quoter', 'quoteCategory');
-        $categories = $categoryMapper->searchAll();
-        $this->smarty->assign('categories', $categories);
-
         if (!$listAll) {
             $name = $this->request->getString('name');
 
-            $category = null;
-            foreach ($categories as $cat) {
-                if ($cat->getName() == $name) {
-                    $category = $cat;
-                    break;
-                }
-            }
+            $categoryMapper = $this->toolkit->getMapper('quoter', 'quoteCategory');
+            $category = $categoryMapper->searchByName($name);
 
             if (!$category) {
                 return $this->forward404($categoryMapper);

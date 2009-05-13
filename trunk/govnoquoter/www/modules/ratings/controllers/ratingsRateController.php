@@ -34,7 +34,7 @@ class ratingsRateController extends simpleController
 
         $objectMapper = $ratingsFolder->getObjectMapper();
         if (!$objectMapper->isAttached('ratings')) {
-            throw new mzzRuntimeException('Please, add a ratings plugin for ' . get_class($objectMapper) . '!');
+            throw new mzzRuntimeException('Please, attach a ratings plugin for ' . get_class($objectMapper) . '!');
         }
 
         $param = $this->request->getString('param');
@@ -87,9 +87,16 @@ class ratingsRateController extends simpleController
                     }
                 }
 
+                $format = $this->request->getString('format', SC_GET);
+                if ($format == 'ajax') {
+                    $this->smarty->assign('quote', $object);
+                    return $this->smarty->fetch('quoter/rating.tpl');
+                }
+
                 $backUrl = new url('quoteView');
                 $backUrl->add('id', $object->getId());
                 $this->redirect($backUrl->get());
+                return;
                 break;
         }
 

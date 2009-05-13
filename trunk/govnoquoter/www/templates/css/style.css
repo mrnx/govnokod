@@ -283,6 +283,16 @@ p#entrance
 	color: green;
 }
 
+.posts .hentry .vote strong.bad
+{
+	color: red;
+}
+
+.posts .hentry .vote img.preloader
+{
+	padding-right: 1.2em;
+}
+
 .posts .hentry .entry-content
 {
     margin: 0;

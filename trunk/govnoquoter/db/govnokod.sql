@@ -1,4 +1,4 @@
-# SQL Manager 2007 for MySQL 4.4.0.3
+# SQL Manager 2007 for MySQL 4.4.0.5
 # ---------------------------------------
 # Host     : localhost
 # Port     : 3306
@@ -11,12 +11,6 @@
 /*!40101 SET NAMES utf8 */;
 
 SET FOREIGN_KEY_CHECKS=0;
-
-DROP DATABASE IF EXISTS `govnokod`;
-
-CREATE DATABASE `govnokod`
-    CHARACTER SET 'utf8'
-    COLLATE 'utf8_general_ci';
 
 USE `govnokod`;
 
@@ -37,7 +31,7 @@ CREATE TABLE `comments_comments` (
   `folder_id` INTEGER(11) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=4 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=6 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `comments_comments` table  (LIMIT 0,500)
@@ -46,7 +40,9 @@ AUTO_INCREMENT=4 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 INSERT INTO `comments_comments` (`id`, `obj_id`, `text`, `user_id`, `created`, `folder_id`) VALUES 
   (1,2565,'test',2,1242007848,1),
   (2,2566,'asdf',2,1242007971,1),
-  (3,2567,'dfgdfg',2,1242007974,1);
+  (3,2567,'dfgdfg',2,1242007974,1),
+  (4,2614,'test',2,1242179777,3),
+  (5,2615,'tesdfsdf',2,1242179844,3);
 COMMIT;
 
 #
@@ -66,7 +62,7 @@ CREATE TABLE `comments_commentsFolder` (
   UNIQUE KEY `parent_id_2` (`parent_id`, `type`),
   KEY `parent_id` (`parent_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=3 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=6 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `comments_commentsFolder` table  (LIMIT 0,500)
@@ -74,7 +70,10 @@ AUTO_INCREMENT=3 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci'
 
 INSERT INTO `comments_commentsFolder` (`id`, `obj_id`, `parent_id`, `module`, `type`, `by_field`) VALUES 
   (1,2564,355,'quoter','quote','id'),
-  (2,2612,354,'quoter','quote','id');
+  (2,2612,354,'quoter','quote','id'),
+  (3,2613,345,'quoter','quote','id'),
+  (4,2616,307,'quoter','quote','id'),
+  (5,2617,1,'quoter','quote','id');
 COMMIT;
 
 #
@@ -120,7 +119,7 @@ CREATE TABLE `comments_comments_tree` (
   `spath` TEXT COLLATE utf8_general_ci,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=17 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=19 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `comments_comments_tree` table  (LIMIT 0,500)
@@ -130,8 +129,8 @@ INSERT INTO `comments_comments_tree` (`id`, `path`, `foreign_key`, `level`, `spa
   (1,'1/',1,1,'14/'),
   (2,'2/',2,1,'15/'),
   (3,'1/3/',3,2,'14/16/'),
-  (4,'4/',4,1,'4/'),
-  (5,'3/5/',5,2,'3/5/'),
+  (4,'4/',4,1,'17/'),
+  (5,'4/5/',5,2,'17/18/'),
   (6,'6/',6,1,'6/'),
   (7,'6/7/',7,2,'6/7/'),
   (8,'6/7/8/',8,3,'6/7/8/'),
@@ -142,7 +141,9 @@ INSERT INTO `comments_comments_tree` (`id`, `path`, `foreign_key`, `level`, `spa
   (13,'12/13/',13,2,'12/13/'),
   (14,'1/',1,1,'14/'),
   (15,'2/',2,1,'15/'),
-  (16,'1/3/',3,2,'14/16/');
+  (16,'1/3/',3,2,'14/16/'),
+  (17,'4/',4,1,'17/'),
+  (18,'4/5/',5,2,'17/18/');
 COMMIT;
 
 #
@@ -471,7 +472,7 @@ AUTO_INCREMENT=356 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 #
 
 INSERT INTO `quoter_quote` (`id`, `obj_id`, `category_id`, `created`, `deleted`, `text`, `highlited_lines`, `description`, `rating`, `rating_count`, `active`, `comments_count`) VALUES 
-  (1,40,1,1227353872,0,'$error = \"Всё хорошо\";\r\n \r\nif (!$_POST[''mail''] || !checkEmail($_POST[''mail''])) {\r\n    $error .= \"Не верный E-mail\";\r\n}\r\n \r\n...\r\n \r\nif ($error == \"Всё хорошо\") {\r\n    $db->query(\"INSERT...\r\n} else {\r\n \r\n...','1, 9','',153,0,1,10),
+  (1,40,1,1227353872,0,'$error = \"Всё хорошо\";\r\n \r\nif (!$_POST[''mail''] || !checkEmail($_POST[''mail''])) {\r\n    $error .= \"Не верный E-mail\";\r\n}\r\n \r\n...\r\n \r\nif ($error == \"Всё хорошо\") {\r\n    $db->query(\"INSERT...\r\n} else {\r\n \r\n...','1, 9','',153,0,1,0),
   (2,41,1,1227423635,0,'<?php\r\n  phpinfo();\r\n  if (file_exist(''../../../../etc/passwd''))\r\n  {\r\n    include(''../../../../etc/passwd'');\r\n  }','1, 2, 3','',16,0,1,2),
   (3,42,2,1227430413,0,'<html>\r\n\r\n<head>\r\n  <title>В Контакте | Страницы юзера</title>\r\n    <style type=\"text/css\">\r\n    \tbody{\r\n    \t\tbackground: black;\r\n    \t\tcolor: #D1D1D1;\r\n    \t\tfont-family: \"Trebuchet MS\", Verdana, Geneva, Arial, Helvetica, sans-serif;\r\n    \t\tfont-size: 1.2em;\r\n    \t}\r\n    \tdiv.body{\r\n    \t\tmargin-left: auto;\r\n    \t\tmargin-right: auto;\r\n    \t\twidth: 520px;\r\n    \t}\r\n    \ta{color: #D1D1D1; text-decoration: none;}\r\n    \ta:hover{color: #3e9af2; text-decoration: underline;}\r\n    \tli{white-space: nowrap; list-style: none;}\r\n    \tinput{\r\n    \t\tbackground: black;\r\n    \t\tcolor: #D1D1D1;\r\n    \t\tborder:none;\r\n    \t\tborder-bottom: 1px dotted #D1D1D1;\r\n    \t\tfont-family: \"Trebuchet MS\", Verdana, Geneva, Arial, Helvetica, sans-serif;\r\n    \t\tfont-size: 1.2em;\r\n    \t\tmargin-bottom: -2px;\r\n    \t}\r\n    </style>\r\n\t<script type=\"text/javascript\">\r\n\t<!--//\r\n\tfunction set_id(){\r\n\t\tvar user_id_1 = document.getElementById(''user_id'').value.replace(/[^\\d]/g, \"\");\r\n\t\tvar user_id_2 = user_id_1 + ''&'' + Math.round(Math.random() * 999999);\r\n\r\n\t\tvar user_links = '''';\r\n\t\tuser_links += ''<ul>'';\r\n\t\tuser_links += ''\t<li><a href=\"http://vkontakte.ru/id'' + user_id_1 + ''?'' + Math.round(Math.random() * 999999) + ''\" target=\"_blank\">Главная страница</a></li>'';\r\n\t\tuser_links += ''\t<li>'';\r\n\t\tuser_links += ''\t\t<a href=\"http://vkontakte.ru/wall.php?id='' + user_id_2 + ''\" target=\"_blank\">Стена</a>'';\r\n\t\tuser_links += ''\t\t<ul>'';\r\n\t\tuser_links += ''\t\t\t<li><a href=\"http://vkontakte.ru/wall.php?act=write&id='' + user_id_2 + ''\" target=\"_blank\">Оставить сообщение</a></li>'';\r\n\t\tuser_links += ''\t\t\t<li><a href=\"http://vkontakte.ru/graffiti.php?act=draw&to_id='' + user_id_2 + ''\" target=\"_blank\">Оставить графити</a></li>'';\r\n\t\tuser_links += ''\t\t\t<li><a href=\"http://vkontakte.ru/photos.php?to_id='' + user_id_2 + ''\" target=\"_blank\">Оставить фото</a></li>'';\r\n\t\tuser_links += ''\t\t\t<li><a href=\"http://vkontakte.ru/video.php?to_id='' + user_id_2 + ''\" target=\"_blank\">Оставить видио</a></li>'';\r\n\t\tuser_links += ''\t\t\t<li><a href=\"http://vkontakte.ru/audio.php?to_id='' + user_id_2 + ''\" target=\"_blank\">Оставить аудио</a></li>'';\r\n\t\tuser_links += ''\t\t</ul>'';\r\n\t\tuser_links += ''\t</li>'';\r\n\t\tuser_links += ''\t<li><a href=\"http://vkontakte.ru/mail.php?act=write&to='' + user_id_2 + ''\" target=\"_blank\">Отправить сообщение</a></li>'';\r\n\t\tuser_links += ''\t<li><a href=\"http://vkontakte.ru/friend.php?id='' + user_id_2 + ''\" target=\"_blank\">Друзья</a></li>'';\r\n\t\tuser_links += ''\t<li><a href=\"http://vkontakte.ru/photos.php?id='' + user_id_2 + ''\" target=\"_blank\">Альбомы</a></li>'';\r\n\t\tuser_links += ''\t<li><a href=\"http://vkontakte.ru/photos.php?act=user&id='' + user_id_2 + ''\" target=\"_blank\">Фото с юзером</a></li>'';\r\n\t\tuser_links += ''\t<li><a href=\"http://pda.vkontakte.ru/taggedphotos'' + user_id_1 + ''\" target=\"_blank\">Фото с юзером, если надо посмотреть скрытые фото</a></li>'';\r\n\t\tuser_links += ''\t<li><a href=\"http://vkontakte.ru/video.php?id='' + user_id_2 + ''\" target=\"_blank\">Видeо</a></li>'';\r\n\t\tuser_links += ''\t<li><a href=\"http://vkontakte.ru/questions.php?mid='' + user_id_2 + ''\" target=\"_blank\">Вопросы</a></li>'';\r\n\t\tuser_links += ''\t<li><a href=\"http://vkontakte.ru/notes.php?id='' + user_id_2 + ''\" target=\"_blank\">Заметки</a></li>'';\r\n\t\tuser_links += ''\t<li><a href=\"http://vkontakte.ru/apps.php?mid='' + user_id_2 + ''\" target=\"_blank\">Приложения</a></li>'';\r\n\t\tuser_links += ''\t<li><a href=\"http://vkontakte.ru/groups.php?mid='' + user_id_2 + ''\" target=\"_blank\">Группы</a></li>'';\r\n\t\tuser_links += ''</ul>'';\r\n\r\n        document.title = ''В Контакте | Страницы юзера id'' + user_id_1;\r\n        document.getElementById(''user_id'').value = user_id_1;\r\n\t\tdocument.getElementById(''user_pages'').innerHTML = user_links;\r\n\t}\r\n\t//-->\r\n\t</script>\r\n</head>\r\n<body onLoad=\"set_id()\">\r\n\t<div class=\"body\">\r\n\t\tСтраницы юзера id<input name=\"user_id\" id=\"user_id\" type=\"text\" value=\"1\" onKeyUp=\"set_id()\" onKeyPress=\"set_id()\" onPaste=\"set_id()\">\r\n\t\t<div id=\"user_pages\"></div>\r\n\t\t<noscript><p align=\"center\">Ипать))) ... ктож а таком старье сидит)....<br />Включи JavaScript!</p></noscript>\r\n\t\t<p align=\"center\">by Dr.Freez</p>\r\n\t</div>\r\n</body>\r\n\r\n</html>','','говницо)))',6,0,1,1),
   (4,43,1,1227430552,0,'if (!isset($_GET[''month''])) {\r\n    ...\r\n}\r\nelse {\t\r\n    if (isset($_POST[''submit_fin''])) {\r\n        ...\r\n    }\r\n}','4, 5','',8,0,1,3),
@@ -502,7 +503,7 @@ INSERT INTO `quoter_quote` (`id`, `obj_id`, `category_id`, `created`, `deleted`,
   (29,751,1,1227868827,0,'if ( strlen( $string ) > 3 ) echo \"Имя должно содержать не больше 3-х символов\";\r\nelseif ( strlen( $string ) < 3 ) echo \"Имя должно содержать не менее 3-х символов\";\r\nelse echo \"Вы корректно ввели имя\"','','0',91,0,1,4),
   (30,752,9,1227880470,0,'public boolean foo(...){\r\n  ...\r\n  try{\r\n  ...\r\n  }\r\n  finally{\r\n    if(expr_1){\r\n      return false;\r\n    }\r\n    if(expr_2){\r\n      return false;\r\n    }\r\n    ...\r\n    if(expr_n){\r\n      return false;\r\n    }\r\n  }\r\n  ...\r\n  return true;\r\n}','','поймал на сопровождении, долго курил (метод на 3 экранах)',20,0,1,0),
   (38,760,1,1227958028,0,'session_start();\r\nif ($_SESSION[''ok''] !== 1){\r\necho \"Сделали , блок сесиией\";\r\n$_SESSION[''ok''] = ''1'';\r\n } else {\r\necho \"Блок!\";\r\n}','2, 4','Mr_Smile: сматрите ) в первый раз на странице должна быть надпись \"Сделали блок сессией\"\r\nMr_Smile:  при последующих обновлениях надпись должн абыть \"Блок\"\r\nMr_Smile: а сколько ни обновляй все кажет \"Сделали блок сессией\"\r\nMr_Smile: я ахутнГ?\r\n\r\nhttp://www.govnokod.com/171',9,0,1,5),
-  (39,762,1,1228009057,0,'echo ''когда сделают камменты?'';','','',13,0,1,22),
+  (39,762,1,1228009057,0,'echo ''когда сделают камменты?'';','','',14,1,1,22),
   (42,765,1,1228073199,1229420180,'$i = 1;\r\nwhile($i = 1){\r\necho $i;\r\n}','','',-4,0,0,0),
   (43,766,7,1228103748,1229420180,'static HRESULT SResToHRESULT(SRes res)\r\n{\r\n  switch(res)\r\n  {\r\n    case SZ_OK: return S_OK;\r\n    case SZ_ERROR_MEM: return E_OUTOFMEMORY;\r\n    case SZ_ERROR_PARAM: return E_INVALIDARG;\r\n    case SZ_ERROR_UNSUPPORTED: return E_NOTIMPL;\r\n    // case SZ_ERROR_PROGRESS: return E_ABORT;\r\n    case SZ_ERROR_DATA: return S_FALSE;\r\n  }\r\n  return E_FAIL;\r\n}','','(c) 7z',-23,0,0,3),
   (44,768,11,1228116691,0,'/**\r\n* создаем RemoteObject и регестрируем слушателей его метода sayLogin\r\n* */\r\npublic function useLogonService():void\r\n{\r\n\tlogonService = new RemoteObject();\r\n\tlogonService.destination = \"amfphp\";\r\n\tlogonService.source = \"ez_report.logon\";\r\n\tlogonService.sayLogin.addEventListener(\"result\",resultHandler);\r\n\tlogonService.addEventListener(\"fault\", faultHandler);\t\t\t\t\r\n}\r\n\t\r\n/**\r\n * после запуска модуля стартуем здесь все, что необходимо.\r\n * */\r\npublic function logonInit():void\r\n{\r\n\tuseLogonService();\r\n\tloginInput.setFocus();\r\n}\r\n\t\r\n/**\r\n * вызываем RO метод с параметрами из textinput,\r\n * который возвращает объект типа User, если регистрация прошла успешно.\r\n * */ \r\npublic function sayLogin():void\r\n{\r\n\tlogonService.sayLogin(loginInput.text,passInput.text);\t\r\n}\r\n\t\t\t\r\n//todo: ПЕРЕДЕЛАТЬ НАХЕР!!! УЁ..ИЩЕ!! все сделать через интерфейсы и события!\r\n/**\r\n * присваиваем переменным в main.swf соответствующие значения\r\n * */ \r\nprivate function resultHandler(rs:ResultEvent):void\r\n{\r\n\tparentApplication.login=loginInput.text;\r\n\tparentApplication.password=passInput.text;\r\n\tparentApplication.removeLogonModule();\r\n}\t\t\t\r\n\r\n//todo: прикрутить, наконец, проверку типа ошибки.\t\t\t\r\nprivate function faultHandler(f:FaultEvent):void\r\n{\r\n\tAlert.show(f.fault.faultString+f.fault.faultDetail+f.message.body.toString());\r\n}','','Crazy horse\r\nКогда-то мной писалось и такое)) \r\nкошмар, конечно, но все на чем-то учатся.\r\nТеперь особо радуют комментарии (AsDoc, как же,)\r\nсвязь с parentApplication и отсутствие прокси.',4,0,1,0),
@@ -771,7 +772,7 @@ INSERT INTO `quoter_quote` (`id`, `obj_id`, `category_id`, `created`, `deleted`,
   (342,2262,7,1231320253,0,'class T\r\n{\r\nprivate:\r\n  T();\r\n  ~T();\r\npublic:\r\n  static T& instance()\r\n  {\r\n    static T t[5];\r\n    return t[rand() % 6];\r\n  }\r\n  ...\r\n};','','придумалось при обсуждении паттерна синглтон и его возможых реализаций.\r\n\"Антисинглтон\" или \"Русская рулетка\".',7,0,1,0),
   (343,2276,1,1231414241,0,'<?php\r\nif (\"$payment_method\" ==  \"1\") {\r\n\r\n?>','','еще один шедевр, зачем так делать?',8,0,1,0),
   (344,2279,6,1231422364,1231507732,'if(True==true && True==false)\r\n   return True;','','нереальное условие',-14,0,0,1),
-  (345,2281,1,1231423594,0,'<?\r\n$src = \"q: 1\r\nw: 2\r\ne: 3\";\r\n$res = explode(\"\\r\\n\", $src);\r\n foreach($res as $str) \r\n {\r\n list($parametr, $value) = explode(\": \", $str);\r\n $a[$parametr] = $value;\r\n echo $parametr.\"   \".$a[$parametr].\"\\r\\n\";\r\n?>\r\n }','','temp',1,0,1,0),
+  (345,2281,1,1231423594,0,'<?\r\n$src = \"q: 1\r\nw: 2\r\ne: 3\";\r\n$res = explode(\"\\r\\n\", $src);\r\n foreach($res as $str) \r\n {\r\n list($parametr, $value) = explode(\": \", $str);\r\n $a[$parametr] = $value;\r\n echo $parametr.\"   \".$a[$parametr].\"\\r\\n\";\r\n?>\r\n }','','temp',1,0,1,2),
   (346,2287,1,1231435915,1237038719,'public function rsort($flag = SORT_REGULAR) \r\n{\r\n  rsort($this->var, SORT_REGULAR);\r\n  return $this;\r\n}','','Пример сортировки массива =)',-1,0,1,0),
   (347,2293,1,1231438002,0,'function newuser($username){\r\n  return;\r\n  /*\r\n    ДВАДЦАТЬ СТРОК КОДА\r\n  */\r\n  //не пойму почему не работает:ФИО Программиста\r\n}','','наследие от предыдущих программистов проекта',17,0,1,1),
   (348,2296,1,1231486629,1231598466,'public function buildCriteria($table, $conditions)\r\n    {\r\n        $source_table = $table->getTableName();\r\n        $criteria = new criteria($source_table, ''keyword'');\r\n\r\n        foreach ($conditions as $field => $conds) {\r\n\r\n\r\n            if (is_array($conds)) {\r\n\r\n                if (isset($conds[''plus''])) {\r\n                    $word = array_shift($conds[''plus'']);\r\n                    $like_criterion = new criterion($field, ''%'' . $word . ''%'', criteria::LIKE);\r\n                    foreach ($conds[''plus''] as $word) {\r\n                        $like_criterion->addOr(new criterion($field, ''%'' . $word . ''%'', criteria::LIKE));\r\n                    }\r\n                }\r\n\r\n                if (isset($conds[''minus''])) {\r\n                    $word = array_shift($conds[''minus'']);\r\n                    $not_like_criterion = new criterion($field, ''%'' . $word . ''%'', criteria::NOT_LIKE);\r\n                    foreach ($conds[''minus''] as $word) {\r\n                        $not_like_criterion->addAnd(new criterion($field, ''%'' . $word . ''%'', criteria::NOT_LIKE));\r\n                    }\r\n                }\r\n\r\n                if (isset($conds[''less''])) {\r\n                    if (!is_array($conds[''less''])) {\r\n                        $conds[''less''] = array($conds[''less'']);\r\n                    }\r\n\r\n                    $word = array_shift($conds[''less'']);\r\n                    $less_criterion = new criterion($field, $word, criteria::LESS);\r\n\r\n                    foreach ($conds[''less''] as $word) {\r\n                        $less_criterion->addAnd(new criterion($field, $word, criteria::LESS));\r\n                    }\r\n                }\r\n\r\n                if (isset($conds[''less_eq''])) {\r\n                    if (!is_array($conds[''less_eq''])) {\r\n                        $conds[''less_eq''] = array($conds[''less_eq'']);\r\n                    }\r\n\r\n                    $word = array_shift($conds[''less_eq'']);\r\n                    $less_eq_criterion = new criterion($field, $word, criteria::LESS_EQUAL );\r\n\r\n                    foreach ($conds[''less_eq''] as $word) {\r\n                        $less_eq_criterion->addAnd(new criterion($field, $word, criteria::LESS_EQUAL));\r\n                    }\r\n                }\r\n            }\r\n        }\r\n\r\n        $main_criterion = new criterion();\r\n\r\n        if (!empty($like_criterion)) {\r\n            $main_criterion->add($like_criterion);\r\n            $add_method = ''addAnd'';\r\n        }\r\n\r\n        if (!empty($not_like_criterion)) {\r\n            if (empty($add_method)) {\r\n                $add_method = ''add'';\r\n            }\r\n            $main_criterion->$add_method($not_like_criterion);\r\n        }\r\n\r\n        if (!empty($less_criterion)) {\r\n            if (empty($add_method)) {\r\n                $add_method = ''add'';\r\n            }\r\n            $main_criterion->$add_method($less_criterion);\r\n        }\r\n\r\n        if (!empty($less_eq_criterion)) {\r\n            if (empty($add_method)) {\r\n                $add_method = ''add'';\r\n            }\r\n            $main_criterion->$add_method($less_eq_criterion);\r\n        }\r\n\r\n        $criteria->add($main_criterion);\r\n\r\n        return $criteria;\r\n\r\n    }\r\n\r\n\r\npublic function testBuildCriteria()\r\n    {\r\n        $table = new mockStubKeywordTable();\r\n        $table->setReturnValue(''getTableName'', ''test_table'');\r\n\r\n        $query = $this->keywordQuery;\r\n\r\n        $data[''field1''][''less''] = 5;\r\n        $data[''field2''][''less_eq''] = 10;\r\n/*        $data[''field2''][''greater_eq''] = 11;\r\n        $data[''field3''][''greater''] = 12;','','требуется рефакторинг',-9,0,0,1),
@@ -779,9 +780,9 @@ INSERT INTO `quoter_quote` (`id`, `obj_id`, `category_id`, `created`, `deleted`,
   (350,2303,1,1231501764,0,'if (@mysql_query(\"CREATE TABLE `cms_attributes_\".$a.\"` (`element_id` int(5))\")) {}','','Реальный код..\r\nВидимо, человек любит индусов и начал им подражать)',1,0,1,0),
   (351,2305,1,1231501865,0,'// Проверяет, есть ли у страницы вложенные страницы\r\nfunction exists_sub_pages($page_id)\r\n{\r\n$select_sub_pages=mysql_query(\"select * from pages where parent=''\".$page_id.\"''\");\r\nif (mysql_num_rows($select_sub_pages)>0) {$result=1;} else {$result=0;}\r\nreturn $result;\r\n}','','Не понимаю, зачем так всё усложнять :-(',2,0,1,0),
   (352,2321,6,1231536873,0,'int main()\r\n{\r\nint i;\r\nfor(clrscr(),\r\n    printf(\"starting of stupid progam\\n\"),\r\n    i=10;\r\n    i--;\r\n    printf(\"i= %d\\n\",i));\r\nreturn 0;\r\n\r\n}','','Страшен язык Си',4,0,1,1),
-  (353,2323,6,1231536938,0,'int clearscreen()\r\n{\r\nclrscr();\r\nreturn 0;\r\n}\r\nvoid main()\r\n{\r\nchar * c;\r\n\r\nprintf(\"You typed: %c\",\r\n       *c,\r\n       scanf(\"%c\",c),\r\n       printf(\"Type any simbol: \"),\r\n       clearscreen());\r\n\r\n}','','Страшен язык Си 2',9,0,1,0),
-  (354,2330,1,1231575650,0,'/**\r\n     * Validate the word\r\n     *\r\n     * @see    Zend_Validate_Interface::isValid()\r\n     * @param  mixed $value\r\n     * @return boolean\r\n     */\r\n    public function isValid($value, $context = null)\r\n    {\r\n        $name = $this->getName();\r\n        if (!isset($context[$name][''input''])) {\r\n            $this->_error(self::MISSING_VALUE);\r\n            return false;\r\n        }\r\n        $value = strtolower($context[$name][''input'']);\r\n        $this->_setValue($value);\r\n\r\n        if (!isset($context[$name][''id''])) {\r\n            $this->_error(self::MISSING_ID);\r\n            return false;\r\n        }\r\n\r\n        $this->_id = $context[$name][''id''];\r\n        if ($value !== $this->getWord()) {\r\n            $this->_error(self::BAD_CAPTCHA);\r\n            return false;\r\n        }\r\n\r\n        return true;\r\n    }','','не ожидал даже от Zend Framework-а',1,1,1,0),
-  (355,2339,1,1231593160,0,'function is_utf($str){\n    if(iconv(\"UTF-8\",\"UTF-8\",$str)==$str)\n        return true;\n    else\n        return false;\n}','4, 1','utf-8 или нет? :)',12,8,1,3);
+  (353,2323,6,1231536938,0,'int clearscreen()\r\n{\r\nclrscr();\r\nreturn 0;\r\n}\r\nvoid main()\r\n{\r\nchar * c;\r\n\r\nprintf(\"You typed: %c\",\r\n       *c,\r\n       scanf(\"%c\",c),\r\n       printf(\"Type any simbol: \"),\r\n       clearscreen());\r\n\r\n}','','Страшен язык Си 2',10,1,1,0),
+  (354,2330,1,1231575650,0,'/**\r\n     * Validate the word\r\n     *\r\n     * @see    Zend_Validate_Interface::isValid()\r\n     * @param  mixed $value\r\n     * @return boolean\r\n     */\r\n    public function isValid($value, $context = null)\r\n    {\r\n        $name = $this->getName();\r\n        if (!isset($context[$name][''input''])) {\r\n            $this->_error(self::MISSING_VALUE);\r\n            return false;\r\n        }\r\n        $value = strtolower($context[$name][''input'']);\r\n        $this->_setValue($value);\r\n\r\n        if (!isset($context[$name][''id''])) {\r\n            $this->_error(self::MISSING_ID);\r\n            return false;\r\n        }\r\n\r\n        $this->_id = $context[$name][''id''];\r\n        if ($value !== $this->getWord()) {\r\n            $this->_error(self::BAD_CAPTCHA);\r\n            return false;\r\n        }\r\n\r\n        return true;\r\n    }','','не ожидал даже от Zend Framework-а',1,9,1,0),
+  (355,2339,1,1231593160,0,'function is_utf($str){\n    if(iconv(\"UTF-8\",\"UTF-8\",$str)==$str)\n        return true;\n    else\n        return false;\n}','4, 1','utf-8 или нет? :)',24,20,1,3);
 COMMIT;
 
 #
@@ -793,8 +794,9 @@ DROP TABLE IF EXISTS `quoter_quoteCategory`;
 CREATE TABLE `quoter_quoteCategory` (
   `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
   `obj_id` INTEGER(11) NOT NULL,
-  `name` CHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `title` CHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `name` CHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `highlite_name` CHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `title` CHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `quote_counts` INTEGER(10) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
@@ -804,20 +806,20 @@ AUTO_INCREMENT=14 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci
 # Data for the `quoter_quoteCategory` table  (LIMIT 0,500)
 #
 
-INSERT INTO `quoter_quoteCategory` (`id`, `obj_id`, `name`, `title`, `quote_counts`) VALUES 
-  (1,22,'php','PHP',95),
-  (2,23,'javascript','JavaScript',12),
-  (3,34,'sql','SQL',7),
-  (4,35,'perl','PERL',8),
-  (5,36,'python','Python',9),
-  (6,738,'c','Си',13),
-  (7,739,'cpp','C++',21),
-  (8,740,'csharp','C#',22),
-  (9,741,'java','Java',20),
-  (10,749,'delphi','Delphi',11),
-  (11,767,'actionscript3','ActionScript',6),
-  (12,1029,'asm','Assembler',0),
-  (13,1052,'vb','VisualBasic',3);
+INSERT INTO `quoter_quoteCategory` (`id`, `obj_id`, `name`, `highlite_name`, `title`, `quote_counts`) VALUES 
+  (1,22,'php','php','PHP',95),
+  (2,23,'javascript','javascript','JavaScript',12),
+  (3,34,'sql','sql','SQL',7),
+  (4,35,'perl','perl','PERL',7),
+  (5,36,'python','python','Python',9),
+  (6,738,'c','c','Си',13),
+  (7,739,'cpp','cpp','C++',21),
+  (8,740,'csharp','csharp','C#',22),
+  (9,741,'java','java','Java',20),
+  (10,749,'delphi','delphi','Delphi',11),
+  (11,767,'actionscript3','actionscript3','ActionScript',6),
+  (12,1029,'asm','asm','Assembler',0),
+  (13,1052,'vb','vb','VisualBasic',3);
 COMMIT;
 
 #
@@ -12945,7 +12947,7 @@ CREATE TABLE `ratings_ratings` (
   KEY `folder_id` (`folder_id`),
   KEY `user_id` (`user_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=5 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=27 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `ratings_ratings` table  (LIMIT 0,500)
@@ -12955,7 +12957,29 @@ INSERT INTO `ratings_ratings` (`id`, `folder_id`, `user_id`, `created`, `ip_addr
   (1,1,2,0,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,355),
   (2,1,2,0,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,355),
   (3,1,2,1242124606,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,355),
-  (4,1,2,1242125787,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',-1,354);
+  (4,1,2,1242125787,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',-1,354),
+  (5,1,2,1242176218,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,355),
+  (6,1,2,1242176243,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,355),
+  (7,1,2,1242176417,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,355),
+  (8,1,2,1242176427,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,355),
+  (9,1,2,1242176429,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,355),
+  (10,1,2,1242176430,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,355),
+  (11,1,2,1242176431,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,355),
+  (12,1,2,1242176432,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,355),
+  (13,1,2,1242176436,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,355),
+  (14,1,2,1242176437,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,355),
+  (15,1,2,1242176441,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,355),
+  (16,1,2,1242176533,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',-1,354),
+  (17,1,2,1242176534,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',-1,354),
+  (18,1,2,1242176571,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',-1,354),
+  (19,1,2,1242176572,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,354),
+  (20,1,2,1242176573,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,354),
+  (21,1,2,1242176580,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,354),
+  (22,1,2,1242176582,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',-1,354),
+  (23,1,2,1242176583,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,354),
+  (24,1,2,1242176591,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,353),
+  (25,1,2,1242187890,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,355),
+  (26,1,2,1242194980,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,39);
 COMMIT;
 
 #
@@ -13016,7 +13040,7 @@ CREATE TABLE `sys_access_registry` (
   `class_id` INTEGER(11) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`obj_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=2613 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=2618 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_access_registry` table  (LIMIT 0,500)
@@ -14898,7 +14922,12 @@ INSERT INTO `sys_access_registry` (`obj_id`, `class_id`) VALUES
   (2608,53),
   (2609,53),
   (2610,53),
-  (2612,11);
+  (2612,11),
+  (2613,11),
+  (2614,10),
+  (2615,10),
+  (2616,11),
+  (2617,11);
 COMMIT;
 
 #
@@ -15450,7 +15479,7 @@ CREATE TABLE `sys_obj_id` (
   `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=2613 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=2618 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_obj_id` table  (LIMIT 0,500)
@@ -18103,7 +18132,12 @@ INSERT INTO `sys_obj_id` (`id`) VALUES
   (2609),
   (2610),
   (2611),
-  (2612);
+  (2612),
+  (2613),
+  (2614),
+  (2615),
+  (2616),
+  (2617);
 COMMIT;
 
 #
