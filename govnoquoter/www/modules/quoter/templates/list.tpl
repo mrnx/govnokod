@@ -1,6 +1,11 @@
+{strip}
 {add file="prototype.js"}
 {add file="effects.js"}
 {add file="govnokod.js"}
+{if !$listAll}
+    {title append=$category->getTitle()}
+{/if}
+{/strip}
 
 <ol class="posts hatom">
 {foreach from=$quotes item="quote"}
