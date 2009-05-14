@@ -12,6 +12,12 @@
 
 SET FOREIGN_KEY_CHECKS=0;
 
+DROP DATABASE IF EXISTS `govnokod`;
+
+CREATE DATABASE `govnokod`
+    CHARACTER SET 'utf8'
+    COLLATE 'utf8_general_ci';
+
 USE `govnokod`;
 
 SET sql_mode = '';
@@ -29,6 +35,8 @@ CREATE TABLE `comments_comments` (
   `user_id` INTEGER(11) UNSIGNED DEFAULT NULL,
   `created` INTEGER(11) UNSIGNED DEFAULT NULL,
   `folder_id` INTEGER(11) UNSIGNED DEFAULT NULL,
+  `rating` INTEGER(11) NOT NULL,
+  `rating_count` INTEGER(11) NOT NULL,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
 AUTO_INCREMENT=6 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
@@ -37,12 +45,12 @@ AUTO_INCREMENT=6 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 # Data for the `comments_comments` table  (LIMIT 0,500)
 #
 
-INSERT INTO `comments_comments` (`id`, `obj_id`, `text`, `user_id`, `created`, `folder_id`) VALUES 
-  (1,2565,'test',2,1242007848,1),
-  (2,2566,'asdf',2,1242007971,1),
-  (3,2567,'dfgdfg',2,1242007974,1),
-  (4,2614,'test',2,1242179777,3),
-  (5,2615,'tesdfsdf',2,1242179844,3);
+INSERT INTO `comments_comments` (`id`, `obj_id`, `text`, `user_id`, `created`, `folder_id`, `rating`, `rating_count`) VALUES 
+  (1,2565,'test',2,1242007848,1,1,1),
+  (2,2566,'asdf',2,1242007971,1,1,1),
+  (3,2567,'dfgdfg',2,1242007974,1,-1,1),
+  (4,2614,'test',2,1242179777,3,0,0),
+  (5,2615,'tesdfsdf',2,1242179844,3,0,0);
 COMMIT;
 
 #
@@ -58,22 +66,25 @@ CREATE TABLE `comments_commentsFolder` (
   `module` CHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `type` CHAR(50) COLLATE utf8_general_ci DEFAULT NULL,
   `by_field` CHAR(25) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `rating` INTEGER(11) NOT NULL DEFAULT '0',
+  `rating_count` INTEGER(10) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `parent_id_2` (`parent_id`, `type`),
   KEY `parent_id` (`parent_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=6 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=7 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `comments_commentsFolder` table  (LIMIT 0,500)
 #
 
-INSERT INTO `comments_commentsFolder` (`id`, `obj_id`, `parent_id`, `module`, `type`, `by_field`) VALUES 
-  (1,2564,355,'quoter','quote','id'),
-  (2,2612,354,'quoter','quote','id'),
-  (3,2613,345,'quoter','quote','id'),
-  (4,2616,307,'quoter','quote','id'),
-  (5,2617,1,'quoter','quote','id');
+INSERT INTO `comments_commentsFolder` (`id`, `obj_id`, `parent_id`, `module`, `type`, `by_field`, `rating`, `rating_count`) VALUES 
+  (1,2564,355,'quoter','quote','id',0,0),
+  (2,2612,354,'quoter','quote','id',0,0),
+  (3,2613,345,'quoter','quote','id',0,0),
+  (4,2616,307,'quoter','quote','id',0,0),
+  (5,2617,1,'quoter','quote','id',0,0),
+  (6,2618,212,'quoter','quote','id',0,0);
 COMMIT;
 
 #
@@ -595,7 +606,7 @@ INSERT INTO `quoter_quote` (`id`, `obj_id`, `category_id`, `created`, `deleted`,
   (140,1257,1,1229100164,0,'echo “<select id=\\”seltel[\".$i.\"]\\”>”;\r\nswitch ($data2[\"PHONE\"][$i][\"type\"]) {\r\ncase “Факс”:\r\necho “<option selected>Факс”;\r\necho “<option>Офисный телефон”;\r\necho “<option>Колцентр”;\r\necho “<option>Телефон”;\r\necho “<option>Мобильный телефон”;\r\nbreak;\r\ncase “Офисный телефон”:\r\necho “<option>Факс”;\r\necho “<option selected>Офисный телефон”;\r\necho “<option>Колцентр”;\r\necho “<option>Телефон”;\r\necho “<option>Мобильный телефон”;\r\nbreak;\r\ncase “Колцентр”:\r\necho “<option>Факс”;\r\necho “<option>Офисный телефон”;\r\necho “<option selected>Колцентр”;\r\necho “<option>Телефон”;\r\necho “<option>Мобильный телефон”;\r\nbreak;\r\ncase “Телефон”:\r\necho “<option>Факс”;\r\necho “<option>Офисный телефон”;\r\necho “<option>Колцентр”;\r\necho “<option selected>Телефон”;\r\necho “<option>Мобильный телефон”;\r\nbreak;\r\ncase “Мобильный телефон”:\r\necho “<option>Факс”;\r\necho “<option>Офисный телефон”;\r\necho “<option>Колцентр”;\r\necho “<option>Телефон”;\r\necho “<option selected>Мобильный телефон”;\r\nbreak;\r\n};\r\necho “</select><br/>”;','','вот как надо создавать выпадающие списки!',54,0,1,6),
   (141,1261,1,1229100791,0,'if (isset($param) && $param!=null && $param!=0 && $param>1) {\r\n  sendRequest($param);\r\n}','','',41,0,1,3),
   (142,1268,7,1229104208,0,'try{\r\n   memcpy(pbSourceData, pbDestData + sizeof(tc_version) + sizeof(dwSenderNameLen) + dwSenderNameLen, key_len);\r\n}\r\ncatch(...) {\r\n   ret = EX_ERROR;\r\n   goto err;\r\n}\r\n\r\ntry{\r\n   memcpy(pbKeyData, pbSignData + sizeof(tc_version) + sizeof(dwSenderTPLen) + dwSenderTPLen, key_len);\r\n}\r\ncatch(...) {\r\n   ret = EX_ERROR;\r\n   goto err;\r\n}','','Аналогичные куски повторяются раз 10 друг за другом с другими переменными.',13,0,1,5),
-  (143,1279,2,1229114331,0,'var req_date = document.getElementById(''requested_date'').value.split(''-'');\r\nif (req_date.length!=3 || new Number(req_date[0])<1990 || new Number(req_date[0])>2100\r\n|| new Number(req_date[1])<1 || new Number(req_date[1])>12 || new Number(req_date[2])<1) {\r\nalert(''Requested date is not valid, please re-enter.'');\r\nreturn false;\r\n}\r\n\r\nvar ef_date = document.getElementById(''effective_date'').value.split(''-'');\r\nif (ef_date.length!=3 || new Number(ef_date[0])<1990 || new Number(ef_date[0])>2100\r\n|| new Number(ef_date[1])<1 || new Number(ef_date[1])>12 || new Number(ef_date[2])<1) {\r\nalert(''Effective date is not valid, please re-enter.'');\r\nreturn false;\r\n}\r\n\r\nvar ex_date = document.getElementById(''expiration_date'').value.split(''-'');\r\nif (ex_date.length!=3 || new Number(ex_date[0])<1990 || new Number(ex_date[0])>2100\r\n|| new Number(ex_date[1])<1 || new Number(ex_date[1])>12 || new Number(ex_date[2])<1) {\r\nalert(''Expiration date is not valid, please re-enter.'');\r\nreturn false;\r\n}\r\n\r\n\r\n        var month_days = new Array(31,29,31,30,31,30,31,31,30,31,30,31);\r\n\r\nif (new Number(req_date[0])%4) {\r\nmonth_days[1] = 28;\r\n}\r\n\r\nif ((new Number(req_date[2])>month_days[new Number(req_date[1])-1]) ) {\r\nalert(''Requested date is not valid, please re-enter.'');\r\nreturn false;\r\n}\r\n\r\nif (new Number(ef_date[0])%4) {\r\nmonth_days[1] = 28;\r\n}\r\nif ((new Number(ef_date[2])>month_days[new Number(ef_date[1])-1]) ) {\r\nalert(''Effective date is not valid, please re-enter.'');\r\nreturn false;\r\n}\r\n\r\nif (new Number(ex_date[0])%4) {\r\nmonth_days[1] = 28;\r\n}\r\nif ((new Number(ex_date[2])>month_days[new Number(ex_date[1])-1]) ) {\r\nalert(''Expiration date is not valid, please re-enter.'');\r\nreturn false;\r\n}','','и такого там много.. еще на PHP скину',12,0,1,0),
+  (143,1279,2,1229114331,0,'var req_date = document.getElementById(''requested_date'').value.split(''-'');\r\nif (req_date.length!=3 || new Number(req_date[0])<1990 || new Number(req_date[0])>2100\r\n|| new Number(req_date[1])<1 || new Number(req_date[1])>12 || new Number(req_date[2])<1) {\r\nalert(''Requested date is not valid, please re-enter.'');\r\nreturn false;\r\n}\r\n\r\nvar ef_date = document.getElementById(''effective_date'').value.split(''-'');\r\nif (ef_date.length!=3 || new Number(ef_date[0])<1990 || new Number(ef_date[0])>2100\r\n|| new Number(ef_date[1])<1 || new Number(ef_date[1])>12 || new Number(ef_date[2])<1) {\r\nalert(''Effective date is not valid, please re-enter.'');\r\nreturn false;\r\n}\r\n\r\nvar ex_date = document.getElementById(''expiration_date'').value.split(''-'');\r\nif (ex_date.length!=3 || new Number(ex_date[0])<1990 || new Number(ex_date[0])>2100\r\n|| new Number(ex_date[1])<1 || new Number(ex_date[1])>12 || new Number(ex_date[2])<1) {\r\nalert(''Expiration date is not valid, please re-enter.'');\r\nreturn false;\r\n}\r\n\r\n\r\n        var month_days = new Array(31,29,31,30,31,30,31,31,30,31,30,31);\r\n\r\nif (new Number(req_date[0])%4) {\r\nmonth_days[1] = 28;\r\n}\r\n\r\nif ((new Number(req_date[2])>month_days[new Number(req_date[1])-1]) ) {\r\nalert(''Requested date is not valid, please re-enter.'');\r\nreturn false;\r\n}\r\n\r\nif (new Number(ef_date[0])%4) {\r\nmonth_days[1] = 28;\r\n}\r\nif ((new Number(ef_date[2])>month_days[new Number(ef_date[1])-1]) ) {\r\nalert(''Effective date is not valid, please re-enter.'');\r\nreturn false;\r\n}\r\n\r\nif (new Number(ex_date[0])%4) {\r\nmonth_days[1] = 28;\r\n}\r\nif ((new Number(ex_date[2])>month_days[new Number(ex_date[1])-1]) ) {\r\nalert(''Expiration date is not valid, please re-enter.'');\r\nreturn false;\r\n}','','и такого там много.. еще на PHP скину',13,1,1,0),
   (144,1301,5,1229126694,0,'if isinstance(labels, str):\r\n            try:\r\n                labels = self.vs.get_attribute_values(labels)\r\n            except KeyError:\r\n                labels = [x+1 for x in xrange(self.vcount())]\r\n        elif labels is None:\r\n            labels = [\"\"] * self.vcount()\r\n\r\n        if isinstance(colors, str):\r\n            try:\r\n                colors = self.vs.get_attribute_values(colors)\r\n            except KeyError:\r\n                colors = [\"red\" for x in xrange(self.vcount())]\r\n\r\n        if isinstance(shapes, str):\r\n            try:\r\n                shapes = self.vs.get_attribute_values(shapes)\r\n            except KeyError:\r\n                shapes = [1]*self.vcount()\r\n        if isinstance(edge_colors, str):\r\n            try:\r\n                edge_colors = self.es.get_attribute_values(edge_colors)\r\n            except KeyError:\r\n                edge_colors = [\"black\" for x in xrange(self.ecount())]\r\n\r\n        if not isinstance(font_size, str):\r\n            font_size = \"%spx\" % str(font_size)\r\n        else:\r\n            if \";\" in font_size:\r\n                raise ValueError, \"font size can''t contain a semicolon\"\r\n\r\n        vc = self.vcount()\r\n        while len(labels)<vc: labels.append(len(labels)+1)\r\n        while len(colors)<vc: colors.append(\"red\")\r\n\r\n#.........\r\n\r\n        for eidx, edge in enumerate(self.es):\r\n#.........\r\n                print >>f, \"    <g transform=\\\"translate(%.4f,%.4f)\\\" fill=\\\"%s\\\" stroke=\\\"%s\\\">\" % (x2, y2, edge_colors[eidx], edge_colors[eidx]','','Ребята извращались как могли. \r\n[ol]\r\n[li]Заводят параллельно кучу массивов, чтобы в них хранить в них свойства объектов, чтобы затем при обходе списка объектов обратиться к ним по порядковому номеру в списке. Ну это еще можно понять, это просто не ООП[/li]\r\n[li]Демонстрируют умения в инициализации списка из одинаковых элементов несколькими способами[/li]\r\n[li]Влом было искать - еще ставят точки с запятой в конце строк и убедившись, что объект - строка, преобразуют его в строку.[/li]\r\n[/ol]',15,0,1,9),
   (145,1311,7,1229138929,0,'if( a < 10 ) cout << \"a < 10\";\r\nelse if( a > 10 ) cout << \"a > 10\";\r\nelse if( a == 10 ) cout << \"a == 10\";\r\nelse cout << \"Сегодня совсем плохой день :(\";','','Совсем плохой день :(',15,0,1,8),
   (146,1317,1,1229157737,0,'$temp69 = new dbQuery($sql69, $conn->connId) or die(mysql_error()); \r\n$i=\"\"; while($i<=5) { $res69=$temp69->getArray(); $i++; } \r\n$sql69=\"select * from dj_config\";\r\n$temp69= new dbQuery($sql69, $conn->connId) or die(mysql_error());\r\n$i=\"\";\r\nwhile($i<=5){\r\n\t$res69=$temp69->getArray();\r\n\t$i++;\r\n}','','оригинал: http://blog.sjinks.org.ua/humour/76-programmers-russian-indian-chinese-canadian/',3,0,1,1),
@@ -610,7 +621,7 @@ INSERT INTO `quoter_quote` (`id`, `obj_id`, `category_id`, `created`, `deleted`,
   (160,1379,1,1229209689,1229385085,'while (true) {\r\n... некий код\r\nif (d === true) {return d;}\r\n... некий код.\r\n}','','Обнаружил в одном исходнике - ',-9,0,0,10),
   (161,1381,1,1229209766,0,'#Определяем Кому/От кого\r\nfunction komu_ot_kogo($from,$type){\r\nglobal $cook_login;\r\nif($cook_login==$from){\r\nif($type==\"exit\"){$komu=\"Куда\";}\r\nelseif($type==\"enter\"){$komu=\"Откуда\";}\r\nelseif($type==\"cart\"){$komu=\"Откуда\";}\r\nelseif($type==\"back\"){$komu=\"От кого\";}\r\nelse{$komu=\"Кому\";}}\r\nelse{$komu=\"От кого\";}\r\nif($type==\"internet\" or $type==\"mobile\"){$komu=\"Куда\";}\r\nreturn $komu;\r\n}','','',12,0,1,0),
   (162,1391,2,1229231871,1229575009,'<html> <head> <style type=\"text/css\"> html, body { background-color:#000; font-family:Segoe UI, Tahoma, Arial, sans-serif; font-size:11px; color:#FFF; margin:0px; padding:0px; width:100%; height:100%; overflow:hidden; } a:link, a:visited, a:active { color:#CCC; text-decoration:underline; } a:hover { color:#F00; text-decoration:none; } #progressbar_block { width:100%; height:100%; padding-left:50%; padding-top:50%; overflow:hidden; } ul.progressbar { width:400px; height:50px; padding:0px; margin:0px; margin-left:-200px; margin-top:-25px; clear:both; list-style-type:none; } ul.progressbar li { padding:0px; margin:0px; float:left; } li.left { background-image:url(img/l_bg_n.png); background-repeat:no-repeat; width:20px; height:50px; } li.middle { background-image:url(img/m_bg_n.png); background-repeat:repeat-x; width:360px; height:50px; } li.right { background-image:url(img/r_bg_n.png); background-repeat:no-repeat; width:20px; height:50px; } </style> <script language=\"javascript\"> function func() { var max = 400 - 16; var pixels = 400 - 16; var step = pixels/max; next(0); } function next(i) { var max = 400 - 16; var pixels = 400 - 16; var step = pixels/max; var lft = document.getElementById(\"left_pb\"); var mid = document.getElementById(\"middle_pb\"); var rht = document.getElementById(\"right_pb\"); if(i < 12) lft.style.width = String(8 + i) + \"px\"; else lft.style.width = String(20) + \"px\"; if(i < pixels - 12 && i > 12) mid.style.width = String(i - 12) + \"px\"; else if(i > 12) mid.style.width = String(360) + \"px\"; else mid.style.width = String(0) + \"px\"; if(i > 372) rht.style.width = String(i - 372) + \"px\"; else if(i < 372) rht.style.width = String(0) + \"px\"; setTimeout(\"next(\" + (i + step < pixels ? i + step : 0) + \")\", 25); } </script> </head> <body onload=\"func();\"> <div id=\"progressbar_block\"> <ul class=\"progressbar\"> <li class=\"left\"><div id=\"left_pb\" style=\"background-image:url(img/l_bg_a.png); width:8px; height:50px; overflow:hidden;\">&nbsp;</div></li> <li class=\"middle\"><div id=\"middle_pb\" style=\"background-image:url(img/m_bg_a.png); width:0px; height:50px; overflow:hidden;\">&nbsp;</div></li> <li class=\"right\"><div id=\"right_pb\" style=\"background-image:url(img/r_bg_a.png); width:0px; height:50px; overflow:hidden;\">&nbsp;</div></li> </ul> </div> </body> </html>','','Вот так мы делаем прогресс-бары',-2,0,0,2),
-  (163,1394,2,1229237485,0,'if (''Down'' == ''Down'')\r\n\t{\r\n\t\t//currentSeconds--;\r\n\t\tcurrentSeconds = PromptTimer_StartCounter - correctionTime;\r\n\t\tneedTick = currentSeconds > 0;\r\n\t\tif (!needTick)\r\n\t\t\tcurrentSeconds = 0;\r\n\t}\r\n\telse\r\n\t{\r\n\t\tcurrentSeconds = PromptTimer_StartCounter + correctionTime;\t\r\n\t\t\r\n\t\tif (''True'' == ''False'')\r\n\t\t{\r\n\t\t\tif (GetGMTOffsetInfo()[0] == \"-\")\r\n\t\t\t\tcurrentSeconds += -(GetGMTOffsetInfo()[1] * 3600);\r\n\t\t\telse \r\n\t\t\t\tcurrentSeconds += GetGMTOffsetInfo()[1] * 3600;\r\n\t\t}\r\n\t\t//currentSeconds++; \r\n\t}','','Код таймера на странице задания, проект \"Энкаунтер\" (http://en.cx)\r\n\r\nPosted by zerkms',11,0,1,4),
+  (163,1394,2,1229237485,0,'if (''Down'' == ''Down'')\r\n\t{\r\n\t\t//currentSeconds--;\r\n\t\tcurrentSeconds = PromptTimer_StartCounter - correctionTime;\r\n\t\tneedTick = currentSeconds > 0;\r\n\t\tif (!needTick)\r\n\t\t\tcurrentSeconds = 0;\r\n\t}\r\n\telse\r\n\t{\r\n\t\tcurrentSeconds = PromptTimer_StartCounter + correctionTime;\t\r\n\t\t\r\n\t\tif (''True'' == ''False'')\r\n\t\t{\r\n\t\t\tif (GetGMTOffsetInfo()[0] == \"-\")\r\n\t\t\t\tcurrentSeconds += -(GetGMTOffsetInfo()[1] * 3600);\r\n\t\t\telse \r\n\t\t\t\tcurrentSeconds += GetGMTOffsetInfo()[1] * 3600;\r\n\t\t}\r\n\t\t//currentSeconds++; \r\n\t}','','Код таймера на странице задания, проект \"Энкаунтер\" (http://en.cx)\r\n\r\nPosted by zerkms',12,1,1,4),
   (164,1403,1,1229246466,0,'extract($GLOBALS);','','Анекдот в одну строчку',19,0,1,3),
   (165,1406,7,1229248477,0,'void elswap(int ?,int ?, int ?, int ?)  \r\n {\r\n int ?;\r\n ?=?[?][?];\r\n ?[?][?]=?[?][?];\r\n ?[?][?]=?;\r\n }','','обмен значений 2 элементов 2-мерного массива',37,0,1,2),
   (168,1420,1,1229259205,1229500234,'// country\r\nif($user_country) {\r\n\t$where .= ''(tbl_publications.id_country = ''.$user_country;\r\n\t// city\r\n\tif($user_city) {\r\n\t\t$where .= '' OR tbl_publications.id_city = ''.$user_city;\r\n\t}\r\n\t$where .= '')'';\r\n}else{\r\n\t$where .= '' 1=1''; // black magic\r\n}','','черная магия.',-3,0,0,3),
@@ -652,7 +663,7 @@ INSERT INTO `quoter_quote` (`id`, `obj_id`, `category_id`, `created`, `deleted`,
   (206,1581,1,1229456808,0,'if(empty($real_name)) $real_name = $file_name; \t\t\r\nif(empty($real_name)) $real_name=\"fileid_\".$id;\r\n\r\n.... \r\n\r\nif($mode==\"send\") {\r\n\t$head[] = array(\"link\" => \"customer.php?area=$area&mode=send\", \"title\" => func_get_langvar_by_name(\"lbl_send_to_mail\"), active=>\"Y\");\r\n}\telse\t{\r\n\t$head[] = array(\"link\" => \"customer.php?area=$area&mode=send\", \"title\" => func_get_langvar_by_name(\"lbl_send_to_mail\"), active=>\"n\");\r\n}','','Разбирая один из скриптов на досуге, обнаружил, что некоторые программисты уж совсем с головой не дружат.\r\n\r\n1. Думаю, все тут ясно.\r\n2. Чувак явно не знает что такое логика... Мало того, что в одну строку ложится массив, так еще и ВЕЗДЕ строковые ''Y''/''N'' использует вместо булевых труфолсов. И такого говна - тыщи 2 строк. Ы =)\r\n\r\nНе позавидую тем, кто будет дописывать / переделывать.\r\nЗЫ: Скрипт - рип корпоративной системы. ',12,0,1,7),
   (207,1583,9,1229457950,0,'if(isRegKeyRequired) {\r\n            keyItems = new XItem [4];\r\n            valueItems = new XItem [4][];\r\n            totalItems = 4;\r\n\r\n            keyItems[0] = new XItem();\r\n            keyItems[0].setLabel(TextUtils.getText(280),XItem.LABEL_CONSTRAINT_CENTER);\r\n            values = getValueItems(countryBox_rp);\r\n            totalItems += setValues(valueItems, values,0);\r\n            keyItems[1] = new XItem();\r\n            keyItems[1].setLabel(TextUtils.getText(281),XItem.LABEL_CONSTRAINT_CENTER);\r\n            values = getValueItems(phoneNoBox_rp);\r\n            totalItems += setValues(valueItems, values,1);\r\n            keyItems[2] = new XItem();\r\n            keyItems[2].setLabel(TextUtils.getText(282),XItem.LABEL_CONSTRAINT_CENTER);\r\n            values = getValueItems(regKeyBox_rp);\r\n            totalItems += setValues(valueItems, values,2);\r\n            keyItems[3] = new XItem();\r\n            keyItems[3].setLabel(TextUtils.getText(283),XItem.LABEL_CONSTRAINT_CENTER);\r\n            values = getValueItems(emailBox_rp);\r\n            totalItems += setValues(valueItems, values,3);\r\n        }\r\n        else {\r\n            keyItems = new XItem [3];\r\n            valueItems = new XItem [3][];\r\n            totalItems = 3;\r\n\r\n            keyItems[0] = new XItem();\r\n            keyItems[0].setLabel(TextUtils.getText(280),XItem.LABEL_CONSTRAINT_CENTER);\r\n            values = getValueItems(countryBox_rp);\r\n            totalItems += setValues(valueItems, values,0);\r\n            keyItems[1] = new XItem();\r\n            keyItems[1].setLabel(TextUtils.getText(281),XItem.LABEL_CONSTRAINT_CENTER);\r\n            values = getValueItems(phoneNoBox_rp);\r\n            totalItems += setValues(valueItems, values,1);\r\n            keyItems[2] = new XItem();\r\n            keyItems[2].setLabel(TextUtils.getText(283),XItem.LABEL_CONSTRAINT_CENTER);\r\n            values = getValueItems(emailBox_rp);\r\n            totalItems += setValues(valueItems, values,2);\r\n        }','','очень трудолюбивые эти индусы. Такой код - это просто пипец особенно если учесть что приложение разрабатывается для J2ME',21,0,1,7),
   (208,1587,1,1229466716,0,'$temp = $this->template($this->modulePath.\"/right_frame\");\r\neval(\"\\$blockData = \\\"$temp\\\";\");\r\nreturn $blockData;','','Реализация механизма подключения шаблонов в PHP %)',9,0,1,2),
-  (212,1606,7,1229516699,0,'bool IsBukva(char symbol)\r\n{\r\nswitch(symbol)\r\n{\r\ncase''a'':return 1;break;\r\ncase''b'':return 1;break;\r\ncase''c'':return 1;break;\r\ncase''d'':return 1;break;\r\ncase''e'':return 1;break;\r\ncase''f'':return 1;break;\r\ncase''g'':return 1;break;\r\ncase''h'':return 1;break;\r\ncase''i'':return 1;break;\r\ncase''j'':return 1;break;\r\ncase''k'':return 1;break;\r\ncase''l'':return 1;break;\r\ncase''m'':return 1;break;\r\ncase''n'':return 1;break;\r\ncase''o'':return 1;break;\r\ncase''p'':return 1;break;\r\ncase''q'':return 1;break;\r\ncase''r'':return 1;break;\r\ncase''s'':return 1;break;\r\ncase''t'':return 1;break;\r\ncase''u'':return 1;break;\r\ncase''v'':return 1;break;\r\ncase''w'':return 1;break;\r\ncase''x'':return 1;break;\r\ncase''y'':return 1;break;\r\ncase''z'':return 1;break;\r\ncase''A'':return 1;break;\r\ncase''B'':return 1;break;\r\ncase''C'':return 1;break;\r\ncase''D'':return 1;break;\r\ncase''E'':return 1;break;\r\ncase''F'':return 1;break;\r\ncase''G'':return 1;break;\r\ncase''H'':return 1;break;\r\ncase''I'':return 1;break;\r\ncase''J'':return 1;break;\r\ncase''K'':return 1;break;\r\ncase''L'':return 1;break;\r\ncase''M'':return 1;break;\r\ncase''N'':return 1;break;\r\ncase''O'':return 1;break;\r\ncase''P'':return 1;break;\r\ncase''Q'':return 1;break;\r\ncase''R'':return 1;break;\r\ncase''S'':return 1;break;\r\ncase''T'':return 1;break;\r\ncase''U'':return 1;break;\r\ncase''V'':return 1;break;\r\ncase''W'':return 1;break;\r\ncase''X'':return 1;break;\r\ncase''Y'':return 1;break;\r\ncase''Z'':return 1;break;\r\ndefault:return 0;\r\n}\r\n}','','Женский вариант проверки символа на букву.\r\nОригинал тут: http://forum.vingrad.ru/forum/topic-240593.html',113,0,1,8),
+  (212,1606,7,1229516699,0,'bool IsBukva(char symbol)\r\n{\r\nswitch(symbol)\r\n{\r\ncase''a'':return 1;break;\r\ncase''b'':return 1;break;\r\ncase''c'':return 1;break;\r\ncase''d'':return 1;break;\r\ncase''e'':return 1;break;\r\ncase''f'':return 1;break;\r\ncase''g'':return 1;break;\r\ncase''h'':return 1;break;\r\ncase''i'':return 1;break;\r\ncase''j'':return 1;break;\r\ncase''k'':return 1;break;\r\ncase''l'':return 1;break;\r\ncase''m'':return 1;break;\r\ncase''n'':return 1;break;\r\ncase''o'':return 1;break;\r\ncase''p'':return 1;break;\r\ncase''q'':return 1;break;\r\ncase''r'':return 1;break;\r\ncase''s'':return 1;break;\r\ncase''t'':return 1;break;\r\ncase''u'':return 1;break;\r\ncase''v'':return 1;break;\r\ncase''w'':return 1;break;\r\ncase''x'':return 1;break;\r\ncase''y'':return 1;break;\r\ncase''z'':return 1;break;\r\ncase''A'':return 1;break;\r\ncase''B'':return 1;break;\r\ncase''C'':return 1;break;\r\ncase''D'':return 1;break;\r\ncase''E'':return 1;break;\r\ncase''F'':return 1;break;\r\ncase''G'':return 1;break;\r\ncase''H'':return 1;break;\r\ncase''I'':return 1;break;\r\ncase''J'':return 1;break;\r\ncase''K'':return 1;break;\r\ncase''L'':return 1;break;\r\ncase''M'':return 1;break;\r\ncase''N'':return 1;break;\r\ncase''O'':return 1;break;\r\ncase''P'':return 1;break;\r\ncase''Q'':return 1;break;\r\ncase''R'':return 1;break;\r\ncase''S'':return 1;break;\r\ncase''T'':return 1;break;\r\ncase''U'':return 1;break;\r\ncase''V'':return 1;break;\r\ncase''W'':return 1;break;\r\ncase''X'':return 1;break;\r\ncase''Y'':return 1;break;\r\ncase''Z'':return 1;break;\r\ndefault:return 0;\r\n}\r\n}','','Женский вариант проверки символа на букву.\r\nОригинал тут: http://forum.vingrad.ru/forum/topic-240593.html',113,0,1,0),
   (213,1621,7,1229552919,0,'cout<<\"enterX\"<<endl;\r\n     cin >>x;\r\nx = 0.125;','','',25,0,1,1),
   (214,1628,8,1229597094,0,'Почему нет раздела по 1С? )))\r\nПочему нет раздела по 1С? )))\r\nПочему нет раздела по 1С? )))\r\nПочему нет раздела по 1С? )))','','Почему нет раздела по 1С? )))',3,0,1,8),
   (215,1632,7,1229598302,0,'/* This is bad. Reaaly bad. It''s a really, really bad hack. If you''re an employee of \r\n * Intertrode Communication, then I''m really, really sorry that you have to maintain\r\n * this. I was honestly planning on removing this tomorrow, but I''ve been known to \r\n * forget things like this. It happens.\r\n *\r\n * So here''s the thing. I can''t seem to figure out why the AccountId variable isn''t \r\n * set. I''ve looked and looked, but I gotta leave now. Anyway, I''ve found that I can\r\n * just grab the AccountID from the debugging logs.  I suppose that to fix it, you''d\r\n * have to locate where it''s clearing out the ID.\r\n *\r\n * Again, I''m sorry.\r\n */\r\n\r\nif ( (AccountId == NULL) || (AccountId == \"\") ||\r\n     (ServerSesion[\"AccountId\"] == NULL) || (ServerSesion[\"AccountId\"] == \"\") )\r\n{\r\n  //open session logs\r\n  FileHandle file = f_open(LOG_PATH + \"\\sessionlog-\" + LOG_FILE_DATE + \".log\", 1);\r\n  while (file != NULL)\r\n  {\r\n    \r\n    TString line = f_readline(file);\r\n\r\n    //look for IP and changereg\r\n    if ( (sfind(line,REMOTE_ADDR) != -1) && (sfind(line,\"changereg\") != -1) )\r\n    {\r\n      //0000-00-00 00:00 /accountmaint/changereg/?AccountId=123456 255.255.255.255 ...\r\n      //                                                    *\r\n      AccountId = substr(line, 52, 6);\r\n    }\r\n\r\n    if (f_EOF(file)) { f_close(file); file = NULL; }\r\n  }\r\n\r\n}','','У чувака где то перетирается AccountId, так он берет данные из логов IIS''а :) Главное, что он сожалеет об этом.\r\nОтсюда: http://thedailywtf.com/Articles/The_Apologetic_Coder.aspx\r\n',39,0,1,1),
@@ -782,7 +793,7 @@ INSERT INTO `quoter_quote` (`id`, `obj_id`, `category_id`, `created`, `deleted`,
   (352,2321,6,1231536873,0,'int main()\r\n{\r\nint i;\r\nfor(clrscr(),\r\n    printf(\"starting of stupid progam\\n\"),\r\n    i=10;\r\n    i--;\r\n    printf(\"i= %d\\n\",i));\r\nreturn 0;\r\n\r\n}','','Страшен язык Си',4,0,1,1),
   (353,2323,6,1231536938,0,'int clearscreen()\r\n{\r\nclrscr();\r\nreturn 0;\r\n}\r\nvoid main()\r\n{\r\nchar * c;\r\n\r\nprintf(\"You typed: %c\",\r\n       *c,\r\n       scanf(\"%c\",c),\r\n       printf(\"Type any simbol: \"),\r\n       clearscreen());\r\n\r\n}','','Страшен язык Си 2',10,1,1,0),
   (354,2330,1,1231575650,0,'/**\r\n     * Validate the word\r\n     *\r\n     * @see    Zend_Validate_Interface::isValid()\r\n     * @param  mixed $value\r\n     * @return boolean\r\n     */\r\n    public function isValid($value, $context = null)\r\n    {\r\n        $name = $this->getName();\r\n        if (!isset($context[$name][''input''])) {\r\n            $this->_error(self::MISSING_VALUE);\r\n            return false;\r\n        }\r\n        $value = strtolower($context[$name][''input'']);\r\n        $this->_setValue($value);\r\n\r\n        if (!isset($context[$name][''id''])) {\r\n            $this->_error(self::MISSING_ID);\r\n            return false;\r\n        }\r\n\r\n        $this->_id = $context[$name][''id''];\r\n        if ($value !== $this->getWord()) {\r\n            $this->_error(self::BAD_CAPTCHA);\r\n            return false;\r\n        }\r\n\r\n        return true;\r\n    }','','не ожидал даже от Zend Framework-а',1,9,1,0),
-  (355,2339,1,1231593160,0,'function is_utf($str){\n    if(iconv(\"UTF-8\",\"UTF-8\",$str)==$str)\n        return true;\n    else\n        return false;\n}','4, 1','utf-8 или нет? :)',24,20,1,3);
+  (355,2339,1,1231593160,0,'function is_utf($str){\n    if(iconv(\"UTF-8\",\"UTF-8\",$str)==$str)\n        return true;\n    else\n        return false;\n}','4, 1','utf-8 или нет? :)',25,21,1,3);
 COMMIT;
 
 #
@@ -12947,7 +12958,7 @@ CREATE TABLE `ratings_ratings` (
   KEY `folder_id` (`folder_id`),
   KEY `user_id` (`user_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=27 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=33 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `ratings_ratings` table  (LIMIT 0,500)
@@ -12979,7 +12990,13 @@ INSERT INTO `ratings_ratings` (`id`, `folder_id`, `user_id`, `created`, `ip_addr
   (23,1,2,1242176583,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,354),
   (24,1,2,1242176591,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,353),
   (25,1,2,1242187890,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,355),
-  (26,1,2,1242194980,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,39);
+  (26,1,2,1242194980,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,39),
+  (27,1,2,1242197819,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,163),
+  (28,1,2,1242197824,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,143),
+  (29,1,2,1242271374,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,355),
+  (30,2,2,1242272417,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,1),
+  (31,2,2,1242272629,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',-1,3),
+  (32,2,2,1242272823,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,2);
 COMMIT;
 
 #
@@ -12997,14 +13014,15 @@ CREATE TABLE `ratings_ratingsFolder` (
   `by_field` CHAR(25) COLLATE utf8_general_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=2 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=3 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `ratings_ratingsFolder` table  (LIMIT 0,500)
 #
 
 INSERT INTO `ratings_ratingsFolder` (`id`, `obj_id`, `alias`, `module`, `type`, `by_field`) VALUES 
-  (1,2880,'govnokod','quoter','quote','id');
+  (1,2880,'govnokod','quoter','quote','id'),
+  (2,2881,'comment','comments','comments','id');
 COMMIT;
 
 #
@@ -13040,7 +13058,7 @@ CREATE TABLE `sys_access_registry` (
   `class_id` INTEGER(11) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`obj_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=2618 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=2619 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_access_registry` table  (LIMIT 0,500)
@@ -14927,7 +14945,8 @@ INSERT INTO `sys_access_registry` (`obj_id`, `class_id`) VALUES
   (2614,10),
   (2615,10),
   (2616,11),
-  (2617,11);
+  (2617,11),
+  (2618,11);
 COMMIT;
 
 #
@@ -15479,7 +15498,7 @@ CREATE TABLE `sys_obj_id` (
   `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=2618 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=2619 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_obj_id` table  (LIMIT 0,500)
@@ -18137,7 +18156,8 @@ INSERT INTO `sys_obj_id` (`id`) VALUES
   (2614),
   (2615),
   (2616),
-  (2617);
+  (2617),
+  (2618);
 COMMIT;
 
 #

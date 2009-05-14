@@ -13,13 +13,11 @@
         {/if}{/strip}
         <li class="hcomment">
             <p>
-                <img src="{$SITE_PATH}/files/avatars/16.gif" alt="" />
+                <img class="avatar" src="{$SITE_PATH}/files/avatars/16.gif" alt="" />
                 <strong class="entry-author">{$comment->getUser()->getLogin()|h}</strong>
                 <a class="published" name="comment{$comment->getId()}" href="{url}#comment{$comment->getId()}" title="{$comment->getCreated()|date_i18n}">{$comment->getCreated()|date_i18n:'relative_hour'}</a>
                 <span class="comment-vote">
-                    <strong>0</strong>
-                    <a class="comment-vote-on" href="#"> </a>
-                    <a class="comment-vote-against" href="#"> </a>
+                    {include file="comments/rating.tpl" comment=$comment}
                 </span>
             </p>
             <div class="entry-comment">
