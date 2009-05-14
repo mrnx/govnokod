@@ -7,6 +7,9 @@ codePreloader.src = SITE_PATH + '/templates/images/codeload.gif';
 var votePreloader = new Image();
 votePreloader.src = SITE_PATH + '/templates/images/govnovote.gif';
 
+var commentVotePreloader = new Image();
+commentVotePreloader.src = SITE_PATH + '/templates/images/commentvote.gif';
+
 var currentShowTrigger;
 function showCommentForm(formElem, aElemTrigger, durationValue, offsetValue)
 {
@@ -171,112 +174,26 @@ function vote(trigger)
     }
 }
 
-/*
-var loadingImage = new Image();
-loadingImage.src = SITE_PATH + '/templates/images/codepreloader.gif';
-
-var votePreloaderImage = new Image();
-votePreloaderImage.src = SITE_PATH + '/templates/images/votepreloader.gif';
-
-var allreadyLoaded = new Array();
-
-function unfoldCode(codeId)
+function commentvote(trigger)
 {
-    var codeContent = $('colorCode' + codeId);
+    var holder = trigger.up('span.comment-vote');
+    if (holder) {
+        var url = trigger.href;
+        holder.update(new Element('img', {className: 'preloader', src: commentVotePreloader.src, 'alt': 'Загрузка…', title: 'Идёт учет голоса…'}));
 
-    var unfolderController = $('unfoldCode' + codeId);
-    var folderController = $('foldCode' + codeId);
-    if (unfolderController && folderController) {
-        unfolderController.hide();
-        folderController.show();
-    }
-
-    if (codeContent) {
-        var currentHeight = codeContent.getHeight();
-        if (allreadyLoaded[codeId] > 0) {
-            unfoldCodeEffect(codeContent, currentHeight);
-        } else {
-            codeContent.setStyle('overflow: hidden; height: ' + currentHeight + 'px;');
-
-            var codePreloader = $('codefolder' + codeId);
-            if (codePreloader) {
-                var preloadImg = new Element('img', {src: loadingImage.src, alt: '', title: 'Идёт загрузка...'});
-                codePreloader.update(preloadImg);
-            }
-            new Ajax.Request('/quoter/' + encodeURIComponent(codeId), {
-                method: 'get',
-                parameters: {format: 'ajax'},
-                onSuccess: function(transport) {
-                    allreadyLoaded[codeId] = currentHeight;
-                    codeContent.update(transport.responseText);
-                    unfoldCodeEffect(codeContent, currentHeight);
-                }
-            });
-        }
-    }
-}
-
-function unfoldCodeEffect(codeContent, currentHeight)
-{
-    Effect.BlindDown(codeContent, {
-        duration: 0.4,
-        scaleMode: 'contents',
-        restoreAfterFinish: false,
-        scaleFrom: Math.ceil((100 / codeContent.scrollHeight) * currentHeight)
-    });
-}
-
-function foldCode(codeId)
-{
-    var codeContent = $('colorCode' + codeId);
-
-    var unfolderController = $('unfoldCode' + codeId);
-    var folderController = $('foldCode' + codeId);
-    if (unfolderController && folderController) {
-        unfolderController.show();
-        folderController.hide();
-    }
-
-    if (codeContent && allreadyLoaded[codeId]) {
-        var foldedHeight = allreadyLoaded[codeId];
-        Effect.BlindUp(codeContent, {
-            duration: 0.4,
-            scaleMode: 'contents',
-            restoreAfterFinish: false,
-            scaleTo: Math.ceil((100 / codeContent.scrollHeight) * foldedHeight),
-            afterFinishInternal: function(effect) {
-                codeContent.setStyle({overflow: 'hidden', height: foldedHeight + 'px'});
+        new Ajax.Request(url, {
+            method: 'get',
+            parameters: {format: 'ajax'},
+            onSuccess: function(transport) {
+                holder.update(transport.responseText);
+            },
+            onFailure: function() {
+                alert('Something went wrong…');
             }
         });
     }
 }
-
-function ajaxvote(aElem) {
-    var holder = aElem.up();
-    var preloadImg = new Element('img', {src: votePreloaderImage.src, alt: '', title: 'Данные отправляются на сервер...'});
-    holder.update('');
-    holder.appendChild(preloadImg);
-    new Ajax.Request(aElem.href, {
-        method: 'post',
-        parameters: {ajax: true},
-        onSuccess: function(transport) {
-            var updateText = '';
-            switch (transport.responseText) {
-                case 'allready':
-                    updateText = 'уже голосовали';
-                    break;
-
-                default:
-                    var newRating = parseInt(transport.responseText);
-                    updateText = new Element('span', {className: ((newRating > 0) ? 'rate_plus' : 'rate_minus')});
-                    updateText.insert(newRating);
-                    break;
-            }
-            holder.update(updateText);
-        }
-    });
-}
-
+/*
 function numbering(textareaObj) {
     var lines = textareaObj.getValue().split("\n");
     var linesCount = lines.length;

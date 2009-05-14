@@ -1,0 +1,3 @@
+    <strong{if $comment->getRating() < 0} class="bad"{/if}>{$comment->getRating()}</strong>
+    <a rel="nofollow" class="comment-vote-on" href="{url route="rate" alias="comment" param=$comment->getId() vote="on"}" title="+1" onclick="commentvote(this); return false;"> </a>
+    <a rel="nofollow" class="comment-vote-against" href="{url route="rate" alias="comment" param=$comment->getId() vote="against"}" title="-1" onclick="commentvote(this); return false;"> </a>

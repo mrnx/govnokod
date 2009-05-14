@@ -47,6 +47,7 @@ class ratingsRateController extends simpleController
 
         //@todo: допустимые значения вынести лучше в БД
         switch ($alias) {
+            case 'comment':
             case 'govnokod':
                 $vote = $this->request->getString('vote');
                 switch ($vote) {
@@ -89,14 +90,37 @@ class ratingsRateController extends simpleController
 
                 $format = $this->request->getString('format', SC_GET);
                 if ($format == 'ajax') {
-                    $this->smarty->assign('quote', $object);
-                    return $this->smarty->fetch('quoter/rating.tpl');
+                    switch ($alias) {
+                        case 'govnokod':
+                            $this->smarty->assign('quote', $object);
+                            return $this->smarty->fetch('quoter/rating.tpl');
+                            break;
+
+                        case 'comment':
+                            $this->smarty->assign('comment', $object);
+                            return $this->smarty->fetch('comments/rating.tpl');
+                            break;
+                    }
                 }
 
-                $backUrl = new url('quoteView');
-                $backUrl->add('id', $object->getId());
-                $this->redirect($backUrl->get());
-                return;
+                switch ($alias) {
+                    case 'govnokod':
+                        $backUrl = new url('quoteView');
+                        $backUrl->add('id', $object->getId());
+                        $this->redirect($backUrl->get());
+                        return;
+                        break;
+
+                    case 'comment':
+                        if ($object->getFolder()->getType() == 'quote') {
+                            $backUrl = new url('quoteView');
+                            $backUrl->add('id', $object->getFolder()->getObject()->getId());
+                            $this->redirect($backUrl->get() . '#comment' . $object->getId());
+                        }
+                        return;
+                        break;
+                }
+
                 break;
         }
 

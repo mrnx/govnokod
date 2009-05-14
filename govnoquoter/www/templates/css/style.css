@@ -485,7 +485,7 @@ div.entry-comments ul .hcomment p .comment-vote a.comment-vote-against
 	height: 17px;
 }
 
-div.entry-comments ul .hcomment p img
+div.entry-comments ul .hcomment p img.avatar
 {
 	width: 28px;
 	height: 28px;
@@ -498,8 +498,12 @@ div.entry-comments ul .hcomment p img
 div.entry-comments ul .hcomment p strong
 {
 	color: #000;
-
 	margin-left: 0.6em;
+}
+
+div.entry-comments ul .hcomment p strong.bad
+{
+	color: red;
 }
 
 div.entry-comments ul .hcomment p .published
