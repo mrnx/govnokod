@@ -75,6 +75,9 @@ function postCommentsForm(formElem)
 {
     var formParent = formElem.up();
 
+    alert(formElem);
+    alert(formParent);
+
     var reg = /^answerForm_(\d+)_(\d+)$/;
     var matches = formParent.id.match(reg);
     if (matches) {
@@ -96,7 +99,7 @@ function postCommentsForm(formElem)
                 if (baseHolder) {
                     formParent.update(transport.responseText);
                     var newComment = null;
-                    if (newComment = formParent.down('.new')) {
+                    if (newComment = formParent.down('li.new')) {
                         newComment.remove();
 
                         if (replyTo != 0) {
