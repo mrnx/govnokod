@@ -33,20 +33,21 @@ class formCaptchaField extends formElement
             'width' => 120,
             'height' => 40,
             'alt' => 'Click to refresh',
+            'title' => 'Click to refresh',
             'onclick' => 'javascript: this.src = "' . $url->get() . '&amp;r=" + Math.random();')
         );
 
         $hidden = $this->renderTag('input', array(
             'type' => 'hidden',
             'name' => $attributes['name'] . '_id',
-            'value' => $captcha_id)
+            'value' => $captcha_id
+            )
         );
 
         $attributes['type'] = 'text';
         $attributes['value'] = '';
-        $attributes['style'] = 'font-size: 24px; vertical-align: middle;';
-        return $hidden . $image . ' &#8250; ' . $this->renderTag('input', $attributes);
+        $attributes['style'] = 'font-size: 30px; width: 120px; vertical-align: top;';
+        return $hidden . $image . ' ' . $this->renderTag('input', $attributes);
     }
 }
-
 ?>

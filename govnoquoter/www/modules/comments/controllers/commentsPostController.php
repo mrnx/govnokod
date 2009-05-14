@@ -64,6 +64,11 @@ class commentsPostController extends simpleController
         $validator->add('required', 'text', 'Введите хоть что-нибудь!');
         $validator->add('length', 'text', 'Слишком длинный комментарий! Максимум 2000 символов!', array(0, 2000));
 
+        if (!$user->isLoggedIn()) {
+            $validator->add('required', 'captcha', 'Введите проверочный код!');
+            $validator->add('captcha', 'captcha', 'Неверно введен проверочный код!');
+        }
+
         $isAjax = $this->request->getBoolean('ajax', SC_POST);
         $backUrl = $this->request->getString('backUrl', SC_POST);
 
