@@ -506,6 +506,11 @@ div.entry-comments ul .hcomment p strong.bad
 	color: red;
 }
 
+div.entry-comments ul .hcomment p strong.good
+{
+	color: green;
+}
+
 div.entry-comments ul .hcomment p .published
 {
 	margin-left: 0.5em;
