@@ -3,12 +3,12 @@
     <div id="header">
         <h1><a rel="homepage" href="/">Говнокод: по колено в коде.</a></h1>
 
-        {*<div id="userpane">
+        <div id="userpane">
             <ul>
-                <li><a href="#">Вход</a> |</li>
-                <li><a href="#">Регистрация</a></li>
+                <li><a href="#">Войти в говнокод</a></li>
+                {*<li><a href="#">Регистрация</a></li>*}
             </ul>
-        </div>*}
+        </div>
 
         <ul id="navigation">
             <li><a href="/">Все</a></li>
