@@ -75,9 +75,6 @@ function postCommentsForm(formElem)
 {
     var formParent = formElem.up();
 
-    alert(formElem);
-    alert(formParent);
-
     var reg = /^answerForm_(\d+)_(\d+)$/;
     var matches = formParent.id.match(reg);
     if (matches) {
@@ -97,19 +94,23 @@ function postCommentsForm(formElem)
             parameters: data,
             onSuccess: function(transport) {
                 if (baseHolder) {
-                    formParent.update(transport.responseText);
-                    var newComment = null;
-                    if (newComment = formParent.down('li.new')) {
-                        newComment.remove();
-
+                    formParent.update();
+                    if (transport.responseText.match(/<li class="hcomment new">/)) {
                         if (replyTo != 0) {
                             var ulForNewComment = new Element('ul');
-                            ulForNewComment.insert(newComment);
-                            newComment = ulForNewComment;
+                            ulForNewComment.insert(transport.responseText);
+                            baseHolder.insert(ulForNewComment);
+                        } else {
+                            baseHolder.insert(transport.responseText);
                         }
 
-                        baseHolder.insert(newComment);
-                        Effect.ScrollTo(newComment, {duration: 0.7, offset: -100});
+                        var newComment = baseHolder.down('li.new');
+                        if (newComment) {
+                            newComment.removeClassName('new');
+                            Effect.ScrollTo(newComment, {duration: 0.7, offset: -100});
+                        }
+                    } else {
+                        formParent.update(transport.responseText);
                     }
                 }
             },
