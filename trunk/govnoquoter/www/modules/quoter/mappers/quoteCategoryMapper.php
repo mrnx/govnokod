@@ -57,6 +57,13 @@ class quoteCategoryMapper extends mapper
         ),
     );
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->attach(new acl_extPlugin(), 'acl');
+        $this->plugins('jip');
+    }
+
     public function searchByName($name)
     {
         return $this->searchOneByField('name', $name);

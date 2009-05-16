@@ -20,14 +20,13 @@
  * @version 0.1
  */
 
-class quoteFolder extends simple
+class quoteFolder extends entity
 {
-    protected $name = 'quoter';
 
-    public function getId()
+    public function getAcl($name = null)
     {
-        return 0;
+        return true;
     }
-}
 
+}
 ?>
