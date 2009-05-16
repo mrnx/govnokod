@@ -67,7 +67,7 @@ class quoterSaveCategoryController extends simpleController
 
         $this->smarty->assign('category', $category);
         $this->smarty->assign('isEdit', $isEdit);
-        $this->smarty->assign('action', $url->get());
+        $this->smarty->assign('form_action', $url->get());
         $this->smarty->assign('errors', $validator->getErrors());
         return $this->smarty->fetch('quoter/saveCategory.tpl');
     }

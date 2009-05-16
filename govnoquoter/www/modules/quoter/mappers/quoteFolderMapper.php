@@ -22,29 +22,37 @@ fileLoader::load('quoter/quoteFolder');
  * @version 0.1
  */
 
-class quoteFolderMapper extends simpleMapper
+class quoteFolderMapper extends mapper
 {
-    /**
-     * Имя модуля
-     *
-     * @var string
-     */
-    protected $name = 'quoter';
-
     /**
      * Имя класса DataObject
      *
      * @var string
      */
-    protected $className = 'quoteFolder';
+    protected $class = 'quoteFolder';
+    protected $table = '';
+
+    protected $map = array(
+        'id' => array(
+            'accessor' => 'getId',
+            'mutator' => 'setId',
+            'options' => array('pk', 'once')
+        )
+    );
 
     public function getFolder()
     {
         $folder = $this->create();
-        $obj_id = systemToolkit::getInstance()->getObjectId($this->section . '_' . $this->className);
-        $this->register($obj_id);
+        $obj_id = systemToolkit::getInstance()->getObjectId($this->class);
         $folder->import(array('obj_id' => $obj_id));
         return $folder;
+    }
+
+     public function __construct()
+    {
+        parent::__construct();
+        $this->attach(new acl_extPlugin(), 'acl');
+        $this->plugins('jip');
     }
 
     /**

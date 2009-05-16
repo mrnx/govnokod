@@ -66,7 +66,7 @@ class quoterSaveController extends simpleController
         $validator->add('required', 'category_id', 'Укажите язык');
         $validator->add('in', 'category_id', 'Укажите правильный язык', array_keys($categoriesSelect));
         $validator->add('required', 'text', 'Укажите код');
-        $validator->add('callback', 'text', 'Такой длинный код врядли может быть смешным. Ограничьтесь сотней строк.', array('checkCodeLength'));
+        $validator->add('callback', 'text', 'Такой длинный код врядли может быть смешным. Пожалуйста, ограничьтесь сотней строк и 4000 символами.', array('checkCodeLength'));
         $validator->add('callback', 'description', 'Описание может быть не более ' . quote::MAX_DESC_CHARS . ' символов', array('checkDescLength'));
 
         if (!$isEdit) {
@@ -76,14 +76,14 @@ class quoterSaveController extends simpleController
 
         if ($validator->validate()) {
             $categoryId = $this->request->getInteger('category_id', SC_POST);
-            $text = $this->request->getString('text', SC_POST);
-            $description = $this->request->getString('description', SC_POST);
+            $text = mzz_trim($this->request->getString('text', SC_POST));
+            $description = mzz_trim($this->request->getString('description', SC_POST));
 
             $lines = $this->request->getArray('lines', SC_POST);
             if (!is_array($lines)) {
                 $lines = array();
             }
-            $linesCount = substr_count($text, "\n") + 1;
+            $linesCount = mzz_substr_count($text, "\n") + 1;
 
             $highlightedLines = array();
             foreach ($lines as $line) {
@@ -93,7 +93,7 @@ class quoterSaveController extends simpleController
             }
 
             $quote->setCategory($categoryId);
-            $quote->setText(trim($text));
+            $quote->setText($text);
             $quote->setDescription($description);
             $quote->setHighlitedLines(join(', ', $highlightedLines));
             $quoteMapper->save($quote);
@@ -134,7 +134,11 @@ class quoterSaveController extends simpleController
 }
 
 function checkCodeLength($text) {
-    $linesCount = substr_count(trim($text), "\n");
+    if (mzz_strlen($text) > 4000) {
+        return false;
+    }
+
+    $linesCount = mzz_substr_count($text, "\n");
     return ($linesCount < 100);
 }
 
