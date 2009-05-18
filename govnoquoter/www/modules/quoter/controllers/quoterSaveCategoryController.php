@@ -43,17 +43,17 @@ class quoterSaveCategoryController extends simpleController
 
         $validator = new formValidator();
         $validator->add('required', 'title', 'Укажите заголовок');
-        if (!$isEdit) {
-            $validator->add('callback', 'name', 'Идентификатор должен быть уникален', array('checkCategoryName', $category, $quoteCategoryMapper));
-            $validator->add('required', 'name', 'Укажите идентификатор');
-        }
+        $validator->add('required', 'highlite_name', 'Укажите geshi-name');
+        $validator->add('callback', 'name', 'Идентификатор должен быть уникален', array('checkCategoryName', $category, $quoteCategoryMapper));
+        $validator->add('required', 'name', 'Укажите идентификатор');
+
         if ($validator->validate()) {
             $title = $this->request->getString('title', SC_POST);
-            if (!$isEdit) {
-                $name = $this->request->getString('name', SC_POST);
-                $category->setName($name);
-            }
+            $name = $this->request->getString('name', SC_POST);
+            $highlite_name = $this->request->getString('highlite_name', SC_POST);
 
+            $category->setName($name);
+            $category->setHighliteName($highlite_name);
             $category->setTitle($title);
             $quoteCategoryMapper->save($category);
             return jipTools::redirect();
