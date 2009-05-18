@@ -40,8 +40,7 @@ class quoteCategoryMapper extends mapper
         ),
         'name' => array(
             'accessor' => 'getName',
-            'mutator' => 'setName',
-            'options' => array('once')
+            'mutator' => 'setName'
         ),
         'highlite_name' => array(
             'accessor' => 'getHighliteName',

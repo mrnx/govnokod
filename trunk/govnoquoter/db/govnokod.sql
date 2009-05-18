@@ -72,7 +72,7 @@ CREATE TABLE `comments_commentsFolder` (
   UNIQUE KEY `parent_id_2` (`parent_id`, `type`),
   KEY `parent_id` (`parent_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=7 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=8 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `comments_commentsFolder` table  (LIMIT 0,500)
@@ -84,7 +84,8 @@ INSERT INTO `comments_commentsFolder` (`id`, `obj_id`, `parent_id`, `module`, `t
   (3,2613,345,'quoter','quote','id',0,0),
   (4,2616,307,'quoter','quote','id',0,0),
   (5,2617,1,'quoter','quote','id',0,0),
-  (6,2618,212,'quoter','quote','id',0,0);
+  (6,2618,212,'quoter','quote','id',0,0),
+  (7,2619,353,'quoter','quote','id',0,0);
 COMMIT;
 
 #
@@ -13058,7 +13059,7 @@ CREATE TABLE `sys_access_registry` (
   `class_id` INTEGER(11) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`obj_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=2619 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=2620 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_access_registry` table  (LIMIT 0,500)
@@ -14946,7 +14947,8 @@ INSERT INTO `sys_access_registry` (`obj_id`, `class_id`) VALUES
   (2615,10),
   (2616,11),
   (2617,11),
-  (2618,11);
+  (2618,11),
+  (2619,11);
 COMMIT;
 
 #
@@ -15141,7 +15143,7 @@ CREATE TABLE `sys_classes_actions` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `class_id` (`class_id`, `action_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=309 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=310 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_classes_actions` table  (LIMIT 0,500)
@@ -15343,7 +15345,8 @@ INSERT INTO `sys_classes_actions` (`id`, `class_id`, `action_id`) VALUES
   (302,57,72),
   (303,58,9),
   (304,59,9),
-  (306,10,110);
+  (306,10,110),
+  (309,56,5);
 COMMIT;
 
 #
@@ -15498,7 +15501,7 @@ CREATE TABLE `sys_obj_id` (
   `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=2619 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=2620 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_obj_id` table  (LIMIT 0,500)
@@ -18157,7 +18160,8 @@ INSERT INTO `sys_obj_id` (`id`) VALUES
   (2615),
   (2616),
   (2617),
-  (2618);
+  (2618),
+  (2619);
 COMMIT;
 
 #
@@ -18472,6 +18476,21 @@ AUTO_INCREMENT=377 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_c
 INSERT INTO `user_userOnline` (`id`, `user_id`, `session`, `last_activity`, `url`, `ip`) VALUES 
   (376,2,'093f5a031e5859f82bbc8b5158ad0750',1227261708,'http://govnokod/admin/user/admin','127.0.0.1');
 COMMIT;
+
+#
+# Structure for the `user_userOpenID` table : 
+#
+
+DROP TABLE IF EXISTS `user_userOpenID`;
+
+CREATE TABLE `user_userOpenID` (
+  `id` INTEGER(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` INTEGER(11) NOT NULL,
+  `openid_url` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=1 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 
 
