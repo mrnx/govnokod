@@ -29,9 +29,8 @@
             <ul><li id="answerForm_{$commentsFolder->getId()}_{$comment->getId()}"></li></ul>
         {strip}{assign var="lastLevel" value=$comment->getTreeLevel()}
         {if $smarty.foreach.commentsIteration.last}
-        </li>
             {math equation="x - y" x=$lastLevel y=1 assign="levelDown"}
-            {"</li></ul>"|@str_repeat:$levelDown}
+            {"</li></ul>"|@str_repeat:$levelDown}</li>
         {/if}{/strip}
     {foreachelse}
         <li></li>
