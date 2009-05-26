@@ -10,27 +10,10 @@ votePreloader.src = SITE_PATH + '/templates/images/govnovote.gif';
 var commentVotePreloader = new Image();
 commentVotePreloader.src = SITE_PATH + '/templates/images/commentvote.gif';
 
-var currentShowTrigger;
-function showCommentForm(formElem, aElemTrigger, durationValue, offsetValue)
-{
-    if (currentShowTrigger) {
-        currentShowTrigger.removeClassName('selected');
-    }
-    currentShowTrigger = aElemTrigger;
-    currentShowTrigger.addClassName('selected');
-
-    durationValue = durationValue || 0.4;
-    offsetValue = offsetValue || 0;
-
-    formElem.show();
-    formElem.action = currentShowTrigger.href;
-    formElem.down('textarea').focus();
-    Effect.ScrollTo(formElem, {duration: durationValue, offset: offsetValue});
-}
-
+var currentShowTriggers = new Array();
 function moveCommentForm(commentId, folderId, aElemTrigger)
 {
-    if (aElemTrigger == currentShowTrigger) {
+    if (folderId in currentShowTriggers && currentShowTriggers[folderId] == aElemTrigger) {
         return;
     }
 
@@ -44,7 +27,17 @@ function moveCommentForm(commentId, folderId, aElemTrigger)
 
         formElem.remove();
         nowHolder.update(formElem);
-        showCommentForm(formElem, aElemTrigger, 0.7, -100);
+
+        if (folderId in currentShowTriggers) {
+            currentShowTriggers[folderId].removeClassName('selected');
+        }
+
+        currentShowTriggers[folderId] = aElemTrigger;
+        aElemTrigger.addClassName('selected');
+        formElem.show();
+        formElem.action = aElemTrigger.href;
+        formElem.down('textarea').focus();
+        Effect.ScrollTo(formElem, {duration: 0.7, offset: -100});
     }
 }
 

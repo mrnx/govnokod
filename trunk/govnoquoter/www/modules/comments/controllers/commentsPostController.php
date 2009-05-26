@@ -91,7 +91,8 @@ class commentsPostController extends simpleController
                 $this->smarty->assign('commentsFolder', $commentsFolder);
                 return $this->smarty->fetch('comments/post_added_ajax.tpl');
             } else {
-                $this->response->redirect($backUrl . '#comment' . $comment->getId());
+                $this->redirect($backUrl . '#comment' . $comment->getId());
+                return;
             }
         }
 
