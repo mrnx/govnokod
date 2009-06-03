@@ -1,5 +1,5 @@
 {assign var="commentsFolderId" value=$commentsFolder->getId()}
-{add file="prototype.js"}{add file="effects.js"}{add file="govnokod.js"}
+{add file="jquery.js"}{add file="jquery.scrollTo.js"}{add file="govnokod.js"}
 <h3><a href="{url route="withId" section="comments" action="post" id=$commentsFolderId}"{if !$hideForm}class="selected" {/if} onclick="moveCommentForm(0, {$commentsFolderId}, this); return false;">Добавить комментарий</a></h3>
 <div id="answerForm_{$commentsFolderId}_0">
 {if $hideForm}{assign var="formStyle" value="display: none;"}{else}{assign var="formStyle" value=""}{/if}

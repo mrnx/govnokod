@@ -1,4 +1,6 @@
-{add file="prototype.js"}
+{add file="jquery.js"}
+{add file="jquery.scrollTo.js"}
+{add file="govnokod.js"}
 <div class="entry-comments">
     <h3>Комментарии <span class="count">({$comments->count()})</span></h3>
     <ul id="comments_{$commentsFolder->getId()}">

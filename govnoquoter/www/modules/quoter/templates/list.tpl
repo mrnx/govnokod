@@ -1,5 +1,6 @@
 {strip}
 {add file="jquery.js"}
+{add file="jquery.scrollTo.js"}
 {add file="govnokod.js"}
 {if !$listAll}
     {title append=$category->getTitle()}

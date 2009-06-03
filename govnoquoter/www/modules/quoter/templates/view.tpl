@@ -1,4 +1,4 @@
-{strip}{add file="prototype.js"}
+{strip}{add file="jquery.js"}
 {add file="govnokod.js"}
 {assign var="number" value=$quote->getId()}
 {assign var="langName" value=$quote->getCategory()->getHighliteName()|h}
