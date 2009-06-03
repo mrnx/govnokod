@@ -13,6 +13,8 @@
  */
 
 fileLoader::load('quoter/quoteFolder');
+fileLoader::load('orm/plugins/acl_simplePlugin');
+fileLoader::load('modules/jip/plugins/jipPlugin');
 
 /**
  * quoteFolderMapper: маппер
@@ -51,7 +53,7 @@ class quoteFolderMapper extends mapper
      public function __construct()
     {
         parent::__construct();
-        $this->attach(new acl_extPlugin(), 'acl');
+        $this->attach(new acl_simplePlugin(), 'acl');
         $this->plugins('jip');
     }
 

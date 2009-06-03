@@ -14,7 +14,9 @@
 
 fileLoader::load('comments');
 fileLoader::load('orm/plugins/tree_mpPlugin');
-fileLoader::load('orm/plugins/ratingsPlugin');
+fileLoader::load('orm/plugins/acl_simplePlugin');
+fileLoader::load('modules/ratings/plugins/ratingsPlugin');
+fileLoader::load('modules/jip/plugins/jipPlugin');
 
 /**
  * commentsMapper: маппер
@@ -72,7 +74,7 @@ class commentsMapper extends mapper
         $this->attach(new ratingsPlugin(array('rating_count_field' => 'rating_count')));
         parent::__construct();
         $this->attach(new tree_mpPlugin(array('path_name' => 'id')), 'tree');
-        $this->plugins('acl_ext');
+        $this->attach(new acl_simplePlugin(), 'acl');
         $this->plugins('jip');
     }
 

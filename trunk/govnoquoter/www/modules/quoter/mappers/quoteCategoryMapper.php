@@ -13,6 +13,8 @@
  */
 
 fileLoader::load('quoter/quoteCategory');
+fileLoader::load('orm/plugins/acl_simplePlugin');
+fileLoader::load('modules/jip/plugins/jipPlugin');
 
 /**
  * quoteCategoryMapper: маппер
@@ -59,7 +61,7 @@ class quoteCategoryMapper extends mapper
     public function __construct()
     {
         parent::__construct();
-        $this->attach(new acl_extPlugin(), 'acl');
+        $this->attach(new acl_simplePlugin(), 'acl');
         $this->plugins('jip');
     }
 

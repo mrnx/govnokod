@@ -1,6 +1,5 @@
 {strip}
-{add file="prototype.js"}
-{add file="effects.js"}
+{add file="jquery.js"}
 {add file="govnokod.js"}
 {if !$listAll}
     {title append=$category->getTitle()}

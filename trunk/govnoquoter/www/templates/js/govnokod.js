@@ -43,6 +43,29 @@ function moveCommentForm(commentId, folderId, aElemTrigger)
 
 function loadComments(aElemTrigger)
 {
+    var commentsLoadUrl = aElemTrigger.href;
+    aElemTrigger = $(aElemTrigger);
+
+    var commentsHolder = $(aElemTrigger.parent());
+    aElemTrigger.replaceWith(aElemTrigger.text());
+
+    var preloader = $('<img src="' + commentsPreloader.src + '" alt="Загрузка…" title="Загрузка списка комментариев" />');
+
+    commentsHolder.append(preloader);
+
+    $.ajax({
+        url: commentsLoadUrl,
+        data: {onlyComments: true},
+        success: function(msg){
+            commentsHolder.html(msg);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown){
+            preloader.remove();
+            alert("Ошибка загрузки списка комментариев!\nОбновите страницу и попытайтесь еще раз…");
+        }
+    });
+
+    /*
     var commentsHolder = aElemTrigger.up();
     var url = aElemTrigger.href;
     new Insertion.After(aElemTrigger, aElemTrigger.innerHTML);
@@ -62,6 +85,7 @@ function loadComments(aElemTrigger)
             alert("Ошибка загрузки списка комментариев!\nОбновите страницу и попытайтесь еще раз…");
         }
     });
+    */
 }
 
 function postCommentsForm(formElem)

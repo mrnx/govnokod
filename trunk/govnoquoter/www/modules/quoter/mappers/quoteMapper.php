@@ -13,9 +13,10 @@
  */
 
 fileLoader::load('quoter/quote');
-fileLoader::load('orm/plugins/acl_extPlugin');
-fileLoader::load('orm/plugins/commentsPlugin');
-fileLoader::load('orm/plugins/ratingsPlugin');
+fileLoader::load('orm/plugins/acl_simplePlugin');
+fileLoader::load('modules/comments/plugins/commentsPlugin');
+fileLoader::load('modules/ratings/plugins/ratingsPlugin');
+fileLoader::load('modules/jip/plugins/jipPlugin');
 
 /**
  * quoteMapper: маппер
@@ -79,7 +80,7 @@ class quoteMapper extends mapper
     {
         $this->attach(new ratingsPlugin(array('rating_count_field' => 'rating_count')));
         parent::__construct();
-        $this->attach(new acl_extPlugin(), 'acl');
+        $this->attach(new acl_simplePlugin(), 'acl');
         $this->plugins('jip');
         $this->attach(new commentsPlugin(array('extendMap' => true, 'byField' => 'id')));
 
