@@ -20,7 +20,7 @@
     var SITE_PATH = '{$SITE_PATH}'; var SITE_LANG = '{$current_lang}';
     //-->
     </script>
-    {include file='include.js.tpl'}
+    {include file='include.external.js.tpl'}
 </head>
 <body>
 {$content}

@@ -57,6 +57,11 @@ div#userpane
 
 /* Fixing comments */
 
+div.entry-comments ul .hcomment
+{
+    margin: 0;
+}
+
 div.entry-comments ul .hcomment p
 {
 	font-size: 0.9em;

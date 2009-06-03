@@ -10,6 +10,32 @@ votePreloader.src = SITE_PATH + '/templates/images/govnovote.gif';
 var commentVotePreloader = new Image();
 commentVotePreloader.src = SITE_PATH + '/templates/images/commentvote.gif';
 
+function loadComments(aElemTrigger)
+{
+    var commentsLoadUrl = aElemTrigger.href;
+    aElemTrigger = $(aElemTrigger);
+
+    var commentsHolder = aElemTrigger.parent();
+    aElemTrigger.replaceWith(aElemTrigger.text());
+
+    var preloader = $('<img src="' + commentsPreloader.src + '" alt="Загрузка…" title="Загрузка списка комментариев" />');
+    commentsHolder.append(preloader);
+
+    $.ajax({
+        url: commentsLoadUrl,
+        data: {onlyComments: true},
+        success: function(msg){
+            commentsHolder.fadeOut(0);
+            commentsHolder.html(msg);
+            commentsHolder.fadeIn(300);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown){
+            preloader.remove();
+            alert("Ошибка загрузки списка комментариев!\nОбновите страницу и попытайтесь еще раз");
+        }
+    });
+}
+
 var currentShowTriggers = new Array();
 function moveCommentForm(commentId, folderId, aElemTrigger)
 {
@@ -17,75 +43,28 @@ function moveCommentForm(commentId, folderId, aElemTrigger)
         return;
     }
 
-    var formElem = $('commentForm_' + folderId);
-    var nowHolder = $('answerForm_' + folderId + '_' + commentId);
+    var formElem = $('#commentForm_' + folderId);
+    var nowHolder = $('#answerForm_' + folderId + '_' + commentId);
+
     if (formElem && nowHolder) {
-        var errors = formElem.down('dl.errors');
+        var errors = formElem.find('dl.errors');
         if (errors) {
             errors.remove();
         }
 
-        formElem.remove();
-        nowHolder.update(formElem);
+        nowHolder.append(formElem);
 
         if (folderId in currentShowTriggers) {
-            currentShowTriggers[folderId].removeClassName('selected');
+            $(currentShowTriggers[folderId]).removeClass('selected');
         }
 
         currentShowTriggers[folderId] = aElemTrigger;
-        aElemTrigger.addClassName('selected');
+        $(aElemTrigger).addClass('selected');
         formElem.show();
         formElem.action = aElemTrigger.href;
-        formElem.down('textarea').focus();
-        Effect.ScrollTo(formElem, {duration: 0.7, offset: -100});
+        formElem.find('textarea').focus();
+        $.scrollTo(formElem, 1000, {axis: 'y', offset: -200});
     }
-}
-
-function loadComments(aElemTrigger)
-{
-    var commentsLoadUrl = aElemTrigger.href;
-    aElemTrigger = $(aElemTrigger);
-
-    var commentsHolder = $(aElemTrigger.parent());
-    aElemTrigger.replaceWith(aElemTrigger.text());
-
-    var preloader = $('<img src="' + commentsPreloader.src + '" alt="Загрузка…" title="Загрузка списка комментариев" />');
-
-    commentsHolder.append(preloader);
-
-    $.ajax({
-        url: commentsLoadUrl,
-        data: {onlyComments: true},
-        success: function(msg){
-            commentsHolder.html(msg);
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown){
-            preloader.remove();
-            alert("Ошибка загрузки списка комментариев!\nОбновите страницу и попытайтесь еще раз…");
-        }
-    });
-
-    /*
-    var commentsHolder = aElemTrigger.up();
-    var url = aElemTrigger.href;
-    new Insertion.After(aElemTrigger, aElemTrigger.innerHTML);
-    aElemTrigger.remove();
-
-    var preloader = new Element('img', {src: commentsPreloader.src, 'alt': 'Загрузка…', title: 'Загрузка списка комментариев'});
-    commentsHolder.insert(' ').insert(preloader);
-
-    new Ajax.Request(url, {
-        method: 'get',
-        parameters: {onlyComments: true},
-        onSuccess: function(transport) {
-            commentsHolder.update(transport.responseText);
-        },
-        onFailure: function() {
-            preloader.remove();
-            alert("Ошибка загрузки списка комментариев!\nОбновите страницу и попытайтесь еще раз…");
-        }
-    });
-    */
 }
 
 function postCommentsForm(formElem)
