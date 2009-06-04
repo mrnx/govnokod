@@ -687,3 +687,11 @@ div#footer address span a
 .kw1, .kw2, .kw3, .kw4 .kw5, .kw6, .kw7, .kw8, .li2, .es_h, .es0, .es1, .es2, .es3, .es4, .es5, .es6, .sy0, .imp {
     line-height: 16px;
 }
+
+ol.linenums {
+    float: left;
+    list-style: none;
+    font-size: 0.9em;
+    text-align: right;
+    padding: 0.2em 0.2em 0 0.5em;
+}

@@ -110,6 +110,26 @@ var code;
                     }
                 });
             }
+        },
+        vote: function(aElemTrigger) {
+            var holder = aElemTrigger.closest('span.comment-vote');
+            if (holder) {
+                var voteUrl = aElemTrigger.attr('href');
+                var preloader = $('<img src="' + commentVotePreloader.src + '" class="preloader" alt="Загрузка" title="Идёт учет голоса…" />');
+                holder.html(preloader);
+
+                $.ajax({
+                    url: voteUrl,
+                    data: {format: 'ajax'},
+                    success: function(msg) {
+                        holder.html(msg);
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown){
+                        preloader.remove();
+                        alert("Ошибка учета голоса!\nОбновите страницу и попытайтесь еще раз");
+                    }
+                });
+            }
         }
     }
 
@@ -139,9 +159,31 @@ var code;
                     }
                 });
             }
+        },
+
+        vote: function(aElemTrigger) {
+            var holder = aElemTrigger.closest('p.vote');
+            if (holder) {
+                var voteUrl = aElemTrigger.attr('href');
+                var preloader = $('<img src="' + votePreloader.src + '" class="preloader" alt="Загрузка" title="Идёт учет голоса…" />');
+                holder.html(preloader);
+
+                $.ajax({
+                    url: voteUrl,
+                    data: {format: 'ajax'},
+                    success: function(msg) {
+                        holder.html(msg);
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown){
+                        preloader.remove();
+                        alert("Ошибка учета голоса!\nОбновите страницу и попытайтесь еще раз");
+                    }
+                });
+            }
         }
     }
 
+    /*
     $(function() {
         $('div.entry-comments a.comments').click(function(){
             comments.load($(this));
@@ -154,48 +196,9 @@ var code;
             return false;
         });
     });
-
+    */
 })(jQuery);
 
-function vote(trigger)
-{
-    var holder = trigger.up('p.vote');
-    if (holder) {
-        var url = trigger.href;
-        holder.update(new Element('img', {className: 'preloader', src: votePreloader.src, 'alt': 'Загрузка…', title: 'Идёт учет голоса…'}));
-
-        new Ajax.Request(url, {
-            method: 'get',
-            parameters: {format: 'ajax'},
-            onSuccess: function(transport) {
-                holder.update(transport.responseText);
-            },
-            onFailure: function() {
-                alert('Something went wrong…');
-            }
-        });
-    }
-}
-
-function commentvote(trigger)
-{
-    var holder = trigger.up('span.comment-vote');
-    if (holder) {
-        var url = trigger.href;
-        holder.update(new Element('img', {className: 'preloader', src: commentVotePreloader.src, 'alt': 'Загрузка…', title: 'Идёт учет голоса…'}));
-
-        new Ajax.Request(url, {
-            method: 'get',
-            parameters: {format: 'ajax'},
-            onSuccess: function(transport) {
-                holder.update(transport.responseText);
-            },
-            onFailure: function() {
-                alert('Something went wrong…');
-            }
-        });
-    }
-}
 /*
 function numbering(textareaObj) {
     var lines = textareaObj.getValue().split("\n");
