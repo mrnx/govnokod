@@ -1,15 +1,15 @@
 {assign var="commentsFolderId" value=$commentsFolder->getId()}
-{add file="jquery.js"}{add file="jquery.scrollTo.js"}{add file="govnokod.js"}
-<h3><a href="{url route="withId" section="comments" action="post" id=$commentsFolderId}"{if !$hideForm}class="selected" {/if} onclick="moveCommentForm(0, {$commentsFolderId}, this); return false;">Добавить комментарий</a></h3>
+{add file="jquery.js"}{add file="govnokod.js"}
+<h3><a href="{url route="withId" section="comments" action="post" id=$commentsFolderId}"{if !$hideForm}class="selected" {/if} onclick="comments.moveForm(0, {$commentsFolderId}, this); return false;">Добавить комментарий</a></h3>
 <div id="answerForm_{$commentsFolderId}_0">
 {if $hideForm}{assign var="formStyle" value="display: none;"}{else}{assign var="formStyle" value=""}{/if}
-{form id="commentForm_$commentsFolderId" action=$action method="post" style=$formStyle onsubmit="postCommentsForm($('commentForm_$commentsFolderId')); return false;"}
+{form id="commentForm_$commentsFolderId" action=$action method="post" style=$formStyle onsubmit="comments.postForm($(this)); return false;"}
     {if !$errors->isEmpty()}
     <dl class="errors">
         <dt>Ошибка компиляции комментария:</dt>
         <dd>
             <ol>
-            {foreach from=$errors item="error"}
+            {foreach from=$errors->export() item="error"}
                 <li>{$error}</li>
             {/foreach}
             </ol>

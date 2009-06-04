@@ -587,6 +587,19 @@ form dl.errors dd ol
 	color: red;
 }
 
+form img.captcha
+{
+	width: 120px;
+	height: 40px;
+}
+
+form input.captcha
+{
+	font-size: 30px;
+	width: 120px;
+	vertical-align: top;
+}
+
 /* Pagination classes */
 
 ul.pagination
