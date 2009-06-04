@@ -31,5 +31,4 @@ class quoterListCategoriesController extends simpleController
         return $this->fetch('quoter/listCategories.tpl');
     }
 }
-
 ?>

@@ -13,6 +13,7 @@ $modules = array (
     //'faq' => 'faq',
     'captcha' => 'captcha',
     'user' => 'user',
+    'quoter' => 'quoter',
 );
 
 

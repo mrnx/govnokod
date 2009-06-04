@@ -9,7 +9,7 @@
         {if $quote->getLinesCount() > 30}
             <ol>{foreach from=$quote->generateLines(15) item="line"}<li>{$line}</li>{/foreach}<li>…</li><li>{$quote->getLinesCount()}</li></ol>
             {$quote->getText(15)|highlite:$langName:$quote->getHighlightedLines()}
-            <a class="trigger" href="{url route="quoteView" id=$quote->getId()}" title="показать весь код">показать весь код +</a>
+            <a class="trigger" href="{url route="quoteView" id=$quote->getId()}" onclick="comments.unfold($(this));" title="показать весь код">показать весь код +</a>
         {else}
             <ol>{foreach from=$quote->generateLines() item="line"}<li>{$line}</li>{/foreach}</ol>
             {$quote->getText()|highlite:$langName:$quote->getHighlightedLines()}
@@ -19,6 +19,6 @@
             {$quote->getDescription()|trim|h|bbcode|nl2br}
         </p>
         <div class="entry-comments">
-            <a href="{url route="quoteView" id=$quote->getId()}" class="comments">Комментарии</a> <span class="count">({$quote->getCommentsCount()})</span>
+            <a href="{url route="quoteView" id=$quote->getId()}" onclick="comments.load($(this)); return false;">Комментарии</a> <span class="count">({$quote->getCommentsCount()})</span>
         </div>
     </li>

@@ -42,15 +42,9 @@ class quoterSaveController extends simpleController
             $quote = $quoteMapper->create();
         }
 
-        $currentCategory = (!$isEdit) ? $this->request->getString('name') : '';
-        $this->smarty->assign('currentCategory', ($isEdit) ? $quote->getCategory()->getId() : null);
-
         $categories = $categoryMapper->searchAll();
         $categoriesSelect = array();
         foreach ($categories as $category) {
-            if (!$isEdit && $category->getName() == $currentCategory) {
-                $this->smarty->assign('currentCategory', $category->getId());
-            }
             $categoriesSelect[$category->getId()] = $category->getTitle();
         }
 
