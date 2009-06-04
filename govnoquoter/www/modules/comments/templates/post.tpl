@@ -12,7 +12,7 @@
                     <dt>Ошибка компиляции комментария:</dt>
                     <dd>
                         <ol>
-                        {foreach from=$errors item="error"}
+                        {foreach from=$errors->export() item="error"}
                             <li>{$error}</li>
                         {/foreach}
                         </ol>

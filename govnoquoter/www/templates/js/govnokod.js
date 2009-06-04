@@ -10,149 +10,152 @@ votePreloader.src = SITE_PATH + '/templates/images/govnovote.gif';
 var commentVotePreloader = new Image();
 commentVotePreloader.src = SITE_PATH + '/templates/images/commentvote.gif';
 
-function loadComments(aElemTrigger)
-{
-    var commentsLoadUrl = aElemTrigger.href;
-    aElemTrigger = $(aElemTrigger);
+var comments;
+var code;
+(function($) {
+    comments = {
+        _currentTriggers: new Array('test'),
 
-    var commentsHolder = aElemTrigger.parent();
-    aElemTrigger.replaceWith(aElemTrigger.text());
+        load: function (aElemTrigger) {
+            var commentsLoadUrl = aElemTrigger.attr('href');
 
-    var preloader = $('<img src="' + commentsPreloader.src + '" alt="Загрузка…" title="Загрузка списка комментариев" />');
-    commentsHolder.append(preloader);
+            var commentsHolder = aElemTrigger.parent();
+            aElemTrigger.replaceWith(aElemTrigger.text());
 
-    $.ajax({
-        url: commentsLoadUrl,
-        data: {onlyComments: true},
-        success: function(msg){
-            commentsHolder.fadeOut(0);
-            commentsHolder.html(msg);
-            commentsHolder.fadeIn(300);
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown){
-            preloader.remove();
-            alert("Ошибка загрузки списка комментариев!\nОбновите страницу и попытайтесь еще раз");
-        }
-    });
-}
+            var preloader = $('<img src="' + commentsPreloader.src + '" alt="Загрузка" title="Загрузка списка комментариев…" />');
+            commentsHolder.append(preloader);
 
-var currentShowTriggers = new Array();
-function moveCommentForm(commentId, folderId, aElemTrigger)
-{
-    if (folderId in currentShowTriggers && currentShowTriggers[folderId] == aElemTrigger) {
-        return;
-    }
-
-    var formElem = $('#commentForm_' + folderId);
-    var nowHolder = $('#answerForm_' + folderId + '_' + commentId);
-
-    if (formElem && nowHolder) {
-        var errors = formElem.find('dl.errors');
-        if (errors) {
-            errors.remove();
-        }
-
-        nowHolder.append(formElem);
-
-        if (folderId in currentShowTriggers) {
-            $(currentShowTriggers[folderId]).removeClass('selected');
-        }
-
-        currentShowTriggers[folderId] = aElemTrigger;
-        $(aElemTrigger).addClass('selected');
-        formElem.show();
-        formElem.action = aElemTrigger.href;
-        formElem.find('textarea').focus();
-        $.scrollTo(formElem, 1000, {axis: 'y', offset: -200});
-    }
-}
-
-function postCommentsForm(formElem)
-{
-    var formParent = formElem.up();
-
-    var reg = /^answerForm_(\d+)_(\d+)$/;
-    var matches = formParent.id.match(reg);
-    if (matches) {
-        var url = formElem.action;
-        var data = formElem.serialize(true);
-        data.ajax = true;
-
-        formElem.disable();
-
-        var folderId = matches[1];
-        var replyTo = matches[2];
-
-        var baseHolder = (replyTo == 0) ? $('comments_' + folderId) : formElem.up('.hcomment');
-
-        new Ajax.Request(url, {
-            method: 'post',
-            parameters: data,
-            onSuccess: function(transport) {
-                if (baseHolder) {
-                    formParent.update();
-                    if (transport.responseText.match(/<li class="hcomment new">/)) {
-                        if (replyTo != 0) {
-                            var ulForNewComment = new Element('ul');
-                            ulForNewComment.insert(transport.responseText);
-                            baseHolder.insert(ulForNewComment);
-                        } else {
-                            baseHolder.insert(transport.responseText);
-                        }
-
-                        var newComment = baseHolder.down('li.new');
-                        if (newComment) {
-                            newComment.removeClassName('new');
-                            Effect.ScrollTo(newComment, {duration: 0.7, offset: -100});
-                        }
-                    } else {
-                        formParent.update(transport.responseText);
-                    }
-                }
-            },
-            onFailure: function() {
-                alert('Something went wrong…');
-            }
-        });
-    }
-}
-
-function unfoldCode(codeId)
-{
-    var trigger = $('trigger_' + codeId);
-    if (!trigger) {
-        return;
-    }
-
-    var entryHolder = trigger.up('.entry-content');
-
-    new Insertion.After(trigger, new Element('img', {className: 'preloader', src: codePreloader.src, 'alt': 'Загрузка…', title: 'Загрузка кода…'}));
-    trigger.remove();
-
-    var currentHeight = entryHolder.getHeight();
-
-    new Ajax.Request('/quoter/' + encodeURIComponent(codeId), {
-        method: 'get',
-        parameters: {format: 'ajax'},
-        onSuccess: function(transport) {
-            entryHolder.update(transport.responseText);
-
-            Effect.BlindDown(entryHolder, {
-                duration: 0.4,
-                scaleMode: 'contents',
-                restoreAfterFinish: false,
-                scaleFrom: Math.ceil((100 / entryHolder.scrollHeight) * currentHeight),
-                afterFinishInternal: function(effect) {
-                    effect.element.undoClipping();
-                    effect.element.setStyle({height: ''});
+            $.ajax({
+                url: commentsLoadUrl,
+                data: {onlyComments: true},
+                success: function(msg){
+                    commentsHolder.fadeOut(0);
+                    commentsHolder.html(msg);
+                    commentsHolder.fadeIn(300);
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown){
+                    preloader.remove();
+                    alert("Ошибка загрузки списка комментариев!\nОбновите страницу и попытайтесь еще раз");
                 }
             });
         },
-        onFailure: function() {
-            alert('Something went wrong…');
+
+        moveForm: function(commentId, folderId, aElemTrigger) {
+            if (folderId in this._currentTriggers && this._currentTriggers[folderId] == aElemTrigger) {
+                return;
+            }
+
+            var formElem = $('#commentForm_' + folderId);
+            var nowHolder = $('#answerForm_' + folderId + '_' + commentId);
+
+            if (formElem && nowHolder) {
+                var errors = formElem.find('dl.errors');
+                if (errors) {
+                    errors.remove();
+                }
+
+                nowHolder.append(formElem);
+
+                if (folderId in this._currentTriggers) {
+                    $(this._currentTriggers[folderId]).removeClass('selected');
+                }
+
+                this._currentTriggers[folderId] = aElemTrigger;
+                $(aElemTrigger).addClass('selected');
+                formElem.show();
+                formElem.attr('action', aElemTrigger.href);
+                formElem.find('textarea').focus();
+
+                //$.scrollTo(formElem, 500, {offset: -200});
+                $("html:not(:animated),body:not(:animated)").animate({scrollTop: formElem.offset().top - 200}, 500);
+            }
+        },
+
+        postForm: function(formElem) {
+            var formParent = formElem.parent();
+            var reg = /^answerForm_(\d+)_(\d+)$/;
+            var matches = formParent.attr('id').match(reg);
+            if (matches) {
+                var formUrl = formElem.attr('action');
+                var formData = formElem.serialize();
+
+                formElem.find('input, textarea, select').attr('disabled', 'disabled');
+                var folderId = matches[1];
+                var replyTo = matches[2];
+
+                var baseHolder = (replyTo == 0) ? $('#comments_' + folderId) : formElem.closest('.hcomment');
+                $.ajax({
+                    url: formUrl,
+                    type: "POST",
+                    data: formData + '&ajax=true',
+                    success: function(msg) {
+                        if (baseHolder) {
+                            formParent.empty();
+                            if (msg.match(/<li class="hcomment new">/)) {
+                                if (replyTo != 0) {
+                                    baseHolder.append($('<ul/>').append(msg));
+                                } else {
+                                    baseHolder.append(msg);
+                                }
+
+                                var newComment = baseHolder.find('li.new');
+                                if (newComment) {
+                                    newComment.removeClass('new');
+                                    $("html:not(:animated),body:not(:animated)").animate({scrollTop: newComment.offset().top - 100}, 500);
+                                }
+                            } else {
+                                formParent.html(msg);
+                            }
+                        }
+                    }
+                });
+            }
         }
+    }
+
+    code = {
+        unfold: function(aElemTrigger) {
+            var codeLoadUrl = aElemTrigger.attr('href');
+            var entryHolder = aElemTrigger.parent('.entry-content');
+            if (entryHolder) {
+                var preloader = $('<img src="' + codePreloader.src + '" class="preloader" alt="Загрузка" title="Загрузка кода…" />');
+                aElemTrigger.replaceWith(preloader);
+
+                $.ajax({
+                    url: codeLoadUrl,
+                    data: {format: 'ajax'},
+                    success: function(msg) {
+                        var currentHeight = entryHolder.height();
+                        entryHolder.html(msg);
+                        var nowHeight = entryHolder.height();
+
+                        entryHolder.css({overflow: 'hidden', height: currentHeight});
+
+                        entryHolder.animate({height: nowHeight}, 400, function() { $(this).removeAttr('style'); });
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown){
+                        preloader.remove();
+                        alert("Ошибка загрузки кода!\nОбновите страницу и попытайтесь еще раз");
+                    }
+                });
+            }
+        }
+    }
+
+    $(function() {
+        $('div.entry-comments a.comments').click(function(){
+            comments.load($(this));
+            return false;
+        });
+
+
+        $('div.entry-content a.trigger').click(function(){
+            code.unfold($(this));
+            return false;
+        });
     });
-}
+
+})(jQuery);
 
 function vote(trigger)
 {

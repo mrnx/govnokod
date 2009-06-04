@@ -1,12 +1,12 @@
 {assign var="commentsFolderId" value=$commentsFolder->getId()}
 {if $hideForm}{assign var="formStyle" value="display: none;"}{else}{assign var="formStyle" value=""}{/if}
-{form id="commentForm_$commentsFolderId" action=$action method="post" style=$formStyle onsubmit="postCommentsForm($('commentForm_$commentsFolderId')); return false;"}
+{form id="commentForm_$commentsFolderId" action=$action method="post" style=$formStyle onsubmit="comments.postForm($(this)); return false;"}
     {if !$errors->isEmpty()}
     <dl class="errors">
         <dt>Ошибка компиляции комментария:</dt>
         <dd>
             <ol>
-            {foreach from=$errors item="error"}
+            {foreach from=$errors->export() item="error"}
                 <li>{$error}</li>
             {/foreach}
             </ol>

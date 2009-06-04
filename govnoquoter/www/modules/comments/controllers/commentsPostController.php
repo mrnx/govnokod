@@ -111,13 +111,12 @@ class commentsPostController extends simpleController
         $url->setAction($this->request->getAction());
         $url->add('id', $commentsFolder->getId());
 
-        $this->smarty->assign('action', $url->get());
-        $this->smarty->assign('user', $user);
-
         if ($commentReply) {
             $url->add('replyTo', $commentReply->getId(), true);
         }
 
+        $this->smarty->assign('action', $url->get());
+        $this->smarty->assign('user', $user);
         $this->smarty->assign('comment', $comment);
         $this->smarty->assign('commentReply', $commentReply);
         $this->smarty->assign('commentsFolder', $commentsFolder);
@@ -131,7 +130,13 @@ class commentsPostController extends simpleController
         }
 
         if (!$backUrl) {
-            $backUrl = $this->request->getServer('REQUEST_URI');
+            if ($commentsFolder->getModule() == 'quoter' && $commentsFolder->getType() == 'quote') {
+                $backUrl = new url('quoteView');
+                $backUrl->add('id', $commentsFolder->getParentId());
+                $backUrl = $backUrl->get();
+            } else {
+                $backUrl = $this->request->getServer('REQUEST_URI');
+            }
         }
 
         $this->smarty->assign('backUrl', $backUrl);
