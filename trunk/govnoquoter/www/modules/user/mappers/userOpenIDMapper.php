@@ -62,5 +62,10 @@ class userOpenIDMapper extends mapper
     {
         return $this->searchAllByField('user_id', $user_id);
     }
+
+    public function convertArgsToObj($args)
+    {
+
+    }
 }
 ?>

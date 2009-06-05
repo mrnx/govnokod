@@ -14,7 +14,7 @@ var comments;
 var code;
 (function($) {
     comments = {
-        _currentTriggers: new Array('test'),
+        _currentTriggers: new Array(),
 
         load: function (aElemTrigger) {
             var commentsLoadUrl = aElemTrigger.attr('href');

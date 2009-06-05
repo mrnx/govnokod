@@ -1,4 +1,4 @@
-# SQL Manager 2007 for MySQL 4.4.0.5
+# SQL Manager 2007 for MySQL 4.4.0.3
 # ---------------------------------------
 # Host     : localhost
 # Port     : 3306
@@ -39,18 +39,20 @@ CREATE TABLE `comments_comments` (
   `rating_count` INTEGER(11) NOT NULL,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=6 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=8 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `comments_comments` table  (LIMIT 0,500)
 #
 
 INSERT INTO `comments_comments` (`id`, `obj_id`, `text`, `user_id`, `created`, `folder_id`, `rating`, `rating_count`) VALUES 
-  (1,2565,'test',2,1242007848,1,1,1),
+  (1,2565,'test',2,1242007848,1,2,2),
   (2,2566,'asdf',2,1242007971,1,1,1),
-  (3,2567,'dfgdfg',2,1242007974,1,-1,1),
+  (3,2567,'dfgdfg',2,1242007974,1,0,2),
   (4,2614,'test',2,1242179777,3,0,0),
-  (5,2615,'tesdfsdf',2,1242179844,3,0,0);
+  (5,2615,'tesdfsdf',2,1242179844,3,0,0),
+  (6,NULL,'test',1,1244109693,1,0,0),
+  (7,NULL,'sdfsdf',1,1244109699,1,1,1);
 COMMIT;
 
 #
@@ -72,7 +74,7 @@ CREATE TABLE `comments_commentsFolder` (
   UNIQUE KEY `parent_id_2` (`parent_id`, `type`),
   KEY `parent_id` (`parent_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=8 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=11 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `comments_commentsFolder` table  (LIMIT 0,500)
@@ -85,7 +87,10 @@ INSERT INTO `comments_commentsFolder` (`id`, `obj_id`, `parent_id`, `module`, `t
   (4,2616,307,'quoter','quote','id',0,0),
   (5,2617,1,'quoter','quote','id',0,0),
   (6,2618,212,'quoter','quote','id',0,0),
-  (7,2619,353,'quoter','quote','id',0,0);
+  (7,2619,353,'quoter','quote','id',0,0),
+  (8,2620,352,'quoter','quote','id',0,0),
+  (9,2621,350,'quoter','quote','id',0,0),
+  (10,2622,346,'quoter','quote','id',0,0);
 COMMIT;
 
 #
@@ -131,7 +136,7 @@ CREATE TABLE `comments_comments_tree` (
   `spath` TEXT COLLATE utf8_general_ci,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=19 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=21 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `comments_comments_tree` table  (LIMIT 0,500)
@@ -143,8 +148,8 @@ INSERT INTO `comments_comments_tree` (`id`, `path`, `foreign_key`, `level`, `spa
   (3,'1/3/',3,2,'14/16/'),
   (4,'4/',4,1,'17/'),
   (5,'4/5/',5,2,'17/18/'),
-  (6,'6/',6,1,'6/'),
-  (7,'6/7/',7,2,'6/7/'),
+  (6,'6/',6,1,'19/'),
+  (7,'2/7/',7,2,'15/20/'),
   (8,'6/7/8/',8,3,'6/7/8/'),
   (9,'9/',9,1,'9/'),
   (10,'10/',10,1,'10/'),
@@ -155,83 +160,9 @@ INSERT INTO `comments_comments_tree` (`id`, `path`, `foreign_key`, `level`, `spa
   (15,'2/',2,1,'15/'),
   (16,'1/3/',3,2,'14/16/'),
   (17,'4/',4,1,'17/'),
-  (18,'4/5/',5,2,'17/18/');
-COMMIT;
-
-#
-# Structure for the `copypasta` table : 
-#
-
-DROP TABLE IF EXISTS `copypasta`;
-
-CREATE TABLE `copypasta` (
-  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
-  `copypasta_language_id` INTEGER(11) DEFAULT NULL,
-  `copypasta` TEXT COLLATE cp1251_general_ci,
-  `username` VARCHAR(50) COLLATE cp1251_general_ci DEFAULT NULL,
-  `delete_at` DATETIME DEFAULT NULL,
-  `created_at` DATETIME DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `copypasta_FI_1` (`copypasta_language_id`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=33 CHARACTER SET 'cp1251' COLLATE 'cp1251_general_ci';
-
-#
-# Data for the `copypasta` table  (LIMIT 0,500)
-#
-
-INSERT INTO `copypasta` (`id`, `copypasta_language_id`, `copypasta`, `username`, `delete_at`, `created_at`) VALUES 
-  (14,3,'Ниибёт','User','2009-03-06 01:05:00','2008-11-10 21:31:12'),
-  (15,3,'test','dizzy2','2009-05-06 04:06:00','2008-11-12 20:44:17'),
-  (16,11,'<div class=\"postContent\">Заинтересовался кодингом под Symbian. В пробном проекте нашел такую прелесть:<br/>#define FOREVER for(;;)</div>','User','2008-11-30 00:00:00','2008-11-25 17:09:36'),
-  (17,11,'<div class=\"postContent\">\r\n  Заинтересовался кодингом под Symbian. В пробном проекте нашел такую прелесть:<br/>\r\n  #define FOREVER for(;;)\r\n</div>','User','2008-11-30 00:00:00','2008-11-25 17:10:15'),
-  (18,3,'testasdfasdf','striker','2009-05-06 00:00:00','2008-12-01 09:47:22'),
-  (19,3,'<?php\r\n\terror_reporting(E_ALL); \r\n\techo \"Че ты долбишь? Иди кудa шел <br/>\";\r\n\t\r\n\tfor ($i = 0; $i < 10; $i++) {\r\n\t\techo \"$i <br/ >\";\r\n\t}\r\n\t$string = \"я *** че те надо?\";\r\n\techo \"$string<br />\";\r\n\t\r\n\t$string2 = \"- в душе не чаю.\";\r\n\tprint $string2;\r\n\techo $string . $string2;\r\n?>','батько','2008-12-17 00:00:00','2008-12-06 18:19:41'),
-  (20,3,'<?php\r\n\techo \"<p> Zаказ обработан B \";\r\n\techo date(''H:i, jS F'');\r\n\techo \"</p>\";\r\n\t\r\n\t$total = 0;\r\n\t$total = $_POST[''tireqty''] + $_POST[''oilqty''] + $_POST[''sparkqty''];\r\n\tif( $total == 0)\r\n\t\t{\r\n\t\techo ''Давай заказывай, че ты мне гонишь!'';\r\n\t\t}\r\n\telse\r\n\t\t{\r\n\t\t\techo \"<p> Список вашего заказа:</p>\";\r\n\t\t\tif(!is_numeric($_POST[''tireqty'']))\r\n\t\t\t\t{\r\n\t\t\t\techo ''Ты чего мне тут фуфло пишешь в Автопокрышках, ЦИФРЫ ПИШИ!<br />'';\r\n\t\t\t\t}\r\n\t\t\telse {\r\n\t\t\t\tif ($_POST[''tireqty''] > 0)\r\n\t\t\t\t\techo $_POST[''tireqty'']. '' автопокрышек<br />'';\r\n\t\t\t\t}\r\n\t\t\tif(!is_numeric($_POST[''oilqty'']))\r\n\t\t\t\t{\r\n\t\t\t\techo ''Ты чего мне тут фуфло пишешь в Маслах, ЦИФРЫ ПИШИ!<br />'';\r\n\t\t\t\t}\r\n\t\t\telse {\r\n\t\t\t\tif ( $_POST[''oilqty''] > 0)\r\n\t\t\t\t\techo $_POST[''oilqty'']. '' бутылок с маслом<br />'';\r\n\t\t\t\t}\r\n\t\t\tif(!is_numeric($_POST[''sparkqty'']))\r\n\t\t\t\t{\r\n\t\t\t\techo ''Ты чего мне тут фуфло пишешь в Свечах, ЦИФРЫ ПИШИ!<br />'';\r\n\t\t\t\t}\r\n\t\t\telse {\r\n\t\t\t\t\tif ( $_POST[''sparkqty''] > 0)\r\n\t\t\t\t\t\techo $_POST[''sparkqty'']. '' свечей зажигания<br /><br />'';\r\n\t\t\t\t}\r\n\t\t\techo ''Заказано товаров: ''.$total.''<br />'';\r\n\t\t\t$totalamount = 0.00;\t\r\n\t\t\tdefine(''TIREPRICE'', 100);\r\n\t\t\tdefine(''OILPRICE'', 10);\r\n\t\t\tdefine(''SPARKPRICE'', 4);\r\n\t\t\t$totalamount = $_POST[''tireqty''] * TIREPRICE\r\n\t\t\t\t\t\t + $_POST[''oilqty''] * OILPRICE\r\n\t\t\t\t\t\t + $_POST[''sparkqty''] * SPARKPRICE;\r\n\t\t\techo ''Итого: $''.number_format($totalamount,2, '','','' '').''<br />'';\r\n\t\t\t$taxrate = 0.10; //nalog\r\n\t\t\t$totalamount = $totalamount * (1 + $taxrate);\r\n\t\t\techo ''Общая сумма, включая налог с продаж(''.$taxrate*100 .''%): $''.$totalamount.''<br />'';\r\n\t\t}\r\n?>','Батько','2008-12-24 00:00:00','2008-12-11 13:13:30'),
-  (21,3,'<html>\r\n<head>\r\n  <title>Автозапчасти от Боба</title>\r\n</head>\r\n<body>\r\n\r\n<h1>&#1040;&#1074;&#1090;&#1086;&#1079;&#1072;&#1087;&#1095;&#1072;&#1089;&#1090;&#1080; Kaka&#1096;ku Group</h1>\r\n<h2>Форма заказа</h2>\r\n\r\n<form action=\"processorder.php\" method=post>\r\n<table border=0>\r\n<tr bgcolor=#cccccc>\r\n  <td width=150>Товар</td>\r\n  <td width=15>Количество</td>\r\n</tr>\r\n<tr>\r\n  <td>Автопокрышки</td>\r\n  <td align=\"center\"><input type=\"text\" name=\"tireqty\" size= \"3\" maxlength=\"3\" /></td>\r\n</tr>\r\n<tr>\r\n  <td>Машинное масло</td>\r\n  <td align= \"center\"><input type=\"text\" name=\"oilqty\" size=\"3\" maxlength=\"3\" /></td>\r\n</tr>\r\n<tr>\r\n  <td>Свечи зажигания</td>\r\n  <td align=\"center\"><input type=\"text\" name=\"sparkqty\" size= \"3\" maxlength=\"3\" /></td>\r\n</tr>\r\n<tr>\r\n  <td>Как вы нашли компанию \"Автозапчасти от Боба?\"</td>\r\n  <td><select name=\"find\">\r\n        <option value = \"a\">Я регулярный клиент\r\n        <option value = \"b\">В телевизионной рекламе\r\n        <option value = \"c\">В телефонном справочнике\r\n        <option value = \"d\">Кто-то порекомендовал\r\n      </select>\r\n  </td>\r\n</tr>\r\n<tr>\r\n  <td colspan=\"2\" align=\"center\"><input type=\"submit\" value= \"Отправить заказ\" name=\"\"></td>\r\n</tr>\r\n</table>\r\n</form>\r\n\r\n</body>\r\n</html>\r\n','Батько','2008-12-19 00:00:00','2008-12-11 13:14:46'),
-  (22,11,'<html>\r\n<head>\r\n  <title>Автозапчасти от Боба</title>\r\n</head>\r\n<body>\r\n\r\n<h1>&#1040;&#1074;&#1090;&#1086;&#1079;&#1072;&#1087;&#1095;&#1072;&#1089;&#1090;&#1080; Kaka&#1096;ku Group</h1>\r\n<h2>Форма заказа</h2>\r\n\r\n<form action=\"processorder.php\" method=post>\r\n<table border=0>\r\n<tr bgcolor=#cccccc>\r\n  <td width=150>Товар</td>\r\n  <td width=15>Количество</td>\r\n</tr>\r\n<tr>\r\n  <td>Автопокрышки</td>\r\n  <td align=\"center\"><input type=\"text\" name=\"tireqty\" size= \"3\" maxlength=\"3\" /></td>\r\n</tr>\r\n<tr>\r\n  <td>Машинное масло</td>\r\n  <td align= \"center\"><input type=\"text\" name=\"oilqty\" size=\"3\" maxlength=\"3\" /></td>\r\n</tr>\r\n<tr>\r\n  <td>Свечи зажигания</td>\r\n  <td align=\"center\"><input type=\"text\" name=\"sparkqty\" size= \"3\" maxlength=\"3\" /></td>\r\n</tr>\r\n<tr>\r\n  <td>Как вы нашли компанию \"Автозапчасти от Боба?\"</td>\r\n  <td><select name=\"find\">\r\n        <option value = \"a\">Я регулярный клиент\r\n        <option value = \"b\">В телевизионной рекламе\r\n        <option value = \"c\">В телефонном справочнике\r\n        <option value = \"d\">Кто-то порекомендовал\r\n      </select>\r\n  </td>\r\n</tr>\r\n<tr>\r\n  <td colspan=\"2\" align=\"center\"><input type=\"submit\" value= \"Отправить заказ\" name=\"\"></td>\r\n</tr>\r\n</table>\r\n</form>\r\n\r\n</body>\r\n</html>','Батько','2008-12-31 00:00:00','2008-12-11 13:16:30'),
-  (23,3,'<?php\r\n\r\nif ($_POST[''submit'']) {\r\n    $error = \"\";\r\n    if (isset($_POST[''tireqty'']) && is_numeric($_POST[''tireqty'']) && $_POST[''tireqty''] > 0) {\r\n        $tireqty = $_POST[''tireqty'']\r\n    } else {\r\n        $error .= ''Ты чего мне тут фуфло пишешь в Автопокрышках, ЦИФРЫ ПИШИ!<br />''\r\n    }\r\n    \r\n    if (isset($_POST[''oilqty'']) && is_numeric($_POST[''oilqty'']) && $_POST[''oilqty''] > 0) {\r\n        $oilqty = $_POST[''oilqty'']\r\n    } else {\r\n        $error .= ''Ты чего мне тут фуфло пишешь в Маслах, ЦИФРЫ ПИШИ!<br />''\r\n    }\r\n    \r\n    if (isset($_POST[''sparkqty'']) && is_numeric($_POST[''sparkqty'']) && $_POST[''sparkqty''] > 0) {\r\n        $sparkqty = $_POST[''sparkqty'']\r\n    } else {\r\n        $error .= ''Ты чего мне тут фуфло пишешь в Свечах, ЦИФРЫ ПИШИ!<br />''\r\n    }\r\n    \r\n    if ($error == \"\") {\r\n        echo \"<p> Zаказ обработан B \";\r\n    \techo date(''H:i, d.m.Y'');\r\n    \techo \"</p>\";\r\n        \r\n        echo \"<p> Список вашего заказа:</p>\";\r\n        \r\n        $total = $tireqty + $_POSToilqty + $_POSTsparkqty;\r\n        \r\n        echo $tireqty. '' автопокрышек<br />'';\r\n        echo $oilqty. '' бутылок с маслом<br />'';\r\n        echo $sparkqty. '' свечей зажигания<br /><br />'';\r\n        \r\n        echo ''Заказано товаров: ''.$total.''<br />'';\r\n        $totalamount = 0.00;\t\r\n\t\tdefine(''TIREPRICE'', 100);\r\n\t\tdefine(''OILPRICE'', 10);\r\n\t\tdefine(''SPARKPRICE'', 4);\r\n\t\t$totalamount = $_POST[''tireqty''] * TIREPRICE\r\n            + $_POST[''oilqty''] * OILPRICE\r\n\t\t\t + $_POST[''sparkqty''] * SPARKPRICE;\r\n\t\techo ''Итого: $''.number_format($totalamount,2, '','','' '').''<br />'';\r\n\t\t$taxrate = 0.10; //nalog\r\n\t\t$totalamount = $totalamount * (1 + $taxrate);\r\n\t\techo ''Общая сумма, включая налог с продаж(''.$taxrate*100 .''%): $''.$totalamount.''<br />'';\r\n    } else {\r\n        echo $error;\r\n    }\r\n} else {\r\necho \r\n''<html>\r\n<head>\r\n  <title>Автозапчасти от Боба</title>\r\n</head>\r\n<body>\r\n\r\n<h1>Автозапчасти Kakaшku Group</h1>\r\n<h2>Форма заказа</h2>\r\n\r\n<form action=\"processorder.php\" method=post>\r\n<table border=0>\r\n<tr bgcolor=#cccccc>\r\n  <td width=150>Товар</td>\r\n  <td width=15>Количество</td>\r\n</tr>\r\n<tr>\r\n  <td>Автопокрышки</td>\r\n  <td align=\"center\"><input type=\"text\" name=\"tireqty\" size= \"3\" maxlength=\"3\" /></td>\r\n</tr>\r\n<tr>\r\n  <td>Машинное масло</td>\r\n  <td align= \"center\"><input type=\"text\" name=\"oilqty\" size=\"3\" maxlength=\"3\" /></td>\r\n</tr>\r\n<tr>\r\n  <td>Свечи зажигания</td>\r\n  <td align=\"center\"><input type=\"text\" name=\"sparkqty\" size= \"3\" maxlength=\"3\" /></td>\r\n</tr>\r\n<tr>\r\n  <td>Как вы нашли компанию \"Автозапчасти от Боба?\"</td>\r\n  <td><select name=\"find\">\r\n        <option value = \"a\">Я регулярный клиент\r\n        <option value = \"b\">В телевизионной рекламе\r\n        <option value = \"c\">В телефонном справочнике\r\n        <option value = \"d\">Кто-то порекомендовал\r\n      </select>\r\n  </td>\r\n</tr>\r\n<tr>\r\n  <td colspan=\"2\" align=\"center\"><input type=\"submit\" value= \"Отправить заказ\" name=\"\"></td>\r\n</tr>\r\n</table>\r\n</form>\r\n\r\n</body>\r\n</html>'';\r\n}\r\n\r\n?>','sdffsdf','2008-12-25 00:00:00','2008-12-11 13:24:22'),
-  (24,3,'Test','111','1970-01-01 03:00:01','2008-12-12 02:48:08'),
-  (25,NULL,'wretwrtwer','sadfasdf','2008-12-10 00:00:00','2008-12-12 18:37:33'),
-  (26,NULL,'Test','asketman',NULL,'2008-12-14 09:49:16'),
-  (27,NULL,'Testsadfdsada','asketman',NULL,'2008-12-14 09:49:29'),
-  (28,NULL,'user@z:~/work$ gajim\r\nTraceback (most recent call last):\r\n  File \"gajim.py\", line 3315, in <module>\r\n    Interface()\r\n  File \"gajim.py\", line 3041, in __init__\r\n    cfg_was_read = parser.read()\r\n  File \"/usr/share/gajim/src/common/optparser.py\", line 79, in read\r\n    self.update_config(old_version, new_version)\r\n  File \"/usr/share/gajim/src/common/optparser.py\", line 189, in update_config\r\n    gajim.capscache.load_from_db()\r\n  File \"/usr/share/gajim/src/common/caps.py\", line 154, in load_from_db\r\n    self.logger.iter_caps_data():\r\n  File \"/usr/share/gajim/src/common/logger.py\", line 718, in iter_caps_data\r\n    data = GzipFile(fileobj=StringIO(str(data))).read().split(''\\0'')\r\n  File \"/usr/lib/python2.5/gzip.py\", line 220, in read\r\n    self._read(readsize)\r\n  File \"/usr/lib/python2.5/gzip.py\", line 292, in _read\r\n    self._read_eof()\r\n  File \"/usr/lib/python2.5/gzip.py\", line 313, in _read_eof\r\n    raise IOError, \"Incorrect length of data produced\"\r\nIOError: Incorrect length of data produced\r\n','user',NULL,'2008-12-19 16:02:14'),
-  (29,3,'$comptxt = fopen (\"C:\\SAV\\comp.txt\", \"r\"); //список компов в домене\r\nwhile (!feof($comptxt)) {\r\n//$gr_name=\"\";\r\n$pcname = fgets($comptxt, 4096); //имя компьютера в домене\r\n$pcname=rtrim($pcname); //отрезаем справа переносы и пробелы\r\n$cmd= \"wmic /node:\\\"\".$pcname.\"\\\" group where (sid = \\\"S-1-5-32-544\\\" and localaccount = true) get name|find /V \\\"Name\\\"\"; //получаем имя группы локальных админов\r\n$gr_name=shell_exec($cmd);//оп и готово\r\n$gr_name=rtrim($gr_name); // снова режем пробелы и переносы\r\nif ($gr_name) { //если имя получено (включен комп и есть доступ), то ищем учетки в группе\r\necho $pcname.\"->>\".$gr_name.\"\\r\\n\"; // ТУТ-то они печатаются, ОБЕ переменные\r\nprint_r($gr_name); //Проблема в переменной номер 2!!!!!!!!!!!!!!!!!!!!!\r\n//$pcname=\"SMIRNOV\";\r\n//$gr_name=\"Администраторы\"; //БЛЯДЬ ПОЧЕМУ, если переменные руками указать - они срабатывают. хотя они идентичны. Иначе - нет\r\n$cmd= ''wmic /node:\"''.$pcname.''\" path win32_groupuser where (groupcomponent = \"win32_group.name=\\\"''.$gr_name.''\\\",domain=\\\"''.$pcname.''\\\"\")'';\r\necho $cmd.\"\\r\\n\"; //ТУТ\r\n//$a=var_dump($cmd); // И ТУТ - команда выводится ПРАВИЛЬНАЯ.\r\n//echo $a.\"\\r\\n\";\r\n$admins=`$cmd`; // Но не выполняется нихуя\r\necho $admins.\"\\r\\n\";\r\n}\r\n}\r\nfclose($comptxt);','sd',NULL,'2008-12-22 11:08:29'),
-  (30,3,'// guess current application\r\nif (!isset($app))\r\n{\r\n  $traces = debug_backtrace();\r\n  $caller = $traces[0];\r\n\r\n  $dirPieces = explode(DIRECTORY_SEPARATOR, dirname($caller[''file'']));\r\n  $app = array_pop($dirPieces);\r\n}','asketman',NULL,'2008-12-24 10:04:02'),
-  (31,3,'<?php\r\n// guess current application\r\nif (!isset($app))\r\n{\r\n  $traces = debug_backtrace();\r\n  $caller = $traces[0];\r\n\r\n  $dirPieces = explode(DIRECTORY_SEPARATOR, dirname($caller[''file'']));\r\n  $app = array_pop($dirPieces);\r\n}\r\n?>','asketman',NULL,'2008-12-24 10:04:38'),
-  (32,3,'function Schedule_Events($arraySchedule, $arrayEvents)\r\n\t{\r\n    \t$sorted[''Schedule''] = $this->Schedule($arraySchedule);\r\n    \t$sorted[''Events''] = $this->Events($arrayEvents);\r\n    \t$result = array();\r\n    \tfor($i=0; $i<7; $i++)\r\n    \t{\r\n    \t\t$day[''this''] = mktime(0, 0, 0, date(''n''), ($this->week[''day''][''start''] + $i), date(''Y''));\r\n    \t\t$day[''next''] = mktime(0, 0, 0, date(''n''), ($this->week[''day''][''start''] + $i + 1), date(''Y''));\r\n\r\n    \t\tif(count($sorted[''Schedule'']) > 0)\r\n    \t\t{\r\n            \tfor($a=0; $a<count($sorted[''Schedule''][$i]); $a++)\r\n            \t{\r\n\t\t\t\t\t//\r\n\t\t\t\t\t$start_time = $sorted[''Schedule''][$i][$a][''time''][''start''];\r\n\t\t\t\t\t$end_time = $sorted[''Schedule''][$i][$a][''time''][''end''];\r\n\t\t\t\t\tif(isset($sorted[''Schedule''][$i][$a+1]))\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t$start_time_next = $sorted[''Schedule''][$i][$a+1][''time''][''start''];\r\n\t\t\t\t\t\t$end_time_next = $sorted[''Schedule''][$i][$a+1][''time''][''end''];\r\n\t\t\t\t\t}\r\n\r\n\t\t\t\t\tif(count($sorted[''Events''][$i]) > 0)\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\tforeach($sorted[''Events''][$i] as $key=>$val)\r\n\t\t\t\t\t\t{\r\n\t\t\t\t        \tif($val[''time''][''end''] <= $start_time || $val[''time''][''start''] <= $start_time )\r\n\t\t\t\t        \t{\r\n\t\t\t\t\t\t\t\t$result[$i][] = $val;\r\n\t\t\t\t\t\t\t\tunset($sorted[''Events''][$i][$key]);\r\n\t\t\t\t        \t}\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t}\r\n\t\t\t\t\t$result[$i][] = $sorted[''Schedule''][$i][$a];\r\n\t\t\t\t\tif(count($sorted[''Events''][$i]) > 0)\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\tforeach($sorted[''Events''][$i] as $key=>$val)\r\n\t\t\t\t\t\t{\r\n\t\t\t\t\t\t\tif(($val[''time''][''start''] >= $end_time && $val[''time''][''end''] <= $start_time_next))\r\n\t\t\t\t\t\t\t{\r\n\t\t\t\t\t\t\t\t$result[$i][] = $val;\r\n\t\t\t\t\t\t\t\tunset($sorted[''Events''][$i][$key]);\r\n\t\t\t\t        \t}\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t}\r\n            \t}\r\n\r\n            \tif(count($sorted[''Events''][$i]) > 0)\r\n\t\t\t\t{\r\n\t\t\t\t\t$result[$i] += $sorted[''Events''][$i];\r\n\t\t\t\t\tunset($sorted[''Events''][$i]);\r\n\t\t\t\t}\r\n    \t\t}\r\n    \t\telseif(count($arrayEvents[$i]) > 0)\r\n\t\t\t{\r\n\t\t\t\t$result[$i] = $sorted[''Events''][$i];\r\n\t\t\t\tunset($sorted[''Events''][$i]);\r\n\t\t\t}\r\n    \t}\r\n    \treturn $result;\r\n\t}','qwerty',NULL,'2008-12-27 17:27:08');
-COMMIT;
-
-#
-# Structure for the `copypasta_language` table : 
-#
-
-DROP TABLE IF EXISTS `copypasta_language`;
-
-CREATE TABLE `copypasta_language` (
-  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(50) COLLATE cp1251_general_ci DEFAULT NULL,
-  `geshi_code` VARCHAR(50) COLLATE cp1251_general_ci DEFAULT NULL,
-  `position` INTEGER(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=13 CHARACTER SET 'cp1251' COLLATE 'cp1251_general_ci';
-
-#
-# Data for the `copypasta_language` table  (LIMIT 0,500)
-#
-
-INSERT INTO `copypasta_language` (`id`, `title`, `geshi_code`, `position`) VALUES 
-  (3,'PHP','php',1),
-  (4,'Javascript','javascript',2),
-  (5,'MySQL','mysql',3),
-  (6,'Perl','perl',4),
-  (7,'Python','python',5),
-  (8,'C++','cpp',6),
-  (9,'Bash','bash',7),
-  (10,'Visual basic','vb',8),
-  (11,'XML','xml',9),
-  (12,'INI','ini',10);
+  (18,'4/5/',5,2,'17/18/'),
+  (19,'6/',6,1,'19/'),
+  (20,'2/7/',7,2,'15/20/');
 COMMIT;
 
 #
@@ -789,12 +720,12 @@ INSERT INTO `quoter_quote` (`id`, `obj_id`, `category_id`, `created`, `deleted`,
   (347,2293,1,1231438002,0,'function newuser($username){\r\n  return;\r\n  /*\r\n    ДВАДЦАТЬ СТРОК КОДА\r\n  */\r\n  //не пойму почему не работает:ФИО Программиста\r\n}','','наследие от предыдущих программистов проекта',17,0,1,1),
   (348,2296,1,1231486629,1231598466,'public function buildCriteria($table, $conditions)\r\n    {\r\n        $source_table = $table->getTableName();\r\n        $criteria = new criteria($source_table, ''keyword'');\r\n\r\n        foreach ($conditions as $field => $conds) {\r\n\r\n\r\n            if (is_array($conds)) {\r\n\r\n                if (isset($conds[''plus''])) {\r\n                    $word = array_shift($conds[''plus'']);\r\n                    $like_criterion = new criterion($field, ''%'' . $word . ''%'', criteria::LIKE);\r\n                    foreach ($conds[''plus''] as $word) {\r\n                        $like_criterion->addOr(new criterion($field, ''%'' . $word . ''%'', criteria::LIKE));\r\n                    }\r\n                }\r\n\r\n                if (isset($conds[''minus''])) {\r\n                    $word = array_shift($conds[''minus'']);\r\n                    $not_like_criterion = new criterion($field, ''%'' . $word . ''%'', criteria::NOT_LIKE);\r\n                    foreach ($conds[''minus''] as $word) {\r\n                        $not_like_criterion->addAnd(new criterion($field, ''%'' . $word . ''%'', criteria::NOT_LIKE));\r\n                    }\r\n                }\r\n\r\n                if (isset($conds[''less''])) {\r\n                    if (!is_array($conds[''less''])) {\r\n                        $conds[''less''] = array($conds[''less'']);\r\n                    }\r\n\r\n                    $word = array_shift($conds[''less'']);\r\n                    $less_criterion = new criterion($field, $word, criteria::LESS);\r\n\r\n                    foreach ($conds[''less''] as $word) {\r\n                        $less_criterion->addAnd(new criterion($field, $word, criteria::LESS));\r\n                    }\r\n                }\r\n\r\n                if (isset($conds[''less_eq''])) {\r\n                    if (!is_array($conds[''less_eq''])) {\r\n                        $conds[''less_eq''] = array($conds[''less_eq'']);\r\n                    }\r\n\r\n                    $word = array_shift($conds[''less_eq'']);\r\n                    $less_eq_criterion = new criterion($field, $word, criteria::LESS_EQUAL );\r\n\r\n                    foreach ($conds[''less_eq''] as $word) {\r\n                        $less_eq_criterion->addAnd(new criterion($field, $word, criteria::LESS_EQUAL));\r\n                    }\r\n                }\r\n            }\r\n        }\r\n\r\n        $main_criterion = new criterion();\r\n\r\n        if (!empty($like_criterion)) {\r\n            $main_criterion->add($like_criterion);\r\n            $add_method = ''addAnd'';\r\n        }\r\n\r\n        if (!empty($not_like_criterion)) {\r\n            if (empty($add_method)) {\r\n                $add_method = ''add'';\r\n            }\r\n            $main_criterion->$add_method($not_like_criterion);\r\n        }\r\n\r\n        if (!empty($less_criterion)) {\r\n            if (empty($add_method)) {\r\n                $add_method = ''add'';\r\n            }\r\n            $main_criterion->$add_method($less_criterion);\r\n        }\r\n\r\n        if (!empty($less_eq_criterion)) {\r\n            if (empty($add_method)) {\r\n                $add_method = ''add'';\r\n            }\r\n            $main_criterion->$add_method($less_eq_criterion);\r\n        }\r\n\r\n        $criteria->add($main_criterion);\r\n\r\n        return $criteria;\r\n\r\n    }\r\n\r\n\r\npublic function testBuildCriteria()\r\n    {\r\n        $table = new mockStubKeywordTable();\r\n        $table->setReturnValue(''getTableName'', ''test_table'');\r\n\r\n        $query = $this->keywordQuery;\r\n\r\n        $data[''field1''][''less''] = 5;\r\n        $data[''field2''][''less_eq''] = 10;\r\n/*        $data[''field2''][''greater_eq''] = 11;\r\n        $data[''field3''][''greater''] = 12;','','требуется рефакторинг',-9,0,0,1),
   (349,2298,1,1231487830,0,'<?php\r\n\r\nfunction drop_dir ( $dir_id )\r\n{\r\n\t$query\t=\tmysql_query ( \"SELECT `id` FROM `dirs` WHERE `subid`=\" . $dir_id );\r\n\twhile ( $row\t=\tmysql_fetch_array ( $query ) )\r\n\t{\r\n\t\t$n_query\t=\tmysql_query ( \"SELECT `id` FROM `dirs` WHERE `subid`=\" . $row[''id''] );\r\n\t\twhile ( $n_row\t=\tmysql_fetch_array ( $query ) )\r\n\t\t{\r\n\t\t\t$n2_query\t=\tmysql_query ( \"SELECT `id` FROM `dirs` WHERE `subid`=\" . $n_row[''id''] );\r\n\t\t\twhile ( $n2_row\t=\tmysql_fetch_array ( $n2_query ) )\r\n\t\t\t{\r\n\t\t\t\tmysql_query ( \"DELETE FROM `dirs` WHERE `id`=\" . $n2_row[''id''] );\r\n\t\t\t} // Неужто блядь кто то дальше вложит\r\n\t\t\tmysql_query ( \"DELETE FROM `dirs` WHERE `id`=\" . $n_row[''id''] );\r\n\t\t}\r\n\t\tmysql_query ( \"DELETE FROM `dirs` WHERE `id`=\" . $row[''id''] );\r\n\t}\r\n\tmysql_query ( \"DELETE FROM `dirs` WHERE `id`=\" . $dir );\r\n\tRETURN TRUE;\r\n}\r\n\r\n?>','','(c) Я, 2007',21,0,1,0),
-  (350,2303,1,1231501764,0,'if (@mysql_query(\"CREATE TABLE `cms_attributes_\".$a.\"` (`element_id` int(5))\")) {}','','Реальный код..\r\nВидимо, человек любит индусов и начал им подражать)',1,0,1,0),
-  (351,2305,1,1231501865,0,'// Проверяет, есть ли у страницы вложенные страницы\r\nfunction exists_sub_pages($page_id)\r\n{\r\n$select_sub_pages=mysql_query(\"select * from pages where parent=''\".$page_id.\"''\");\r\nif (mysql_num_rows($select_sub_pages)>0) {$result=1;} else {$result=0;}\r\nreturn $result;\r\n}','','Не понимаю, зачем так всё усложнять :-(',2,0,1,0),
-  (352,2321,6,1231536873,0,'int main()\r\n{\r\nint i;\r\nfor(clrscr(),\r\n    printf(\"starting of stupid progam\\n\"),\r\n    i=10;\r\n    i--;\r\n    printf(\"i= %d\\n\",i));\r\nreturn 0;\r\n\r\n}','','Страшен язык Си',4,0,1,1),
+  (350,2303,1,1231501764,0,'if (@mysql_query(\"CREATE TABLE `cms_attributes_\".$a.\"` (`element_id` int(5))\")) {}','','Реальный код..\r\nВидимо, человек любит индусов и начал им подражать)',2,1,1,0),
+  (351,2305,1,1231501865,0,'// Проверяет, есть ли у страницы вложенные страницы\r\nfunction exists_sub_pages($page_id)\r\n{\r\n$select_sub_pages=mysql_query(\"select * from pages where parent=''\".$page_id.\"''\");\r\nif (mysql_num_rows($select_sub_pages)>0) {$result=1;} else {$result=0;}\r\nreturn $result;\r\n}','','Не понимаю, зачем так всё усложнять :-(',1,1,1,0),
+  (352,2321,6,1231536873,0,'int main()\r\n{\r\nint i;\r\nfor(clrscr(),\r\n    printf(\"starting of stupid progam\\n\"),\r\n    i=10;\r\n    i--;\r\n    printf(\"i= %d\\n\",i));\r\nreturn 0;\r\n\r\n}','','Страшен язык Си',4,0,1,0),
   (353,2323,6,1231536938,0,'int clearscreen()\r\n{\r\nclrscr();\r\nreturn 0;\r\n}\r\nvoid main()\r\n{\r\nchar * c;\r\n\r\nprintf(\"You typed: %c\",\r\n       *c,\r\n       scanf(\"%c\",c),\r\n       printf(\"Type any simbol: \"),\r\n       clearscreen());\r\n\r\n}','','Страшен язык Си 2',10,1,1,0),
   (354,2330,1,1231575650,0,'/**\r\n     * Validate the word\r\n     *\r\n     * @see    Zend_Validate_Interface::isValid()\r\n     * @param  mixed $value\r\n     * @return boolean\r\n     */\r\n    public function isValid($value, $context = null)\r\n    {\r\n        $name = $this->getName();\r\n        if (!isset($context[$name][''input''])) {\r\n            $this->_error(self::MISSING_VALUE);\r\n            return false;\r\n        }\r\n        $value = strtolower($context[$name][''input'']);\r\n        $this->_setValue($value);\r\n\r\n        if (!isset($context[$name][''id''])) {\r\n            $this->_error(self::MISSING_ID);\r\n            return false;\r\n        }\r\n\r\n        $this->_id = $context[$name][''id''];\r\n        if ($value !== $this->getWord()) {\r\n            $this->_error(self::BAD_CAPTCHA);\r\n            return false;\r\n        }\r\n\r\n        return true;\r\n    }','','не ожидал даже от Zend Framework-а',1,9,1,0),
-  (355,2339,1,1231593160,0,'function is_utf($str){\n    if(iconv(\"UTF-8\",\"UTF-8\",$str)==$str)\n        return true;\n    else\n        return false;\n}','4, 1','utf-8 или нет? :)',25,21,1,3);
+  (355,2339,1,1231593160,0,'function is_utf($str){\n    if(iconv(\"UTF-8\",\"UTF-8\",$str)==$str)\n        return true;\n    else\n        return false;\n}','4, 1','utf-8 или нет? :)',24,22,1,5);
 COMMIT;
 
 #
@@ -12959,7 +12890,7 @@ CREATE TABLE `ratings_ratings` (
   KEY `folder_id` (`folder_id`),
   KEY `user_id` (`user_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=33 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=39 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `ratings_ratings` table  (LIMIT 0,500)
@@ -12997,7 +12928,13 @@ INSERT INTO `ratings_ratings` (`id`, `folder_id`, `user_id`, `created`, `ip_addr
   (29,1,2,1242271374,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,355),
   (30,2,2,1242272417,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,1),
   (31,2,2,1242272629,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',-1,3),
-  (32,2,2,1242272823,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,2);
+  (32,2,2,1242272823,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,2),
+  (33,1,2,1244108509,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',-1,355),
+  (34,2,2,1244108601,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,1),
+  (35,2,2,1244109565,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,3),
+  (36,2,1,1244109703,'127.0.0.1','Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 2.0.50727)',1,7),
+  (37,1,1,1244109715,'127.0.0.1','Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 2.0.50727)',-1,351),
+  (38,1,1,1244109718,'127.0.0.1','Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 2.0.50727)',1,350);
 COMMIT;
 
 #
@@ -13059,7 +12996,7 @@ CREATE TABLE `sys_access_registry` (
   `class_id` INTEGER(11) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`obj_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=2620 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=2623 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_access_registry` table  (LIMIT 0,500)
@@ -14948,7 +14885,10 @@ INSERT INTO `sys_access_registry` (`obj_id`, `class_id`) VALUES
   (2616,11),
   (2617,11),
   (2618,11),
-  (2619,11);
+  (2619,11),
+  (2620,11),
+  (2621,11),
+  (2622,11);
 COMMIT;
 
 #
@@ -14963,7 +14903,7 @@ CREATE TABLE `sys_actions` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=112 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=113 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_actions` table  (LIMIT 0,500)
@@ -15054,7 +14994,8 @@ INSERT INTO `sys_actions` (`id`, `name`) VALUES
   (108,'quote'),
   (109,'rss'),
   (110,'vote'),
-  (111,'rate');
+  (111,'rate'),
+  (112,'loginForm');
 COMMIT;
 
 #
@@ -15070,7 +15011,7 @@ CREATE TABLE `sys_classes` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=60 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=61 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_classes` table  (LIMIT 0,500)
@@ -15127,7 +15068,8 @@ INSERT INTO `sys_classes` (`id`, `name`, `module_id`) VALUES
   (55,'quote',22),
   (56,'quoteCategory',22),
   (57,'quoteFolder',22),
-  (59,'commentsVote',8);
+  (59,'commentsVote',8),
+  (60,'userOpenID',2);
 COMMIT;
 
 #
@@ -15143,7 +15085,7 @@ CREATE TABLE `sys_classes_actions` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `class_id` (`class_id`, `action_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=310 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=312 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_classes_actions` table  (LIMIT 0,500)
@@ -15162,7 +15104,6 @@ INSERT INTO `sys_classes_actions` (`id`, `class_id`, `action_id`) VALUES
   (10,2,9),
   (11,3,10),
   (12,3,11),
-  (13,3,5),
   (14,3,1),
   (15,3,12),
   (16,3,2),
@@ -15170,7 +15111,6 @@ INSERT INTO `sys_classes_actions` (`id`, `class_id`, `action_id`) VALUES
   (19,4,15),
   (20,4,16),
   (21,4,17),
-  (22,3,9),
   (23,4,9),
   (24,6,3),
   (25,6,9),
@@ -15321,11 +15261,8 @@ INSERT INTO `sys_classes_actions` (`id`, `class_id`, `action_id`) VALUES
   (259,48,98),
   (260,49,9),
   (261,36,73),
-  (263,50,9),
-  (264,50,20),
   (266,50,69),
   (270,50,4),
-  (271,50,51),
   (272,51,9),
   (277,52,9),
   (279,52,51),
@@ -15346,7 +15283,9 @@ INSERT INTO `sys_classes_actions` (`id`, `class_id`, `action_id`) VALUES
   (303,58,9),
   (304,59,9),
   (306,10,110),
-  (309,56,5);
+  (309,56,5),
+  (310,3,112),
+  (311,50,5);
 COMMIT;
 
 #
@@ -15501,7 +15440,7 @@ CREATE TABLE `sys_obj_id` (
   `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=2620 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=2623 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_obj_id` table  (LIMIT 0,500)
@@ -18161,7 +18100,10 @@ INSERT INTO `sys_obj_id` (`id`) VALUES
   (2616),
   (2617),
   (2618),
-  (2619);
+  (2619),
+  (2620),
+  (2621),
+  (2622);
 COMMIT;
 
 #
@@ -18387,7 +18329,7 @@ AUTO_INCREMENT=7 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 INSERT INTO `user_user` (`id`, `obj_id`, `login`, `password`, `created`, `confirmed`, `last_login`, `language_id`, `timezone`, `skin`) VALUES 
   (1,17,'guest','',NULL,NULL,1227260702,NULL,3,1),
-  (2,18,'admin','098f6bcd4621d373cade4e832627b4f6',NULL,NULL,1236857578,1,3,1);
+  (2,18,'admin','098f6bcd4621d373cade4e832627b4f6',NULL,NULL,1244195480,1,3,1);
 COMMIT;
 
 #
@@ -18405,16 +18347,16 @@ CREATE TABLE `user_userAuth` (
   `time` INTEGER(11) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=21 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=22 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `user_userAuth` table  (LIMIT 0,500)
 #
 
 INSERT INTO `user_userAuth` (`id`, `user_id`, `ip`, `hash`, `obj_id`, `time`) VALUES 
-  (18,2,'127.0.0.1','7b09d65a85d679fe4e424268c8a10fdc',NULL,1237549873),
   (19,2,'127.0.0.1','c3e234c16087ca58d9ce0a2057c402bd',NULL,NULL),
-  (20,2,'127.0.0.1','0bc8b5fc0900dcf33ba30f876929b531',NULL,NULL);
+  (20,2,'127.0.0.1','0bc8b5fc0900dcf33ba30f876929b531',NULL,NULL),
+  (21,2,'127.0.0.1','1b28f40952f72f0104e3304db72179d3',NULL,NULL);
 COMMIT;
 
 #

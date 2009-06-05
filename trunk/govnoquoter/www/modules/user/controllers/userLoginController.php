@@ -56,13 +56,8 @@ class userLoginController extends simpleController
             $this->smarty->assign('form_action', $url->get());
             $this->smarty->assign('user', null);
 
-            if ($this->request->getBoolean('onlyForm')) {
-                $this->smarty->assign('backURL', $this->request->getRequestUrl());
-                return $this->fetch('user/loginForm.tpl');
-            }
-
             $this->smarty->assign('backURL', $backURL);
-            return $this->fetch('user/login.tpl');
+            return $this->fetch('user/loginForm.tpl');
         }
 
         $this->smarty->assign('user', $user);
