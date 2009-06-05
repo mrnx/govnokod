@@ -96,17 +96,6 @@ class commentsPostController extends simpleController
             }
         }
 
-        //little hack
-        if ($onlyForm) {
-            if (isset($_POST['text'])) {
-                $pathParams = $this->request->getParams();
-
-                $_POST['text'] = '';
-                $this->request->refresh();
-                $this->request->setParams($pathParams);
-            }
-        }
-
         $url = new url('withId');
         $url->setAction($this->request->getAction());
         $url->add('id', $commentsFolder->getId());
@@ -122,6 +111,7 @@ class commentsPostController extends simpleController
         $this->smarty->assign('commentsFolder', $commentsFolder);
         $this->smarty->assign('errors', $validator->getErrors());
         $this->smarty->assign('hideForm', $this->request->getBoolean('hideForm'));
+        $this->smarty->assign('onlyForm', $onlyForm);
 
         $this->smarty->assign('isAjax', $isAjax);
         if ($isAjax) {
@@ -130,11 +120,9 @@ class commentsPostController extends simpleController
         }
 
         if (!$backUrl) {
-            if ($commentsFolder->getModule() == 'quoter' && $commentsFolder->getType() == 'quote') {
-                $backUrl = new url('quoteView');
-                $backUrl->add('id', $commentsFolder->getParentId());
-                $backUrl = $backUrl->get();
-            } else {
+            $backUrl = $commentsFolder->getDefaultBackUrl();
+
+            if (!$backUrl) {
                 $backUrl = $this->request->getServer('REQUEST_URI');
             }
         }
