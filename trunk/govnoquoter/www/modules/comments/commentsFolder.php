@@ -45,6 +45,18 @@ class commentsFolder extends entity
 
         return $this->object;
     }
+
+    public function getDefaultBackUrl()
+    {
+        if ($this->getModule() == 'quoter' && $this->getType() == 'quote') {
+            $url = new url('quoteView');
+            $url->add('id', $this->getParentId());
+            return $url->get();
+        }
+
+        return false;
+    }
+
     public function getAcl($name = null)
     {
         if ($name == 'list') {
