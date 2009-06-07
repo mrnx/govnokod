@@ -46,6 +46,10 @@ class userOpenIDMapper extends mapper
         'user_id' => array(
             'accessor' => 'getUser',
             'mutator' => 'setUser',
+            'relation' => 'one',
+            'foreign_key' => 'id',
+            'mapper' => 'user/userMapper',
+            'join_type' => 'inner'
         ),
         'openid_url' => array(
             'accessor' => 'getUrl',
@@ -61,6 +65,11 @@ class userOpenIDMapper extends mapper
     public function searchAllByUserId($user_id)
     {
         return $this->searchAllByField('user_id', $user_id);
+    }
+
+    public function searchByUrl($url)
+    {
+        return $this->searchOneByField('openid_url', $url);
     }
 
     public function convertArgsToObj($args)
