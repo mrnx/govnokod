@@ -19,7 +19,7 @@
         <p>В номинации:</p>
         <ul>
             <li>{if $nomination != 'rating'}<a href="{url route="best" nomination="rating" _time=$time}">Лучший рейтинг</a>{else}Лучший рейтинг{/if}</li>
-            <li>{if $nomination != 'comments'}<a href="{url route="best" nomination="comments" _time=$time}">Самый комментируемый</a>{else}Самые комментируемые{/if}</li>
+            <li>{if $nomination != 'comments'}<a href="{url route="best" nomination="comments" _time=$time}">Самый комментируемый</a>{else}Самый комментируемый{/if}</li>
         </ul>
         <p>За время:</p>
         <ul>
