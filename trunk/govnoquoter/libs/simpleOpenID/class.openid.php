@@ -223,8 +223,6 @@ class SimpleOpenID{
 			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 			$response = curl_exec($curl);
 
-			echo curl_error($curl);
-
 			if (curl_errno($curl) == 0){
 				$response;
 			}else{

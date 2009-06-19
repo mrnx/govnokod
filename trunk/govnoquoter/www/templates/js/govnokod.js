@@ -179,20 +179,27 @@ var code;
         }
     }
 
-    /*
     $(function() {
-        $('div.entry-comments a.comments').click(function(){
+        $('a.entry-comments-load').click(function() {
             comments.load($(this));
             return false;
         });
 
+        $('.vote a').live('click', function() {
+            code.vote($(this));
+            return false;
+        });
 
-        $('div.entry-content a.trigger').click(function(){
+        $('.comment-vote a').live('click', function() {
+            comment.vote($(this));
+            return false;
+        });
+
+        $('.entry-content a.trigger').click(function(){
             code.unfold($(this));
             return false;
         });
     });
-    */
 })(jQuery);
 
 /*
