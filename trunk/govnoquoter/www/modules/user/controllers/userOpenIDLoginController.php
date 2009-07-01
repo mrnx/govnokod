@@ -133,7 +133,7 @@ class userOpenIDLoginController extends userLoginController
                             break;
 
                         default:
-                            $errors['openidurl'] = 'Неопознанная ошибка openid';
+                            $errors['openidurl'] = 'Неопознанная ошибка OpenID';
                             break;
                     }
                 }
