@@ -36,4 +36,4 @@
     {/foreach}
     </ul>
     {if $comments->isEmpty()}{assign var="hideForm" value=false}{else}{assign var="hideForm" value=true}{/if}
-    {load module="comments" section="comments" action="post" tplPrefix="list_" hideForm=$hideForm id=$commentsFolder onlyForm=true}
+    {load module="comments" action="post" tplPrefix="list_" hideForm=$hideForm id=$commentsFolder onlyForm=true}
