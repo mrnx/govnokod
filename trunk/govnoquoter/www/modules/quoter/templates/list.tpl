@@ -4,7 +4,14 @@
 {if !$listAll}
     {title append=$category->getTitle()}
 {/if}
-{/strip}
+
+{if $current_user->getHighlightDriver() == 'js'}
+{add file="jshighlight/govnokod.css"}
+{add file="highlight/highlight.pack.js"}
+<script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+</script>
+{/if}
 
 <ol class="posts hatom">
 {foreach from=$quotes item="quote"}
@@ -15,3 +22,4 @@
 {if $pager->getPagesTotal() > 1}
     {$pager->toString()}
 {/if}
+{/strip}

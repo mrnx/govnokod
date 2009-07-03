@@ -44,9 +44,13 @@ class quoteCategoryMapper extends mapper
             'accessor' => 'getName',
             'mutator' => 'setName'
         ),
-        'highlite_name' => array(
-            'accessor' => 'getHighliteName',
-            'mutator' => 'setHighliteName'
+        'geshi_alias' => array(
+            'accessor' => 'getGeshiAlias',
+            'mutator' => 'setGeshiAlias'
+        ),
+        'js_alias' => array(
+            'accessor' => 'getJsAlias',
+            'mutator' => 'setJsAlias'
         ),
         'title' => array(
             'accessor' => 'getTitle',

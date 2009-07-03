@@ -1,18 +1,27 @@
-{assign var="langName" value=$quote->getCategory()->getHighliteName()|h}
+{assign var="highlight" value=$current_user->getHighlightDriver()}
+{if $highlight == "geshi"}
+{assign var="langName" value=$quote->getCategory()->getGeshiAlias()|h}
 {add file="langs/$langName.css"}
+{else}
+{assign var="langName" value=$quote->getCategory()->getJsAlias()|h}
+{/if}
     <li class="hentry">
         <h2><a rel="chapter" href="{url route="categoryList" name=$quote->getCategory()->getName()|h}">{$quote->getCategory()->getTitle()|h}</a> / <a rel="bookmark" class="entry-title" href="{url route="quoteView" id=$quote->getId()}">Говнокод #{$quote->getId()}</a></h2>
         <p class="vote">
             {include file="quoter/rating.tpl" quote=$quote}
         </p>
         <div class="entry-content">
-        {if $quote->getLinesCount() > 30}
+        {if $quote->getLinesCount() > 30 && $highlight == "geshi"}
             <ol>{foreach from=$quote->generateLines(15) item="line"}<li>{$line}</li>{/foreach}<li>…</li><li>{$quote->getLinesCount()}</li></ol>
-            {$quote->getText(15)|highlite:$langName:$quote->getHighlightedLines()}
+            {$quote->getText(15)|highlite:$langName}
             <a class="trigger" href="{url route="quoteView" id=$quote->getId()}" title="показать весь код">показать весь код +</a>
         {else}
             <ol>{foreach from=$quote->generateLines() item="line"}<li>{$line}</li>{/foreach}</ol>
-            {$quote->getText()|highlite:$langName:$quote->getHighlightedLines()}
+            {if $highlight == "geshi"}
+            {$quote->getText()|highlite:$langName}
+            {else}
+            <pre><code class="{$langName|h}">{$quote->getText()|h}</code></pre>
+            {/if}
         {/if}
         </div>
         <p class="description">

