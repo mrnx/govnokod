@@ -212,6 +212,10 @@ class SimpleOpenID{
 		}
 	}
 	function CURL_Request($url, $method="GET", $params = "") { // Remember, SSL MUST BE SUPPORTED
+        //little fix. VIA http://habrahabr.ru/blogs/php/12292/
+	    if (isset($params["openid.mode"])) {
+                $method = "POST";
+        }
 			if (is_array($params)) $params = $this->array2url($params);
 			$curl = curl_init($url . ($method == "GET" && $params != "" ? "?" . $params : ""));
 			curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);

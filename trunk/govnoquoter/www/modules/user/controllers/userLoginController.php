@@ -34,19 +34,21 @@ class userLoginController extends simpleController
 
                 $userMapper = $this->toolkit->getMapper('user', 'user');
                 $user = $userMapper->login($login, $password);
-                $this->toolkit->setUser($user);
 
-                if ($user) {
+                if ($user instanceof user) {
+                    $this->toolkit->setUser($user);
                     if ($this->request->getBoolean('save', SC_POST)) {
                         $this->rememberUser($user);
                     }
 
                     if (!$backURL) {
-                        $backURL = new url('default');
+                        $url = new url('default');
                         $backURL = $url->get();
                     }
 
                     return $this->redirect($backURL);
+                } else {
+                    //userMapper::NOT_CONFIRMED || userMapper::WRONG_AUTH_DATA
                 }
             }
 

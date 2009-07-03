@@ -429,12 +429,12 @@ div.entry-comments ul .hcomment ul .hcomment ul .hcomment ul .hcomment ul .hcomm
 
 div.entry-comments ul .hcomment a.answer
 {
-	margin-left: 2.8em;
+	margin-left: 3em;
 	padding: 0.2em 0 0 0;
 	display: -moz-inline-stack;
 	display: inline-block;
     border-bottom: 1px dotted #0060B6;
-	font-size: 0.9em;
+	font-size: 0.8em;
 }
 
 div.entry-comments ul .hcomment a.selected
