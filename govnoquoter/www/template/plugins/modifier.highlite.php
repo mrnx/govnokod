@@ -1,5 +1,5 @@
 <?php
-function smarty_modifier_highlite($source, $language = 'text', Array $highlight = array(), $cacheKey = null)
+function smarty_modifier_highlite($source, $language = 'text', $cacheKey = null)
 {
     if ($cacheKey) {
         fileLoader::load('cache');
@@ -18,7 +18,7 @@ function smarty_modifier_highlite($source, $language = 'text', Array $highlight 
     } else {
         $css = systemConfig::$pathToApplication . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'langs' . DIRECTORY_SEPARATOR . $language . '.css';
         if (!file_exists($css)) {
-            file_put_contents($css, $geshi->get_stylesheet(false));
+            @file_put_contents($css, $geshi->get_stylesheet(false));
         }
     }
 
@@ -28,9 +28,11 @@ function smarty_modifier_highlite($source, $language = 'text', Array $highlight 
     $geshi->set_comments_style(4, 'color: #009933;');
     $geshi->set_comments_style('MULTI', 'color: #666666;');
 
+    /*
     if ($highlight) {
         $geshi->highlight_lines_extra($highlight);
     }
+    */
 
     //$geshi->set_header_type(GESHI_HEADER_NONE);
     //$geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
