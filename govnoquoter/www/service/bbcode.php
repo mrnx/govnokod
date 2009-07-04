@@ -644,6 +644,8 @@ class bbcode
         $lang = strtolower($lang);
         $code = htmlspecialchars_decode(trim(str_replace(array('<br>', '<br />'), '', $code)));
 
+        //return '<pre><code> ' . $code . '</pre></code>';
+
         fileLoader::load('libs/geshi/geshi');
         $geshi = new GeSHi($code, $lang);
         //если такой язык подсветки не найден, то принуждаем использовать простой текст
@@ -656,7 +658,6 @@ class bbcode
         $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
         $code = $geshi->parse_code();
         return $code;
-        //return '<div class="codeBlock"><div class="codeName"><em>Код <strong>' . $lang . '</strong>:</em></div>' . $code . '</div>';
     }
 
     /**

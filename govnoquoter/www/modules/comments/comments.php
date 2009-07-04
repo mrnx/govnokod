@@ -48,6 +48,8 @@ class comments extends entity
 
     public function getAcl($name = null)
     {
+        return false;
+
         $user = systemToolkit::getInstance()->getUser();
 
         switch ($name) {
@@ -57,7 +59,9 @@ class comments extends entity
 
             case 'edit':
             case 'delete':
-                $groups = $user->getGroupsList();
+                return true;
+
+                $groups = array();
                 if (in_array(4, $groups) || in_array(MZZ_ROOT_GID, $groups)) {
                     return true;
                 }

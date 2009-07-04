@@ -1,11 +1,19 @@
 {strip}{add file="jquery.js"}
 {add file="govnokod.js"}
 {assign var="number" value=$quote->getId()}
-{assign var="langName" value=$quote->getCategory()->getHighliteName()|h}
-{add file="langs/$langName.css"}
 {title append="Говнокод #$number"}
-{title append=$quote->getCategory()->getTitle()|htmlspecialchars}
+{title append=$quote->getCategory()->getTitle()|h}
 {meta description=$quote->getDescription() reset=true}
+
+{assign var="highlight" value=$current_user->getHighlightDriver()}
+{if $highlight == "geshi"}
+{assign var="langName" value=$quote->getCategory()->getGeshiAlias()|h}
+{add file="langs/$langName.css"}
+{else}
+{add file="jshighlight/govnokod.css"}{add file="jshighlight/highlight.pack.js"}{add file="govnokod.jsh.js"}
+{assign var="langName" value=$quote->getCategory()->getJsAlias()|h}
+{/if}
+
 {/strip}
 <ol class="posts hatom">
     <li class="hentry">
@@ -15,7 +23,11 @@
         </p>
         <div class="entry-content">
             <ol>{foreach from=$quote->generateLines() item="line"}<li>{$line}</li>{/foreach}</ol>
-            {$quote->getText()|highlite:$langName:$quote->getHighlightedLines()}
+            {if $highlight == "geshi"}
+            {$quote->getText()|highlite:$langName:$quote->getCacheKey()}
+            {else}
+            <pre><code class="{$langName|h}">{$quote->getText()|h}</code></pre>
+            {/if}
         </div>
         <p class="description">
             {$quote->getDescription()|trim|h|bbcode|nl2br}

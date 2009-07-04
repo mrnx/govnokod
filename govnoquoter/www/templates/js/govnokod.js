@@ -146,12 +146,6 @@ var code;
                         var nowHeight = entryHolder.height();
                         entryHolder.css({overflow: 'hidden', height: currentHeight});
                         entryHolder.animate({height: nowHeight}, 400, function() { $(this).removeAttr('style'); });
-
-                        /*
-                        if (typeof(hljs) == 'object') {
-                            hljs.highlightBlock(entryHolder.find('code')[0]);
-                        }
-                        */
                     },
                     error: function(XMLHttpRequest, textStatus, errorThrown){
                         preloader.remove();

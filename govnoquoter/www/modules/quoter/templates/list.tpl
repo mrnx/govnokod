@@ -1,16 +1,9 @@
 {strip}
 {add file="jquery.js"}
 {add file="govnokod.js"}
+{if $current_user->getHighlightDriver() == 'js'}{add file="jshighlight/govnokod.css"}{add file="jshighlight/highlight.pack.js"}{add file="govnokod.jsh.js"}{/if}
 {if !$listAll}
     {title append=$category->getTitle()}
-{/if}
-
-{if $current_user->getHighlightDriver() == 'js'}
-{add file="jshighlight/govnokod.css"}
-{add file="highlight/highlight.pack.js"}
-<script type="text/javascript">
-    hljs.initHighlightingOnLoad();
-</script>
 {/if}
 
 <ol class="posts hatom">

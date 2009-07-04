@@ -13,12 +13,12 @@
         <div class="entry-content">
         {if $quote->getLinesCount() > 30 && $highlight == "geshi"}
             <ol>{foreach from=$quote->generateLines(15) item="line"}<li>{$line}</li>{/foreach}<li>…</li><li>{$quote->getLinesCount()}</li></ol>
-            {$quote->getText(15)|highlite:$langName}
+            {$quote->getText(15)|highlite:$langName:$quote->getCacheKey('15_')}
             <a class="trigger" href="{url route="quoteView" id=$quote->getId()}" title="показать весь код">показать весь код +</a>
         {else}
             <ol>{foreach from=$quote->generateLines() item="line"}<li>{$line}</li>{/foreach}</ol>
             {if $highlight == "geshi"}
-            {$quote->getText()|highlite:$langName}
+            {$quote->getText()|highlite:$langName:$quote->getCacheKey()}
             {else}
             <pre><code class="{$langName|h}">{$quote->getText()|h}</code></pre>
             {/if}
