@@ -26,7 +26,7 @@ class quote extends entity
     const MAX_DESC_CHARS = 2000;
     const VOTE_TOKEN_PREFIX = 'votetoken_';
     const CACHE_PREFIX = 'quote_';
-    const CACHE_NAME = 'geshi_code';
+    const CACHE_NAME = 'file';
 
     protected $linesCount = 0;
     protected $token = null;
@@ -142,9 +142,9 @@ class quote extends entity
         return self::VOTE_TOKEN_PREFIX . $this->getId();
     }
 
-    public function getCacheKey()
+    public function getCacheKey($localPrefix = '')
     {
-        return self::CACHE_PREFIX . $this->getId();
+        return self::CACHE_PREFIX . $localPrefix . $this->getId();
     }
 
     //@todo: идентификатор группы moderators(4) убрать
