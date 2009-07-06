@@ -1,4 +1,4 @@
-{strip}{add file="jquery.js"}
+{strip}{add file="jquery.js"}{add file="jquery.scrollTo.js"}
 {add file="govnokod.js"}
 {assign var="number" value=$quote->getId()}
 {title append="Говнокод #$number"}

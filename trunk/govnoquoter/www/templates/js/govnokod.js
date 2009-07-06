@@ -62,8 +62,8 @@ var code;
                 formElem.attr('action', aElemTrigger.href);
                 formElem.find('textarea').focus();
 
-                //$.scrollTo(formElem, 500, {offset: -200});
-                $("html:not(:animated),body:not(:animated)").animate({scrollTop: formElem.offset().top - 200}, 500);
+                $.scrollTo(formElem, 500, {offset: -200});
+                //$("html:not(:animated),body:not(:animated)").animate({scrollTop: formElem.offset().top - 200}, 500);
             }
         },
 
@@ -86,6 +86,8 @@ var code;
                     data: formData + '&ajax=true',
                     success: function(msg) {
                         if (baseHolder) {
+                            baseHolder.closest('div.entry-comments').find('a.selected').removeClass('selected');
+
                             formParent.empty();
                             if (msg.match(/<li class="hcomment new">/)) {
                                 if (replyTo != 0) {
@@ -97,7 +99,8 @@ var code;
                                 var newComment = baseHolder.find('li.new');
                                 if (newComment) {
                                     newComment.removeClass('new');
-                                    $("html:not(:animated),body:not(:animated)").animate({scrollTop: newComment.offset().top - 100}, 500);
+                                    $.scrollTo(newComment, 500, {offset: -100});
+                                    //$("html:not(:animated),body:not(:animated)").animate({scrollTop: newComment.offset().top - 100}, 500);
                                 }
                             } else {
                                 formParent.html(msg);
