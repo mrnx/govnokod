@@ -11,7 +11,7 @@
             {include file="quoter/rating.tpl" quote=$quote}
         </p>
         <div class="entry-content">
-        {if $quote->getLinesCount() > 30 && $highlight == "geshi"}
+        {if $highlight == "geshi" && $quote->getLinesCount() > 30}
             <ol>{foreach from=$quote->generateLines(15) item="line"}<li>{$line}</li>{/foreach}<li>…</li><li>{$quote->getLinesCount()}</li></ol>
             {$quote->getText(15)|highlite:$langName:$quote->getCacheKey('15_')}
             <a class="trigger" href="{url route="quoteView" id=$quote->getId()}" title="показать весь код">показать весь код +</a>

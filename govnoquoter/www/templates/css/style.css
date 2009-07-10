@@ -89,7 +89,7 @@ div#userpane
 	font-size: 0.9em;
 }
 
-div#userpane ul
+div#userpane ul.menu
 {
 	margin: 0;
 	padding: 0 0 0 23px;
@@ -101,12 +101,12 @@ div#userpane ul
 	background: url(../images/user.png) no-repeat;
 }
 
-div#userpane ul li
+div#userpane ul.menu li
 {
 	display: inline;
 }
 
-div#userpane ul li a
+div#userpane ul.menu li a
 {
 	text-decoration: none;
 
@@ -115,9 +115,24 @@ div#userpane ul li a
 	border-bottom: dotted 1px #0060b6;
 }
 
-div#userpane ul li a.feed
+div#userpane.expanded
 {
-	margin: 0 0 0 3em;
+    background: #fff;
+
+	border: solid 2px #ddd;
+	-webkit-border-bottom-right-radius: 1em;
+	-webkit-border-bottom-right-radius: 1em;
+	-moz-border-radius-bottomright: 1em;
+	-moz-border-radius-bottomleft: 1em;
+
+	border-bottom-right-radius: 1em;
+	border-bottom-left-radius: 1em;
+}
+
+input#openid_url
+{
+    background: #fff url(../images/openid.png) 3px 0px no-repeat;
+    padding-left: 1.6em;
 }
 
 /* Languages selector and menu navigation */
@@ -301,12 +316,6 @@ p#entrance
 	position: relative;
 
 	overflow: none;
-
-	/*
-    overflow: auto;
-	overflow-x: auto;
-	overflow-y: hidden;
-	*/
 }
 
 .posts .hentry .entry-content ol
