@@ -4,9 +4,13 @@
         <h1><a rel="homepage" href="/">Говнокод: по колено в коде.</a></h1>
 
         <div id="userpane">
-            <ul>
+            <ul class="menu">
                 <li><a href="#">Войти в говнокод</a></li>
                 {*<li><a href="#">Регистрация</a></li>*}
+            </ul>
+
+            <ul>
+                <li>{form->text id="openid_url" name="openid"}</li>
             </ul>
         </div>
 

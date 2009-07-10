@@ -50,7 +50,7 @@ class userOpenIDLoginController extends userLoginController
                 $user = $userMapper->create();
                 $user->setLogin($login);
                 //$user->setEmail($email);
-                //$user->setPassword(userMapper::generatePassword(mt_rand(6, 10)));
+                $user->setPassword(userMapper::generatePassword(mt_rand(6, 10)));
                 $userMapper->save($user);
 
                 $openid = new SimpleOpenID;
@@ -150,6 +150,9 @@ class userOpenIDLoginController extends userLoginController
         if ($validator->validate()) {
             $openIDUrl = $this->request->getString('openidurl', SC_POST);
             $openid = new SimpleOpenID;
+
+            //@todo: метод httpRequest::getUrl() не совсем подходит, так как содержит в себе еще и SITE_PATH
+            //при SITE_PATH == '' всё нормально, но иначе будет плохо (а будет ли иначе?)
             $openid->SetTrustRoot($this->request->getUrl());
             $openid->SetIdentity($openIDUrl);
             $openid->SetRequiredFields(array('email', 'nickname'));
