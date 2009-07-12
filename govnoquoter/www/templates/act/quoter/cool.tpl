@@ -1,1 +1,0 @@
-{load module="quoter" action="quote" vote=+1}
