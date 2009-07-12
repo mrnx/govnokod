@@ -54,6 +54,10 @@ class userOpenIDMapper extends mapper
         'openid_url' => array(
             'accessor' => 'getUrl',
             'mutator' => 'setUrl',
+        ),
+        'openid_url_standarized' => array(
+            'accessor' => 'getStandarizedUrl',
+            'mutator' => 'setStandarizedUrl'
         )
     );
 
@@ -69,7 +73,7 @@ class userOpenIDMapper extends mapper
 
     public function searchByUrl($url)
     {
-        return $this->searchOneByField('openid_url', $url);
+        return $this->searchOneByField('openid_url_standarized', $url);
     }
 
     public function convertArgsToObj($args)

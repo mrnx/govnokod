@@ -15,10 +15,10 @@
         </div>
 
         <ul id="navigation">
-            <li><a href="/">Все</a></li>
+            <li><a href="{$SITE_PATH}/">Все</a></li>
             <li><a href="{url route="best"}">Лучший</a></li>
-            <li><a href="#">Поиск</a></li>
-            <li class="add"><a href="#">Наговнокодить!</a></li>
+            <li><a href="{url route="search"}">Поиск</a></li>
+            <li class="add"><a href="{url route="quoteAdd"}">Наговнокодить!</a></li>
         </ul>
 
         <p id="entrance">

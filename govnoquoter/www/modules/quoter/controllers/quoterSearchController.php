@@ -34,10 +34,12 @@ class quoterSearchController extends simpleController
         $categories = $categoryMapper->searchAll();
         $this->smarty->assign('categories', $categories);
 
-        $name = $this->request->getString('name');
+        $name = $this->request->getString('language', SC_GET);
 
         $category = null;
+        $categorySelect = array();
         foreach ($categories as $cat) {
+            $categorySelect[$cat->getName()] = $cat->getTitle();
             if ($cat->getName() == $name) {
                 $category = $cat;
                 break;
@@ -61,8 +63,12 @@ class quoterSearchController extends simpleController
                 $word = trim($this->request->getString('search', SC_GET));
                 $word = mb_substr($word, 0, 50);
                 if ($word) {
-                    $criteria->add('active', 1)->setOrderByFieldDesc('created');
-                    $criteria->add('text', '%' . $word . '%', criteria::LIKE);
+                    //$criteria->add('active', 1)->setOrderByFieldDesc('created');
+
+                    $criterion = new criterion('text', '%' . $word . '%', criteria::LIKE);
+                    $criterion->addOr(new criterion('description', '%' . $word . '%', criteria::LIKE));
+
+                    $criteria->add($criterion);
 
                     $quotes = $quoteMapper->searchAllByCriteria($criteria);
                 }
@@ -72,6 +78,7 @@ class quoterSearchController extends simpleController
         }
 
         $this->smarty->assign('quotes', $quotes);
+        $this->smarty->assign('categorySelect', $categorySelect);
         $this->smarty->assign('mode', $mode);
         return $this->smarty->fetch('quoter/search.tpl');
     }

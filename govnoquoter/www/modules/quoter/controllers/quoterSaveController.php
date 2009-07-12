@@ -26,6 +26,8 @@ class quoterSaveController extends simpleController
 {
     protected function getView()
     {
+        $user = $this->toolkit->getUser();
+
         $action = $this->request->getAction();
         $isEdit = ($action == 'edit');
 
@@ -70,31 +72,19 @@ class quoterSaveController extends simpleController
 
         if ($validator->validate()) {
             $categoryId = $this->request->getInteger('category_id', SC_POST);
-            $text = mzz_trim($this->request->getString('text', SC_POST));
             $description = mzz_trim($this->request->getString('description', SC_POST));
-
-            $lines = $this->request->getArray('lines', SC_POST);
-            if (!is_array($lines)) {
-                $lines = array();
-            }
-            $linesCount = mzz_substr_count($text, "\n") + 1;
-
-            $highlightedLines = array();
-            foreach ($lines as $line) {
-                if ($line > 0 && $line <= $linesCount && !in_array($line, $highlightedLines)) {
-                    $highlightedLines[] = $line;
-                }
-            }
+            $text = mzz_trim($this->request->getString('text', SC_POST));
 
             $quote->setCategory($categoryId);
-            $quote->setText($text);
             $quote->setDescription($description);
-            $quote->setHighlitedLines(join(', ', $highlightedLines));
+            $quote->setText($text);
             $quoteMapper->save($quote);
 
             if ($isEdit) {
                 $cache = cache::factory(quote::CACHE_NAME);
                 $cache->delete($quote->getCacheKey());
+            } else {
+                $quote->setUser($user);
             }
 
             $url = new url('quoteView');
@@ -119,7 +109,6 @@ class quoterSaveController extends simpleController
         $this->smarty->assign('categoriesSelect', $categoriesSelect);
         $this->smarty->assign('isEdit', $isEdit);
         $this->smarty->assign('quote', $quote);
-        $this->smarty->assign('errors', $validator->getErrors());
         $this->smarty->assign('formAction', $url->get());
 
         $tpl = ($isEdit && $this->request->isAjax()) ? 'editajax' : 'save';

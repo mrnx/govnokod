@@ -1,1 +1,0 @@
-{load module="comments" action="vote" vote=-1}
