@@ -642,9 +642,9 @@ class bbcode
     protected function handleCode($code, $lang = 'text')
     {
         $lang = strtolower($lang);
-        $code = htmlspecialchars_decode(trim(str_replace(array('<br>', '<br />'), '', $code)));
+        $code = htmlspecialchars_decode(trim(str_replace(array('<br>', '<br />'), '', $code)), ENT_QUOTES);
 
-        //return '<pre><code> ' . $code . '</pre></code>';
+        //return '<pre><code> ' . $code . '</code></pre>';
 
         fileLoader::load('libs/geshi/geshi');
         $geshi = new GeSHi($code, $lang);

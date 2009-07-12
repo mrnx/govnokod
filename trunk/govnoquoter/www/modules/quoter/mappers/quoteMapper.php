@@ -49,6 +49,13 @@ class quoteMapper extends mapper
             'foreign_key' => 'id',
             'mapper' => 'quoter/quoteCategoryMapper'
         ),
+        'user_id' => array(
+            'accessor' => 'getUser',
+            'mutator' => 'setUser',
+            'relation' => 'one',
+            'foreign_key' => 'id',
+            'mapper' => 'user/userMapper'
+        ),
         'created' => array(
             'accessor' => 'getCreated',
             'mutator' => 'setCreated',
@@ -80,60 +87,39 @@ class quoteMapper extends mapper
     {
         $this->attach(new ratingsPlugin(array('rating_count_field' => 'rating_count')));
         parent::__construct();
-        $this->attach(new acl_simplePlugin(), 'acl');
+        $this->plugins('acl_simple');
         $this->plugins('jip');
         $this->attach(new commentsPlugin(array('extendMap' => true, 'byField' => 'id')));
-
     }
 
     public function searchById($id)
     {
-        return $this->searchOneByField('id', $id);
+        return $this->searchByKey($id);
     }
 
-    /**
-     * Выполнение операций с массивом $fields перед вставкой в БД
-     *
-     * @param array $fields
-     */
-    protected function insertDataModify(&$fields)
+    public function preInsert(array & $data)
     {
-        $fields['created'] = new sqlFunction('UNIX_TIMESTAMP');
-        $fields['rating'] = 0;
-        $fields['active'] = 1;
+        $data['created'] = new sqlFunction('UNIX_TIMESTAMP');
+        $data['rating'] = 0;
+        $data['active'] = 1;
     }
 
-    /**
-     * Хук, вызываемый сразу же после добавления объекта в БД
-     *
-     * @param array $fields
-     */
-    protected function afterInsert(&$fields)
+    public function postInsert(entity $object)
     {
         $categoryMapper = systemToolkit::getInstance()->getMapper('quote', 'quoteCategory');
-        $fields['category_id']->setQuoteCounts($fields['category_id']->getQuoteCounts() + 1);
-        $categoryMapper->save($fields['category_id']);
+        $category = $object->getCategory();
+
+        $category->setQuoteCounts($category->getQuoteCounts() + 1);
+        $categoryMapper->save($category);
     }
 
-    public function delete(quote $do)
+    public function preDelete(entity $object)
     {
         $categoryMapper = systemToolkit::getInstance()->getMapper('quote', 'quoteCategory');
-        $category = $do->getCategory();
+        $category = $object->getCategory();
+
         $category->setQuoteCounts($category->getQuoteCounts() - 1);
         $categoryMapper->save($category);
-
-        parent::delete($do);
-    }
-
-    public function clearSuxx()
-    {
-        /*
-        $needClear = (rand(1, 4) === 1);
-        if ($needClear) {
-            $query = 'UPDATE ' . $this->table() . ' SET `active` = 0 WHERE `rating` < 0 AND `deleted` <= ' . time();
-            $this->db()->query($query);
-        }
-        */
     }
 
     /**
@@ -152,5 +138,4 @@ class quoteMapper extends mapper
         throw new mzzDONotFoundException();
     }
 }
-
 ?>

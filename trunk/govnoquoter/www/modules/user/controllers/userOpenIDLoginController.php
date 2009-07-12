@@ -49,7 +49,7 @@ class userOpenIDLoginController extends userLoginController
                 $userMapper = $this->toolkit->getMapper('user', 'user');
                 $user = $userMapper->create();
                 $user->setLogin($login);
-                //$user->setEmail($email);
+                $user->setEmail($email);
                 $user->setPassword(userMapper::generatePassword(mt_rand(6, 10)));
                 $userMapper->save($user);
 
@@ -59,7 +59,8 @@ class userOpenIDLoginController extends userLoginController
                 $userOpenIDMapper = $this->toolkit->getMapper('user', 'userOpenID');
                 $userOpenID = $userOpenIDMapper->create();
                 $userOpenID->setUser($user);
-                $userOpenID->setUrl($normalizedOpenIDUrl);
+                $userOpenID->setUrl($openIDUrl);
+                $userOpenID->setStandarizedUrl($normalizedOpenIDUrl);
                 $userOpenIDMapper->save($userOpenID);
 
                 $this->toolkit->setUser($user);

@@ -28,7 +28,6 @@ class quoterListController extends simpleController
         $listAll = ($action == 'listAll');
 
         $quoteMapper = $this->toolkit->getMapper('quoter', 'quote');
-        $quoteMapper->clearSuxx();
 
         $criteria = new criteria;
         $criteria->add('active', 1)->setOrderByFieldDesc('created');
