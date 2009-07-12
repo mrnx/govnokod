@@ -14,13 +14,13 @@
 {else}
     <link title="rss {$category->getName()|h} govnokod.ru" type="application/rss+xml" rel="alternate" href="{url route="rssFull" name=$category->getName()}"/>
 {/if}
-    {include file='include.css.tpl'}
+    {include file='include.external.bundle.css.tpl'}
     <script type="text/javascript">
     //<!--
     var SITE_PATH = '{$SITE_PATH}'; var SITE_LANG = '{$current_lang}';
     //-->
     </script>
-    {include file='include.js.tpl'}
+    {include file='include.external.bundle.js.tpl'}
 </head>
 <body>
 {$content}
