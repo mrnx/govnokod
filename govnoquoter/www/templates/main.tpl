@@ -3,16 +3,7 @@
     <div id="header">
         <h1><a rel="homepage" href="/">Говнокод: по колено в коде.</a></h1>
 
-        <div id="userpane">
-            <ul class="menu">
-                <li><a href="#">Войти в говнокод</a></li>
-                {*<li><a href="#">Регистрация</a></li>*}
-            </ul>
-
-            <ul>
-                <li>{form->text id="openid_url" name="openid"}</li>
-            </ul>
-        </div>
+        {load module="user" action="openIDLogin" onlyForm=true tplPrefix="main_"}
 
         <ul id="navigation">
             <li><a href="{$SITE_PATH}/">Все</a></li>

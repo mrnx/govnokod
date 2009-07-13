@@ -89,12 +89,16 @@ div#userpane
 	font-size: 0.9em;
 }
 
+div#userpane ul
+{
+    list-style: none;
+    padding: 0.5em;
+}
+
 div#userpane ul.menu
 {
 	margin: 0;
 	padding: 0 0 0 23px;
-
-	list-style: none;
 
 	color: #888;
 
@@ -115,13 +119,18 @@ div#userpane ul.menu li a
 	border-bottom: dotted 1px #0060b6;
 }
 
+div#userpane form
+{
+    display: none;
+}
+
 div#userpane.expanded
 {
     background: #fff;
 
 	border: solid 2px #ddd;
 	-webkit-border-bottom-right-radius: 1em;
-	-webkit-border-bottom-right-radius: 1em;
+	-webkit-border-bottom-left-radius: 1em;
 	-moz-border-radius-bottomright: 1em;
 	-moz-border-radius-bottomleft: 1em;
 
@@ -129,10 +138,23 @@ div#userpane.expanded
 	border-bottom-left-radius: 1em;
 }
 
+div#userpane.expanded
+{
+    margin-top: -0.1em;
+    padding: 0.25em 0.5em 0 0.5em;
+}
+
+div#userpane.expanded form
+{
+    display: block;
+}
+
 input#openid_url
 {
     background: #fff url(../images/openid.png) 3px 0px no-repeat;
     padding-left: 1.6em;
+    border: 1px solid #C9CBCC;
+	border-top-color: #6D6F70;
 }
 
 /* Languages selector and menu navigation */
@@ -580,6 +602,9 @@ form dl dd input
 	font-size: 1.4em;
 
 	width: 60%;
+
+	border: 1px solid #C9CBCC;
+	border-top-color: #6D6F70;
 }
 
 form dl dd textarea
@@ -588,6 +613,9 @@ form dl dd textarea
 
 	font-family: "Calibri", "Arial", "Verdana", "Serif";
 	font-size: 0.9em;
+
+	border: 1px solid #C9CBCC;
+	border-top-color: #6D6F70;
 }
 
 form p input.send
