@@ -34,7 +34,7 @@ class userOpenIDLoginController extends userLoginController
 
         $session = $this->toolkit->getSession();
         $isValidated = $session->get('openID_validated', false);
-        if ($isValidated === true) {
+        if (!$this->request->getBoolean('onlyForm') && $isValidated === true) {
             $openIDUrl = $session->get('openID_url', false);
 
             $validator = new formValidator('openidsubmit');
@@ -148,7 +148,7 @@ class userOpenIDLoginController extends userLoginController
             $errors = array();
         }
 
-        if ($validator->validate()) {
+        if (!$this->request->getBoolean('onlyForm') && $validator->validate()) {
             $openIDUrl = $this->request->getString('openidurl', SC_POST);
             $openid = new SimpleOpenID;
 
@@ -195,7 +195,7 @@ class userOpenIDLoginController extends userLoginController
         $this->smarty->assign('openIDUrl', $openIDUrl);
         $this->smarty->assign('form_action', $url->get());
         $this->smarty->assign('errors', $errors);
-        return $this->smarty->fetch('user/openIDLoginForm.tpl');
+        return $this->fetch('user/openIDLoginForm.tpl');
     }
 
     protected function getSuccessUrl()

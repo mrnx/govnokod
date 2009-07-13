@@ -16,7 +16,6 @@ $router->addRoute('aclDefaultsEdit', new requestRoute('access/:class_name/:id/:a
 $router->addRoute('aclDefaultsAdd', new requestRoute('access/:class_name/:action', array('section' => 'access'), array('action' => '(?:editDefault|addGroupDefault|addUserDefault|editOwner)')));
 $router->addRoute('aclDefaultAction', new requestRoute('access/:id', array('section' => 'access', 'action' => 'edit'), array('id' => '\d+')));
 
-
 $router->addRoute('categoryList', new requestRoute(':name', array('section' => 'quoter', 'action' => 'list')));
 $router->addRoute('quoteView', new requestRoute(':id', array('section' => 'quoter', 'action' => 'view'), array('id' => '\d+')));
 //$router->addRoute('commentVote', new requestRoute('comments/:id/:action', array('section' => 'comments', 'action' => '(?:cool|suxx)'), array('id' => '\d+')));
