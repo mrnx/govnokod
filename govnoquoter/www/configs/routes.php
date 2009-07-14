@@ -44,4 +44,6 @@ $router->addRoute('tags', new requestRoute(':section/tag/:tag', array('action' =
 $router->addRoute('rssComments', new requestRoute('comments/:id/rss', array('section' => 'comments', 'action' => 'rss')));
 //$router->addRoute('rssAllComments', new requestRoute('comments/all/export', array('section' => 'quoter', 'action' => 'exportAllComments')));
 
+$router->addRoute('openIDLogin', new requestRoute('user/openid/login', array('section' => 'user', 'action' => 'openIDLogin')));
+
 ?>
