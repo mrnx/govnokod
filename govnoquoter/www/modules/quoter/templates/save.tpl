@@ -1,6 +1,6 @@
 {if $isEdit}{title append="Редактировать говнокод"}{else}{title append="Наговнокодить"}{/if}
 {add file="jquery.js"}
-{add file="govnokod.add.js"}
+{add file="govnokod.save.js"}
 
 <ol class="posts hatom">
     <li class="hentry add">
