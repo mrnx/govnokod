@@ -26,13 +26,14 @@ class userOpenIDLoginController extends userLoginController
 {
     protected function getView()
     {
-        if (!$this->request->getBoolean('onlyForm')) {
-            $user = $this->toolkit->getUser();
-            if ($user->isLoggedIn()) {
-                $this->redirect($this->getSuccessUrl());
-                return;
-            }
+        $user = $this->toolkit->getUser();
 
+        if ($user->isLoggedIn()) {
+            $this->smarty->assign('user', $user);
+            return $this->fetch('user/alreadyLogin.tpl');
+        }
+
+        if (!$this->request->getBoolean('onlyForm')) {
             $session = $this->toolkit->getSession();
             $isValidated = $session->get('openID_validated', false);
             if ($isValidated === true) {
@@ -78,8 +79,7 @@ class userOpenIDLoginController extends userLoginController
                 $regData = $session->get('openID_RegData');
                 $this->smarty->assign('regData', $regData);
 
-                $url = new url('default2');
-                $url->setAction($this->request->getAction());
+                $url = new url('openIDLogin');
 
                 $this->smarty->assign('form_action', $url->get());
                 return $this->smarty->fetch('user/openIDRegForm.tpl');
@@ -97,8 +97,7 @@ class userOpenIDLoginController extends userLoginController
                         $normalizedOpenIDUrl = $openid->OpenID_Standarize($openIDUrl);
                         $openid->SetIdentity($openIDUrl);
 
-                        $url = new url('default2');
-                        $url->setAction($this->request->getAction());
+                        $url = new url('openIDLogin');
 
                         $openid->SetApprovedURL($url->get());
 
@@ -114,9 +113,7 @@ class userOpenIDLoginController extends userLoginController
                                 $session->set('openID_validated', true);
                                 $session->set('openID_RegData', $regData);
 
-                                $url = new url('default2');
-                                $url->setModule('user');
-                                $url->setAction('openIDLogin');
+                                $url = new url('openIDLogin');
                                 $this->redirect($url->get());
                                 return;
                             }
@@ -167,8 +164,7 @@ class userOpenIDLoginController extends userLoginController
                 $session = $this->toolkit->getSession();
                 $session->set('openID_url', $openIDUrl);
 
-                $url = new url('default2');
-                $url->setAction($this->request->getAction());
+                $url = new url('openIDLogin');
 
                 $openid->SetApprovedURL($url->get());
                 $this->redirect($openid->GetRedirectURL());
@@ -191,8 +187,7 @@ class userOpenIDLoginController extends userLoginController
             $errors = $validator->getErrors()->export();
         }
 
-        $url = new url('default2');
-        $url->setAction($this->request->getAction());
+        $url = new url('openIDLogin');
 
         $this->smarty->assign('openIDUrl', $openIDUrl);
         $this->smarty->assign('form_action', $url->get());

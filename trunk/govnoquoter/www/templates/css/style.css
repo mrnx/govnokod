@@ -98,11 +98,12 @@ div#userpane ul
 div#userpane ul.menu
 {
 	margin: 0;
-	padding: 0 0 0 23px;
+	padding: 0 0.65em 0 23px;
 
 	color: #888;
 
 	background: url(../images/user.png) no-repeat;
+	text-align: right;
 }
 
 div#userpane ul.menu li
@@ -119,7 +120,7 @@ div#userpane ul.menu li a
 	border-bottom: dotted 1px #0060b6;
 }
 
-div#userpane form
+div#userpane .pane-content
 {
     display: none;
 }
@@ -136,25 +137,20 @@ div#userpane.expanded
 
 	border-bottom-right-radius: 1em;
 	border-bottom-left-radius: 1em;
-}
 
-div#userpane.expanded
-{
-    margin-top: -0.1em;
+	margin-top: -0.1em;
     padding: 0.25em 0.5em 0 0.5em;
 }
 
-div#userpane.expanded form
+div#userpane.expanded ul.menu
 {
-    display: block;
+    margin-left: 3.5em;
+    padding: 0 0 0 23px;
 }
 
-input#openid_url
+div#userpane.expanded .pane-content
 {
-    background: #fff url(../images/openid.png) 3px 0px no-repeat;
-    padding-left: 1.6em;
-    border: 1px solid #C9CBCC;
-	border-top-color: #6D6F70;
+    display: block;
 }
 
 /* Languages selector and menu navigation */
@@ -646,6 +642,14 @@ form input.captcha
 	font-size: 30px;
 	width: 120px;
 	vertical-align: top;
+}
+
+input#openid_url_small
+{
+    background: #fff url(../images/openid.png) 3px 0px no-repeat;
+    padding-left: 1.6em;
+    border: 1px solid #C9CBCC;
+	border-top-color: #6D6F70;
 }
 
 /* Pagination classes */
