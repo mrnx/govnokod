@@ -62,15 +62,16 @@ $ext = substr(strrchr($filesString, '.'), 1);
 $strippedHash = str_ireplace('.' . $ext, '', $hash);
 
 if ($filesString !== null && $hash !== null && isset($mimes[$ext]) && $strippedHash === md5($filesString)) {
-    $files = explode(',', $filesString);
-    if ($files) {
-        $source = generateSource($files, $resolver);
+    $source = generateSource(explode(',', $filesString), $resolver);
 
-        file_put_contents(systemConfig::$pathToApplication . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'media' . DIRECTORY_SEPARATOR . $hash, $source);
-        header('Location: ' . SITE_PATH . '/templates/media/' . $hash . '?files=' . $filesString);
-        exit;
-    }
+    file_put_contents(systemConfig::$pathToApplication . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'media' . DIRECTORY_SEPARATOR . $hash, $source);
+    header('Location: ' . SITE_PATH . '/templates/media/' . $hash . '?files=' . $filesString);
+    exit;
 }
+
+header("HTTP/1.1 404 Not Found");
+header('Content-Type: text/html');
+exit;
 
 function generateSource(Array $files, iResolver $resolver)
 {
@@ -93,7 +94,7 @@ function generateSource(Array $files, iResolver $resolver)
             if ($currentFileTime > $filemtime) {
                 $filemtime = $currentFileTime;
             }
-            $source .= file_get_contents($filePath);
+            $source .= file_get_contents($filePath) . "\r\n\r\n";
         }
     }
 
