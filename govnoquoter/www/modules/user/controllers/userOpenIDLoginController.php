@@ -148,7 +148,12 @@ class userOpenIDLoginController extends userLoginController
         }
 
         if (!$this->request->getBoolean('onlyForm') && $validator->validate()) {
-            $openIDUrl = $this->request->getString('openidurl', SC_POST);
+            $openIDUrl = mzz_trim($this->request->getString('openidurl', SC_POST));
+
+            if ((stripos($openIDUrl, 'http://') === false) && (stripos($openIDUrl, 'https://') === false)){
+                $openIDUrl = 'http://' . $openIDUrl;
+            }
+
             $openid = new SimpleOpenID;
 
             //@todo: метод httpRequest::getUrl() не совсем подходит, так как содержит в себе еще и SITE_PATH

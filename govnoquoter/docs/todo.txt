@@ -1,0 +1,7 @@
+1) http://beta.govnokod.ru/user/openIDLogin Ч CASE-SENSITIVE URI Ч†зло!
+2) в Google Chrome капча: поле ввода капчи ниже на 1-2px картиночки
+3) у кнопки Ђотправить комментарийї какой-то сдвиг непон€тный слева
+4) саму картинку капчи поменьше по высоте
+5) добавь к textarea max-width и max-height дл€ Safari и Google Chrome
+6) лесенка от автора до текста комментари€
+7) убрать слово "–ейтинг"

@@ -2,12 +2,12 @@
     <li class="hentry">
         <h2>Вход в говнокод тут, part2.</h2>
         {form action=$form_action method="post" id="userLogin"}
-            {if $errors|default:false}
+            {if !$form->isValid()}
             <dl class="errors">
                 <dt>Ошибка авторизации:</dt>
                 <dd>
                     <ol>
-                    {foreach from=$errors item="error"}
+                    {foreach from=$form->export() item="error"}
                         <li>{$error}</li>
                     {/foreach}
                     </ol>
