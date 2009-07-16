@@ -125,12 +125,14 @@ class userOpenIDLoginController extends userLoginController
                             $this->redirect($this->getSuccessUrl());
                             return;
                         } else {
+                            $errors = array();
                             $errors['openidurl'] = 'Авторизация не подтверждена сервером!';
                         }
                     }
                     break;
 
                 case 'cancel':
+                    $errors = array();
                     $errors['openidurl'] = 'Авторизация отменена';
                     break;
             }
@@ -141,10 +143,10 @@ class userOpenIDLoginController extends userLoginController
         $validator->add('url', 'openidurl', 'Введите корректный openID идентификатор!');
 
         if (isset($errors)) {
+            $openIDUrl = $session->get('openID_url', false);
             $session->destroy('openID_url');
         } else {
             $openIDUrl = '';
-            $errors = array();
         }
 
         if (!$this->request->getBoolean('onlyForm') && $validator->validate()) {
