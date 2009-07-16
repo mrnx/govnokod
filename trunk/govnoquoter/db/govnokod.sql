@@ -1,4 +1,4 @@
-# SQL Manager 2007 for MySQL 4.4.0.3
+# SQL Manager 2007 for MySQL 4.4.0.5
 # ---------------------------------------
 # Host     : localhost
 # Port     : 3306
@@ -372,7 +372,15 @@ CREATE TABLE `page_page` (
   `description_reset` TINYINT(1) DEFAULT '0',
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=1 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=2 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Data for the `page_page` table  (LIMIT 0,500)
+#
+
+INSERT INTO `page_page` (`id`, `name`, `title`, `content`, `keywords`, `description`, `folder_id`, `allow_comment`, `compiled`, `keywords_reset`, `description_reset`) VALUES 
+  (1,'whatisopenid','Что такое openID','OpenID — это открытая децентрализованная система единого входа. Поддержка сайтами технологии OpenID позволяет пользователю использовать единый логин для авторизации на любом из этих сайтов.','','',1,0,0,0,0);
+COMMIT;
 
 #
 # Structure for the `page_pageFolder` table : 
@@ -18352,7 +18360,7 @@ CREATE TABLE `user_user` (
   PRIMARY KEY (`id`),
   KEY `login` (`login`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=9 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `user_user` table  (LIMIT 0,500)
@@ -18360,9 +18368,7 @@ AUTO_INCREMENT=9 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 INSERT INTO `user_user` (`id`, `obj_id`, `login`, `email`, `password`, `created`, `confirmed`, `last_login`, `language_id`, `timezone`, `skin`, `highlight_driver`) VALUES 
   (1,17,'guest','','',NULL,NULL,1227260702,NULL,3,1,'js'),
-  (2,18,'admin','','098f6bcd4621d373cade4e832627b4f6',NULL,NULL,1247371664,1,3,1,'js'),
-  (7,0,'striker@bk.ru','','62318aca2ef2e809a13623715a8aaff4',1244371612,NULL,1244372360,NULL,3,1,'js'),
-  (8,0,'striker','striker@bk.ru','1646184a833905d3135b5415de6bae8d',1245237203,NULL,1247370634,NULL,3,1,'js');
+  (2,18,'admin','','098f6bcd4621d373cade4e832627b4f6',NULL,NULL,1247722114,1,3,1,'js');
 COMMIT;
 
 #
@@ -18380,18 +18386,7 @@ CREATE TABLE `user_userAuth` (
   `time` INTEGER(11) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=29 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
-# Data for the `user_userAuth` table  (LIMIT 0,500)
-#
-
-INSERT INTO `user_userAuth` (`id`, `user_id`, `ip`, `hash`, `obj_id`, `time`) VALUES 
-  (19,2,'127.0.0.1','c3e234c16087ca58d9ce0a2057c402bd',NULL,NULL),
-  (20,2,'127.0.0.1','0bc8b5fc0900dcf33ba30f876929b531',NULL,NULL),
-  (21,2,'127.0.0.1','1b28f40952f72f0104e3304db72179d3',NULL,NULL),
-  (28,2,'127.0.0.1','4d28e7f621d2e714a2eb72e33919be2a',NULL,NULL);
-COMMIT;
+ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Structure for the `user_userGroup_rel` table : 
@@ -18408,7 +18403,7 @@ CREATE TABLE `user_userGroup_rel` (
   UNIQUE KEY `group_id` (`group_id`, `user_id`),
   KEY `user_id` (`user_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=39 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `user_userGroup_rel` table  (LIMIT 0,500)
@@ -18443,15 +18438,7 @@ CREATE TABLE `user_userOnline` (
   UNIQUE KEY `user_id` (`user_id`, `session`),
   KEY `last_activity` (`last_activity`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=377 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
-# Data for the `user_userOnline` table  (LIMIT 0,500)
-#
-
-INSERT INTO `user_userOnline` (`id`, `user_id`, `session`, `last_activity`, `url`, `ip`) VALUES 
-  (376,2,'093f5a031e5859f82bbc8b5158ad0750',1227261708,'http://govnokod/admin/user/admin','127.0.0.1');
-COMMIT;
+ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Structure for the `user_userOpenID` table : 
@@ -18467,17 +18454,7 @@ CREATE TABLE `user_userOpenID` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=2 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
-# Data for the `user_userOpenID` table  (LIMIT 0,500)
-#
-
-INSERT INTO `user_userOpenID` (`id`, `user_id`, `openid_url`, `openid_url_standarized`) VALUES 
-  (1,8,'claimid.com/striker','');
-COMMIT;
-
-
+CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

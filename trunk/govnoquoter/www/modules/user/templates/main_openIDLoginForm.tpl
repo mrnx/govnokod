@@ -1,3 +1,5 @@
+{if !$isValidated}
+{add file="jquery.js"}
 <div id="userpane">
     <ul class="menu">
         <li><a href="{url route="openIDLogin"}" onclick="$('#userpane').toggleClass('expanded'); return false;">Войти в говнокод</a></li>
@@ -6,9 +8,16 @@
     {form action=$form_action method="post" class="pane-content"}
         <ul>
             <li>{form->text id="openid_url_small" name="openid_identifier" value=""}</li>
-            <li>{form->submit name="openid_submit" value="Вхожу!"}</li>
+            <li class="submit-holder">{form->submit id="openid_submit_small" name="openid_submit" value="Вхожу!" nodefault=true}</li>
         </ul>
 
-        {*<p>что это за хрень?</p>*}
+        <p><a href="{url route="pageActions" name="whatisopenid"}">Что это?</a> | <a href="">Обычная форма входа</a></p>
     </form>
 </div>
+{else}
+<div id="userpane">
+    <ul class="menu">
+        <li><a href="{url route="openIDLogin"}">{if $current_module == 'user' && $current_action == 'openIDLogin'}Войти в говнокод{else}Заполни данные, %username%!{/if}</a></li>
+    </ul>
+</div>
+{/if}
