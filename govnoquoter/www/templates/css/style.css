@@ -92,7 +92,7 @@ div#userpane
 div#userpane ul
 {
     list-style: none;
-    padding: 0.5em;
+    padding: 0.5em 0.5em 0;
 }
 
 div#userpane ul.menu
@@ -151,6 +151,19 @@ div#userpane.expanded ul.menu
 div#userpane.expanded .pane-content
 {
     display: block;
+}
+
+div#userpane .submit-holder {
+    text-align: right;
+    padding-top: 0.3em;
+    margin-right: 0.6em;
+}
+
+.pane-content p {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    font-size: 0.7em;
+    text-align: center;
 }
 
 /* Languages selector and menu navigation */
@@ -624,6 +637,12 @@ form p input.send
 form p input#remember
 {
 	margin: 0 0 0 0.7em;
+}
+
+form dl.errors
+{
+    padding-top: 0.5em;
+    padding-bottom: 1em;
 }
 
 form dl.errors dd ol
