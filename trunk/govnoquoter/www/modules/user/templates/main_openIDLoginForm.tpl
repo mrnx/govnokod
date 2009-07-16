@@ -5,8 +5,8 @@
 
     {form action=$form_action method="post" class="pane-content"}
         <ul>
-            <li>{form->text id="openid_url_small" name="openidurl" value=""}</li>
-            <li>{form->submit name="openidsubmit" value="Вхожу!"}</li>
+            <li>{form->text id="openid_url_small" name="openid_identifier" value=""}</li>
+            <li>{form->submit name="openid_submit" value="Вхожу!"}</li>
         </ul>
 
         {*<p>что это за хрень?</p>*}

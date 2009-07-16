@@ -138,9 +138,10 @@ class userOpenIDLoginController extends userLoginController
             }
         }
 
-        $validator = new formValidator('openidsubmit');
-        $validator->add('required', 'openidurl', 'Введите свой openID идентификатор!');
-        $validator->add('url', 'openidurl', 'Введите корректный openID идентификатор!');
+        $validator = new formValidator('openid_submit');
+        $validator->disableCSRF();
+        $validator->add('required', 'openid_identifier', 'Введите свой openID идентификатор!');
+        $validator->add('url', 'openid_identifier', 'Введите корректный openID идентификатор!');
 
         if (isset($errors)) {
             $openIDUrl = $session->get('openID_url', false);
@@ -150,7 +151,7 @@ class userOpenIDLoginController extends userLoginController
         }
 
         if (!$this->request->getBoolean('onlyForm') && $validator->validate()) {
-            $openIDUrl = mzz_trim($this->request->getString('openidurl', SC_POST));
+            $openIDUrl = mzz_trim($this->request->getString('openid_identifier', SC_POST));
 
             if ((stripos($openIDUrl, 'http://') === false) && (stripos($openIDUrl, 'https://') === false)){
                 $openIDUrl = 'http://' . $openIDUrl;
