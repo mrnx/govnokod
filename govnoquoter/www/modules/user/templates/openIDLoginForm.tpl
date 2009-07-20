@@ -16,7 +16,7 @@
             {/if}
             <dl>
                 <dt>{form->caption name="openid_identifier" value="OpenID:"}</dt>
-                <dd>{form->text name="openid_identifier" value=$openIDUrl}</dd>
+                <dd>{form->text id="openid_url" name="openid_identifier" value=$openIDUrl}</dd>
             </dl>
             <p>
                 {form->submit class="send" name="openid_submit" value="Вхожу!"}
