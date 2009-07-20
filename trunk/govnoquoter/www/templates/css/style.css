@@ -577,11 +577,8 @@ div.entry-comments ul .hcomment .entry-comment
 
 div.entry-comments span.rss a
 {
-    background: #fff url(../images/comments-rss.png) no-repeat;
-
-	width: 32px;
-	height: 32px;
-	padding-left: 1.5em;
+    background: #fff url(../images/comments-rss.png) no-repeat scroll 0 50%;
+	padding-left: 1em;
 }
 
 /* Form styles */
@@ -663,9 +660,17 @@ form input.captcha
 	vertical-align: top;
 }
 
+input#openid_url
+{
+    background: #fff url(../images/openid_big.png) 3px 50% no-repeat;
+    padding-left: 1.6em;
+    border: 1px solid #C9CBCC;
+	border-top-color: #6D6F70;
+}
+
 input#openid_url_small
 {
-    background: #fff url(../images/openid.png) 3px 0px no-repeat;
+    background: #fff url(../images/openid.png) 3px 50% no-repeat;
     padding-left: 1.6em;
     border: 1px solid #C9CBCC;
 	border-top-color: #6D6F70;

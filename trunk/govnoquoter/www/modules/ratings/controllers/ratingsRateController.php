@@ -48,7 +48,7 @@ class ratingsRateController extends simpleController
         //@todo: допустимые значения вынести лучше в БД
         switch ($alias) {
             case 'comment':
-            case 'govnokod':
+            case 'code':
                 $vote = $this->request->getString('vote');
                 switch ($vote) {
                     case 'on':
@@ -91,7 +91,7 @@ class ratingsRateController extends simpleController
                 $format = $this->request->getString('format', SC_GET);
                 if ($format == 'ajax') {
                     switch ($alias) {
-                        case 'govnokod':
+                        case 'code':
                             $this->smarty->assign('quote', $object);
                             return $this->smarty->fetch('quoter/rating.tpl');
                             break;
@@ -104,7 +104,7 @@ class ratingsRateController extends simpleController
                 }
 
                 switch ($alias) {
-                    case 'govnokod':
+                    case 'code':
                         $backUrl = new url('quoteView');
                         $backUrl->add('id', $object->getId());
                         $this->redirect($backUrl->get());
