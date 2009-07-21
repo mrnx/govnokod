@@ -667,7 +667,7 @@ form input.captcha
 	vertical-align: top;
 }
 
-input#openid_url
+input#openid_identifier
 {
     background: #fff url(../images/openid_big.png) 3px 50% no-repeat;
     padding-left: 1.6em;
@@ -675,7 +675,7 @@ input#openid_url
 	border-top-color: #6D6F70;
 }
 
-input#openid_url_small
+input#openid_identifier_small
 {
     background: #fff url(../images/openid.png) 3px 50% no-repeat;
     padding-left: 1.6em;
