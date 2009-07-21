@@ -5,7 +5,10 @@
     </ul>
 
     <div class="pane-content">
-        {set name="url}{url appendGet=true}{/set}
-        <a href="{url route="default2" section="user" action="exit"}/?url={$url|urlencode}">Выйти</a>
+        <ul>
+            <li><a href="{url route="default2" module="user" action="preferences"}">Настройки</a></li>
+            <li>&nbsp;</li>
+            <li>{set name="url}{url appendGet=true}{/set}<a href="{url route="default2" section="user" action="exit"}/?url={$url|urlencode}">Выйти</a></li>
+        </ul>
     </div>
 </div>

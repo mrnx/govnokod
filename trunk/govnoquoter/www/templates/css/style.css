@@ -469,7 +469,7 @@ div.entry-comments ul .hcomment ul .hcomment ul .hcomment ul .hcomment ul .hcomm
 
 div.entry-comments ul .hcomment a.answer
 {
-	margin-left: 3.5em;
+	margin-left: 3.2em;
 	padding: 0.2em 0 0 0;
 	display: -moz-inline-stack;
 	display: inline-block;
@@ -525,7 +525,7 @@ div.entry-comments ul .hcomment p .comment-vote a.comment-vote-against
 	height: 17px;
 }
 
-div.entry-comments ul .hcomment p img.avatar
+img.avatar
 {
 	width: 28px;
 	height: 28px;
@@ -565,7 +565,7 @@ div.entry-comments ul .hcomment p .published
 
 div.entry-comments ul .hcomment .entry-comment
 {
-	margin: -0.7em 0 0 2.8em;
+	margin: -0.7em 0 0 2.6em;
 	padding: 0;
 
 	color: #333;
@@ -575,10 +575,15 @@ div.entry-comments ul .hcomment .entry-comment
 	font-size: 1em;
 }
 
+div.entry-comments span.rss
+{
+    font-size: 0.6em;
+}
+
 div.entry-comments span.rss a
 {
     background: #fff url(../images/comments-rss.png) no-repeat scroll 0 50%;
-	padding-left: 1em;
+	padding-left: 1.4em;
 }
 
 /* Form styles */
@@ -622,6 +627,8 @@ form dl dd textarea
 
 	border: 1px solid #C9CBCC;
 	border-top-color: #6D6F70;
+	max-width: 60%;
+	max-height: 100%;
 }
 
 form p input.send

@@ -88,6 +88,13 @@ class userMapper extends mapper
             'accessor' => 'getHighlightDriver',
             'mutator' => 'setHighlightDriver'
         ),
+        'avatar_file_id' => array(
+            'accessor' => 'getAvatar',
+            'mutator' => 'setAvatar',
+            'relation' => 'one',
+            'mapper' => 'fileManager/fileMapper',
+            'foreign_key' => 'id'
+        ),
         'groups' => array(
             'accessor' => 'getGroups',
             'mutator' => 'setGroups',
