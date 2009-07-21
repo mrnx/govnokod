@@ -1,4 +1,4 @@
-# SQL Manager 2007 for MySQL 4.4.0.5
+# SQL Manager 2007 for MySQL 4.4.0.3
 # ---------------------------------------
 # Host     : localhost
 # Port     : 3306
@@ -20,6 +20,8 @@ CREATE DATABASE `govnokod`
 
 USE `govnokod`;
 
+SET sql_mode = '';
+
 #
 # Structure for the `comments_comments` table : 
 #
@@ -37,50 +39,14 @@ CREATE TABLE `comments_comments` (
   `rating_count` INTEGER(11) NOT NULL,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=38 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=2 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `comments_comments` table  (LIMIT 0,500)
 #
 
 INSERT INTO `comments_comments` (`id`, `obj_id`, `text`, `user_id`, `created`, `folder_id`, `rating`, `rating_count`) VALUES 
-  (1,2565,'test',2,1242007848,1,4,4),
-  (2,2566,'asdf',2,1242007971,1,2,2),
-  (3,2567,'dfgdfg',2,1242007974,1,1,3),
-  (4,2614,'test',2,1242179777,3,0,0),
-  (5,2615,'tesdfsdf',2,1242179844,3,0,0),
-  (6,NULL,'test',1,1244109693,1,0,2),
-  (7,NULL,'sdfsdf',1,1244109699,1,1,1),
-  (8,NULL,'asdf',8,1245402578,13,1,1),
-  (9,NULL,'adfasdf',8,1245402673,13,-1,1),
-  (10,NULL,'test',8,1246528913,2,0,0),
-  (11,NULL,'tresdf',8,1246529655,1,0,0),
-  (12,NULL,'да ну !',2,1246621277,1,0,0),
-  (13,NULL,'[code=php]\nfunction test() {\n    return ''test'';\n}\n[/code]',2,1246667689,1,0,0),
-  (14,NULL,'test',2,1246877284,1,0,0),
-  (15,NULL,'tesd',2,1246877291,1,0,0),
-  (16,NULL,'test',2,1246877309,1,0,0),
-  (17,NULL,'asdf',2,1246877313,1,0,0),
-  (18,NULL,'asdf',2,1246877337,1,0,0),
-  (19,NULL,'test',2,1246877414,1,0,0),
-  (20,NULL,'asdf',2,1246877631,1,0,0),
-  (21,NULL,'test',2,1246877783,1,0,0),
-  (22,NULL,'asdf',2,1246877788,1,0,0),
-  (23,NULL,'asdf',2,1246877851,1,0,0),
-  (24,NULL,'asdfasdf',1,1246877887,1,0,0),
-  (25,NULL,'sdfasdf',2,1246877980,1,0,0),
-  (26,NULL,'sadfasdf',2,1246877983,1,0,0),
-  (27,NULL,'asdfsadf',2,1246878382,1,0,0),
-  (28,NULL,'\\zxc',2,1246878433,1,0,0),
-  (29,NULL,'xdf',2,1246878470,1,0,0),
-  (30,NULL,'asdf',2,1246878543,2,0,0),
-  (31,NULL,'dfgfdg',2,1246878548,2,0,0),
-  (32,NULL,'dfgfdg',2,1246878619,2,0,0),
-  (33,NULL,'test',2,1246878868,1,0,0),
-  (34,NULL,'dfgdfg',2,1246878923,2,0,0),
-  (35,NULL,'asdf',2,1246879049,5,0,0),
-  (36,NULL,'[code]echo ''test'';[/code]',2,1247373364,2,0,0),
-  (37,NULL,'<h1>asdf</h1>',2,1247373663,2,0,0);
+  (1,NULL,'test',2,1248176605,2,1,1);
 COMMIT;
 
 #
@@ -184,14 +150,14 @@ CREATE TABLE `comments_comments_tree` (
   `spath` TEXT COLLATE utf8_general_ci,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=51 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=52 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `comments_comments_tree` table  (LIMIT 0,500)
 #
 
 INSERT INTO `comments_comments_tree` (`id`, `path`, `foreign_key`, `level`, `spath`) VALUES 
-  (1,'1/',1,1,'14/'),
+  (1,'1/',1,1,'51/'),
   (2,'2/',2,1,'15/'),
   (3,'1/3/',3,2,'14/16/'),
   (4,'4/',4,1,'17/'),
@@ -204,7 +170,7 @@ INSERT INTO `comments_comments_tree` (`id`, `path`, `foreign_key`, `level`, `spa
   (11,'2/7/11/',11,3,'15/20/24/'),
   (12,'1/12/',12,2,'14/25/'),
   (13,'13/',13,1,'26/'),
-  (14,'1/',1,1,'14/'),
+  (14,'1/',1,1,'51/'),
   (15,'2/',2,1,'15/'),
   (16,'1/3/',3,2,'14/16/'),
   (17,'4/',4,1,'17/'),
@@ -240,7 +206,8 @@ INSERT INTO `comments_comments_tree` (`id`, `path`, `foreign_key`, `level`, `spa
   (47,'34/',34,1,'47/'),
   (48,'35/',35,1,'48/'),
   (49,'31/32/36/',36,3,'44/45/49/'),
-  (50,'31/32/36/37/',37,4,'44/45/49/50/');
+  (50,'31/32/36/37/',37,4,'44/45/49/50/'),
+  (51,'1/',1,1,'51/');
 COMMIT;
 
 #
@@ -267,14 +234,14 @@ CREATE TABLE `fileManager_file` (
   UNIQUE KEY `realname` (`realname`),
   KEY `folder_id` (`folder_id`, `name`, `ext`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=3 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=4 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `fileManager_file` table  (LIMIT 0,500)
 #
 
 INSERT INTO `fileManager_file` (`id`, `realname`, `name`, `ext`, `size`, `modified`, `downloads`, `right_header`, `direct_link`, `about`, `folder_id`, `obj_id`, `storage_id`) VALUES 
-  (2,'dc8b319a504e371a788d6c6b4bc91d7e.jpg','000305.jpg','jpg',4181,NULL,0,0,1,'',2,NULL,2);
+  (3,'2f81cc22b36bf149006fbbbce2d7a8b1.gif','137094527041db554f2283f.gif','gif',1061,NULL,1,1,1,'',2,NULL,2);
 COMMIT;
 
 #
@@ -767,7 +734,7 @@ INSERT INTO `quoter_quote` (`id`, `category_id`, `user_id`, `created`, `deleted`
   (351,1,0,1231501865,0,'// Проверяет, есть ли у страницы вложенные страницы\r\nfunction exists_sub_pages($page_id)\r\n{\r\n$select_sub_pages=mysql_query(\"select * from pages where parent=''\".$page_id.\"''\");\r\nif (mysql_num_rows($select_sub_pages)>0) {$result=1;} else {$result=0;}\r\nreturn $result;\r\n}','','Не понимаю, зачем так всё усложнять :-(',1,1,1,0),
   (352,6,0,1231536873,0,'int main()\r\n{\r\nint i;\r\nfor(clrscr(),\r\n    printf(\"starting of stupid progam\\n\"),\r\n    i=10;\r\n    i--;\r\n    printf(\"i= %d\\n\",i));\r\nreturn 0;\r\n\r\n}','','Страшен язык Си',4,0,1,0),
   (353,6,0,1231536938,0,'int clearscreen()\r\n{\r\nclrscr();\r\nreturn 0;\r\n}\r\nvoid main()\r\n{\r\nchar * c;\r\n\r\nprintf(\"You typed: %c\",\r\n       *c,\r\n       scanf(\"%c\",c),\r\n       printf(\"Type any simbol: \"),\r\n       clearscreen());\r\n\r\n}','','Страшен язык Си 2',10,1,1,0),
-  (354,1,0,1231575650,0,'/**\r\n     * Validate the word\r\n     *\r\n     * @see    Zend_Validate_Interface::isValid()\r\n     * @param  mixed $value\r\n     * @return boolean\r\n     */\r\n    public function isValid($value, $context = null)\r\n    {\r\n        $name = $this->getName();\r\n        if (!isset($context[$name][''input''])) {\r\n            $this->_error(self::MISSING_VALUE);\r\n            return false;\r\n        }\r\n        $value = strtolower($context[$name][''input'']);\r\n        $this->_setValue($value);\r\n\r\n        if (!isset($context[$name][''id''])) {\r\n            $this->_error(self::MISSING_ID);\r\n            return false;\r\n        }\r\n\r\n        $this->_id = $context[$name][''id''];\r\n        if ($value !== $this->getWord()) {\r\n            $this->_error(self::BAD_CAPTCHA);\r\n            return false;\r\n        }\r\n\r\n        return true;\r\n    }','','не ожидал даже от Zend Framework-а',2,10,1,7),
+  (354,1,0,1231575650,0,'/**\r\n     * Validate the word\r\n     *\r\n     * @see    Zend_Validate_Interface::isValid()\r\n     * @param  mixed $value\r\n     * @return boolean\r\n     */\r\n    public function isValid($value, $context = null)\r\n    {\r\n        $name = $this->getName();\r\n        if (!isset($context[$name][''input''])) {\r\n            $this->_error(self::MISSING_VALUE);\r\n            return false;\r\n        }\r\n        $value = strtolower($context[$name][''input'']);\r\n        $this->_setValue($value);\r\n\r\n        if (!isset($context[$name][''id''])) {\r\n            $this->_error(self::MISSING_ID);\r\n            return false;\r\n        }\r\n\r\n        $this->_id = $context[$name][''id''];\r\n        if ($value !== $this->getWord()) {\r\n            $this->_error(self::BAD_CAPTCHA);\r\n            return false;\r\n        }\r\n\r\n        return true;\r\n    }','','не ожидал даже от Zend Framework-а',2,10,1,1),
   (355,1,0,1231593160,0,'function is_utf($str){\n    if(iconv(\"UTF-8\",\"UTF-8\",$str)==$str)\n        return true;\n    else\n        return false;\n}','4, 1','utf-8 или нет? :)',28,26,1,25),
   (356,1,0,NULL,0,'{if $isEdit}{title append=\"Редактировать говнокод\"}{else}{title append=\"Наговнокодить\"}{/if}\r\n{add file=\"jquery.js\"}\r\n{add file=\"govnokod.add.js\"}','','',0,0,0,0),
   (357,1,0,1247374675,0,'$categoryMapper = systemToolkit::getInstance()->getMapper(''quote'', ''quoteCategory'');\r\n        $category = $object->getCategory();\r\n\r\n        $category->setQuoteCounts($category->getQuoteCounts() + 1);\r\n        $categoryMapper->save($category);','','asdfasdf',0,0,1,0);
@@ -12936,7 +12903,7 @@ CREATE TABLE `ratings_ratings` (
   KEY `folder_id` (`folder_id`),
   KEY `user_id` (`user_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=54 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=55 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `ratings_ratings` table  (LIMIT 0,500)
@@ -12995,7 +12962,8 @@ INSERT INTO `ratings_ratings` (`id`, `folder_id`, `user_id`, `created`, `ip_addr
   (50,1,8,1246534940,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1) Gecko/20090624 Firefox/3.5',1,326),
   (51,1,2,1246620181,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1) Gecko/20090624 Firefox/3.5',1,355),
   (52,2,2,1246620784,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1) Gecko/20090624 Firefox/3.5',1,6),
-  (53,2,2,1246877682,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1) Gecko/20090624 Firefox/3.5',1,1);
+  (53,2,2,1246877682,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1) Gecko/20090624 Firefox/3.5',1,1),
+  (54,2,2,1248178398,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.1) Gecko/20090715 Firefox/3.5.1',1,1);
 COMMIT;
 
 #
@@ -15430,6 +15398,33 @@ INSERT INTO `sys_classes_sections` (`id`, `class_id`, `section_id`) VALUES
   (56,57,20),
   (57,58,8),
   (58,59,8);
+COMMIT;
+
+#
+# Structure for the `sys_config` table : 
+#
+
+DROP TABLE IF EXISTS `sys_config`;
+
+CREATE TABLE `sys_config` (
+  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
+  `obj_id` INTEGER(10) UNSIGNED NOT NULL,
+  `module_name` VARCHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `name` VARCHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `title` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `type_id` INTEGER(11) NOT NULL,
+  `value` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `args` TEXT COLLATE utf8_general_ci NOT NULL,
+  PRIMARY KEY (`id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=2 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Data for the `sys_config` table  (LIMIT 0,500)
+#
+
+INSERT INTO `sys_config` (`id`, `obj_id`, `module_name`, `name`, `title`, `type_id`, `value`, `args`) VALUES 
+  (1,0,'fileManager','public_path','Путь до паблик папки',2,'/files','');
 COMMIT;
 
 #
@@ -18357,18 +18352,20 @@ CREATE TABLE `user_user` (
   `timezone` INTEGER(11) DEFAULT '3',
   `skin` INTEGER(11) UNSIGNED DEFAULT '1',
   `highlight_driver` CHAR(20) COLLATE utf8_general_ci DEFAULT NULL,
+  `avatar_file_id` INTEGER(10) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   KEY `login` (`login`)
 )ENGINE=MyISAM
-CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=4 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `user_user` table  (LIMIT 0,500)
 #
 
-INSERT INTO `user_user` (`id`, `obj_id`, `login`, `email`, `password`, `created`, `confirmed`, `last_login`, `language_id`, `timezone`, `skin`, `highlight_driver`) VALUES 
-  (1,17,'guest','','',NULL,NULL,1227260702,NULL,3,1,'js'),
-  (2,18,'admin','','098f6bcd4621d373cade4e832627b4f6',NULL,NULL,1247722114,1,3,1,'js');
+INSERT INTO `user_user` (`id`, `obj_id`, `login`, `email`, `password`, `created`, `confirmed`, `last_login`, `language_id`, `timezone`, `skin`, `highlight_driver`, `avatar_file_id`) VALUES 
+  (1,17,'guest','','',NULL,NULL,1227260702,NULL,3,1,'js',0),
+  (2,18,'admin','','098f6bcd4621d373cade4e832627b4f6',NULL,NULL,1248176436,1,3,1,'js',3),
+  (3,0,'striker','striker@bk.ru','b59ea152a14dda198af3226597304735',1248176546,NULL,1248176560,NULL,3,1,NULL,0);
 COMMIT;
 
 #
@@ -18386,7 +18383,15 @@ CREATE TABLE `user_userAuth` (
   `time` INTEGER(11) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=4 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Data for the `user_userAuth` table  (LIMIT 0,500)
+#
+
+INSERT INTO `user_userAuth` (`id`, `user_id`, `ip`, `hash`, `obj_id`, `time`) VALUES 
+  (3,2,'127.0.0.1','cd2358960fdd1b088712ca5ac4fd3cd5',NULL,NULL);
+COMMIT;
 
 #
 # Structure for the `user_userGroup_rel` table : 
@@ -18403,7 +18408,7 @@ CREATE TABLE `user_userGroup_rel` (
   UNIQUE KEY `group_id` (`group_id`, `user_id`),
   KEY `user_id` (`user_id`)
 )ENGINE=MyISAM
-ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=39 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `user_userGroup_rel` table  (LIMIT 0,500)
@@ -18438,7 +18443,7 @@ CREATE TABLE `user_userOnline` (
   UNIQUE KEY `user_id` (`user_id`, `session`),
   KEY `last_activity` (`last_activity`)
 )ENGINE=MyISAM
-ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=1 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Structure for the `user_userOpenID` table : 
@@ -18454,7 +18459,17 @@ CREATE TABLE `user_userOpenID` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
 )ENGINE=MyISAM
-CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=2 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Data for the `user_userOpenID` table  (LIMIT 0,500)
+#
+
+INSERT INTO `user_userOpenID` (`id`, `user_id`, `openid_url`, `openid_url_standarized`) VALUES 
+  (1,3,'http://claimid.com/striker','claimid.com/striker');
+COMMIT;
+
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
