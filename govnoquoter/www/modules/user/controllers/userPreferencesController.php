@@ -25,32 +25,48 @@ class userPreferencesController extends simpleController
     {
         $user = $this->toolkit->getUser();
 
-        $drivers = array(
-            'js' => 'HighlightJS',
-            'geshi' => 'Geshi',
-        );
+        $type = $this->request->getString('name');
+        switch ($type) {
+            case 'personal':
+                $this->setTemplatePrefix('personal_');
+                break;
 
-        $validator = new formValidator();
-        $validator->add('required', 'hdriver', 'Укажите способ подсветки кода');
-        $validator->add('in', 'hdriver', 'Укажите способ подсветки кода из списка', array_keys($drivers));
-        if ($validator->validate()) {
-            $driver = $this->request->getString('hdriver', SC_POST);
+            default:
+                $type = 'main';
 
-            $userMapper = $this->toolkit->getMapper('user', 'user');
-            $user->setHighlightDriver($driver);
-            $userMapper->save($user);
+                $drivers = array(
+                    'js' => 'HighlightJS',
+                    'geshi' => 'Geshi',
+                );
 
-            $this->redirect('/');
-            return;
+                $validator = new formValidator();
+                $validator->add('required', 'hdriver', 'Укажите способ подсветки кода');
+                $validator->add('in', 'hdriver', 'Укажите способ подсветки кода из списка', array_keys($drivers));
+                if ($validator->validate()) {
+                    $driver = $this->request->getString('hdriver', SC_POST);
+
+                    $userMapper = $this->toolkit->getMapper('user', 'user');
+                    $user->setHighlightDriver($driver);
+                    $userMapper->save($user);
+
+                    $this->redirect('/');
+                    return;
+                }
+
+                $this->smarty->assign('drivers', $drivers);
+                $this->setTemplatePrefix('main_');
+                break;
         }
 
-        $url = new url('default2');
+        $url = new url('withAnyParam');
+        $url->add('name', $type);
         $url->setAction('preferences');
 
         $this->smarty->assign('form_action', $url->get());
-        $this->smarty->assign('drivers', $drivers);
+
         $this->smarty->assign('user', $user);
-        return $this->smarty->fetch('user/preferences.tpl');
+        $this->smarty->assign('type', $type);
+        return $this->fetch('user/preferences.tpl');
     }
 }
 
