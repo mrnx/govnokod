@@ -23,7 +23,8 @@ fileLoader::load('service/skin');
  */
 class user extends entity
 {
-    protected $name = 'user';
+
+    protected $avatar = null;
 
     /**
      * Проверяет является ли пользователь авторизированным
@@ -52,6 +53,29 @@ class user extends entity
         $id = parent::__call('getSkin', array());
         return new skin($id);
     }
+
+    /*
+    public function getAvatar()
+    {
+        if (is_null($this->avatar)) {
+            $cache = cache::factory();
+            $avatarCacheKey = 'govnokod_avatar_' . $this->getId();
+            $avatar = $cache->get($avatarCacheKey);
+            if (is_null($avatar) || !is_a($avatar, 'file')) {
+                $avatar = parent::__call('getAvatar', array());
+                if (!$avatar) {
+
+                }
+
+                $cache->set($avatarCacheKey, $avatar);
+            }
+
+            $this->avatar = $avatar;
+        }
+
+        return $this->avatar;
+    }
+    */
 
     public function getAcl($name)
     {

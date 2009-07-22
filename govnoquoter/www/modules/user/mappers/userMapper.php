@@ -218,7 +218,7 @@ class userMapper extends mapper
             throw new mzzRuntimeException('Wrong nums for password');
         }
 
-        $pass = "";
+        $pass = '';
         $chars = array_merge(range('A', 'z'), range(1, 9));
 
         $maxchars = count($chars);
