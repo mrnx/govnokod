@@ -50,14 +50,6 @@ class quoterSaveController extends simpleController
             $categoriesSelect[$category->getId()] = $category->getTitle();
         }
 
-        $lines = $quote->getHighlightedLines();
-        $linesPost = $this->request->getArray('lines', SC_POST);
-        if ($linesPost) {
-            $lines = $linesPost;
-        }
-
-        $this->smarty->assign('lines', $lines);
-
         $validator = new formValidator();
         $validator->add('required', 'category_id', 'Укажите язык');
         $validator->add('in', 'category_id', 'Укажите правильный язык', array_keys($categoriesSelect));
@@ -78,7 +70,6 @@ class quoterSaveController extends simpleController
             $quote->setCategory($categoryId);
             $quote->setDescription($description);
             $quote->setText($text);
-            $quoteMapper->save($quote);
 
             if ($isEdit) {
                 $cache = cache::factory(quote::CACHE_NAME);
@@ -86,6 +77,8 @@ class quoterSaveController extends simpleController
             } else {
                 $quote->setUser($user);
             }
+
+            $quoteMapper->save($quote);
 
             $url = new url('quoteView');
             $url->add('id', $quote->getId());
@@ -111,8 +104,11 @@ class quoterSaveController extends simpleController
         $this->smarty->assign('quote', $quote);
         $this->smarty->assign('formAction', $url->get());
 
-        $tpl = ($isEdit && $this->request->isAjax()) ? 'editajax' : 'save';
-        return $this->smarty->fetch('quoter/' . $tpl . '.tpl');
+        if ($isEdit && $this->request->isAjax()) {
+            $this->setTemplatePrefix('ajax_');
+        }
+
+        return $this->fetch('quoter/save.tpl');
     }
 }
 

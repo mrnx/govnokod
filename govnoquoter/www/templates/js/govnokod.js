@@ -200,5 +200,10 @@ var code;
             code.unfold($(this));
             return false;
         });
+
+        $('#expand-trigger').click(function() {
+            $('#userpane').toggleClass('expanded');
+            return false;
+        });
     });
 })(jQuery);

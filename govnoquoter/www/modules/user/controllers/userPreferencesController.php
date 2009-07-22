@@ -28,11 +28,24 @@ class userPreferencesController extends simpleController
         $type = $this->request->getString('name');
         switch ($type) {
             case 'personal':
+                $validator = new formValidator();
+                $validator->add('in', 'avatar', 'Выберите способ отображения аватара из списка!', array(1, 2));
+                if ($validator->validate()) {
+                    $avatar = $this->request->getInteger('avatar', SC_POST);
+                    $user->setAvatarType($avatar);
+
+                    $userMapper = $this->toolkit->getMapper('user', 'user');
+                    $userMapper->save($user);
+
+                    $this->redirect('/');
+                    return;
+                }
+
                 $this->setTemplatePrefix('personal_');
                 break;
 
             default:
-                $type = 'main';
+                $type = 'global_';
 
                 $drivers = array(
                     'js' => 'HighlightJS',
@@ -54,7 +67,7 @@ class userPreferencesController extends simpleController
                 }
 
                 $this->smarty->assign('drivers', $drivers);
-                $this->setTemplatePrefix('main_');
+                $this->setTemplatePrefix('global_');
                 break;
         }
 

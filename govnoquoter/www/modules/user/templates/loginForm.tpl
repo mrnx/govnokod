@@ -1,32 +1,33 @@
-<p class="sideBlockTitle">{_ login}</p>
-<div class="sideBlockContent">
-{form action=$form_action method="post" id="userLogin"}
-    <div id="loginForm">
-        {form->hidden name="url" id="backUrlField" value=$backURL}
-        <table border="0" cellpadding="1" cellspacing="0" width="140">
-            <tr>
-                <td colspan="2"><label for="loginField">{_ username}</label></td>
-            </tr>
-            <tr>
-                <td colspan="2">{form->text name="login" size=10 style="width: 135px;" id="loginField"}</td>
-            </tr>
-            <tr>
-                <td colspan="2"><label for="passwordField">{_ password}</label></td>
-            </tr>
-            <tr>
-                <td colspan="2">{form->password name="password" size=10 style="width: 135px;" id="passwordField"}</td>
-            </tr>
+{title append="Обычная форма входа"}
+<ol class="posts">
+    <li class="hentry">
+        <h2>Вход в говнокод тут</h2>
+        {form action=$form_action method="post"}
+            {if $errors}
+            <dl class="errors">
+                <dt>Ошибка авторизации:</dt>
+                <dd>
+                    <ol>
+                    {foreach from=$errors item="error"}
+                        <li>{$error}</li>
+                    {/foreach}
+                    </ol>
+                </dd>
+            </dl>
+            {/if}
+            <dl>
+                <dt>{form->caption name="login" value="Логин:"}</dt>
+                <dd>{form->text name="login"}</dd>
 
-            <tr>
-                <td>{form->checkbox name="save" id="saveLogin" value="1"}</td>
-                <td style="width: 100%"><label for="saveLogin">{_ remember_login}</label></td>
-            </tr>
-
-            <tr>
-                <td colspan="2">{form->submit name="submit" value="_ login_process"}</td>
-            </tr>
-
-        </table>
-    </div>
-</form>
-</div>
+                <dt>{form->caption name="login" value="Пароль:"}</dt>
+                <dd>{form->text name="password"}</dd>
+            </dl>
+            <p>
+                {form->hidden name="save" value="true"}
+                {form->submit class="send" name="submit" value="Вхожу!"}
+            </p>
+        </form>
+        <p>&nbsp;</p>
+        <p>Регистрация | Забыли пароль?</p>
+    </li>
+</ol>

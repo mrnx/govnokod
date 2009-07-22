@@ -1,6 +1,14 @@
+{title append="Настройки сайта"}
+{title append="Настройки"}
 <ol class="posts">
     <li class="hentry">
         <h2>Настройки</h2>
+
+        <ul>
+            <li>Настройки сайта</li>
+            <li><a href="{url route="withAnyParam" action="preferences" name="personal"}">Личные настройки</a></li>
+        </ul>
+
         {form action=$form_action method="post"}
         <dl>
             <dt>{form->caption name="hdriver" value="Способ подсветки кода:"}</dt>

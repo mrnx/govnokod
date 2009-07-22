@@ -1,6 +1,6 @@
             <p>
-                <img class="avatar" src="{$comment->getUser()->getAvatar()->extra()->getThumbnail(28, 28)}" alt="" />
-                <strong class="entry-author">{$comment->getUser()->getLogin()|h}</strong>
+                <img class="avatar" src="{$comment->getUser()->getAvatarUrl(28)}" alt="ava" title="Аватар пользователя" />
+                <strong class="entry-author"><a href="{url route="withId" module="user" id=$comment->getUser()->getId() action=""}">{$comment->getUser()->getLogin()|h}</a></strong>
                 <span class="published" title="{$comment->getCreated()|date_i18n}">{$comment->getCreated()|date_i18n:'relative_hour'}</span>
                 <a href="{$commentsFolder->getDefaultBackUrl()|h}#comment{$comment->getId()}" name="comment{$comment->getId()}" title="Ссылка на комментарий">#</a>
                 <span class="comment-vote">
