@@ -33,7 +33,9 @@ class quoterDeleteController extends simpleController
             return $this->forward404($quoteMapper);
         }
 
-        $quoteMapper->delete($quote);
+        $quote->setIsActive(0);
+        $quoteMapper->save($quote);
+
         return jipTools::redirect();
     }
 }

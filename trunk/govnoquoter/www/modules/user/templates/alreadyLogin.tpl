@@ -1,13 +1,7 @@
-{*
-<p class="sideBlockTitle">{$user->getLogin()}</p>
-<div class="sideBlockContent">
-{set name="url}{url appendGet=true}{/set}
-<a href="{url route="default2" section="user" action="exit"}/?url={$url|urlencode}">{_ logout}</a>
-</div>
-*}
+{title append="Личная кабинка пользователя $user->getLogin()"}
 <ol class="posts hatom">
     <li class="hentry">
-        <h2>{$user->getLogin()|h}</h2>
-        <p>За всё время я напостил: 0</p>
+        <h2>Личная кабинка пользователя <strong>{$user->getLogin()|h}</strong></h2>
+        <p><img src="{$user->getAvatarUrl()}" alt="avatar" title="Аватар пользователя {$user->getLogin()|h}" /></p>
     </li>
 </ol>

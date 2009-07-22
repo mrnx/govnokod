@@ -28,6 +28,10 @@ class userLoginController extends simpleController
 
         if (!$user->isLoggedIn()) {
             $validator = new formValidator();
+            $validator->add('required', 'login', 'Вы должны указать логин!');
+            $validator->add('required', 'login', 'Вы должны указать пароль!');
+
+            $errors = array();
             if (!$this->request->getBoolean('onlyForm') && $validator->validate()) {
                 $login = $this->request->getString('login', SC_POST);
                 $password = $this->request->getString('password', SC_POST);
@@ -48,8 +52,11 @@ class userLoginController extends simpleController
 
                     return $this->redirect($backURL);
                 } else {
+                    $errors['auth'] = 'Неверно указан логин или пароль';
                     //userMapper::NOT_CONFIRMED || userMapper::WRONG_AUTH_DATA
                 }
+            } else {
+                $errors = $validator->getErrors()->export();
             }
 
             $url = new url('default2');
@@ -57,6 +64,7 @@ class userLoginController extends simpleController
             $url->setAction('login');
             $this->smarty->assign('form_action', $url->get());
             $this->smarty->assign('user', null);
+            $this->smarty->assign('errors', $errors);
 
             $this->smarty->assign('backURL', $backURL);
             return $this->fetch('user/loginForm.tpl');

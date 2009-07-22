@@ -23,8 +23,9 @@ fileLoader::load('service/skin');
  */
 class user extends entity
 {
+    const NO_AVATAR_URL = '/files/avatars/';
 
-    protected $avatar = null;
+    protected $avatarUrls = array();
 
     /**
      * Проверяет является ли пользователь авторизированным
@@ -54,28 +55,35 @@ class user extends entity
         return new skin($id);
     }
 
-    /*
-    public function getAvatar()
+    public function getAvatarUrl($size = 100)
     {
-        if (is_null($this->avatar)) {
-            $cache = cache::factory();
-            $avatarCacheKey = 'govnokod_avatar_' . $this->getId();
-            $avatar = $cache->get($avatarCacheKey);
-            if (is_null($avatar) || !is_a($avatar, 'file')) {
-                $avatar = parent::__call('getAvatar', array());
-                if (!$avatar) {
+        $size = (int)$size;
 
-                }
+        if (!isset($this->avatarUrls[$size])) {
+            $avatarValue = $this->getAvatarType();
 
-                $cache->set($avatarCacheKey, $avatar);
+            switch ($avatarValue) {
+                case 2:
+                    $email = $this->getEmail();
+                    $avatarUrl = 'http://www.gravatar.com/avatar/' . md5(strtolower($email)) . '?default=' . urlencode($this->getNoAvatarUrl($size)). '&size=' . $size;
+                    break;
+
+                default:
+                    $avatarUrl = $this->getNoAvatarUrl($size);
+                    break;
             }
 
-            $this->avatar = $avatar;
+            $this->avatarUrls[$size] = $avatarUrl;
         }
 
-        return $this->avatar;
+        return $this->avatarUrls[$size];
     }
-    */
+
+    protected function getNoAvatarUrl($size)
+    {
+        $request = systemToolkit::getInstance()->getRequest();
+        return $request->getUrl() . '/files/avatars/noavatar_' . $size . '.png';
+    }
 
     public function getAcl($name)
     {

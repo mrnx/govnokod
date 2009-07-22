@@ -11,7 +11,7 @@
     </dl>
     {/if}
     <dl>
-        <dt><img class="avatar" src="{$user->getAvatar()->extra()->getThumbnail(28, 28)}" alt="ava" title="Аватар" /> Я, <strong>{$user->getLogin()|h}</strong>, находясь в здравом уме и твердой памяти, торжественно заявляю:</dt>
+        <dt><img class="avatar" src="{$user->getAvatarUrl(28)}" alt="ava" title="Аватар" /> Я, <strong>{$user->getLogin()|h}</strong>, находясь в здравом уме и твердой памяти, торжественно заявляю:</dt>
         <dd>{form->textarea name="text" value=$comment->getText() rows="5" cols="5" useDefault=$onlyForm}</dd>
     {if !$user->isLoggedIn()}
         <dt>{form->caption name="captcha" value="Проверочный код:" onError=""}</dt>

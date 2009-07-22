@@ -20,7 +20,8 @@
             {/if}
             <dl>
                 <dt>{form->caption name="category_id" value="Язык:"}</dt>
-                <dd>{form->select name="category_id" options=$categoriesSelect emptyFirst=true}</dd>
+                {if $isEdit}{assign var="categoryValue" value=$quote->getCategory()->getId()}{else}{assign var="categoryValue" value=0}{/if}
+                <dd>{form->select name="category_id" options=$categoriesSelect emptyFirst=true value=$categoryValue}</dd>
 
                 <dt>{form->caption name="description" value="Описание:"}</dt>
                 <dd>{form->textarea name="description" value=$quote->getDescription() rows="4" cols="50"}</dd>
