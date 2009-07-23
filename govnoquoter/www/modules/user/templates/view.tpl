@@ -1,4 +1,4 @@
-{title append="Личная кабинка пользователя $viewuser->getLogin()"}
+{title append="Личная кабинка пользователя `$viewuser->getLogin()`"}
 <ol class="posts">
     <li class="hentry">
         <h2>Личная кабинка пользователя <strong>{$viewuser->getLogin()|h}</strong></h2>
