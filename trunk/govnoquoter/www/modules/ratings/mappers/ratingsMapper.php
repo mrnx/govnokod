@@ -68,6 +68,13 @@ class ratingsMapper extends mapper
         )
     );
 
+    public function searchByUser(user $user, $parentId)
+    {
+        $criteria = new criteria;
+        $criteria->add('user_id', $user->getId())->add('parent_id', $parentId);
+        return $this->searchOneByCriteria($criteria);
+    }
+
     public function setRatedMapper(mapper $mapper)
     {
         if (!$mapper->isAttached('ratings')) {

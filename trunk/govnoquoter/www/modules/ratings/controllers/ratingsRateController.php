@@ -66,14 +66,13 @@ class ratingsRateController extends simpleController
                 if (isset($rateValue)) {
                     $user = $this->toolkit->getUser();
 
-                    $ip = $this->request->getServer('REMOTE_ADDR');
-                    $ua = $this->request->getServer('HTTP_USER_AGENT');
-
-                    $ratingsMapper = $this->toolkit->getMapper('ratings', 'ratings');
+                    /*
                     $criteria = new criteria;
                     $criteria->add('ip_address', $ip);
                     $criteria->add('parent_id', $object->getId())->add('created', time() - 7200, criteria::GREATER); //таймаут голосования - 2 часа
-                    $rate = $ratingsMapper->searchOneByCriteria($criteria);
+                    */
+
+                    $rate = $ratingsMapper->searchByUser($user, $object->getId());
 
                     if (!$rate) {
                         $object->setRating($object->getRating() + $rateValue);
@@ -86,6 +85,9 @@ class ratingsRateController extends simpleController
                         if ($ratingsPlugin->isWithJoinCurrentUserRate()) {
                             $object->merge(array('current_user_rate' => $rateValue));
                         }
+
+                        $ip = $this->request->getServer('REMOTE_ADDR');
+                        $ua = $this->request->getServer('HTTP_USER_AGENT');
 
                         $rate = $ratingsMapper->create();
                         $rate->setUser($user->getId());

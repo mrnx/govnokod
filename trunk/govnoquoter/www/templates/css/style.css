@@ -339,6 +339,33 @@ p#entrance
 	padding-right: 1.2em;
 }
 
+.posts .hentry .vote span
+{
+    margin: 0 0.3em;
+	padding: 0 0.3em;
+
+	color: #DFDFDF;
+
+	text-decoration: none;
+	font-size: 1em;
+	font-family: "Arial";
+}
+
+.posts .hentry .vote span.vote-on
+{
+	margin-right: 0;
+}
+
+.posts .hentry .vote span.vote-against
+{
+	margin-left: 0;
+}
+
+.posts .hentry .vote span.my-vote
+{
+	color: #6F6F6F;
+}
+
 .posts .hentry .entry-content
 {
     margin: 0;
