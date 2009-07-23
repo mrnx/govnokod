@@ -19,7 +19,7 @@
                 <dt>{form->caption name="login" value="Логин:"}</dt>
                 <dd>{form->text name="login"}</dd>
 
-                <dt>{form->caption name="login" value="Пароль:"}</dt>
+                <dt>{form->caption name="password" value="Пароль:"}</dt>
                 <dd>{form->text name="password"}</dd>
             </dl>
             <p>

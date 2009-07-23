@@ -29,7 +29,7 @@ class userLoginController extends simpleController
         if (!$user->isLoggedIn()) {
             $validator = new formValidator();
             $validator->add('required', 'login', 'Вы должны указать логин!');
-            $validator->add('required', 'login', 'Вы должны указать пароль!');
+            $validator->add('required', 'password', 'Вы должны указать пароль!');
 
             $errors = array();
             if (!$this->request->getBoolean('onlyForm') && $validator->validate()) {

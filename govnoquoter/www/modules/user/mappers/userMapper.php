@@ -13,7 +13,7 @@
  */
 
 fileLoader::load('user');
-fileLoader::load('orm/plugins/acl_extPlugin');
+fileLoader::load('orm/plugins/acl_simplePlugin');
 fileLoader::load('modules/jip/plugins/jipPlugin');
 
 /**
@@ -91,6 +91,14 @@ class userMapper extends mapper
         'avatar_type' => array(
             'accessor' => 'getAvatarType',
             'mutator' => 'setAvatarType',
+        ),
+        'openID_identifiers' => array(
+            'accessor' => 'getOpenIDIdentifiers',
+            'mutator' => 'setOpenIDIdentifiers',
+            'relation' => 'many',
+            'mapper' => 'user/userOpenIDMapper',
+            'foreign_key' => 'user_id',
+            'local_key' => 'id'
         ),
         'groups' => array(
             'accessor' => 'getGroups',
