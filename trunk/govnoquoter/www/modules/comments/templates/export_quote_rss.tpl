@@ -14,20 +14,20 @@
             <url>http://govnokod.ru/templates/images/brand.png</url>
             <title>Говнокод.ру</title>
         </image>
-        {assign var="curCommentNum" value=$comments->count()}
+        {assign var="curCommentNum" value=1}
         {foreach from=$comments item="comment" name="commentsIterator"}
         <item>
             <title>Комментарий #{$curCommentNum}</title>
             <guid isPermaLink="true">{url route="quoteView" id=$commentsFolder->getParentId()}#comment{$comment->getId()}</guid>
             <link>{url route="quoteView" id=$commentsFolder->getParentId()}#comment{$comment->getId()}</link>
-            {assign var="curCommentNum" value=$curCommentNum-1}
+            {assign var="curCommentNum" value=$curCommentNum+1}
             <description>
                 <![CDATA[
-                    {$comment->getText()|trim|h|bbcode|nl2br}
+                    {$comment->getText()|trim|h|nl2br|bbcode}
                 ]]>
             </description>
             <pubDate>{"D, d M Y H:i:s"|date:$comment->getCreated()} GMT</pubDate>
-            <author>test</author>
+            <author>{$comment->getUser()->getLogin()|h}</author>
         </item>
         {/foreach}
     </channel>

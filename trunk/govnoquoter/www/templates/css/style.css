@@ -584,6 +584,20 @@ div.entry-comments span.rss a
 {
     background: #fff url(../images/comments-rss.png) no-repeat scroll 0 50%;
 	padding-left: 1.4em;
+	text-decoration: underline;
+    border-bottom: none;
+}
+
+div.entry-comments .entry-author a
+{
+    text-decoration: underline;
+    border-bottom: none;
+}
+
+div.entry-comments a.comment-link
+{
+    text-decoration: underline;
+    border-bottom: none;
 }
 
 /* Form styles */
@@ -769,12 +783,4 @@ div#footer address span a
 /* Geshi bold line-height hack */
 .kw1, .kw2, .kw3, .kw4 .kw5, .kw6, .kw7, .kw8, .li2, .es_h, .es0, .es1, .es2, .es3, .es4, .es5, .es6, .sy0, .imp, .nu0 {
     line-height: 16px;
-}
-
-ol.linenums {
-    float: left;
-    list-style: none;
-    font-size: 0.9em;
-    text-align: right;
-    padding: 0.2em 0.2em 0 0.5em;
 }

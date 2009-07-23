@@ -72,9 +72,6 @@ class bbcode
     'permanentWithAttributes' => true,
     'attributes' => array('1', '2', '3')
     ),
-    'quote' => array(
-    'callback' => 'handleQuote'
-    ),
     'img' => array(
     'callback' => 'handleImg'
     ),
@@ -616,23 +613,6 @@ class bbcode
     }
 
     /**
-     * Обработчик для [quote=$user]$message[/quote]
-     *
-     * @param string $message
-     * @param string $user
-     * @return string
-     */
-    protected function handleQuote($message, $author = '')
-    {
-        $html = '<div class="quote">';
-        if (!empty($author)) {
-            $html .= '<div class="quoteAuthor">' . $author . ':</div>';
-        }
-
-        return $html . trim($message) . '</div>';
-    }
-
-    /**
      * Обработчик для [code]$code[/code]
      * [code="php"]$code[/code]
      *
@@ -641,11 +621,12 @@ class bbcode
      */
     protected function handleCode($code, $lang = 'text')
     {
-        $lang = strtolower($lang);
-        $code = htmlspecialchars_decode(trim(str_replace(array('<br>', '<br />'), '', $code)), ENT_QUOTES);
+        //$lang = strtolower($lang);
+        $code = mzz_trim(str_replace(array('<br>', '<br />'), '', $code));
 
-        //return '<pre><code> ' . $code . '</code></pre>';
+        return '<pre><code> ' . $code . '</code></pre>';
 
+        /*
         fileLoader::load('libs/geshi/geshi');
         $geshi = new GeSHi($code, $lang);
         //если такой язык подсветки не найден, то принуждаем использовать простой текст
@@ -658,6 +639,7 @@ class bbcode
         $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
         $code = $geshi->parse_code();
         return $code;
+        */
     }
 
     /**
@@ -687,7 +669,7 @@ class bbcode
     protected function buildSmileys()
     {
         $this->smileys_cache = array();
-        $html = '<img src="' . SITE_PATH . '/templates/images/smileys/%1$s.gif" alt="%2$s" />';
+        $html = '<img src="' . SITE_PATH . '/templates/images/smiles/%1$s.gif" alt="%2$s" />';
         foreach ($this->smileys as $smiley => $image) {
             $this->smileys_cache[] =  sprintf($html, $image, $smiley);
         }

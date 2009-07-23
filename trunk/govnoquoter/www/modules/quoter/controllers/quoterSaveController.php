@@ -58,6 +58,7 @@ class quoterSaveController extends simpleController
         $validator->add('callback', 'description', 'Описание может быть не более ' . quote::MAX_DESC_CHARS . ' символов', array('checkDescLength'));
 
         if (!$isEdit) {
+            $validator->add('required', 'license', 'Примите лицензию!');
             $validator->add('required', 'captcha', 'Произвол не пройдёт!');
             $validator->add('captcha', 'captcha', 'Неверно введен проверочный код!');
         }

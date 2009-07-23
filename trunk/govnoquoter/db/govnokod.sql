@@ -1111,7 +1111,7 @@ CREATE TABLE `user_user` (
   `timezone` INTEGER(11) DEFAULT '3',
   `skin` INTEGER(11) UNSIGNED DEFAULT '1',
   `highlight_driver` CHAR(20) COLLATE utf8_general_ci DEFAULT 'js',
-  `avatar_type` INTEGER(11) DEFAULT '1',
+  `avatar_type` INTEGER(11) DEFAULT '2',
   PRIMARY KEY (`id`),
   KEY `login` (`login`)
 )ENGINE=MyISAM
