@@ -21,7 +21,6 @@
  */
 class ratings extends entity
 {
-    protected $name = 'ratings';
-}
 
+}
 ?>

@@ -22,8 +22,6 @@
 
 class ratingsFolder extends entity
 {
-    protected $name = 'ratings';
-
     protected $objectMapper = null;
 
     public function getObjectMapper()

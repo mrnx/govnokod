@@ -369,7 +369,7 @@ AUTO_INCREMENT=3 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci'
 #
 
 INSERT INTO `ratings_ratingsFolder` (`id`, `alias`, `module`, `type`, `by_field`) VALUES 
-  (1,'govnokod','quoter','quote','id'),
+  (1,'code','quoter','quote','id'),
   (2,'comment','comments','comments','id');
 COMMIT;
 
