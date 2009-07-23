@@ -22,8 +22,11 @@
 class ratingsPlugin extends observer
 {
     protected $options = array(
+        'by_field' => 'id',
+        'rateDriver' => 'simple',
         'rating_field' => 'rating',
-        'rating_count_field' => null
+        'rating_count_field' => null,
+        'join_current_user_rate' => false
     );
 
     protected function updateMap(& $map)
@@ -33,35 +36,57 @@ class ratingsPlugin extends observer
             'mutator' => 'setRating'
         );
 
-        if ($this->isWithRatingCountField()) {
+        if ($this->isWithRateCountField()) {
             $map[$this->options['rating_count_field']] = array(
                 'accessor' => 'getRatingCount',
                 'mutator' => 'setRatingCount'
             );
         }
+
+        if ($this->isWithJoinCurrentUserRate()) {
+            $map['current_user_rate'] = array(
+                'accessor' => 'getCurrentUserRate',
+                'options' => array('fake', 'ro')
+            );
+        }
     }
 
-    public function isWithRatingCountField()
+    public function preSqlSelect(criteria $criteria)
+    {
+        if ($this->isWithJoinCurrentUserRate()) {
+            $toolkit = systemToolkit::getInstance();
+            $user = $toolkit->getUser();
+
+            $ratingsMapper = $toolkit->getMapper('ratings', 'ratings');
+            $ratingsMapper->setRatedMapper($this->mapper);
+
+            $criterion = new criterion('ratings.parent_id', $this->mapper->table() . '.' . $this->getByField(), criteria::EQUAL, true);
+            $criterion->addAnd(new criterion('ratings.user_id', $user->getId()));
+
+            $criteria->addJoin($ratingsMapper->table(), $criterion, 'ratings');
+
+            $criteria->addSelectField('ratings.ratevalue', $this->mapper->table() . mapper::TABLE_KEY_DELIMITER . 'current_user_rate');
+        }
+    }
+
+    public function getByField()
+    {
+        return $this->options['by_field'];
+    }
+
+    public function getRateDriver()
+    {
+        return $this->options['rateDriver'];
+    }
+
+    public function isWithRateCountField()
     {
         return !is_null($this->options['rating_count_field']);
     }
 
-    /*
-    public function postDelete(entity $object)
+    public function isWithJoinCurrentUserRate()
     {
-        $toolkit = systemToolkit::getInstance();
-        $commentsFolderMapper = $toolkit->getMapper('comments', 'commentsFolder');
-
-        $objectType = get_class($object);
-
-        $map = $this->mapper->map();
-
-        $objectId = $object->$map[$this->getByField()]['accessor']();
-        $commentsFolder = $commentsFolderMapper->searchFolder($objectType, $objectId);
-        if ($commentsFolder) {
-            $commentsFolderMapper->delete($commentsFolder);
-        }
+        return (bool)$this->options['join_current_user_rate'];
     }
-    */
 }
 ?>

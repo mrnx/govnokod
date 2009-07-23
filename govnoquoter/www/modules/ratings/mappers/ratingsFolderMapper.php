@@ -52,11 +52,6 @@ class ratingsFolderMapper extends mapper
             'accessor' => 'getType',
             'mutator' => 'setType',
             'options' => array('ro'),
-        ),
-        'by_field' => array(
-            'accessor' => 'getByField',
-            'mutator' => 'setByField',
-            'options' => array('ro'),
         )
     );
 
