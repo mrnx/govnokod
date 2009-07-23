@@ -73,10 +73,6 @@ class quoteMapper extends mapper
             'accessor' => 'getDescription',
             'mutator' => 'setDescription'
         ),
-        'highlited_lines' => array(
-            'accessor' => 'getHighlitedLines',
-            'mutator' => 'setHighlitedLines'
-        ),
         'active' => array(
             'accessor' => 'getIsActive',
             'mutator' => 'setIsActive'
@@ -85,7 +81,7 @@ class quoteMapper extends mapper
 
     public function __construct()
     {
-        $this->attach(new ratingsPlugin(array('rating_count_field' => 'rating_count')));
+        $this->attach(new ratingsPlugin(array('rating_count_field' => 'rating_count', 'join_current_user_rate' => true)));
         parent::__construct();
         $this->plugins('acl_simple');
         $this->plugins('jip');

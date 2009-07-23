@@ -40,7 +40,20 @@ CREATE TABLE `comments_comments` (
   KEY `user_id` (`user_id`),
   KEY `folder_id` (`folder_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=1 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=7 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Data for the `comments_comments` table  (LIMIT 0,500)
+#
+
+INSERT INTO `comments_comments` (`id`, `text`, `user_id`, `created`, `folder_id`, `rating`, `rating_count`) VALUES 
+  (1,'asdfasdf',2,1248347386,1,1,1),
+  (2,'asdfasdf',2,1248348085,2,-1,1),
+  (3,'asdf',2,1248348202,2,-1,1),
+  (4,'asdfasdf',2,1248348216,2,1,1),
+  (5,'asdfasdf',2,1248348448,2,-2,2),
+  (6,'sdfasdfxcvxcv',2,1248348483,2,1,1);
+COMMIT;
 
 #
 # Structure for the `comments_commentsFolder` table : 
@@ -60,7 +73,49 @@ CREATE TABLE `comments_commentsFolder` (
   UNIQUE KEY `parent_id_2` (`parent_id`, `type`),
   KEY `parent_id` (`parent_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=1 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=3 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Data for the `comments_commentsFolder` table  (LIMIT 0,500)
+#
+
+INSERT INTO `comments_commentsFolder` (`id`, `parent_id`, `module`, `type`, `by_field`, `rating`, `rating_count`) VALUES 
+  (1,2,'quoter','quote','id',0,0),
+  (2,1,'quoter','quote','id',0,0);
+COMMIT;
+
+#
+# Structure for the `comments_comments_ratings` table : 
+#
+
+DROP TABLE IF EXISTS `comments_comments_ratings`;
+
+CREATE TABLE `comments_comments_ratings` (
+  `id` INTEGER(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` INTEGER(10) UNSIGNED NOT NULL,
+  `created` INTEGER(11) NOT NULL,
+  `ip_address` CHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `useragent` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `ratevalue` INTEGER(11) NOT NULL,
+  `parent_id` INTEGER(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `parent_id` (`parent_id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=7 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Data for the `comments_comments_ratings` table  (LIMIT 0,500)
+#
+
+INSERT INTO `comments_comments_ratings` (`id`, `user_id`, `created`, `ip_address`, `useragent`, `ratevalue`, `parent_id`) VALUES 
+  (1,2,1248347390,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.1) Gecko/20090715 Firefox/3.5.1',1,1),
+  (2,2,1248348088,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.1) Gecko/20090715 Firefox/3.5.1',-1,2),
+  (3,2,1248348205,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.1) Gecko/20090715 Firefox/3.5.1',-1,3),
+  (4,2,1248348301,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.1) Gecko/20090715 Firefox/3.5.1',1,4),
+  (5,2,1248348485,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.1) Gecko/20090715 Firefox/3.5.1',1,6),
+  (6,2,1248348489,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.1) Gecko/20090715 Firefox/3.5.1',-1,5);
+COMMIT;
 
 #
 # Structure for the `comments_comments_tree` table : 
@@ -77,7 +132,20 @@ CREATE TABLE `comments_comments_tree` (
   PRIMARY KEY (`id`),
   KEY `foreign_key` (`foreign_key`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=1 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=7 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Data for the `comments_comments_tree` table  (LIMIT 0,500)
+#
+
+INSERT INTO `comments_comments_tree` (`id`, `path`, `foreign_key`, `level`, `spath`) VALUES 
+  (1,'1/',1,1,'1/'),
+  (2,'2/',2,1,'2/'),
+  (3,'2/3/',3,2,'2/3/'),
+  (4,'4/',4,1,'4/'),
+  (5,'5/',5,1,'5/'),
+  (6,'6/',6,1,'6/');
+COMMIT;
 
 #
 # Structure for the `fileManager_file` table : 
@@ -285,8 +353,8 @@ AUTO_INCREMENT=3 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 #
 
 INSERT INTO `quoter_quote` (`id`, `category_id`, `user_id`, `created`, `deleted`, `text`, `highlited_lines`, `description`, `rating`, `rating_count`, `active`, `comments_count`) VALUES 
-  (1,1,0,1248257061,0,'$error = \"Всё хорошо\"; \r\nif (!$_POST[''mail''] || !checkEmail($_POST[''mail''])) {\r\n    $error .= \"Не верный E-mail\";\r\n}\r\n \r\n...\r\n \r\nif ($error == \"Всё хорошо\") {    $db->query(\"INSERT...\r\n} else {\r\n \r\n...','','',0,0,1,0),
-  (2,7,2,1248257148,0,'asdfasdf','','asdfasdf',0,0,1,0);
+  (1,1,0,1248257061,0,'$error = \"Всё хорошо\"; \r\nif (!$_POST[''mail''] || !checkEmail($_POST[''mail''])) {\r\n    $error .= \"Не верный E-mail\";\r\n}\r\n \r\n...\r\n \r\nif ($error == \"Всё хорошо\") {    $db->query(\"INSERT...\r\n} else {\r\n \r\n...','','',0,2,1,5),
+  (2,7,2,1248257148,0,'asdfasdf','','asdfasdf',3,3,1,1);
 COMMIT;
 
 #
@@ -327,14 +395,13 @@ INSERT INTO `quoter_quoteCategory` (`id`, `name`, `geshi_alias`, `js_alias`, `ti
 COMMIT;
 
 #
-# Structure for the `ratings_ratings` table : 
+# Structure for the `quoter_quote_ratings` table : 
 #
 
-DROP TABLE IF EXISTS `ratings_ratings`;
+DROP TABLE IF EXISTS `quoter_quote_ratings`;
 
-CREATE TABLE `ratings_ratings` (
+CREATE TABLE `quoter_quote_ratings` (
   `id` INTEGER(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `folder_id` INTEGER(10) UNSIGNED NOT NULL,
   `user_id` INTEGER(10) UNSIGNED NOT NULL,
   `created` INTEGER(11) NOT NULL,
   `ip_address` CHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
@@ -342,11 +409,19 @@ CREATE TABLE `ratings_ratings` (
   `ratevalue` INTEGER(11) NOT NULL,
   `parent_id` INTEGER(10) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `folder_id` (`folder_id`),
   KEY `user_id` (`user_id`),
   KEY `parent_id` (`parent_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=1 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=3 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Data for the `quoter_quote_ratings` table  (LIMIT 0,500)
+#
+
+INSERT INTO `quoter_quote_ratings` (`id`, `user_id`, `created`, `ip_address`, `useragent`, `ratevalue`, `parent_id`) VALUES 
+  (1,2,1248346889,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.1) Gecko/20090715 Firefox/3.5.1',1,2),
+  (2,2,1248348002,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.1) Gecko/20090715 Firefox/3.5.1',1,1);
+COMMIT;
 
 #
 # Structure for the `ratings_ratingsFolder` table : 
@@ -359,7 +434,6 @@ CREATE TABLE `ratings_ratingsFolder` (
   `alias` CHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `module` CHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `type` CHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `by_field` CHAR(25) COLLATE utf8_general_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
 AUTO_INCREMENT=3 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
@@ -368,9 +442,9 @@ AUTO_INCREMENT=3 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci'
 # Data for the `ratings_ratingsFolder` table  (LIMIT 0,500)
 #
 
-INSERT INTO `ratings_ratingsFolder` (`id`, `alias`, `module`, `type`, `by_field`) VALUES 
-  (1,'code','quoter','quote','id'),
-  (2,'comment','comments','comments','id');
+INSERT INTO `ratings_ratingsFolder` (`id`, `alias`, `module`, `type`) VALUES 
+  (1,'code','quoter','quote'),
+  (2,'comment','comments','comments');
 COMMIT;
 
 #
@@ -636,7 +710,7 @@ CREATE TABLE `sys_classes_actions` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `class_id` (`class_id`, `action_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=324 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=326 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_classes_actions` table  (LIMIT 0,500)
@@ -819,7 +893,6 @@ INSERT INTO `sys_classes_actions` (`id`, `class_id`, `action_id`) VALUES
   (280,52,14),
   (281,48,100),
   (282,20,101),
-  (284,53,9),
   (285,54,9),
   (288,19,104),
   (289,19,105),
@@ -845,7 +918,9 @@ INSERT INTO `sys_classes_actions` (`id`, `class_id`, `action_id`) VALUES
   (319,57,114),
   (320,57,115),
   (322,57,117),
-  (323,3,3);
+  (323,3,3),
+  (324,53,3),
+  (325,53,111);
 COMMIT;
 
 #

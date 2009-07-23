@@ -33,27 +33,6 @@ class ratingsFolder extends entity
 
         return $this->objectMapper;
     }
-
-    public function getRatedObject($param)
-    {
-        return $this->getObjectMapper()->searchOneByField($this->getByField(), $param);
-    }
-
-    /*
-    public function getRate()
-    {
-        if ($this->getRateCount() == 0) {
-            return 0;
-        }
-
-        return $this->getRateSum() / $this->getRateCount();
-    }
-
-    public function getPercentRate()
-    {
-        return ($this->getRate() * 100) / ratingsFolderMapper::STARS_COUNT;
-    }
-    */
 }
 
 ?>

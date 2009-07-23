@@ -23,27 +23,32 @@ fileLoader::load('ratings');
  */
 class ratingsMapper extends mapper
 {
+    const RATED_TABLE_POSTFIX = '_ratings';
+
     /**
      * Имя класса DataObject
      *
      * @var string
      */
     protected $class = 'ratings';
-    protected $table = 'ratings_ratings';
+    protected $table = '';
+
+    protected $ratedMapper = null;
+    protected $rateDriver = null;
 
     protected $map = array(
         'id' => array(
             'accessor' => 'getId',
             'mutator' => 'setId',
             'options' => array('pk', 'once')
-         ),
-        'folder_id' => array(
-            'accessor' => 'getFolder',
-            'mutator' => 'setFolder'
         ),
         'user_id' => array(
             'accessor' => 'getUser',
             'mutator' => 'setUser'
+        ),
+        'created' => array(
+            'accessor' => 'getCreated',
+            'mutator' => 'setCreated'
         ),
         'ip_address' => array(
             'accessor' => 'getIpAddress',
@@ -60,8 +65,33 @@ class ratingsMapper extends mapper
         'parent_id' => array(
             'accessor' => 'getParent',
             'mutator' => 'setParent'
-        ),
+        )
     );
+
+    public function setRatedMapper(mapper $mapper)
+    {
+        if (!$mapper->isAttached('ratings')) {
+            throw new mzzRuntimeException('Attach a ratingsPlugin for ' . get_class($mapper) . '!');
+        }
+
+        $this->ratedMapper = $mapper;
+        $this->table = $mapper->table() . self::RATED_TABLE_POSTFIX;
+    }
+
+    public function getRatedMapper()
+    {
+        return $this->ratedMapper;
+    }
+
+    public function setRateDriver($driver)
+    {
+        $this->rateDriver = (string)$driver;
+    }
+
+    public function getRateDriver()
+    {
+        return $this->rateDriver;
+    }
 
     public function preInsert(array & $data)
     {

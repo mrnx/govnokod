@@ -33,22 +33,25 @@ class ratingsRateController extends simpleController
         }
 
         $objectMapper = $ratingsFolder->getObjectMapper();
-        if (!$objectMapper->isAttached('ratings')) {
-            throw new mzzRuntimeException('Please, attach a ratings plugin for ' . get_class($objectMapper) . '!');
-        }
+
+        $ratingsMapper = $this->toolkit->getMapper('ratings', 'ratings');
+        $ratingsMapper->setRatedMapper($objectMapper);
+
+        $ratingsPlugin = $objectMapper->plugin('ratings');
+
+        $rateDriver = $ratingsPlugin->getRateDriver();
+        $ratingsMapper->setRateDriver($rateDriver);
 
         $param = $this->request->getString('param');
-        $object = $ratingsFolder->getRatedObject($param);
+        $object = $objectMapper->searchOneByField($ratingsPlugin->getByField(), $param);
 
         if (!$object) {
             //return $this->forward404($objectMapper);
             return $this->forward404($ratingsFolderMapper);
         }
 
-        //@todo: допустимые значения вынести лучше в БД
-        switch ($alias) {
-            case 'comment':
-            case 'code':
+        switch ($ratingsMapper->getRateDriver()) {
+            case 'simple':
                 $vote = $this->request->getString('vote');
                 switch ($vote) {
                     case 'on':
@@ -68,18 +71,24 @@ class ratingsRateController extends simpleController
 
                     $ratingsMapper = $this->toolkit->getMapper('ratings', 'ratings');
                     $criteria = new criteria;
-                    $criteria->add('ip_address', $ip)->add('folder_id', $ratingsFolder->getId());
+                    $criteria->add('ip_address', $ip);
                     $criteria->add('parent_id', $object->getId())->add('created', time() - 7200, criteria::GREATER); //таймаут голосования - 2 часа
                     $rate = $ratingsMapper->searchOneByCriteria($criteria);
 
                     if (!$rate) {
                         $object->setRating($object->getRating() + $rateValue);
-                        $object->setRatingCount($object->getRatingCount() + 1);
+                        if ($ratingsPlugin->isWithRateCountField()) {
+                            $object->setRatingCount($object->getRatingCount() + 1);
+                        }
+
                         $objectMapper->save($object);
+
+                        if ($ratingsPlugin->isWithJoinCurrentUserRate()) {
+                            $object->merge(array('current_user_rate' => $rateValue));
+                        }
 
                         $rate = $ratingsMapper->create();
                         $rate->setUser($user->getId());
-                        $rate->setFolder($ratingsFolder->getId());
                         $rate->setIpAddress($ip);
                         $rate->setUserAgent($ua);
                         $rate->setRateValue($rateValue);
