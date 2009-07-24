@@ -66,12 +66,16 @@ class commentsMapper extends mapper
             'accessor' => 'getCreated',
             'mutator' => 'setCreated',
             'options' => array('once')
+        ),
+        'rating_count' => array(
+            'accessor' => 'getRateCount',
+            'mutator' => 'setRateCount'
         )
     );
 
     public function __construct()
     {
-        $this->attach(new ratingsPlugin(array('rating_count_field' => 'rating_count', 'join_current_user_rate' => true)));
+        $this->attach(new ratingsPlugin(array('join_current_user_rate' => true)));
         parent::__construct();
         $this->attach(new tree_alPlugin(array('path_name' => 'id')), 'tree');
         $this->attach(new acl_simplePlugin(), 'acl');
@@ -103,6 +107,12 @@ class commentsMapper extends mapper
 
         $data = array($commentedObject, $object, $folder);
         $objectMapper->notify('commentPostInsert', $data);
+    }
+
+    public function ratingAdded(Array $data)
+    {
+        list($object, $rate) = $data;
+        $object->setRateCount($object->getRateCount() + 1);
     }
 
     public function convertArgsToObj($args)
