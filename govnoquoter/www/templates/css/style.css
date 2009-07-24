@@ -364,6 +364,7 @@ p#entrance
 .posts .hentry .vote span.my-vote
 {
 	color: #6F6F6F;
+	font-size: 1.2em;
 }
 
 .posts .hentry .entry-content

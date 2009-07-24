@@ -194,6 +194,9 @@ class userMapper extends mapper
             if (isset($data['password'])) {
                 $data['password'] = $this->cryptPassword($data['password']);
             }
+
+            $data['avatar_type'] = 2;
+            $data['highlight_driver'] = 'js';
         }
     }
 

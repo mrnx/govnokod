@@ -23,7 +23,7 @@ fileLoader::load('service/skin');
  */
 class user extends entity
 {
-    const NO_AVATAR_URL = '/files/avatars/';
+    const LOCAL_AVATARS_URL = '/files/avatars/';
 
     protected $avatarUrls = array();
 
@@ -60,17 +60,21 @@ class user extends entity
         $size = (int)$size;
 
         if (!isset($this->avatarUrls[$size])) {
-            $avatarValue = $this->getAvatarType();
+            if ($this->isLoggedIn()) {
+                $avatarValue = $this->getAvatarType();
 
-            switch ($avatarValue) {
-                case 2:
-                    $email = $this->getEmail();
-                    $avatarUrl = 'http://www.gravatar.com/avatar/' . md5(strtolower($email)) . '?default=' . urlencode($this->getNoAvatarUrl($size)). '&size=' . $size;
-                    break;
+                switch ($avatarValue) {
+                    case 2:
+                        $email = $this->getEmail();
+                        $avatarUrl = 'http://www.gravatar.com/avatar/' . md5(strtolower($email)) . '?default=' . urlencode($this->getNoAvatarUrl($size)). '&size=' . $size;
+                        break;
 
-                default:
-                    $avatarUrl = $this->getNoAvatarUrl($size);
-                    break;
+                    default:
+                        $avatarUrl = $this->getNoAvatarUrl($size);
+                        break;
+                }
+            } else {
+                $avatarUrl = $this->getGuestAvatarUrl($size);
             }
 
             $this->avatarUrls[$size] = $avatarUrl;
@@ -82,7 +86,13 @@ class user extends entity
     protected function getNoAvatarUrl($size)
     {
         $request = systemToolkit::getInstance()->getRequest();
-        return $request->getUrl() . '/files/avatars/noavatar_' . $size . '.png';
+        return $request->getUrl() . self::LOCAL_AVATARS_URL . 'noavatar_' . $size . '.png';
+    }
+
+    protected function getGuestAvatarUrl($size)
+    {
+        $request = systemToolkit::getInstance()->getRequest();
+        return $request->getUrl() . self::LOCAL_AVATARS_URL . 'guest_' . $size . '.png';
     }
 
     public function getAcl($name)

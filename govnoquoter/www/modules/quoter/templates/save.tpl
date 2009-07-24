@@ -24,7 +24,7 @@
                 {if $isEdit}{assign var="categoryValue" value=$quote->getCategory()->getId()}{else}{assign var="categoryValue" value=0}{/if}
                 <dd>{form->select class="lang" name="category_id" options=$categoriesSelect emptyFirst=true value=$categoryValue}</dd>
 
-                <dt>{form->caption name="text" value="Код:"} (Максимум 100 строк)</dt>
+                <dt>{form->caption name="text" value="Код (максимум 100 строк):"}</dt>
                 <dd>
                     {if $quote->getText()}{assign var="text" value=$quote->getText()}{else}{assign var="text" value="\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"}{/if}
                     {form->textarea class="code" name="text" value=$text rows="10" cols="50"}
@@ -37,7 +37,7 @@
                 <dd>{form->captcha name="captcha"}</dd>
             </dl>
             <p>
-                {set name="licenseText"}Я обязуюсь не постить УГ">лицензии</a>{/set}
+                {set name="licenseText"}Я обязуюсь не постить УГ{/set}
                 {form->checkbox name="license" values="0|1" text=$licenseText nodefault=true}
             </p>
             <p>
