@@ -193,7 +193,7 @@ var code;
         });
 
         $('.comment-vote a').live('click', function() {
-            comment.vote($(this));
+            comments.vote($(this));
             return false;
         });
 

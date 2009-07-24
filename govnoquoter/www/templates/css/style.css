@@ -525,7 +525,7 @@ div.entry-comments ul .hcomment p .comment-vote
 	position: absolute;
 }
 
-div.entry-comments ul .hcomment p .comment-vote a, div.entry-comments ul .hcomment p .comment-vote strong
+div.entry-comments ul .hcomment p .comment-vote a, div.entry-comments ul .hcomment p .comment-vote strong, div.entry-comments ul .hcomment p .comment-vote span
 {
 	display: -moz-inline-stack;
 	display: inline-block;
@@ -538,18 +538,38 @@ div.entry-comments ul .hcomment p .comment-vote a, div.entry-comments ul .hcomme
 	border: none;
 }
 
-div.entry-comments ul .hcomment p .comment-vote a.comment-vote-on
+div.entry-comments ul .hcomment p .comment-vote .comment-vote-on
 {
 	background: url(../images/vote.png) no-repeat 0 0;
 	width: 18px;
 	height: 17px;
 }
 
-div.entry-comments ul .hcomment p .comment-vote a.comment-vote-against
+div.entry-comments ul .hcomment p .comment-vote .comment-vote-against
 {
 	background: url(../images/vote.png) no-repeat -18px 0;
 	width: 15px;
 	height: 17px;
+}
+
+div.entry-comments ul .hcomment p .comment-vote span.comment-vote-on
+{
+    background-position: 0 -15px;
+}
+
+div.entry-comments ul .hcomment p .comment-vote span.comment-vote-against
+{
+	background-position: -18px -15px;
+}
+
+div.entry-comments ul .hcomment p .comment-vote span.my-vote.comment-vote-on
+{
+    background-position: 0 0
+}
+
+div.entry-comments ul .hcomment p .comment-vote span.my-vote.comment-vote-against
+{
+	background-position: -18px 0;
 }
 
 img.avatar
