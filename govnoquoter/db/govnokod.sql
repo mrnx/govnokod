@@ -1,4 +1,4 @@
-# SQL Manager 2007 for MySQL 4.4.0.3
+# SQL Manager 2007 for MySQL 4.4.0.5
 # ---------------------------------------
 # Host     : localhost
 # Port     : 3306
@@ -20,8 +20,6 @@ CREATE DATABASE `govnokod`
 
 USE `govnokod`;
 
-SET sql_mode = '';
-
 #
 # Structure for the `comments_comments` table : 
 #
@@ -40,20 +38,7 @@ CREATE TABLE `comments_comments` (
   KEY `user_id` (`user_id`),
   KEY `folder_id` (`folder_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=7 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
-# Data for the `comments_comments` table  (LIMIT 0,500)
-#
-
-INSERT INTO `comments_comments` (`id`, `text`, `user_id`, `created`, `folder_id`, `rating`, `rating_count`) VALUES 
-  (1,'asdfasdf',2,1248347386,1,1,1),
-  (2,'asdfasdf',2,1248348085,2,-1,1),
-  (3,'asdf',2,1248348202,2,-1,1),
-  (4,'asdfasdf',2,1248348216,2,1,1),
-  (5,'asdfasdf',2,1248348448,2,-2,2),
-  (6,'sdfasdfxcvxcv',2,1248348483,2,1,1);
-COMMIT;
+AUTO_INCREMENT=1 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Structure for the `comments_commentsFolder` table : 
@@ -102,7 +87,7 @@ CREATE TABLE `comments_comments_ratings` (
   KEY `user_id` (`user_id`),
   KEY `parent_id` (`parent_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=7 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=14 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `comments_comments_ratings` table  (LIMIT 0,500)
@@ -114,7 +99,14 @@ INSERT INTO `comments_comments_ratings` (`id`, `user_id`, `created`, `ip_address
   (3,2,1248348205,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.1) Gecko/20090715 Firefox/3.5.1',-1,3),
   (4,2,1248348301,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.1) Gecko/20090715 Firefox/3.5.1',1,4),
   (5,2,1248348485,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.1) Gecko/20090715 Firefox/3.5.1',1,6),
-  (6,2,1248348489,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.1) Gecko/20090715 Firefox/3.5.1',-1,5);
+  (6,2,1248348489,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.1) Gecko/20090715 Firefox/3.5.1',-1,5),
+  (7,1,1248393789,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.1) Gecko/20090715 Firefox/3.5.1',1,1),
+  (8,1,1248394074,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.1) Gecko/20090715 Firefox/3.5.1',1,3),
+  (9,1,1248394126,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.1) Gecko/20090715 Firefox/3.5.1',1,5),
+  (10,1,1248394140,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.1) Gecko/20090715 Firefox/3.5.1',1,6),
+  (11,1,1248394141,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.1) Gecko/20090715 Firefox/3.5.1',-1,4),
+  (12,1,1248395671,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.1) Gecko/20090715 Firefox/3.5.1',-1,7),
+  (13,1,1248395974,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.1) Gecko/20090715 Firefox/3.5.1',1,2);
 COMMIT;
 
 #
@@ -125,27 +117,13 @@ DROP TABLE IF EXISTS `comments_comments_tree`;
 
 CREATE TABLE `comments_comments_tree` (
   `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `path` TEXT COLLATE utf8_general_ci,
   `foreign_key` INTEGER(11) DEFAULT NULL,
-  `level` INTEGER(11) UNSIGNED DEFAULT NULL,
-  `spath` TEXT COLLATE utf8_general_ci,
-  PRIMARY KEY (`id`),
-  KEY `foreign_key` (`foreign_key`)
+  `parent_id` INTEGER(11) DEFAULT NULL,
+  `level` INTEGER(11) DEFAULT NULL,
+  `path` TEXT COLLATE utf8_general_ci,
+  PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=7 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
-# Data for the `comments_comments_tree` table  (LIMIT 0,500)
-#
-
-INSERT INTO `comments_comments_tree` (`id`, `path`, `foreign_key`, `level`, `spath`) VALUES 
-  (1,'1/',1,1,'1/'),
-  (2,'2/',2,1,'2/'),
-  (3,'2/3/',3,2,'2/3/'),
-  (4,'4/',4,1,'4/'),
-  (5,'5/',5,1,'5/'),
-  (6,'6/',6,1,'6/');
-COMMIT;
+AUTO_INCREMENT=1 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Structure for the `fileManager_file` table : 
@@ -353,8 +331,8 @@ AUTO_INCREMENT=3 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 #
 
 INSERT INTO `quoter_quote` (`id`, `category_id`, `user_id`, `created`, `deleted`, `text`, `highlited_lines`, `description`, `rating`, `rating_count`, `active`, `comments_count`) VALUES 
-  (1,1,0,1248257061,0,'$error = \"Всё хорошо\"; \r\nif (!$_POST[''mail''] || !checkEmail($_POST[''mail''])) {\r\n    $error .= \"Не верный E-mail\";\r\n}\r\n \r\n...\r\n \r\nif ($error == \"Всё хорошо\") {    $db->query(\"INSERT...\r\n} else {\r\n \r\n...','','',0,2,1,5),
-  (2,7,2,1248257148,0,'asdfasdf','','asdfasdf',3,3,1,1);
+  (1,1,0,1248257061,0,'$error = \"Всё хорошо\"; \r\nif (!$_POST[''mail''] || !checkEmail($_POST[''mail''])) {\r\n    $error .= \"Не верный E-mail\";\r\n}\r\n \r\n...\r\n \r\nif ($error == \"Всё хорошо\") {    $db->query(\"INSERT...\r\n} else {\r\n \r\n...','','',1,3,1,5),
+  (2,7,2,1248257148,0,'asdfasdf','','asdfasdf',5,5,1,8);
 COMMIT;
 
 #
@@ -412,15 +390,14 @@ CREATE TABLE `quoter_quote_ratings` (
   KEY `user_id` (`user_id`),
   KEY `parent_id` (`parent_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=3 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=2 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `quoter_quote_ratings` table  (LIMIT 0,500)
 #
 
 INSERT INTO `quoter_quote_ratings` (`id`, `user_id`, `created`, `ip_address`, `useragent`, `ratevalue`, `parent_id`) VALUES 
-  (1,2,1248346889,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.1) Gecko/20090715 Firefox/3.5.1',1,2),
-  (2,2,1248348002,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.1) Gecko/20090715 Firefox/3.5.1',1,1);
+  (1,1,1248397904,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.1) Gecko/20090715 Firefox/3.5.1',1,2);
 COMMIT;
 
 #

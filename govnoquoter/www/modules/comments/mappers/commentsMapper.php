@@ -13,7 +13,7 @@
 */
 
 fileLoader::load('comments');
-fileLoader::load('orm/plugins/tree_mpPlugin');
+fileLoader::load('orm/plugins/tree_alPlugin');
 fileLoader::load('orm/plugins/acl_simplePlugin');
 fileLoader::load('modules/ratings/plugins/ratingsPlugin');
 fileLoader::load('modules/jip/plugins/jipPlugin');
@@ -73,7 +73,7 @@ class commentsMapper extends mapper
     {
         $this->attach(new ratingsPlugin(array('rating_count_field' => 'rating_count', 'join_current_user_rate' => true)));
         parent::__construct();
-        $this->attach(new tree_mpPlugin(array('path_name' => 'id')), 'tree');
+        $this->attach(new tree_alPlugin(array('path_name' => 'id')), 'tree');
         $this->attach(new acl_simplePlugin(), 'acl');
         $this->plugins('jip');
     }
