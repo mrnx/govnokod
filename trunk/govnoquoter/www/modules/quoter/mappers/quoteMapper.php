@@ -76,6 +76,10 @@ class quoteMapper extends mapper
         'active' => array(
             'accessor' => 'getIsActive',
             'mutator' => 'setIsActive'
+        ),
+        'comments_count' => array(
+            'accessor' => 'getCommentsCount',
+            'mutator' => 'setCommentsCount'
         )
     );
 
@@ -85,7 +89,7 @@ class quoteMapper extends mapper
         parent::__construct();
         $this->plugins('acl_simple');
         $this->plugins('jip');
-        $this->attach(new commentsPlugin(array('extendMap' => true, 'byField' => 'id')));
+        $this->plugins('comments');
     }
 
     public function searchById($id)
@@ -116,6 +120,14 @@ class quoteMapper extends mapper
 
         $category->setQuoteCounts($category->getQuoteCounts() - 1);
         $categoryMapper->save($category);
+    }
+
+    public function commentPostInsert(Array $data)
+    {
+        list($quote, $comment, $commentFolder) = $data;
+
+        $quote->setCommentsCount($quote->getCommentsCount() + 1);
+        $this->save($quote);
     }
 
     /**
