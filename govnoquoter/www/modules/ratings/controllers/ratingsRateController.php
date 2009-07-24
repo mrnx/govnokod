@@ -75,17 +75,6 @@ class ratingsRateController extends simpleController
                     $rate = $ratingsMapper->searchByUser($user, $object->getId());
 
                     if (!$rate) {
-                        $object->setRating($object->getRating() + $rateValue);
-                        if ($ratingsPlugin->isWithRateCountField()) {
-                            $object->setRatingCount($object->getRatingCount() + 1);
-                        }
-
-                        $objectMapper->save($object);
-
-                        if ($ratingsPlugin->isWithJoinCurrentUserRate()) {
-                            $object->merge(array('current_user_rate' => $rateValue));
-                        }
-
                         $ip = $this->request->getServer('REMOTE_ADDR');
                         $ua = $this->request->getServer('HTTP_USER_AGENT');
 
@@ -96,6 +85,17 @@ class ratingsRateController extends simpleController
                         $rate->setRateValue($rateValue);
                         $rate->setParent($object->getId());
                         $ratingsMapper->save($rate);
+
+                        $object->setRating($object->getRating() + $rateValue);
+
+                        $data = array($object, $rate);
+                        $objectMapper->notify('ratingAdded', $data);
+
+                        $objectMapper->save($object);
+
+                        if ($ratingsPlugin->isWithJoinCurrentUserRate()) {
+                            $object->merge(array('current_user_rate' => $rateValue));
+                        }
                     }
                 }
 

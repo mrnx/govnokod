@@ -25,7 +25,6 @@ class ratingsPlugin extends observer
         'by_field' => 'id',
         'rateDriver' => 'simple',
         'rating_field' => 'rating',
-        'rating_count_field' => null,
         'join_current_user_rate' => false
     );
 
@@ -35,13 +34,6 @@ class ratingsPlugin extends observer
             'accessor' => 'getRating',
             'mutator' => 'setRating'
         );
-
-        if ($this->isWithRateCountField()) {
-            $map[$this->options['rating_count_field']] = array(
-                'accessor' => 'getRatingCount',
-                'mutator' => 'setRatingCount'
-            );
-        }
 
         if ($this->isWithJoinCurrentUserRate()) {
             $map['current_user_rate'] = array(
@@ -77,11 +69,6 @@ class ratingsPlugin extends observer
     public function getRateDriver()
     {
         return $this->options['rateDriver'];
-    }
-
-    public function isWithRateCountField()
-    {
-        return !is_null($this->options['rating_count_field']);
     }
 
     public function isWithJoinCurrentUserRate()

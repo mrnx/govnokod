@@ -80,6 +80,10 @@ class quoteMapper extends mapper
         'comments_count' => array(
             'accessor' => 'getCommentsCount',
             'mutator' => 'setCommentsCount'
+        ),
+        'rating_count' => array(
+            'accessor' => 'getRateCount',
+            'mutator' => 'setRateCount'
         )
     );
 
@@ -128,6 +132,12 @@ class quoteMapper extends mapper
 
         $quote->setCommentsCount($quote->getCommentsCount() + 1);
         $this->save($quote);
+    }
+
+    public function ratingAdded(Array $data)
+    {
+        list($object, $rate) = $data;
+        $object->setRateCount($object->getRateCount() + 1);
     }
 
     /**

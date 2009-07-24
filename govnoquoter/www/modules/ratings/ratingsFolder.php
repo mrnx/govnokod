@@ -34,5 +34,4 @@ class ratingsFolder extends entity
         return $this->objectMapper;
     }
 }
-
 ?>
