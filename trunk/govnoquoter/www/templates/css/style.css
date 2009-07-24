@@ -531,8 +531,6 @@ div.entry-comments ul .hcomment p .comment-vote a, div.entry-comments ul .hcomme
 	display: -moz-inline-stack;
 	display: inline-block;
 
-	margin: 0 0.1em;
-
 	vertical-align: middle;
 	text-decoration: none;
 
@@ -551,6 +549,7 @@ div.entry-comments ul .hcomment p .comment-vote .comment-vote-against
 	background: url(../images/vote.png) no-repeat -18px 0;
 	width: 15px;
 	height: 17px;
+	margin-left: 0.7em;
 }
 
 div.entry-comments ul .hcomment p .comment-vote span.comment-vote-on
