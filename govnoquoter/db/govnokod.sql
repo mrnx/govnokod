@@ -121,7 +121,9 @@ CREATE TABLE `comments_comments_tree` (
   `parent_id` INTEGER(11) DEFAULT NULL,
   `level` INTEGER(11) DEFAULT NULL,
   `path` TEXT COLLATE utf8_general_ci,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `parent_id` (`parent_id`),
+  KEY `foreign_key` (`foreign_key`)
 )ENGINE=MyISAM
 AUTO_INCREMENT=1 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
@@ -242,7 +244,8 @@ CREATE TABLE `page_page` (
   `compiled` INTEGER(11) DEFAULT NULL,
   `keywords_reset` TINYINT(1) DEFAULT '0',
   `description_reset` TINYINT(1) DEFAULT '0',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `folder_id` (`folder_id`)
 )ENGINE=MyISAM
 AUTO_INCREMENT=2 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
@@ -289,7 +292,8 @@ CREATE TABLE `page_pageFolder_tree` (
   `foreign_key` INTEGER(11) DEFAULT NULL,
   `level` INTEGER(11) UNSIGNED DEFAULT NULL,
   `spath` TEXT COLLATE utf8_general_ci,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `foreign_key` (`foreign_key`)
 )ENGINE=MyISAM
 AUTO_INCREMENT=2 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
@@ -314,7 +318,6 @@ CREATE TABLE `quoter_quote` (
   `created` INTEGER(11) DEFAULT NULL,
   `deleted` INTEGER(11) NOT NULL DEFAULT '0',
   `text` TEXT COLLATE utf8_general_ci NOT NULL,
-  `highlited_lines` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `description` TEXT COLLATE utf8_general_ci NOT NULL,
   `rating` INTEGER(11) NOT NULL,
   `rating_count` INTEGER(10) UNSIGNED NOT NULL DEFAULT '0',
@@ -330,9 +333,9 @@ AUTO_INCREMENT=3 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 # Data for the `quoter_quote` table  (LIMIT 0,500)
 #
 
-INSERT INTO `quoter_quote` (`id`, `category_id`, `user_id`, `created`, `deleted`, `text`, `highlited_lines`, `description`, `rating`, `rating_count`, `active`, `comments_count`) VALUES 
-  (1,1,0,1248257061,0,'$error = \"Всё хорошо\"; \r\nif (!$_POST[''mail''] || !checkEmail($_POST[''mail''])) {\r\n    $error .= \"Не верный E-mail\";\r\n}\r\n \r\n...\r\n \r\nif ($error == \"Всё хорошо\") {    $db->query(\"INSERT...\r\n} else {\r\n \r\n...','','',1,3,1,5),
-  (2,7,2,1248257148,0,'asdfasdf','','asdfasdf',5,5,1,8);
+INSERT INTO `quoter_quote` (`id`, `category_id`, `user_id`, `created`, `deleted`, `text`, `description`, `rating`, `rating_count`, `active`, `comments_count`) VALUES 
+  (1,1,0,1248257061,0,'$error = \"Всё хорошо\"; \r\nif (!$_POST[''mail''] || !checkEmail($_POST[''mail''])) {\r\n    $error .= \"Не верный E-mail\";\r\n}\r\n \r\n...\r\n \r\nif ($error == \"Всё хорошо\") {    $db->query(\"INSERT...\r\n} else {\r\n \r\n...','',1,3,1,5),
+  (2,7,2,1248257148,0,'asdfasdf','asdfasdf',5,5,1,8);
 COMMIT;
 
 #
@@ -348,7 +351,8 @@ CREATE TABLE `quoter_quoteCategory` (
   `js_alias` CHAR(50) COLLATE utf8_general_ci DEFAULT NULL,
   `title` CHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `quote_counts` INTEGER(10) UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `name` (`name`)
 )ENGINE=MyISAM
 AUTO_INCREMENT=14 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
@@ -411,7 +415,8 @@ CREATE TABLE `ratings_ratingsFolder` (
   `alias` CHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `module` CHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `type` CHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `alias` (`alias`)
 )ENGINE=MyISAM
 AUTO_INCREMENT=3 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
