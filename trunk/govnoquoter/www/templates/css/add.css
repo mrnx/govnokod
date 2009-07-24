@@ -6,11 +6,16 @@ ol.linenums {
     float: left;
 }
 
+form dl dd
+{
+    padding-bottom: 2em;
+}
+
 form dl dd textarea
 {
 	width: 100%;
 	max-width: 100%;
-	max-height: 600px;
+	max-height: 100%;
 }
 
 form dl dd textarea.code
