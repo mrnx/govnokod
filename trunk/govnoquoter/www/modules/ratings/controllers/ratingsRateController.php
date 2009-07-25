@@ -52,6 +52,7 @@ class ratingsRateController extends simpleController
 
         switch ($ratingsMapper->getRateDriver()) {
             case 'simple':
+                $this->smarty->disableMain();
                 $vote = $this->request->getString('vote');
                 switch ($vote) {
                     case 'on':

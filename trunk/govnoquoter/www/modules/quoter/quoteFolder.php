@@ -25,7 +25,14 @@ class quoteFolder extends entity
 
     public function getAcl($name = null)
     {
-        return true;
+        switch ($name) {
+            case 'add':
+                $user = systemToolkit::getInstance()->getUser();
+                return $user->isLoggedIn();
+                break;
+        }
+
+        return parent::__call('getAcl', array($name));
     }
 
 }

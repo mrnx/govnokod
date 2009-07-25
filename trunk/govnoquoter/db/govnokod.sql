@@ -38,7 +38,16 @@ CREATE TABLE `comments_comments` (
   KEY `user_id` (`user_id`),
   KEY `folder_id` (`folder_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=1 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=3 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Data for the `comments_comments` table  (LIMIT 0,500)
+#
+
+INSERT INTO `comments_comments` (`id`, `text`, `user_id`, `created`, `folder_id`, `rating`, `rating_count`) VALUES 
+  (1,'test',2,1248489822,2,0,0),
+  (2,'test',1,1248493855,2,0,0);
+COMMIT;
 
 #
 # Structure for the `comments_commentsFolder` table : 
@@ -56,7 +65,17 @@ CREATE TABLE `comments_commentsFolder` (
   UNIQUE KEY `parent_id_2` (`parent_id`, `type`),
   KEY `parent_id` (`parent_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=1 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=4 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Data for the `comments_commentsFolder` table  (LIMIT 0,500)
+#
+
+INSERT INTO `comments_commentsFolder` (`id`, `parent_id`, `module`, `type`, `by_field`) VALUES 
+  (1,3,'quoter','quote','id'),
+  (2,1,'quoter','quote','id'),
+  (3,2,'quoter','quote','id');
+COMMIT;
 
 #
 # Structure for the `comments_comments_ratings` table : 
@@ -94,7 +113,16 @@ CREATE TABLE `comments_comments_tree` (
   KEY `parent_id` (`parent_id`),
   KEY `foreign_key` (`foreign_key`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=1 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=3 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Data for the `comments_comments_tree` table  (LIMIT 0,500)
+#
+
+INSERT INTO `comments_comments_tree` (`id`, `foreign_key`, `parent_id`, `level`, `path`) VALUES 
+  (1,1,0,1,'1/'),
+  (2,2,0,1,'2/');
+COMMIT;
 
 #
 # Structure for the `fileManager_file` table : 
@@ -303,9 +331,9 @@ AUTO_INCREMENT=4 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 #
 
 INSERT INTO `quoter_quote` (`id`, `category_id`, `user_id`, `created`, `deleted`, `text`, `description`, `rating`, `rating_count`, `active`, `comments_count`) VALUES 
-  (1,1,0,1248257061,0,'$error = \"Всё хорошо\"; \r\nif (!$_POST[''mail''] || !checkEmail($_POST[''mail''])) {\r\n    $error .= \"Не верный E-mail\";\r\n}\r\n \r\n...\r\n \r\nif ($error == \"Всё хорошо\") {    $db->query(\"INSERT...\r\n} else {\r\n \r\n...','',1,3,1,11),
-  (2,7,2,1248257148,0,'asdfasdf','asdfasdf',5,5,1,0),
-  (3,1,1,1248473224,0,'sdfsadf\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nasdfsdaf','asdfasdf',-4,2,1,1);
+  (1,1,0,1248257061,0,'$error = \"Всё хорошо\"; \r\nif (!$_POST[''mail''] || !checkEmail($_POST[''mail''])) {\r\n    $error .= \"Не верный E-mail\";\r\n}\r\n \r\n...\r\n \r\nif ($error == \"Всё хорошо\") {    $db->query(\"INSERT...\r\n} else {\r\n \r\n...','',1,3,1,2),
+  (2,7,2,1248257148,0,'asdfasdf','asdfasdf',6,6,1,0),
+  (3,1,1,1248473224,0,'sdfsadf\n\n\n\n\n\n\n\n\n\nasdfsdaf','asdfasdf',-3,3,1,0);
 COMMIT;
 
 #
@@ -364,7 +392,16 @@ CREATE TABLE `quoter_quote_ratings` (
   KEY `user_id` (`user_id`),
   KEY `parent_id` (`parent_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=1 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=3 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Data for the `quoter_quote_ratings` table  (LIMIT 0,500)
+#
+
+INSERT INTO `quoter_quote_ratings` (`id`, `user_id`, `created`, `ip_address`, `useragent`, `ratevalue`, `parent_id`) VALUES 
+  (1,2,1248483974,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.1) Gecko/20090715 Firefox/3.5.1',1,3),
+  (2,2,1248492541,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.1) Gecko/20090715 Firefox/3.5.1',1,2);
+COMMIT;
 
 #
 # Structure for the `ratings_ratingsFolder` table : 
@@ -411,7 +448,15 @@ CREATE TABLE `sys_access` (
   KEY `obj_id_gid` (`obj_id`, `gid`),
   KEY `obj_id_uid` (`obj_id`, `uid`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=1 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=4 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Data for the `sys_access` table  (LIMIT 0,500)
+#
+
+INSERT INTO `sys_access` (`id`, `action_id`, `class_id`, `obj_id`, `uid`, `gid`, `allow`, `deny`) VALUES 
+  (3,1,55,0,NULL,5,1,0);
+COMMIT;
 
 #
 # Structure for the `sys_access_registry` table : 
@@ -1097,7 +1142,7 @@ CREATE TABLE `user_group` (
   `is_default` TINYINT(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=5 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=6 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `user_group` table  (LIMIT 0,500)
@@ -1107,7 +1152,8 @@ INSERT INTO `user_group` (`id`, `obj_id`, `name`, `is_default`) VALUES
   (1,14,'unauth',NULL),
   (2,15,'auth',1),
   (3,16,'root',0),
-  (4,824,'moderators',0);
+  (4,824,'moderators',0),
+  (5,0,'admins',0);
 COMMIT;
 
 #
@@ -1140,7 +1186,7 @@ AUTO_INCREMENT=4 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 INSERT INTO `user_user` (`id`, `login`, `email`, `password`, `created`, `confirmed`, `last_login`, `language_id`, `timezone`, `skin`, `highlight_driver`, `avatar_type`) VALUES 
   (1,'guest','','',NULL,NULL,1227260702,NULL,3,1,'js',0),
-  (2,'admin','','098f6bcd4621d373cade4e832627b4f6',NULL,NULL,1248260509,1,3,1,'js',1);
+  (2,'admin','','098f6bcd4621d373cade4e832627b4f6',NULL,NULL,1248492975,1,3,1,'js',1);
 COMMIT;
 
 #
@@ -1158,14 +1204,14 @@ CREATE TABLE `user_userAuth` (
   `time` INTEGER(11) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=5 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=6 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `user_userAuth` table  (LIMIT 0,500)
 #
 
 INSERT INTO `user_userAuth` (`id`, `user_id`, `ip`, `hash`, `obj_id`, `time`) VALUES 
-  (4,2,'127.0.0.1','473b0abc033d9bad2eea9b2934018a4d',NULL,NULL);
+  (5,2,'127.0.0.1','548b5dd21ae1a8025eb074c6e9ab39d6',NULL,NULL);
 COMMIT;
 
 #

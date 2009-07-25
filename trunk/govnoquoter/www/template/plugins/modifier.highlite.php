@@ -3,7 +3,7 @@ function smarty_modifier_highlite($source, $language = 'text', $cacheKey = null)
 {
     if ($cacheKey) {
         fileLoader::load('cache');
-        $cache = cache::factory(quote::CACHE_NAME);
+        $cache = cache::factory('geshi_code');
         if ($code = $cache->get($cacheKey)) {
             return $code;
         }

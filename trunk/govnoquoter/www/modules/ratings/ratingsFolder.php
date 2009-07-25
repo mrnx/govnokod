@@ -33,5 +33,17 @@ class ratingsFolder extends entity
 
         return $this->objectMapper;
     }
+
+    public function getAcl($name = null)
+    {
+        switch ($name) {
+            case 'rate':
+                $user = systemToolkit::getInstance()->getUser();
+                return $user->isLoggedIn();
+                break;
+        }
+
+        return false;
+    }
 }
 ?>

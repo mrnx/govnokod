@@ -40,10 +40,19 @@ class simple404Controller extends simpleController
         $this->onlyHeaders = (bool)$onlyHeaders;
     }
 
+    /**
+     * Установка результата работы 404 контроллера для определенного маппера
+     *
+     * @param simpleMapper $mapper
+     */
+    public function applyMapper(mapper $mapper)
+    {
+        $this->result = $this->forward404($mapper);
+    }
+
     protected function getView()
     {
         $this->response->setStatus(404);
-
         return $this->onlyHeaders ? false : $this->smarty->fetch('simple/404.tpl');
     }
 }

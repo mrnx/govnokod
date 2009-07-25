@@ -1,9 +1,7 @@
-{title append="403 Forbidden!"}
-<div class="rounded-box" style="width: 60%">
-    <b class="r10"></b><b class="r7"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r2"></b><b class="r1"></b><b class="r1"></b><b class="r1"></b>
-    <div class="inner-box">
-        <h1>403 Forbidden!</h1>
-        <p>Вам запрещен доступ в этот раздел</p>
-    </div>
-    <b class="r1"></b><b class="r1"></b><b class="r1"></b><b class="r2"></b><b class="r2"></b><b class="r3"></b><b class="r4"></b><b class="r5"></b><b class="r7"></b><b class="r10"></b>
-</div>
+{title append="Вам запрещен доступ в этот раздел!"}
+<ol class="posts">
+    <li class="hentry">
+        <h2>Вам запрещен доступ в этот раздел!</h2>
+        <p>Возможно, Вам не хватает прав для доступа в этот раздел. Попробуйте авторизоваться и повторите попытку.</p>
+    </li>
+</ol>

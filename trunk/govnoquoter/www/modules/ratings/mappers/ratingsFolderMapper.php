@@ -73,6 +73,17 @@ class ratingsFolderMapper extends mapper
 
     public function convertArgsToObj($args)
     {
+        return $this->create();
+        /*
+        if (isset($args['alias'])) {
+            $do = $this->searchByAlias($args['alias']);
+            if ($do) {
+                return $do;
+            }
+        }
+
+        throw new mzzDONotFoundException();
+        */
     }
 }
 
