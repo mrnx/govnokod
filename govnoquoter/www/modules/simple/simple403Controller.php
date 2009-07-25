@@ -17,21 +17,14 @@
  *
  * @package modules
  * @subpackage simple
- * @version 0.1
+ * @version 0.1.2
  */
-
 class simple403Controller extends simpleController
 {
     public function getView()
     {
-        $header = $this->request->getBoolean('403header');
-
-        if ($header) {
-            $this->response->setStatus(403);
-        }
-
-        return $this->smarty->fetch('simple/403.tpl');
+        $this->response->setStatus(403);
+        return $this->fetch('simple/403.tpl');
     }
 }
-
 ?>
