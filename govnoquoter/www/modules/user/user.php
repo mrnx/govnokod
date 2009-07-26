@@ -26,6 +26,7 @@ class user extends entity
     const LOCAL_AVATARS_URL = '/files/avatars/';
 
     protected $avatarUrls = array();
+    protected $preferredLangs = null;
 
     /**
      * Проверяет является ли пользователь авторизированным
@@ -95,10 +96,50 @@ class user extends entity
         return $request->getUrl() . self::LOCAL_AVATARS_URL . 'guest_' . $size . '.png';
     }
 
+    public function setPreferredLangs($langs = false)
+    {
+        if (is_array($langs)) {
+            $langs = serialize($langs);
+        } else {
+            $langs = '';
+        }
+
+        parent::__call('setPreferredLangs', array($langs));
+    }
+
+    public function getPreferredLangs()
+    {
+        if (is_null($this->preferredLangs)) {
+            $langs = parent::__call('getPreferredLangs', array());
+            try {
+                $langs = unserialize($langs);
+            } catch (mzzException $ex) {
+                $langs = false;
+            }
+
+            $this->preferredLangs = $langs;
+        }
+
+        return $this->preferredLangs;
+    }
+
+    public function isPreferredLang($langId)
+    {
+        $langs = $this->getPreferredLangs();
+
+        if ($langs === false) {
+            return true;
+        }
+
+        return in_array($langId, $langs);
+    }
+
+    /*
     public function getAcl($name)
     {
         // @todo: исправить! в acl решить что делать с obj_id = 0 (вероятно брать дефолты)
         return true;
     }
+    */
 }
 ?>

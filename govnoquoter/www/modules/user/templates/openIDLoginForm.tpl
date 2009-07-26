@@ -1,3 +1,4 @@
+{title append="Вход в говнокод тут"}
 <ol class="posts">
     <li class="hentry">
         <h2>Вход в говнокод тут</h2>

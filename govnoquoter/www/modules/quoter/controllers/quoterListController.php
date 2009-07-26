@@ -44,6 +44,11 @@ class quoterListController extends simpleController
 
             $criteria->add('category_id', $category->getId());
             $this->smarty->assign('category', $category);
+        } else {
+            $user = $this->toolkit->getUser();
+            if ($user->getPreferredLangs()) {
+                $criteria->add('category_id', $user->getPreferredLangs(), criteria::IN);
+            }
         }
 
         $pager = $this->setPager($quoteMapper, 10, true, 4);
