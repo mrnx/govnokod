@@ -1,3 +1,4 @@
+{title append="Вход в говнокод тут"}
 <ol class="posts">
     <li class="hentry">
         <h2>Вход в говнокод тут</h2>
@@ -27,6 +28,9 @@
 
                 <dt>{form->caption name="email" value="E-mail:"}</dt>
                 <dd>{form->text name="email" value=$regData.email}</dd>
+
+                <dt>{form->caption name="timezone" value="Часовой пояс:"}</dt>
+                <dd>{form->select name="timezone" options=$timezones emptyFirst=true}</dd>
             </dl>
             <p>
                 {form->submit class="send" name="openid_reg_cancel" value="Отменить" nodefault=true}

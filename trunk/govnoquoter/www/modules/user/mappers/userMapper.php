@@ -55,35 +55,36 @@ class userMapper extends mapper
         'id' => array(
             'accessor' => 'getId',
             'mutator' => 'setId',
-            'options' => array(
-                'pk')),
+            'options' => array('pk')
+         ),
         'login' => array(
             'accessor' => 'getLogin',
-            'mutator' => 'setLogin'),
+            'mutator' => 'setLogin'
+         ),
         'email' => array(
             'accessor' => 'getEmail',
-            'mutator' => 'setEmail'),
+            'mutator' => 'setEmail'
+        ),
         'password' => array(
             'accessor' => 'getPassword',
-            'mutator' => 'setPassword'),
+            'mutator' => 'setPassword'
+        ),
         'created' => array(
             'accessor' => 'getCreated',
-            'mutator' => 'setCreated'),
+            'mutator' => 'setCreated'
+        ),
         'confirmed' => array(
             'accessor' => 'getConfirmed',
-            'mutator' => 'setConfirmed'),
+            'mutator' => 'setConfirmed'
+        ),
         'last_login' => array(
             'accessor' => 'getLastLogin',
-            'mutator' => 'setLastLogin'),
-        'language_id' => array(
-            'accessor' => 'getLanguageId',
-            'mutator' => 'setLanguageId'),
+            'mutator' => 'setLastLogin'
+        ),
         'timezone' => array(
             'accessor' => 'getTimezone',
-            'mutator' => 'setTimezone'),
-        'skin' => array(
-            'accessor' => 'getSkin',
-            'mutator' => 'setSkin'),
+            'mutator' => 'setTimezone'
+        ),
         'highlight_driver' => array(
             'accessor' => 'getHighlightDriver',
             'mutator' => 'setHighlightDriver'
@@ -91,6 +92,10 @@ class userMapper extends mapper
         'avatar_type' => array(
             'accessor' => 'getAvatarType',
             'mutator' => 'setAvatarType',
+        ),
+        'preferred_langs' => array(
+            'accessor' => 'getPreferredLangs',
+            'mutator' => 'setPreferredLangs',
         ),
         'openID_identifiers' => array(
             'accessor' => 'getOpenIDIdentifiers',
@@ -109,15 +114,9 @@ class userMapper extends mapper
             'local_key' => 'id',
             'foreign_key' => 'id',
             'ref_local_key' => 'user_id',
-            'ref_foreign_key' => 'group_id'),
-        'online' => array(
-            'accessor' => 'getOnline',
-            'relation' => 'one',
-            'mapper' => 'user/userOnlineMapper',
-            'local_key' => 'id',
-            'foreign_key' => 'user_id',
-            'options' => array(
-                'ro')));
+            'ref_foreign_key' => 'group_id'
+        )
+    );
 
     public function __construct()
     {
@@ -236,6 +235,44 @@ class userMapper extends mapper
         }
 
         return $pass;
+    }
+
+    public function getTimezones()
+    {
+        return array(
+            '-12' => '(GMT - 12:00) Эневеток, Кваджалейн',
+            '-11' => '(GMT - 11:00) о.Мидуэй, Самоа',
+            '-10' => '(GMT - 10:00) Гавайи',
+            '-9' => '(GMT - 9:00) Аляска',
+            '-8' => '(GMT - 8:00) Тихоокеанское время (США и Канада), Тихуана',
+            '-7' => '(GMT - 7:00) Горное время (США и Канада), Аризона',
+            '-6' => '(GMT - 6:00) Центральное время (США и Канада), Мехико',
+            '-5' => '(GMT - 5:00) Восточное время (США и Канада), Богота, Лима, Кито',
+            '-4' => '(GMT - 4:00) Атлантическое время (Канада), Каракас, Ла Пас, Сантьяго',
+            '-3.5' => '(GMT - 3:30) Ньюфаундленд',
+            '-3' => '(GMT - 3:00) Бразилия, Буэнос-Айрес, Джорджтаун, Гренландия',
+            '-2' => '(GMT - 2:00) Среднеатлантическое время',
+            '-1' => '(GMT - 1:00) Азорские о-ва, о-ва Зеленого мыса',
+            '0' => '(GMT) Касабланка, Дублин, Эдинбург, Лиссабон, Лондон, Монровия',
+            '1' => '(GMT + 1:00) Амстердам, Берлин, Брюссель, Мадрид, Париж, Рим',
+            '2' => '(GMT + 2:00) Каир, Хельсинки, Калининград, Южная Африка, Варшава',
+            '3' => '(GMT + 3:00) Багдад, Эр-Рияд, Москва, Найроби',
+            '3.5' => '(GMT + 3:30) Тегеран',
+            '4' => '(GMT + 4:00) Абу-Даби, Баку, Мускат, Тбилиси',
+            '4.5' => '(GMT + 4:30) Кабул',
+            '5' => '(GMT + 5:00) Екатеринбург, Исламабад, Карачи, Ташкент',
+            '5.5' => '(GMT + 5:30) Бомбей, Калькутта, Мадрас, Нью-Дели',
+            '6' => '(GMT + 6:00) Алма-Ата, Коломбо, Дхака, Новосибирск, Омск',
+            '7' => '(GMT + 7:00) Бангкок, Ханой, Джакарта, Красноярск',
+            '8' => '(GMT + 8:00) Пекин, Гонконг, Перт, Сингапур, Тайпей',
+            '9' => '(GMT + 9:00) Осака, Саппоро, Сеул, Токио, Якутск',
+            '9.5' => '(GMT + 9:30) Аделаида, Дарвин',
+            '10' => '(GMT + 10:00) Канберра, Мельбурн, Гуам, Сидней, Владивосток',
+            '11' => '(GMT + 11:00) Магадан, Новая Каледония, Соломоновы о-ва',
+            '12' => '(GMT + 12:00) Окленд, Фиджи, Камчатка, Веллингтон',
+            '13' => '(GMT + 13:00) Камчатка, Анадырь',
+            '14' => '(GMT + 14:00) Киритимати (остров Рождества)'
+        );
     }
 
     public function convertArgsToObj($args)

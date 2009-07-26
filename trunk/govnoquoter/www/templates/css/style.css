@@ -692,6 +692,18 @@ form dl dd textarea
 	max-height: 600px;
 }
 
+
+form dl dd select
+{
+	font-family: "Calibri", "Arial", "Verdana", "Serif";
+	font-size: 1em;
+
+	width: 60%;
+
+	border: 1px solid #C9CBCC;
+	border-top-color: #6D6F70;
+}
+
 form p input.send
 {
 	font-size: 1.2em;

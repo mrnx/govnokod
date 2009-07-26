@@ -12,7 +12,7 @@
 {if $listAll|default:true}
     <link title="rss govnokod.ru" type="application/rss+xml" rel="alternate" href="{url route="rss"}"/>
 {else}
-    <link title="rss {$category->getName()|h} govnokod.ru" type="application/rss+xml" rel="alternate" href="{url route="rssFull" name=$category->getName()}"/>
+    <link title="rss {$category->getTitle()|h} govnokod.ru" type="application/rss+xml" rel="alternate" href="{url route="rssFull" name=$category->getName()}"/>
 {/if}
     {include file='include.external.bundle.css.tpl'}
     <script type="text/javascript">

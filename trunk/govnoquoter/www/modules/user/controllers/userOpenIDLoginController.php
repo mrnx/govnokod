@@ -37,14 +37,19 @@ class userOpenIDLoginController extends userLoginController
         $isValidated = $session->get('openID_validated', false);
         $this->smarty->assign('isValidated', $isValidated);
         if (!$this->request->getBoolean('onlyForm') && $isValidated === true) {
+            $userMapper = $this->toolkit->getMapper('user', 'user');
+            $timezones = $userMapper->getTimezones();
+
             $openIDUrl = $session->get('openID_url', false);
 
             $cancelValidator = new formValidator('openid_reg_cancel');
 
             $validator = new formValidator('openid_reg_submit');
-            $validator->add('required', 'login', 'Укажите логин');
-            $validator->add('required', 'email', 'Укажите адрес e-mail');
-            $validator->add('email', 'email', 'Неверный e-mail адрес');
+            $validator->add('required', 'login', 'Укажите логин!');
+            $validator->add('required', 'email', 'Укажите адрес e-mail!');
+            $validator->add('email', 'email', 'Неверный e-mail адрес!');
+            $validator->add('required', 'timezone', 'Укажите часовой пояс!');
+            $validator->add('in', 'timezone', 'Укажите часовой пояс из списка!', array_keys($timezones));
 
             if ($cancelValidator->validate()) {
                 $session->destroy('openID_url');
@@ -58,11 +63,12 @@ class userOpenIDLoginController extends userLoginController
             } else if ($validator->validate()) {
                 $login = $this->request->getString('login', SC_POST);
                 $email = $this->request->getString('email', SC_POST);
+                $timezone = $this->request->getNumeric('timezone', SC_POST);
 
-                $userMapper = $this->toolkit->getMapper('user', 'user');
                 $user = $userMapper->create();
                 $user->setLogin($login);
                 $user->setEmail($email);
+                $user->setTimezone($timezone);
                 $user->setPassword(userMapper::generatePassword(mt_rand(6, 10)));
                 $userMapper->save($user);
 
@@ -93,6 +99,7 @@ class userOpenIDLoginController extends userLoginController
             $url = new url('openIDLogin');
 
             $this->smarty->assign('openIDUrl', $openIDUrl);
+            $this->smarty->assign('timezones', $timezones);
             $this->smarty->assign('form_action', $url->get());
             return $this->smarty->fetch('user/openIDRegForm.tpl');
         }
@@ -120,7 +127,6 @@ class userOpenIDLoginController extends userLoginController
                             $regData = array();
                             $regData['login'] = $this->request->getString('openid_sreg_nickname', SC_GET);
                             $regData['email'] = $this->request->getString('openid_sreg_email', SC_GET);
-                            $regData['tz'] = $this->request->getString('openid_sreg_timezone', SC_GET);
 
                             $session->set('openID_validated', true);
                             $session->set('openID_RegData', $regData);
@@ -173,8 +179,13 @@ class userOpenIDLoginController extends userLoginController
             //при SITE_PATH == '' всё нормально, но иначе будет плохо (а будет ли иначе?)
             $openid->SetTrustRoot($this->request->getUrl());
             $openid->SetIdentity($openIDUrl);
-            $openid->SetRequiredFields(array('email', 'nickname'));
-            $openid->SetOptionalFields(array('timezone'));
+
+            $normalizedOpenIDUrl = $openid->OpenID_Standarize($openIDUrl);
+            $userOpenIDMapper = $this->toolkit->getMapper('user', 'userOpenID');
+            $userOpenID = $userOpenIDMapper->searchByUrl($normalizedOpenIDUrl);
+            if (!$userOpenID) {
+                $openid->SetRequiredFields(array('email', 'nickname'));
+            }
 
             $openIDServer = $openid->GetOpenIDServer();
 

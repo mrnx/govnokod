@@ -8,7 +8,7 @@
 {assign var="highlight" value=$current_user->getHighlightDriver()}
 {if $highlight == "geshi"}
 {assign var="langName" value=$quote->getCategory()->getGeshiAlias()|h}
-{add file="langs/$langName.css"}
+{if $langName}{add file="langs/$langName.css"}{/if}
 {else}
 {add file="jshighlight/govnokod.css"}{add file="jshighlight/highlight.pack.js"}{add file="govnokod.jsh.js"}
 {assign var="langName" value=$quote->getCategory()->getJsAlias()|h}

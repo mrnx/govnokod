@@ -38,17 +38,13 @@ class quoterExportController extends simpleController
                 $this->smarty->assign('category', $category);
             }
         } elseif (!$this->request->getBoolean('pass', SC_GET)) {
-            $this->response->setHeader('Location', 'http://feeds.feedburner.com/Govnokodru');
+            $this->redirect('http://feeds.feedburner.com/Govnokodru');
             return;
         }
 
         $quoteMapper = $this->toolkit->getMapper('quoter', 'quote');
         $quotes = $quoteMapper->searchAllByCriteria($criteria);
 
-        reset($quotes);
-        $lastBuildDate = current($quotes)->getCreated();
-
-        $this->smarty->assign('lastBuildDate', $lastBuildDate);
         $this->smarty->assign('quotes', $quotes);
         $this->smarty->assign('withCategory', (isset($category)));
 

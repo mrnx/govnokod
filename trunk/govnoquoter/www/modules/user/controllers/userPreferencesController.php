@@ -45,34 +45,70 @@ class userPreferencesController extends simpleController
                 break;
 
             default:
-                $type = 'global_';
+                $type = 'global';
 
                 $drivers = array(
                     'js' => 'HighlightJS',
                     'geshi' => 'Geshi',
                 );
 
+                $userMapper = $this->toolkit->getMapper('user', 'user');
+                $categoryMapper = $this->toolkit->getMapper('quoter', 'quoteCategory');
+
+                $categories = $categoryMapper->searchAll();
+
                 $validator = new formValidator();
                 $validator->add('required', 'hdriver', 'Укажите способ подсветки кода');
                 $validator->add('in', 'hdriver', 'Укажите способ подсветки кода из списка', array_keys($drivers));
-                if ($validator->validate()) {
-                    $driver = $this->request->getString('hdriver', SC_POST);
+                $validator->add('required', 'avatar', 'Укажите способ отображения юзерпика!');
+                $validator->add('in', 'avatar', 'Выберите способ отображения юзерпика из списка!', array(1, 2));
+                $validator->add('required', 'lang', 'Должен быть выбран хотя бы один язык!');
 
-                    $userMapper = $this->toolkit->getMapper('user', 'user');
+                $timezones = $userMapper->getTimezones();
+                $validator->add('required', 'timezone', 'Укажите часовой пояс!');
+                $validator->add('in', 'timezone', 'Укажите часовой пояс из списка!', array_keys($timezones));
+
+                if ($validator->validate()) {
+                    $avatar = $this->request->getInteger('avatar', SC_POST);
+                    $driver = $this->request->getString('hdriver', SC_POST);
+                    $langs = $this->request->getArray('lang', SC_POST);
+                    $timezone = $this->request->getNumeric('timezone', SC_POST);
+
+                    if (sizeof($langs) == sizeof($categories)) {
+                        $user->setPreferredLangs(false);
+                    } else {
+                        $preferredLangs = array();
+                        foreach ($langs as $lang => $val) {
+                            if (isset($categories[$lang])) {
+                                $preferredLangs[] = $lang;
+                            }
+                        }
+
+                        $user->setPreferredLangs($preferredLangs);
+                    }
+
+                    $user->setAvatarType($avatar);
                     $user->setHighlightDriver($driver);
+                    $user->setTimezone($timezone);
                     $userMapper->save($user);
 
-                    $this->redirect('/');
+                    $url = new url('default2');
+                    $url->setModule('user');
+                    $url->setAction('login');
+
+                    $this->redirect($url->get());
                     return;
                 }
 
                 $this->smarty->assign('drivers', $drivers);
+                $this->smarty->assign('categories', $categories);
+                $this->smarty->assign('timezones', $timezones);
                 $this->setTemplatePrefix('global_');
                 break;
         }
 
-        $url = new url('withAnyParam');
-        $url->add('name', $type);
+        $url = new url('default2');
+        $url->setModule('user');
         $url->setAction('preferences');
 
         $this->smarty->assign('form_action', $url->get());
