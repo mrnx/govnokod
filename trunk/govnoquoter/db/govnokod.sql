@@ -20,6 +20,8 @@ CREATE DATABASE `govnokod`
 
 USE `govnokod`;
 
+SET sql_mode = '';
+
 #
 # Structure for the `comments_comments` table : 
 #
@@ -901,7 +903,6 @@ INSERT INTO `sys_classes_actions` (`id`, `class_id`, `action_id`) VALUES
   (314,11,109),
   (315,57,106),
   (316,57,107),
-  (317,57,109),
   (318,57,20),
   (319,57,114),
   (320,57,115),
@@ -1185,8 +1186,8 @@ AUTO_INCREMENT=4 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 #
 
 INSERT INTO `user_user` (`id`, `login`, `email`, `password`, `created`, `confirmed`, `last_login`, `timezone`, `skin`, `highlight_driver`, `avatar_type`, `preferred_langs`) VALUES 
-  (1,'guest','','',NULL,NULL,1248569042,'3',1,'js',0,''),
-  (2,'admin','','098f6bcd4621d373cade4e832627b4f6',NULL,NULL,1248568633,'3',1,'js',2,'');
+  (1,'guest','','',NULL,NULL,1248576546,'3',1,'js',0,''),
+  (2,'admin','','098f6bcd4621d373cade4e832627b4f6',NULL,NULL,1248568633,'10',1,'js',2,'');
 COMMIT;
 
 #
@@ -1204,14 +1205,16 @@ CREATE TABLE `user_userAuth` (
   `time` INTEGER(11) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=7 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=9 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `user_userAuth` table  (LIMIT 0,500)
 #
 
 INSERT INTO `user_userAuth` (`id`, `user_id`, `ip`, `hash`, `obj_id`, `time`) VALUES 
-  (6,2,'127.0.0.1','e72d5a8b19ff4c6d90a74144b0563884',NULL,NULL);
+  (6,2,'127.0.0.1','e72d5a8b19ff4c6d90a74144b0563884',NULL,NULL),
+  (7,2,'127.0.0.1','48b163622d77b2e43771e790793dcb10',NULL,NULL),
+  (8,2,'127.0.0.1','5d82afb95098444f58a3e080a943b7a1',NULL,NULL);
 COMMIT;
 
 #
