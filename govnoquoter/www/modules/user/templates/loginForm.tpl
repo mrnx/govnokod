@@ -20,7 +20,7 @@
                 <dd>{form->text name="login"}</dd>
 
                 <dt>{form->caption name="password" value="Пароль:"}</dt>
-                <dd>{form->text name="password"}</dd>
+                <dd>{form->password name="password"}</dd>
             </dl>
             <p>
                 {form->hidden name="save" value="true"}
