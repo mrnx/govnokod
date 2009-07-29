@@ -23,6 +23,12 @@
                 <dt>{form->caption name="email" value="E-mail:"}</dt>
                 <dd>{form->text name="email"}</dd>
 
+                <dt>{form->caption name="password" value="Пароль:"}</dt>
+                <dd>{form->password name="password"}</dd>
+
+                <dt>{form->caption name="repassword" value="Повтор пароля:"}</dt>
+                <dd>{form->password name="repassword"}</dd>
+
                 <dt>{form->caption name="timezone" value="Часовой пояс:"}</dt>
                 <dd>{form->select name="timezone" options=$timezones emptyFirst=true}</dd>
             </dl>
