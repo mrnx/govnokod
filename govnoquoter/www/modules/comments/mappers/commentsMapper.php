@@ -47,7 +47,7 @@ class commentsMapper extends mapper
             'mutator' => 'setFolder',
             'relation' => 'one',
             'foreign_key' => 'id',
-            'mapper' => 'comments/commentsFolderMapper',
+            'mapper' => 'comments/commentsFolder',
             'options' => array('once')
         ),
         'user_id' => array(
@@ -55,7 +55,7 @@ class commentsMapper extends mapper
             'mutator' => 'setUser',
             'relation' => 'one',
             'foreign_key' => 'id',
-            'mapper' => 'user/userMapper',
+            'mapper' => 'user/user',
             'options' => array('once')
         ),
         'text' => array(
@@ -105,13 +105,22 @@ class commentsMapper extends mapper
         $objectMapper = $folder->getObjectMapper();
         $commentedObject = $folder->getObject();
 
-        $data = array($commentedObject, $object, $folder);
-        $objectMapper->notify('commentPostInsert', $data);
+        $data = array(
+            'commentedObject' => $commentedObject,
+            'commentObject' => $object,
+            'commentFolderObject' => $folder
+        );
+
+        $commentsFolderMapper = systemToolkit::getInstance()->getMapper('comments', 'commentsFolder');
+        $commentsFolderMapper->notify('commentAdded', $data);
+
+        $objectMapper->notify('commentAdded', $data);
     }
 
     public function ratingAdded(Array $data)
     {
-        list($object, $rate) = $data;
+        $object = $data['ratedObject'];
+        $rate = $data['rate'];
         $object->setRateCount($object->getRateCount() + 1);
     }
 

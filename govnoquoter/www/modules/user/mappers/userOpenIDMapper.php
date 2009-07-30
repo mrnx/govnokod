@@ -48,7 +48,7 @@ class userOpenIDMapper extends mapper
             'mutator' => 'setUser',
             'relation' => 'one',
             'foreign_key' => 'id',
-            'mapper' => 'user/userMapper',
+            'mapper' => 'user/user',
             'join_type' => 'inner'
         ),
         'openid_url' => array(

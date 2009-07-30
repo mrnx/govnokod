@@ -1,7 +1,7 @@
 {add file="jquery.js"}
 {add file="govnokod.js"}
 <div class="entry-comments">
-    <h3>Комментарии <span class="count">({$comments->count()})</span> <span class="rss"><a href="{url route="withId" module="comments" action="rss" id=$commentsFolder->getId()}" rel="alternative">RSS</a></span></h3>
+    <h3>Комментарии <span class="count">({$commentsFolder->getCommentsCount()})</span> <span class="rss"><a href="{url route="withId" module="comments" action="rss" id=$commentsFolder->getId()}" rel="alternative">RSS</a></span></h3>
     <ul id="comments_{$commentsFolder->getId()}">
     {foreach from=$comments item="comment" name="commentsIteration"}
         {strip}{if !$smarty.foreach.commentsIteration.first}

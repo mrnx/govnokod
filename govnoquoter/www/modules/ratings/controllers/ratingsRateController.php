@@ -89,7 +89,7 @@ class ratingsRateController extends simpleController
 
                         $object->setRating($object->getRating() + $rateValue);
 
-                        $data = array($object, $rate);
+                        $data = array('ratedObject' => $object, 'rate' => $rate);
                         $objectMapper->notify('ratingAdded', $data);
 
                         $objectMapper->save($object);

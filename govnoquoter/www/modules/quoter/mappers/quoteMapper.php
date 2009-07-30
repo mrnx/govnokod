@@ -47,14 +47,14 @@ class quoteMapper extends mapper
             'mutator' => 'setCategory',
             'relation' => 'one',
             'foreign_key' => 'id',
-            'mapper' => 'quoter/quoteCategoryMapper'
+            'mapper' => 'quoter/quoteCategory'
         ),
         'user_id' => array(
             'accessor' => 'getUser',
             'mutator' => 'setUser',
             'relation' => 'one',
             'foreign_key' => 'id',
-            'mapper' => 'user/userMapper'
+            'mapper' => 'user/user'
         ),
         'created' => array(
             'accessor' => 'getCreated',
@@ -126,17 +126,20 @@ class quoteMapper extends mapper
         $categoryMapper->save($category);
     }
 
-    public function commentPostInsert(Array $data)
+    public function commentAdded(Array $data)
     {
-        list($quote, $comment, $commentFolder) = $data;
+        $quote = $data['commentedObject'];
+        $comment = $data['commentObject'];
+        $commentsFolder = $data['commentFolderObject'];
 
-        $quote->setCommentsCount($quote->getCommentsCount() + 1);
+        $quote->setCommentsCount($commentsFolder->getCommentsCount());
         $this->save($quote);
     }
 
     public function ratingAdded(Array $data)
     {
-        list($object, $rate) = $data;
+        $object = $data['ratedObject'];
+        $rate = $data['rate'];
         $object->setRateCount($object->getRateCount() + 1);
     }
 
