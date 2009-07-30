@@ -40,7 +40,7 @@ CREATE TABLE `comments_comments` (
   KEY `user_id` (`user_id`),
   KEY `folder_id` (`folder_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=3 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=10 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `comments_comments` table  (LIMIT 0,500)
@@ -48,7 +48,14 @@ AUTO_INCREMENT=3 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 INSERT INTO `comments_comments` (`id`, `text`, `user_id`, `created`, `folder_id`, `rating`, `rating_count`) VALUES 
   (1,'test',2,1248489822,2,0,0),
-  (2,'test',1,1248493855,2,0,0);
+  (2,'test',1,1248493855,2,0,0),
+  (3,'test',2,1248949870,1,0,0),
+  (4,'test',2,1248949904,1,0,0),
+  (5,'test3',2,1248949924,1,0,0),
+  (6,'test4',2,1248950009,1,0,0),
+  (7,'test5',2,1248950053,1,0,0),
+  (8,'test56',2,1248950180,1,0,0),
+  (9,'sdgfsdf',2,1248950407,1,0,0);
 COMMIT;
 
 #
@@ -63,6 +70,7 @@ CREATE TABLE `comments_commentsFolder` (
   `module` CHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `type` CHAR(50) COLLATE utf8_general_ci DEFAULT NULL,
   `by_field` CHAR(25) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `comments_count` INTEGER(10) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `parent_id_2` (`parent_id`, `type`),
   KEY `parent_id` (`parent_id`)
@@ -73,10 +81,10 @@ AUTO_INCREMENT=4 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci'
 # Data for the `comments_commentsFolder` table  (LIMIT 0,500)
 #
 
-INSERT INTO `comments_commentsFolder` (`id`, `parent_id`, `module`, `type`, `by_field`) VALUES 
-  (1,3,'quoter','quote','id'),
-  (2,1,'quoter','quote','id'),
-  (3,2,'quoter','quote','id');
+INSERT INTO `comments_commentsFolder` (`id`, `parent_id`, `module`, `type`, `by_field`, `comments_count`) VALUES 
+  (1,3,'quoter','quote','id',7),
+  (2,1,'quoter','quote','id',0),
+  (3,2,'quoter','quote','id',0);
 COMMIT;
 
 #
@@ -115,7 +123,7 @@ CREATE TABLE `comments_comments_tree` (
   KEY `parent_id` (`parent_id`),
   KEY `foreign_key` (`foreign_key`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=3 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=10 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `comments_comments_tree` table  (LIMIT 0,500)
@@ -123,7 +131,14 @@ AUTO_INCREMENT=3 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 INSERT INTO `comments_comments_tree` (`id`, `foreign_key`, `parent_id`, `level`, `path`) VALUES 
   (1,1,0,1,'1/'),
-  (2,2,0,1,'2/');
+  (2,2,0,1,'2/'),
+  (3,3,0,1,'3/'),
+  (4,4,0,1,'4/'),
+  (5,5,0,1,'5/'),
+  (6,6,0,1,'6/'),
+  (7,7,0,1,'7/'),
+  (8,8,7,2,'7/8/'),
+  (9,9,0,1,'9/');
 COMMIT;
 
 #
@@ -336,7 +351,7 @@ AUTO_INCREMENT=4 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 INSERT INTO `quoter_quote` (`id`, `category_id`, `user_id`, `created`, `deleted`, `text`, `description`, `rating`, `rating_count`, `active`, `comments_count`) VALUES 
   (1,1,1,1248257061,0,'$error = \"Всё хорошо\"; \r\nif (!$_POST[''mail''] || !checkEmail($_POST[''mail''])) {\r\n    $error .= \"Не верный E-mail\";\r\n}\r\n \r\n...\r\n \r\nif ($error == \"Всё хорошо\") {    $db->query(\"INSERT...\r\n} else {\r\n \r\n...','',1,3,1,2),
   (2,7,2,1248257148,0,'asdfasdf','asdfasdf',6,6,1,0),
-  (3,1,1,1248473224,0,'sdfsadf\n\n\n\n\n\n\n\n\n\nasdfsdaf','asdfasdf',-3,3,1,0);
+  (3,1,1,1248473224,0,'sdfsadf\n\n\n\n\n\n\n\n\n\nasdfsdaf','asdfasdf',-3,3,1,7);
 COMMIT;
 
 #

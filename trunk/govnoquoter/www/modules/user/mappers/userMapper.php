@@ -101,7 +101,7 @@ class userMapper extends mapper
             'accessor' => 'getOpenIDIdentifiers',
             'mutator' => 'setOpenIDIdentifiers',
             'relation' => 'many',
-            'mapper' => 'user/userOpenIDMapper',
+            'mapper' => 'user/userOpenID',
             'foreign_key' => 'user_id',
             'local_key' => 'id'
         ),
@@ -109,7 +109,7 @@ class userMapper extends mapper
             'accessor' => 'getGroups',
             'mutator' => 'setGroups',
             'relation' => 'many-to-many',
-            'mapper' => 'user/groupMapper',
+            'mapper' => 'user/group',
             'reference' => 'user_userGroup_rel',
             'local_key' => 'id',
             'foreign_key' => 'id',
