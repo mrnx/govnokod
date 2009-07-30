@@ -15,6 +15,16 @@ div#userpane
 	margin-right: 0;
 }
 
+div#userpane.expanded ul.menu2
+{
+    margin-left: 6.7em;
+    padding: 0;
+}
+
+.pane-content p {
+    padding-bottom: 0.1em;
+}
+
 /* Fixing posts container */
 .posts
 {

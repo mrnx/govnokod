@@ -1,7 +1,7 @@
 {add file="jquery.js"}
 {add file="govnokod.js"}
 <div id="userpane">
-    <ul class="menu" style="background-image: url({$user->getAvatarUrl(20)|h});">
+    <ul class="menu" style="background-image: url('{$user->getAvatarUrl(20)|h}');">
         <li><a id="expand-trigger" href="{url route="default2" module="user" action="login"}">Привет, {$user->getLogin()|h}!</a></li>
     </ul>
 
