@@ -73,7 +73,7 @@ class quoterSaveController extends simpleController
             $quote->setText($text);
 
             if ($isEdit) {
-                $cache = cache::factory(quote::CACHE_NAME);
+                $cache = cache::factory('geshi_code');
                 $cache->delete($quote->getCacheKey());
             } else {
                 $quote->setUser($user);
