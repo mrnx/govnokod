@@ -44,28 +44,28 @@ class userRegisterController extends simpleController
         if (empty($userId) || empty($confirm)) {
             $validator = new formValidator();
             $validator->add('required', 'login', 'Необходимо указать логин');
+            $validator->add('length', 'login', 'Длина логина не менее 3-х и не более 30-ти символов', array(3, 30));
             $validator->add('required', 'password', 'Необходимо указать пароль');
-            $validator->add('required', 'email', 'Необходимо указать обратный e-mail');
+            $validator->add('required', 'email', 'Необходимо указать e-mail');
             $validator->add('email', 'email', 'Необходимо указать правильный e-mail');
             $validator->add('required', 'repassword', 'Необходимо указать повтор пароль');
             $validator->add('callback', 'login', 'Пользователь с таким логином уже существует', array(array($this, 'checkUniqueUserLogin'), $userMapper));
+            $validator->add('callback', 'email', 'Пользователь с таким email уже существует', array(array($this, 'checkUniqueUserEmail'), $userMapper));
             $validator->add('callback', 'repassword', 'Повтор пароля не совпадает', array(array($this, 'checkRepass'), $this->request->getString('password', SC_POST)));
 
             $timezones = $userMapper->getTimezones();
-            $validator->add('required', 'timezone', 'Укажите часовой пояс!');
+            $validator->add('required', 'timezone', 'Укажите часовой пояс');
             $validator->add('in', 'timezone', 'Укажите часовой пояс из списка!', array_keys($timezones));
-
-            $validator->add('required', 'timezone', 'Укажите часовой пояс!');
-            $validator->add('in', 'timezone', 'Укажите часовой пояс из списка!', array_keys($timezones));
-
-            $url = new url('default2');
-            $url->setAction('register');
 
             if (!$validator->validate()) {
+                $url = new url('default2');
+                $url->setModule('user');
+                $url->setAction('register');
+
                 $this->smarty->assign('form_action', $url->get());
                 $this->smarty->assign('timezones', $timezones);
                 $this->smarty->assign('errors', $validator->getErrors());
-                return $this->smarty->fetch('user/register.tpl');
+                return $this->smarty->fetch('user/register/register.tpl');
             } else {
                 $login = $this->request->getString('login', SC_POST);
                 $password = $this->request->getString('password', SC_POST);
@@ -74,22 +74,31 @@ class userRegisterController extends simpleController
 
                 $user = $userMapper->create();
                 $user->setLogin($login);
+                $user->setEmail($email);
                 $user->setPassword($password);
                 $user->setTimezone($timezone);
                 $user->setCreated(mktime());
-                $confirm = md5($email . mktime());
+
+                $confirm = md5($email . mktime() . mt_rand(0, 1000));
+
                 $user->setConfirmed($confirm);
                 $userMapper->save($user);
 
-                $url->add('user', $user->getId(), true);
-                $url->add('confirm', $confirm, true);
-                $this->smarty->assign('url', $url->get());
+                $this->smarty->assign('confirm', $confirm);
+                $this->smarty->assign('user', $user);
 
-                if (mail($email, 'Подтверждения регистрации', $this->smarty->fetch('user/mail.tpl'))) {
-                    return $this->smarty->fetch('user/success.tpl');
-                } else {
-                    return 'ошибка... не знаю чо написать. эксепшн наверное? откладываем до mzzMail';
-                }
+                fileLoader::load('service/simpleMailer');
+
+                $subject = 'Подтверждение регистрации на сайте Говнокод.ру';
+                $body = $this->smarty->fetch('user/mail/register.tpl');
+
+                $mailer = new simpleMailer($subject, $body, $email, 'noreply@govnokod.ru', 'Говнокод.ру');
+
+    			if (!$mailer->send()) {
+    			    return $this->smarty->fetch('user/mail/mailCrash.tpl');
+    			}
+
+    			return $this->smarty->fetch('user/register/success.tpl');
             }
         } else {
             $criteria = new criteria;
@@ -122,6 +131,12 @@ class userRegisterController extends simpleController
     function checkUniqueUserLogin($login, $userMapper)
     {
         $user = $userMapper->searchByLogin($login);
+        return is_null($user);
+    }
+
+    function checkUniqueUserEmail($email, $userMapper)
+    {
+        $user = $userMapper->searchByEmail($email);
         return is_null($user);
     }
 

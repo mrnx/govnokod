@@ -32,16 +32,6 @@ class quoteCategory extends entity
 
         return $this->page;
     }
-
-    /**
-     * Получение объекта JIP
-     *
-     * @return jip
-     */
-    public function getJip()
-    {
-        return parent::__call('getJip', array(1, $this->getName()));
-    }
 }
 
 ?>
