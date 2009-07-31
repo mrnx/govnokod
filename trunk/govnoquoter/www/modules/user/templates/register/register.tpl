@@ -2,6 +2,7 @@
 <ol class="posts">
     <li class="hentry">
         <h2>Регистрация пользователя</h2>
+
         {form action=$form_action method="post"}
             {if !$form->isValid()}
             <dl class="errors">
@@ -33,7 +34,7 @@
                 <dd>{form->select name="timezone" options=$timezones emptyFirst=true}</dd>
             </dl>
             <p>
-                {form->submit class="send" name="openid_reg_submit" value="Зарегистрировать!"}
+                {form->submit class="send" name="submit" value="Зарегистрировать!"}
             </p>
         </form>
     </li>

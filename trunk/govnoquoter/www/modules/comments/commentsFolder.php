@@ -21,8 +21,6 @@
  */
 class commentsFolder extends entity
 {
-    protected $name = 'comments';
-
 	protected $object = null;
     protected $objectMapper = null;
 
