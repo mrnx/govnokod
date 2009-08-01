@@ -1,24 +1,34 @@
-<div class="pageTitle">Список категорий {$folder->getJip()}</div>
+<div class="title">Список цитат</div>
 
-<div class="pageContent">
-    <table cellspacing="0" cellpadding="3" class="tableList">
-        <thead class="tableListHead">
-            <tr>
-                <td style="width: 30px;">&nbsp;</td>
-                <td style="width: 260px; text-align: left;">Название</td>
-                <td style="text-align: left;">Идентификатор</td>
-                <td style="text-align: left;">Кол-во элементов</td>
-                <td style="width: 30px;">JIP</td>
-            </tr>
-        </thead>
-        {foreach from=$categories item="category"}
-        <tr>
-            <td><img src="{$SITE_PATH}/templates/images/page/page.gif" alt="" /></td>
-            <td>{$category->getTitle()|htmlspecialchars}</td>
-            <td>{$category->getName()|htmlspecialchars}</td>
-            <td>{$category->getQuoteCounts()}</td>
-            <td>{$category->getJip()}</td>
+<table class="admin">
+    <thead class="tableListHead">
+        <tr class="first center">
+            <th class="first" style="width: 30px;">&nbsp;</th>
+            <th class="left">Название</th>
+            <th class="left">Категория</th>
+            <th class="left">Текущий рейтинг</th>
+            <th class="left">Количество голосов</th>
+            <th class="left">Количество комментариев</th>
+            <th class="left">Активен</th>
+            <th class="last" style="width: 30px;">JIP</th>
         </tr>
-        {/foreach}
-    </table>
-</div>
+    </thead>
+
+    {foreach from=$quotes item="quote"}
+        <tr>
+            <td class="first center"><img src="{$SITE_PATH}/templates/images/page/page.gif" alt="" /></td>
+            <td align="left"><a href="{url route="quoteView" id=$quote->getId()}">Говнокод #{$quote->getId()}</a></td>
+            <td align="left">{$quote->getCategory()->getTitle()|h}</td>
+            <td align="center">{$quote->getRating()}</td>
+            <td align="center">{$quote->getRateCount()}</td>
+            <td align="center">{$quote->getCommentsCount()}</td>
+            <td align="center">{if $quote->getIsActive()}Да{else}Нет{/if}</td>
+            <td class="last center">{$quote->getJip()}</td>
+        </tr>
+    {/foreach}
+    <tr class="last">
+        <td class="first"></td>
+        <td>{$pager->toString('admin/main/adminPager.tpl')}</td>
+        <td class="last center" colspan="6" style="text-align: right; color: #7A7A7A;">Всего: {$pager->getItemsCount()}</td>
+    </tr>
+</table>

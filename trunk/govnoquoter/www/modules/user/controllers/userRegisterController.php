@@ -46,15 +46,15 @@ class userRegisterController extends simpleController
             $validator->add('required', 'login', 'Необходимо указать логин');
             $validator->add('length', 'login', 'Длина логина не менее 3-х и не более 30-ти символов', array(3, 30));
             $validator->add('required', 'password', 'Необходимо указать пароль');
+            $validator->add('required', 'repassword', 'Необходимо указать повтор пароль');
             $validator->add('required', 'email', 'Необходимо указать e-mail');
             $validator->add('email', 'email', 'Необходимо указать правильный e-mail');
-            $validator->add('required', 'repassword', 'Необходимо указать повтор пароль');
             $validator->add('callback', 'login', 'Пользователь с таким логином уже существует', array(array($this, 'checkUniqueUserLogin'), $userMapper));
             $validator->add('callback', 'email', 'Пользователь с таким email уже существует', array(array($this, 'checkUniqueUserEmail'), $userMapper));
             $validator->add('callback', 'repassword', 'Повтор пароля не совпадает', array(array($this, 'checkRepass'), $this->request->getString('password', SC_POST)));
 
             $timezones = $userMapper->getTimezones();
-            $validator->add('required', 'timezone', 'Укажите часовой пояс');
+            $validator->add('required', 'timezone', 'Необходимо указать часовой пояс');
             $validator->add('in', 'timezone', 'Укажите часовой пояс из списка!', array_keys($timezones));
 
             if (!$validator->validate()) {

@@ -24,13 +24,13 @@ class quoterAdminController extends simpleController
 {
     protected function getView()
     {
-        $quoteFolderMapper = $this->toolkit->getMapper('quoter', 'quoteFolder');
-        $quoteCategoryMapper = $this->toolkit->getMapper('quoter', 'quoteCategory');
+        $quoteMapper = $this->toolkit->getMapper('quoter', 'quote');
 
-        $categories = $quoteCategoryMapper->searchAll();
+        $this->setPager($quoteMapper);
 
-        $this->smarty->assign('folder', $quoteFolderMapper->getFolder());
-        $this->smarty->assign('categories', $categories);
+        $quotes = $quoteMapper->searchAll();
+
+        $this->smarty->assign('quotes', $quotes);
         return $this->smarty->fetch('quoter/admin.tpl');
     }
 }

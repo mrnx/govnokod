@@ -45,15 +45,13 @@ class quoteFolderMapper extends mapper
     public function getFolder()
     {
         $folder = $this->create();
-        $obj_id = systemToolkit::getInstance()->getObjectId($this->class);
-        $folder->import(array('obj_id' => $obj_id));
         return $folder;
     }
 
      public function __construct()
     {
         parent::__construct();
-        $this->attach(new acl_simplePlugin(), 'acl');
+        $this->plugins('acl_simple');
         $this->plugins('jip');
     }
 

@@ -15,7 +15,7 @@
             <title>Говнокод.ру</title>
         </image>
         {assign var="curCommentNum" value=1}
-        {foreach from=$comments item="comment" name="commentsIterator"}
+{foreach from=$comments item="comment" name="commentsIterator"}
         <item>
             <title>Комментарий #{$curCommentNum}</title>
             <guid isPermaLink="true">{url route="quoteView" id=$commentsFolder->getParentId()}#comment{$comment->getId()}</guid>
@@ -23,12 +23,12 @@
             {assign var="curCommentNum" value=$curCommentNum+1}
             <description>
                 <![CDATA[
-                    {$comment->getText()|trim|h|nl2br|bbcode}
+                {$comment->getText()|trim|h|nl2br|bbcode}
                 ]]>
             </description>
             <pubDate>{"D, d M Y H:i:s"|date:$comment->getCreated()} GMT</pubDate>
             <author>{$comment->getUser()->getLogin()|h}</author>
         </item>
-        {/foreach}
+{/foreach}
     </channel>
 </rss>

@@ -28,6 +28,6 @@
             </p>
         </form>
         <p>&nbsp;</p>
-        <p>Регистрация | Забыли пароль?</p>
+        <p><a href="{url route="default2" module="user" action="register"}">Регистрация</a> | Забыли пароль?</p>
     </li>
 </ol>

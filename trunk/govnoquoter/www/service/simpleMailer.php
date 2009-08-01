@@ -17,6 +17,11 @@ class simpleMailer
         $mail->Subject  = $subject;
         $mail->Body     = $body;
         $mail->AddAddress($to);
+
+        $mail->IsSMTP();
+        $mail->Host = 'localhost';
+        $mail->Port = 25;
+
         $this->mailer = $mail;
     }
 
