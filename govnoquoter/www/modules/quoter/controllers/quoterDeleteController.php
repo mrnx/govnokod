@@ -24,6 +24,8 @@ class quoterDeleteController extends simpleController
 {
     protected function getView()
     {
+        $onlyDelete = $this->request->getAction() == 'delete';
+
         $id = $this->request->getInteger('id');
 
         $quoteMapper = $this->toolkit->getMapper('quoter', 'quote');
@@ -33,8 +35,12 @@ class quoterDeleteController extends simpleController
             return $this->forward404($quoteMapper);
         }
 
-        $quote->setIsActive(0);
-        $quoteMapper->save($quote);
+        if ($onlyDelete) {
+            $quoteMapper->delete();
+        } else {
+            $quote->setIsActive(!$quote->getIsActive());
+            $quoteMapper->save($quote);
+        }
 
         return jipTools::redirect();
     }

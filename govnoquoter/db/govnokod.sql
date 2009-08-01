@@ -40,7 +40,7 @@ CREATE TABLE `comments_comments` (
   KEY `user_id` (`user_id`),
   KEY `folder_id` (`folder_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=10 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=11 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `comments_comments` table  (LIMIT 0,500)
@@ -55,7 +55,8 @@ INSERT INTO `comments_comments` (`id`, `text`, `user_id`, `created`, `folder_id`
   (6,'test4',2,1248950009,1,0,0),
   (7,'test5',2,1248950053,1,0,0),
   (8,'test56',2,1248950180,1,0,0),
-  (9,'sdgfsdf',2,1248950407,1,0,0);
+  (9,'sdgfsdf',2,1248950407,1,0,0),
+  (10,'test',2,1249123678,2,0,0);
 COMMIT;
 
 #
@@ -83,7 +84,7 @@ AUTO_INCREMENT=4 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci'
 
 INSERT INTO `comments_commentsFolder` (`id`, `parent_id`, `module`, `type`, `by_field`, `comments_count`) VALUES 
   (1,3,'quoter','quote','id',7),
-  (2,1,'quoter','quote','id',0),
+  (2,1,'quoter','quote','id',3),
   (3,2,'quoter','quote','id',0);
 COMMIT;
 
@@ -131,7 +132,7 @@ CREATE TABLE `comments_comments_tree` (
   KEY `parent_id` (`parent_id`),
   KEY `foreign_key` (`foreign_key`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=10 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=11 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `comments_comments_tree` table  (LIMIT 0,500)
@@ -146,7 +147,8 @@ INSERT INTO `comments_comments_tree` (`id`, `foreign_key`, `parent_id`, `level`,
   (6,6,0,1,'6/'),
   (7,7,0,1,'7/'),
   (8,8,7,2,'7/8/'),
-  (9,9,0,1,'9/');
+  (9,9,0,1,'9/'),
+  (10,10,0,1,'10/');
 COMMIT;
 
 #
@@ -357,7 +359,7 @@ AUTO_INCREMENT=4 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 #
 
 INSERT INTO `quoter_quote` (`id`, `category_id`, `user_id`, `created`, `deleted`, `text`, `description`, `rating`, `rating_count`, `active`, `comments_count`) VALUES 
-  (1,1,1,1248257061,0,'$error = \"Всё хорошо\"; \r\nif (!$_POST[''mail''] || !checkEmail($_POST[''mail''])) {\r\n    $error .= \"Не верный E-mail\";\r\n}\r\n \r\n...\r\n \r\nif ($error == \"Всё хорошо\") {    $db->query(\"INSERT...\r\n} else {\r\n \r\n...','',1,3,1,2),
+  (1,1,1,1248257061,0,'$error = \"Всё хорошо\"; \r\nif (!$_POST[''mail''] || !checkEmail($_POST[''mail''])) {\r\n    $error .= \"Не верный E-mail\";\r\n}\r\n \r\n...\r\n \r\nif ($error == \"Всё хорошо\") {    $db->query(\"INSERT...\r\n} else {\r\n \r\n...','',1,3,1,3),
   (2,7,2,1248257148,0,'asdfasdf','asdfasdf',6,6,1,0),
   (3,1,1,1248473224,0,'sdfsadf\n\n\n\n\n\n\n\n\n\nasdfsdaf','asdfasdf',-3,3,1,7);
 COMMIT;
@@ -538,7 +540,7 @@ CREATE TABLE `sys_actions` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=119 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=121 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_actions` table  (LIMIT 0,500)
@@ -636,7 +638,9 @@ INSERT INTO `sys_actions` (`id`, `name`) VALUES
   (115,'best'),
   (116,'exportAllComments'),
   (117,'listCategories'),
-  (118,'openIDLogin');
+  (118,'openIDLogin'),
+  (119,'adminCategories'),
+  (120,'active');
 COMMIT;
 
 #
@@ -726,7 +730,7 @@ CREATE TABLE `sys_classes_actions` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `class_id` (`class_id`, `action_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=329 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=331 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_classes_actions` table  (LIMIT 0,500)
@@ -933,7 +937,9 @@ INSERT INTO `sys_classes_actions` (`id`, `class_id`, `action_id`) VALUES
   (325,53,111),
   (326,55,3),
   (327,50,118),
-  (328,50,113);
+  (328,50,113),
+  (329,57,119),
+  (330,55,120);
 COMMIT;
 
 #
@@ -1212,7 +1218,7 @@ AUTO_INCREMENT=4 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 INSERT INTO `user_user` (`id`, `login`, `email`, `password`, `created`, `confirmed`, `last_login`, `timezone`, `skin`, `highlight_driver`, `avatar_type`, `preferred_langs`) VALUES 
   (1,'guest','','',NULL,NULL,1248576546,'3',1,'js',0,''),
-  (2,'admin','','098f6bcd4621d373cade4e832627b4f6',NULL,NULL,1248568633,'10',1,'js',2,'');
+  (2,'admin','','098f6bcd4621d373cade4e832627b4f6',NULL,NULL,1249122515,'10',1,'js',2,'');
 COMMIT;
 
 #
@@ -1230,7 +1236,7 @@ CREATE TABLE `user_userAuth` (
   `time` INTEGER(11) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=11 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=12 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `user_userAuth` table  (LIMIT 0,500)
@@ -1241,7 +1247,7 @@ INSERT INTO `user_userAuth` (`id`, `user_id`, `ip`, `hash`, `obj_id`, `time`) VA
   (7,2,'127.0.0.1','48b163622d77b2e43771e790793dcb10',NULL,NULL),
   (8,2,'127.0.0.1','5d82afb95098444f58a3e080a943b7a1',NULL,NULL),
   (9,2,'127.0.0.1','f3de662b13c15da5337b98d957b8a1a8',NULL,NULL),
-  (10,2,'127.0.0.1','1fca648a22f165517de14543bf2f042c',NULL,NULL);
+  (11,2,'127.0.0.1','f26cfd6bff517d558552d2eba71c06bf',NULL,NULL);
 COMMIT;
 
 #

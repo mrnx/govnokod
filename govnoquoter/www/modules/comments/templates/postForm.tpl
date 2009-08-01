@@ -1,9 +1,9 @@
-    {if $errors->export()}
+    {if $form|default:false && !$form->isValid()}
     <dl class="errors">
         <dt>Ошибка компиляции комментария:</dt>
         <dd>
             <ol>
-            {foreach from=$errors->export() item="error"}
+            {foreach from=$form->export() item="error"}
                 <li>{$error}</li>
             {/foreach}
             </ol>
