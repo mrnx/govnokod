@@ -24,6 +24,9 @@
             {/if}
         {/if}
         </div>
+        <p class="author">
+            Наговнокодил: <a style="background-image: url('{$quote->getUser()->getAvatarUrl(20)|h}');" href="{url route="withId" module="user" action="" id=$quote->getUser()->getId()}">{$quote->getUser()->getLogin()|h}</a>
+        </p>
         <p class="description">
             {$quote->getDescription()|trim|h|bbcode|nl2br}
         </p>

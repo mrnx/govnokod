@@ -309,16 +309,6 @@ p#entrance
 	font-family: "Arial";
 }
 
-.posts .hentry .vote a.vote-on
-{
-	margin-right: 0;
-}
-
-.posts .hentry .vote a.vote-against
-{
-	margin-left: 0;
-}
-
 .posts .hentry .vote a:hover
 {
 	color: #777;
@@ -437,6 +427,12 @@ p#entrance
 
 	padding: 0;
 	background: url(../images/codeload.gif) no-repeat;
+}
+
+.posts .hentry .author a
+{
+    background-repeat: no-repeat;
+    padding-left: 22px;
 }
 
 div.entry-comments

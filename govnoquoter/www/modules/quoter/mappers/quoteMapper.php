@@ -47,14 +47,16 @@ class quoteMapper extends mapper
             'mutator' => 'setCategory',
             'relation' => 'one',
             'foreign_key' => 'id',
-            'mapper' => 'quoter/quoteCategory'
+            'mapper' => 'quoter/quoteCategory',
+            'join_type' => 'inner'
         ),
         'user_id' => array(
             'accessor' => 'getUser',
             'mutator' => 'setUser',
             'relation' => 'one',
             'foreign_key' => 'id',
-            'mapper' => 'user/user'
+            'mapper' => 'user/user',
+            'join_type' => 'inner'
         ),
         'created' => array(
             'accessor' => 'getCreated',
