@@ -22,28 +22,6 @@
 
 class ratingsFolder extends entity
 {
-    protected $objectMapper = null;
 
-    public function getObjectMapper()
-    {
-        if (is_null($this->objectMapper)) {
-            $toolkit = systemToolkit::getInstance();
-            $this->objectMapper = $toolkit->getMapper($this->getModule(), $this->getType());
-        }
-
-        return $this->objectMapper;
-    }
-
-    public function getAcl($name = null)
-    {
-        switch ($name) {
-            case 'rate':
-                $user = systemToolkit::getInstance()->getUser();
-                return $user->isLoggedIn();
-                break;
-        }
-
-        return false;
-    }
 }
 ?>
