@@ -23,18 +23,13 @@ fileLoader::load('ratings');
  */
 class ratingsMapper extends mapper
 {
-    const RATED_TABLE_POSTFIX = '_ratings';
-
     /**
      * Имя класса DataObject
      *
      * @var string
      */
     protected $class = 'ratings';
-    protected $table = '';
-
-    protected $ratedMapper = null;
-    protected $rateDriver = null;
+    protected $table = 'ratings_ratings';
 
     protected $map = array(
         'id' => array(
@@ -62,47 +57,42 @@ class ratingsMapper extends mapper
             'accessor' => 'getRateValue',
             'mutator' => 'setRateValue'
         ),
-        'parent_id' => array(
-            'accessor' => 'getParent',
-            'mutator' => 'setParent'
+        'folder_id' => array(
+            'accessor' => 'getFolder',
+            'mutator' => 'setFolder',
+            'relation' => 'one',
+            'foreign_key' => 'id',
+            'mapper' => 'ratings/ratingsFolder'
         )
     );
 
-    public function searchByUser(user $user, $parentId)
+    public function searchByUserAndFolder(user $user, ratingsFolder $folder)
     {
         $criteria = new criteria;
-        $criteria->add('user_id', $user->getId())->add('parent_id', $parentId);
+        $criteria->add('user_id', $user->getId())->add('folder_id', $folder->getId());
         return $this->searchOneByCriteria($criteria);
-    }
-
-    public function setRatedMapper(mapper $mapper)
-    {
-        if (!$mapper->isAttached('ratings')) {
-            throw new mzzRuntimeException('Attach a ratingsPlugin for ' . get_class($mapper) . '!');
-        }
-
-        $this->ratedMapper = $mapper;
-        $this->table = $mapper->table() . self::RATED_TABLE_POSTFIX;
-    }
-
-    public function getRatedMapper()
-    {
-        return $this->ratedMapper;
-    }
-
-    public function setRateDriver($driver)
-    {
-        $this->rateDriver = (string)$driver;
-    }
-
-    public function getRateDriver()
-    {
-        return $this->rateDriver;
     }
 
     public function preInsert(array & $data)
     {
         $data['created'] = time();
+    }
+
+    public function postInsert(entity $object)
+    {
+        $folder = $object->getFolder();
+        $ratedObject = $object->getRatedObject();
+        $ratedObjectMapper = $folder->getAlias()->getObjectMapper();
+
+        $data = array(
+            'ratings' => $object,
+            'ratingsFolder' => $folder,
+            'ratedObject' => $ratedObject,
+            'ratedObjectMapper' => $ratedObject
+        );
+
+        $ratingsFolderMapper = systemToolkit::getInstance()->getMapper('ratings', 'ratingsFolder');
+        $ratingsFolderMapper->notify('ratingAdded', $data);
     }
 
     public function convertArgsToObj($args)

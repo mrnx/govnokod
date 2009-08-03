@@ -21,15 +21,11 @@
  */
 class ratingsPlugin extends observer
 {
-    protected $options = array(
-        'by_field' => 'id',
-        'rateDriver' => 'simple',
-        'rating_field' => 'rating',
-        'join_current_user_rate' => false
-    );
 
+    /*
     protected function updateMap(& $map)
     {
+
         $map[$this->options['rating_field']] = array(
             'accessor' => 'getRating',
             'mutator' => 'setRating'
@@ -41,7 +37,9 @@ class ratingsPlugin extends observer
                 'options' => array('fake', 'ro')
             );
         }
+
     }
+    */
 
     public function preSqlSelect(criteria $criteria)
     {
@@ -50,9 +48,9 @@ class ratingsPlugin extends observer
             $user = $toolkit->getUser();
 
             $ratingsMapper = $toolkit->getMapper('ratings', 'ratings');
-            $ratingsMapper->setRatedMapper($this->mapper);
+            $ratingsFolderMapper = $toolkit->getMapper('ratings', 'ratings');
 
-            $criterion = new criterion('ratings.parent_id', $this->mapper->table() . '.' . $this->getByField(), criteria::EQUAL, true);
+            $criterion = new criterion('ratings.parent_id', $this->mapper->table(false) . '.id', criteria::EQUAL, true);
             $criterion->addAnd(new criterion('ratings.user_id', $user->getId()));
 
             $criteria->addJoin($ratingsMapper->table(), $criterion, 'ratings');
@@ -61,19 +59,10 @@ class ratingsPlugin extends observer
         }
     }
 
-    public function getByField()
-    {
-        return $this->options['by_field'];
-    }
-
-    public function getRateDriver()
-    {
-        return $this->options['rateDriver'];
-    }
-
     public function isWithJoinCurrentUserRate()
     {
         return (bool)$this->options['join_current_user_rate'];
     }
+
 }
 ?>
