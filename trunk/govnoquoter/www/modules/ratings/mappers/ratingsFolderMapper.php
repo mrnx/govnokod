@@ -13,7 +13,6 @@
  */
 
 fileLoader::load('ratings/ratingsFolder');
-fileLoader::load('orm/plugins/acl_simplePlugin');
 
 /**
  * ratingsFolderMapper: маппер
@@ -55,20 +54,9 @@ class ratingsFolderMapper extends mapper
         )
     );
 
-    public function __construct()
-    {
-        parent::__construct();
-        $this->plugins('acl_simple');
-    }
-
     public function searchById($id)
     {
         return $this->searchByKey($id);
-    }
-
-    public function searchByAlias($alias)
-    {
-        return $this->searchOneByField('alias', $alias);
     }
 
     public function convertArgsToObj($args)

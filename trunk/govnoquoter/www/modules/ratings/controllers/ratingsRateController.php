@@ -24,16 +24,26 @@ class ratingsRateController extends simpleController
     protected function getView()
     {
         $ratingsFolderMapper = $this->toolkit->getMapper('ratings', 'ratingsFolder');
+        $ratingsAliasMapper = $this->toolkit->getMapper('ratings', 'ratingsAlias');
 
         $alias = $this->request->getString('alias');
 
-        $ratingsFolder = $ratingsFolderMapper->searchByAlias($alias);
-        if (!$ratingsFolder) {
-            return $this->forward404($ratingsFolderMapper);
+        $ratingsAlias = $ratingsAliasMapper->searchByAlias($alias);
+        if (!$ratingsAlias) {
+            return $this->forward404($ratingsAliasMapper);
         }
 
-        $objectMapper = $ratingsFolder->getObjectMapper();
+        $objectMapper = $ratingsAlias->getObjectMapper();
+        $ratingsPlugin = $objectMapper->plugin('ratings');
 
+        $param = $this->request->getString('param');
+        $object = $objectMapper->searchOneByField($ratingsPlugin->getByField(), $param);
+
+        if (!$object) {
+            return $this->forward404($ratingsAliasMapper);
+        }
+
+        /*
         $ratingsMapper = $this->toolkit->getMapper('ratings', 'ratings');
         $ratingsMapper->setRatedMapper($objectMapper);
 
@@ -67,11 +77,9 @@ class ratingsRateController extends simpleController
                 if (isset($rateValue)) {
                     $user = $this->toolkit->getUser();
 
-                    /*
-                    $criteria = new criteria;
-                    $criteria->add('ip_address', $ip);
-                    $criteria->add('parent_id', $object->getId())->add('created', time() - 7200, criteria::GREATER); //таймаут голосования - 2 часа
-                    */
+                    //$criteria = new criteria;
+                    //$criteria->add('ip_address', $ip);
+                    //$criteria->add('parent_id', $object->getId())->add('created', time() - 7200, criteria::GREATER); //таймаут голосования - 2 часа
 
                     $rate = $ratingsMapper->searchByUser($user, $object->getId());
 
@@ -135,8 +143,9 @@ class ratingsRateController extends simpleController
 
                 break;
         }
+        */
 
-        return $this->forward404($ratingsFolderMapper);
+        return $this->forward404($ratingsAliasMapper);
     }
 }
 ?>

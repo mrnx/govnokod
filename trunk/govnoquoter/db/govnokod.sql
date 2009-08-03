@@ -1,4 +1,4 @@
-# SQL Manager 2007 for MySQL 4.4.0.3
+# SQL Manager 2007 for MySQL 4.4.0.5
 # ---------------------------------------
 # Host     : localhost
 # Port     : 3306
@@ -432,28 +432,30 @@ INSERT INTO `quoter_quote_ratings` (`id`, `user_id`, `created`, `ip_address`, `u
 COMMIT;
 
 #
-# Structure for the `ratings_ratingsFolder` table : 
+# Structure for the `ratings_ratingsAlias` table : 
 #
 
-DROP TABLE IF EXISTS `ratings_ratingsFolder`;
+DROP TABLE IF EXISTS `ratings_ratingsAlias`;
 
-CREATE TABLE `ratings_ratingsFolder` (
+CREATE TABLE `ratings_ratingsAlias` (
   `id` INTEGER(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `alias` CHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `module` CHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `type` CHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `class` CHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `driver` CHAR(20) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `by_field` CHAR(20) COLLATE utf8_general_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `alias` (`alias`)
 )ENGINE=MyISAM
 AUTO_INCREMENT=3 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
-# Data for the `ratings_ratingsFolder` table  (LIMIT 0,500)
+# Data for the `ratings_ratingsAlias` table  (LIMIT 0,500)
 #
 
-INSERT INTO `ratings_ratingsFolder` (`id`, `alias`, `module`, `type`) VALUES 
-  (1,'code','quoter','quote'),
-  (2,'comment','comments','comments');
+INSERT INTO `ratings_ratingsAlias` (`id`, `alias`, `module`, `class`, `driver`, `by_field`) VALUES 
+  (1,'code','quoter','quote','simple','id'),
+  (2,'comment','comments','comments','simple','id');
 COMMIT;
 
 #
@@ -656,7 +658,7 @@ CREATE TABLE `sys_classes` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=61 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=62 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_classes` table  (LIMIT 0,500)
@@ -714,7 +716,8 @@ INSERT INTO `sys_classes` (`id`, `name`, `module_id`) VALUES
   (56,'quoteCategory',22),
   (57,'quoteFolder',22),
   (59,'commentsVote',8),
-  (60,'userOpenID',2);
+  (60,'userOpenID',2),
+  (61,'ratingsAlias',21);
 COMMIT;
 
 #
