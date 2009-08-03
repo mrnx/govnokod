@@ -83,15 +83,15 @@ class quoteMapper extends mapper
             'accessor' => 'getCommentsCount',
             'mutator' => 'setCommentsCount'
         ),
-        'rating_count' => array(
-            'accessor' => 'getRateCount',
-            'mutator' => 'setRateCount'
+        'rating' => array(
+            'accessor' => 'getRating',
+            'mutator' => 'setRating'
         )
     );
 
     public function __construct()
     {
-        $this->attach(new ratingsPlugin(array('rating_count_field' => 'rating_count', 'join_current_user_rate' => true)));
+        $this->attach(new ratingsPlugin(array('rating_count_field' => 'rating_count')));
         parent::__construct();
         $this->plugins('acl_simple');
         $this->plugins('jip');
@@ -141,8 +141,10 @@ class quoteMapper extends mapper
     public function ratingAdded(Array $data)
     {
         $object = $data['ratedObject'];
-        $rate = $data['rate'];
-        $object->setRateCount($object->getRateCount() + 1);
+        $ratingsFolder = $data['ratingsFolder'];
+
+        $object->setRating($ratingsFolder->getRating());
+        $this->save($object);
     }
 
     /**

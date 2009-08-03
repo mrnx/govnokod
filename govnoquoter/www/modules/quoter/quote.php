@@ -83,6 +83,11 @@ class quote extends entity
         return self::CACHE_PREFIX . $localPrefix . $this->getId();
     }
 
+    public function getCurrentUserRate()
+    {
+        return null;
+    }
+
     public function getAcl($name = null)
     {
         $user = systemToolkit::getInstance()->getUser();

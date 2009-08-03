@@ -23,7 +23,6 @@ class ratingsRateController extends simpleController
 {
     protected function getView()
     {
-        $ratingsFolderMapper = $this->toolkit->getMapper('ratings', 'ratingsFolder');
         $ratingsAliasMapper = $this->toolkit->getMapper('ratings', 'ratingsAlias');
 
         $alias = $this->request->getString('alias');
@@ -37,31 +36,29 @@ class ratingsRateController extends simpleController
         $ratingsPlugin = $objectMapper->plugin('ratings');
 
         $param = $this->request->getString('param');
-        $object = $objectMapper->searchOneByField($ratingsPlugin->getByField(), $param);
+        $object = $objectMapper->searchOneByField($ratingsAlias->getByField(), $param);
 
         if (!$object) {
             return $this->forward404($ratingsAliasMapper);
         }
 
-        /*
-        $ratingsMapper = $this->toolkit->getMapper('ratings', 'ratings');
-        $ratingsMapper->setRatedMapper($objectMapper);
+        $pkAccessor = $objectMapper->pk();
+        $map = $objectMapper->map();
 
-        $ratingsPlugin = $objectMapper->plugin('ratings');
+        $objectId = $object->$map[$pkAccessor]['accessor']();
 
-        $rateDriver = $ratingsPlugin->getRateDriver();
-        $ratingsMapper->setRateDriver($rateDriver);
+        $ratingsFolderMapper = $this->toolkit->getMapper('ratings', 'ratingsFolder');
+        $ratingsFolder = $ratingsFolderMapper->searchByAliasAndParentId($ratingsAlias->getId(), $objectId);
 
-        $param = $this->request->getString('param');
-        $object = $objectMapper->searchOneByField($ratingsPlugin->getByField(), $param);
-
-        if (!$object) {
-            //return $this->forward404($objectMapper);
-            return $this->forward404($ratingsFolderMapper);
+        if (!$ratingsFolder) {
+            $ratingsFolder = $ratingsFolderMapper->create();
+            $ratingsFolder->setAlias($ratingsAlias);
+            $ratingsFolder->setParentId($objectId);
+            $ratingsFolderMapper->save($ratingsFolder);
         }
 
-        switch ($ratingsMapper->getRateDriver()) {
-            case 'simple':
+        switch ($ratingsAlias->getDriver()) {
+            case 'govnokodOnAgainst':
                 $this->smarty->disableMain();
                 $vote = $this->request->getString('vote');
                 switch ($vote) {
@@ -81,7 +78,9 @@ class ratingsRateController extends simpleController
                     //$criteria->add('ip_address', $ip);
                     //$criteria->add('parent_id', $object->getId())->add('created', time() - 7200, criteria::GREATER); //таймаут голосования - 2 часа
 
-                    $rate = $ratingsMapper->searchByUser($user, $object->getId());
+                    $ratingsMapper = $this->toolkit->getMapper('ratings', 'ratings');
+
+                    $rate = $ratingsMapper->searchByUserAndFolder($user, $ratingsFolder);
 
                     if (!$rate) {
                         $ip = $this->request->getServer('REMOTE_ADDR');
@@ -92,9 +91,13 @@ class ratingsRateController extends simpleController
                         $rate->setIpAddress($ip);
                         $rate->setUserAgent($ua);
                         $rate->setRateValue($rateValue);
-                        $rate->setParent($object->getId());
+                        $rate->setFolder($ratingsFolder);
+
+                        $rate->setRatedObject($object);
+
                         $ratingsMapper->save($rate);
 
+                        /*
                         $object->setRating($object->getRating() + $rateValue);
 
                         $data = array('ratedObject' => $object, 'rate' => $rate);
@@ -105,6 +108,7 @@ class ratingsRateController extends simpleController
                         if ($ratingsPlugin->isWithJoinCurrentUserRate()) {
                             $object->merge(array('current_user_rate' => $rateValue));
                         }
+                        */
                     }
                 }
 
@@ -140,10 +144,8 @@ class ratingsRateController extends simpleController
                         return;
                         break;
                 }
-
                 break;
         }
-        */
 
         return $this->forward404($ratingsAliasMapper);
     }

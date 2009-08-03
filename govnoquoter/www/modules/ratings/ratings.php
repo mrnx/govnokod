@@ -21,6 +21,16 @@
  */
 class ratings extends entity
 {
+    protected $ratedObject;
 
+    public function setRatedObject(entity $object)
+    {
+        $this->ratedObject = $object;
+    }
+
+    public function getRatedObject()
+    {
+        return $this->ratedObject;
+    }
 }
 ?>

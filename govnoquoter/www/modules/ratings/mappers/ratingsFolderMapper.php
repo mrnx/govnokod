@@ -37,20 +37,29 @@ class ratingsFolderMapper extends mapper
             'mutator' => 'setId',
             'options' => array('pk', 'once')
          ),
-        'module' => array(
-            'accessor' => 'getModule',
-            'mutator' => 'setModule',
-            'options' => array('ro'),
-        ),
-        'alias' => array(
+        'alias_id' => array(
             'accessor' => 'getAlias',
             'mutator' => 'setAlias',
-            'options' => array('ro'),
+            'relation' => 'one',
+            'foreign_key' => 'id',
+            'mapper' => 'ratings/ratingsAlias',
+            'options' => array('once')
         ),
-        'type' => array(
-            'accessor' => 'getType',
-            'mutator' => 'setType',
-            'options' => array('ro'),
+        'parent_id' => array(
+            'accessor' => 'getParentId',
+            'mutator' => 'setParentId'
+        ),
+        'rating' => array(
+            'accessor' => 'getRating',
+            'mutator' => 'setRating'
+        ),
+        'ratings_on' => array(
+            'accessor' => 'getRatingsOn',
+            'mutator' => 'setRatingsOn'
+        ),
+        'ratings_against' => array(
+            'accessor' => 'getRatingsAgainst',
+            'mutator' => 'setRatingsAgainst'
         )
     );
 
@@ -59,10 +68,55 @@ class ratingsFolderMapper extends mapper
         return $this->searchByKey($id);
     }
 
+    public function searchByAliasAndParentId($aliasId, $parentId)
+    {
+        $criteria = new criteria;
+        $criteria->add('alias_id', $aliasId)->add('parent_id', $parentId);
+
+        return $this->searchOneByCriteria($criteria);
+    }
+
+    public function preInsert(array & $data)
+    {
+        $data['ratings_on'] = 0;
+        $data['ratings_against'] = 0;
+    }
+
+    public function ratingAdded(Array $data)
+    {
+        $ratingsFolder = $data['ratingsFolder'];
+        $ratingsAlias = $ratingsFolder->getAlias();
+
+        if ($ratingsAlias->getDriver() == 'govnokodOnAgainst') {
+            $ratings = $data['ratings'];
+
+            $value = (int)$ratings->getRateValue();
+
+            switch ($value) {
+                case 1:
+                    $ratingsFolder->setRatingsOn($ratingsFolder->getRatingsOn() + 1);
+                    break;
+
+                case -1:
+                    $ratingsFolder->setRatingsAgainst($ratingsFolder->getRatingsAgainst() + 1);
+                    break;
+            }
+
+            $ratingsFolder->setRating($ratingsFolder->getRating() + $value);
+            $this->save($ratingsFolder);
+
+            $data['ratingsFolder'] = $ratingsFolder;
+
+            $commentedObjectMapper = $ratingsAlias->getObjectMapper();
+            $commentedObjectMapper->notify('ratingAdded', $data);
+        }
+    }
+
     public function convertArgsToObj($args)
     {
-        return $this->create();
         /*
+        return $this->create();
+
         if (isset($args['alias'])) {
             $do = $this->searchByAlias($args['alias']);
             if ($do) {
