@@ -22,46 +22,35 @@
 class ratingsPlugin extends observer
 {
 
-    /*
     protected function updateMap(& $map)
     {
 
-        $map[$this->options['rating_field']] = array(
-            'accessor' => 'getRating',
-            'mutator' => 'setRating'
+        $map['current_user_rate'] = array(
+            'accessor' => 'getCurrentUserRate',
+            'options' => array('fake', 'ro')
         );
-
-        if ($this->isWithJoinCurrentUserRate()) {
-            $map['current_user_rate'] = array(
-                'accessor' => 'getCurrentUserRate',
-                'options' => array('fake', 'ro')
-            );
-        }
-
     }
-    */
 
     public function preSqlSelect(criteria $criteria)
     {
-        if ($this->isWithJoinCurrentUserRate()) {
-            $toolkit = systemToolkit::getInstance();
-            $user = $toolkit->getUser();
+        $toolkit = systemToolkit::getInstance();
+        $user = $toolkit->getUser();
 
-            $ratingsMapper = $toolkit->getMapper('ratings', 'ratings');
-            $ratingsFolderMapper = $toolkit->getMapper('ratings', 'ratings');
+        $ratingsMapper = $toolkit->getMapper('ratings', 'ratings');
+        $ratingsFolderMapper = $toolkit->getMapper('ratings', 'ratingsFolder');
+        $ratingsAliasMapper = $toolkit->getMapper('ratings', 'ratingsAlias');
 
-            $criterion = new criterion('ratings.parent_id', $this->mapper->table(false) . '.id', criteria::EQUAL, true);
-            $criterion->addAnd(new criterion('ratings.user_id', $user->getId()));
+        $ratingsAlias = $ratingsAliasMapper->searchByModuleAndClass($this->mapper->module(), $this->mapper->getClass());
 
-            $criteria->addJoin($ratingsMapper->table(), $criterion, 'ratings');
+        $criterion = new criterion('ratingsFolder.parent_id', $this->mapper->table(false) . '.id', criteria::EQUAL, true);
+        $criterion->addAnd(new criterion('ratingsFolder.alias_id', $ratingsAlias->getId()));
+        $criteria->addJoin($ratingsFolderMapper->table(), $criterion, 'ratingsFolder');
 
-            $criteria->addSelectField('ratings.ratevalue', $this->mapper->table() . mapper::TABLE_KEY_DELIMITER . 'current_user_rate');
-        }
-    }
+        $criterion = new criterion('ratings.folder_id', 'ratingsFolder.id', criteria::EQUAL, true);
+        $criterion->addAnd(new criterion('ratings.user_id', $user->getId()));
+        $criteria->addJoin($ratingsMapper->table(), $criterion, 'ratings');
 
-    public function isWithJoinCurrentUserRate()
-    {
-        return (bool)$this->options['join_current_user_rate'];
+        $criteria->addSelectField('ratings.ratevalue', $this->mapper->table(false) . mapper::TABLE_KEY_DELIMITER . 'current_user_rate');
     }
 
 }

@@ -99,6 +99,14 @@ class ratingsAliasMapper extends mapper
         return $this->searchOneByField('alias', $alias);
     }
 
+    public function searchByModuleAndClass($module, $class)
+    {
+        $criteria = new criteria;
+        $criteria->add('module', $module)->add('class', $class);
+
+        return $this->searchOneByCriteria($criteria);
+    }
+
     public function convertArgsToObj($args)
     {
         if (isset($args['alias'])) {
