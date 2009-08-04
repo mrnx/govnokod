@@ -43,7 +43,7 @@ class ratingsFolderMapper extends mapper
             'relation' => 'one',
             'foreign_key' => 'id',
             'mapper' => 'ratings/ratingsAlias',
-            'options' => array('once')
+            'options' => array('once', 'lazy')
         ),
         'parent_id' => array(
             'accessor' => 'getParentId',
