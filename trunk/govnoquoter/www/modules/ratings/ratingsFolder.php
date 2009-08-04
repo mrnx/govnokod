@@ -22,6 +22,44 @@
 
 class ratingsFolder extends entity
 {
+    protected $object = null;
+    protected $objectMapper = null;
+
+    public function getObjectMapper()
+    {
+        if (is_null($this->objectMapper)) {
+            $toolkit = systemToolkit::getInstance();
+            $this->objectMapper = $toolkit->getMapper($this->getModule(), $this->getClass());
+        }
+
+        return $this->objectMapper;
+    }
+
+    public function getObject()
+    {
+        if (is_null($this->object)) {
+            $objectMapper = $this->getObjectMapper();
+            $ratingsPlugin = $objectMapper->plugin('ratings');
+
+            $this->object = $objectMapper->searchByKey($this->getParentId());
+        }
+
+        return $this->object;
+    }
+
+    public function setObjectMapper(mapper $objectMapper)
+    {
+        if (!$objectMapper->isAttached('ratings')) {
+            throw new mzzRuntimeException('Attach ratingsPlugin mapper to ' . get_class($objectMapper));
+        }
+
+        $this->objectMapper = $objectMapper;
+    }
+
+    public function setObject(entity $object)
+    {
+        $this->object = $object;
+    }
 
 }
 ?>

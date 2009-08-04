@@ -23,42 +23,24 @@ class ratingsRateController extends simpleController
 {
     protected function getView()
     {
-        $ratingsAliasMapper = $this->toolkit->getMapper('ratings', 'ratingsAlias');
-
-        $alias = $this->request->getString('alias');
-
-        $ratingsAlias = $ratingsAliasMapper->searchByAlias($alias);
-        if (!$ratingsAlias) {
-            return $this->forward404($ratingsAliasMapper);
-        }
-
-        $objectMapper = $ratingsAlias->getObjectMapper();
-        $ratingsPlugin = $objectMapper->plugin('ratings');
-
-        $param = $this->request->getString('param');
-        $object = $objectMapper->searchOneByField($ratingsAlias->getByField(), $param);
-
-        if (!$object) {
-            return $this->forward404($ratingsAliasMapper);
-        }
-
-        $pkAccessor = $objectMapper->pk();
-        $map = $objectMapper->map();
-
-        $objectId = $object->$map[$pkAccessor]['accessor']();
-
         $ratingsFolderMapper = $this->toolkit->getMapper('ratings', 'ratingsFolder');
-        $ratingsFolder = $ratingsFolderMapper->searchByAliasAndParentId($ratingsAlias->getId(), $objectId);
 
+        $module = $this->request->getString('module_name');
+        $class = $this->request->getString('class_name');
+        $id = $this->request->getInteger('id');
+
+        $ratingsFolder = $ratingsFolderMapper->searchByModuleClassAndParent($module, $class, $id);
         if (!$ratingsFolder) {
-            $ratingsFolder = $ratingsFolderMapper->create();
-            $ratingsFolder->setAlias($ratingsAlias);
-            $ratingsFolder->setParentId($objectId);
-            $ratingsFolderMapper->save($ratingsFolder);
+            return $this->forward404($ratingsFolder);
         }
 
-        switch ($ratingsAlias->getDriver()) {
-            case 'govnokodOnAgainst':
+        $ratedObjectMapper = $ratingsFolder->getObjectMapper();
+        $ratedObject = $ratingsFolder->getObject();
+
+        $ratingsPlugin = $ratedObjectMapper->plugin('ratings');
+
+        switch ($ratingsPlugin->getDriver()) {
+            case 'simple':
                 $this->smarty->disableMain();
                 $vote = $this->request->getString('vote');
                 switch ($vote) {
@@ -82,6 +64,8 @@ class ratingsRateController extends simpleController
 
                     $rate = $ratingsMapper->searchByUserAndFolder($user, $ratingsFolder);
 
+                    $rate = null;
+
                     if (!$rate) {
                         $ip = $this->request->getServer('REMOTE_ADDR');
                         $ua = $this->request->getServer('HTTP_USER_AGENT');
@@ -93,52 +77,37 @@ class ratingsRateController extends simpleController
                         $rate->setRateValue($rateValue);
                         $rate->setFolder($ratingsFolder);
 
-                        $rate->setRatedObject($object);
-
                         $ratingsMapper->save($rate);
-
-                        /*
-                        $object->setRating($object->getRating() + $rateValue);
-
-                        $data = array('ratedObject' => $object, 'rate' => $rate);
-                        $objectMapper->notify('ratingAdded', $data);
-
-                        $objectMapper->save($object);
-
-                        if ($ratingsPlugin->isWithJoinCurrentUserRate()) {
-                            $object->merge(array('current_user_rate' => $rateValue));
-                        }
-                        */
                     }
                 }
 
                 $format = $this->request->getString('format', SC_GET);
                 if ($format == 'ajax') {
-                    switch ($alias) {
-                        case 'code':
-                            $this->smarty->assign('quote', $object);
+                    switch ($module . '_' . $class) {
+                        case 'quoter_quote':
+                            $this->smarty->assign('quote', $ratedObject);
                             return $this->smarty->fetch('quoter/rating.tpl');
                             break;
 
-                        case 'comment':
-                            $this->smarty->assign('comment', $object);
+                        case 'comments_comments':
+                            $this->smarty->assign('comment', $ratedObject);
                             return $this->smarty->fetch('comments/rating.tpl');
                             break;
                     }
                 }
 
-                switch ($alias) {
-                    case 'code':
+                switch ($module . '_' . $class) {
+                    case 'quoter_quote':
                         $backUrl = new url('quoteView');
-                        $backUrl->add('id', $object->getId());
+                        $backUrl->add('id', $ratedObject->getId());
                         $this->redirect($backUrl->get());
                         return;
                         break;
 
-                    case 'comment':
+                    case 'comments_comments':
                         if ($object->getFolder()->getType() == 'quote') {
                             $backUrl = new url('quoteView');
-                            $backUrl->add('id', $object->getFolder()->getObject()->getId());
+                            $backUrl->add('id', $ratedObject->getFolder()->getObject()->getId());
                             $this->redirect($backUrl->get() . '#comment' . $object->getId());
                         }
                         return;
@@ -147,7 +116,7 @@ class ratingsRateController extends simpleController
                 break;
         }
 
-        return $this->forward404($ratingsAliasMapper);
+        return $this->forward404($ratingsFolderMapper);
     }
 }
 ?>

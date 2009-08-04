@@ -22,9 +22,12 @@
 class ratingsPlugin extends observer
 {
 
+    protected $options = array(
+        'driver' => 'simple',
+    );
+
     protected function updateMap(& $map)
     {
-
         $map['current_user_rate'] = array(
             'accessor' => 'getCurrentUserRate',
             'options' => array('fake', 'ro')
@@ -33,6 +36,7 @@ class ratingsPlugin extends observer
 
     public function preSqlSelect(criteria $criteria)
     {
+        /*
         $toolkit = systemToolkit::getInstance();
         $user = $toolkit->getUser();
 
@@ -51,6 +55,12 @@ class ratingsPlugin extends observer
         $criteria->addJoin($ratingsMapper->table(), $criterion, 'ratings');
 
         $criteria->addSelectField('ratings.ratevalue', $this->mapper->table(false) . mapper::TABLE_KEY_DELIMITER . 'current_user_rate');
+        */
+    }
+
+    public function getDriver()
+    {
+        return $this->options['driver'];
     }
 
 }

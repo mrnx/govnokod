@@ -23,7 +23,9 @@ $router->addRoute('quoteAdd', new requestRoute('add', array('section' => 'quoter
 $router->addRoute('search', new requestRoute('search', array('section' => 'quoter', 'action' => 'search')));
 $router->addRoute('best', new requestRoute('best/:nomination/:name', array('section' => 'quoter', 'action' => 'best', 'nomination' => 'rating', 'name' => '')));
 
-$router->addRoute('rate', new requestRoute('ratings/:alias/:param/:vote', array('section' => 'ratings', 'action' => 'rate'), array('param' => '.+?')));
+$router->addRoute('rateForCode', new requestRoute('ratings/code/:id/:vote', array('section' => 'ratings', 'action' => 'rate', 'module_name' => 'quoter', 'class_name' => 'quote'), array('id' => '\d+')));
+$router->addRoute('rateForComment', new requestRoute('ratings/comment/:id/:vote', array('section' => 'ratings', 'action' => 'rate', 'module_name' => 'comments', 'class_name' => 'comments'), array('id' => '\d+')));
+$router->addRoute('rate', new requestRoute('ratings/:module_name/:class_name/:id/:vote', array('section' => 'ratings', 'action' => 'rate'), array('param' => '\d+')));
 
 $router->addRoute('rss', new requestRoute('rss', array('section' => 'quoter', 'action' => 'rss')));
 $router->addRoute('rssFull', new requestRoute(':name/rss', array('section' => 'quoter', 'action' => 'rss')));

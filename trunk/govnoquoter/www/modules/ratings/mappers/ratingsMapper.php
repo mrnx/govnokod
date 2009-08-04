@@ -62,7 +62,8 @@ class ratingsMapper extends mapper
             'mutator' => 'setFolder',
             'relation' => 'one',
             'foreign_key' => 'id',
-            'mapper' => 'ratings/ratingsFolder'
+            'mapper' => 'ratings/ratingsFolder',
+            //'options' => array('lazy')
         )
     );
 
@@ -81,14 +82,10 @@ class ratingsMapper extends mapper
     public function postInsert(entity $object)
     {
         $folder = $object->getFolder();
-        $ratedObject = $object->getRatedObject();
-        $ratedObjectMapper = $folder->getAlias()->getObjectMapper();
 
         $data = array(
             'ratings' => $object,
             'ratingsFolder' => $folder,
-            'ratedObject' => $ratedObject,
-            'ratedObjectMapper' => $ratedObject
         );
 
         $ratingsFolderMapper = systemToolkit::getInstance()->getMapper('ratings', 'ratingsFolder');

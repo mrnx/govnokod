@@ -67,15 +67,15 @@ class commentsMapper extends mapper
             'mutator' => 'setCreated',
             'options' => array('once')
         ),
-        'rating_count' => array(
-            'accessor' => 'getRateCount',
-            'mutator' => 'setRateCount'
+        'rating' => array(
+            'accessor' => 'getRating',
+            'mutator' => 'setRating'
         )
     );
 
     public function __construct()
     {
-        $this->attach(new ratingsPlugin(array('join_current_user_rate' => true)));
+        $this->attach(new ratingsPlugin());
         parent::__construct();
         $this->attach(new tree_alPlugin(array('path_name' => 'id')), 'tree');
         $this->attach(new acl_simplePlugin(), 'acl');
@@ -151,8 +151,11 @@ class commentsMapper extends mapper
     public function ratingAdded(Array $data)
     {
         $object = $data['ratedObject'];
-        $rate = $data['rate'];
-        $object->setRateCount($object->getRateCount() + 1);
+        $ratingsFolder = $data['ratingsFolder'];
+
+        $object->setRating($ratingsFolder->getRating());
+
+        $this->save($object);
     }
 
     public function convertArgsToObj($args)
