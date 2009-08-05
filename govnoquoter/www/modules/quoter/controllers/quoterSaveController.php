@@ -123,7 +123,7 @@ function checkCodeLength($text) {
 }
 
 function checkDescLength($desc) {
-    return (mb_strlen($desc) < quote::MAX_DESC_CHARS);
+    return (mzz_strlen($desc) < quote::MAX_DESC_CHARS);
 }
 
 ?>
