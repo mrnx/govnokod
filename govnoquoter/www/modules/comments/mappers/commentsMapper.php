@@ -75,7 +75,7 @@ class commentsMapper extends mapper
 
     public function __construct()
     {
-        $this->attach(new ratingsPlugin());
+        $this->attach(new ratingsPlugin(array('join_rate' => true)));
         parent::__construct();
         $this->attach(new tree_alPlugin(array('path_name' => 'id')), 'tree');
         $this->attach(new acl_simplePlugin(), 'acl');

@@ -63,7 +63,7 @@ class ratingsMapper extends mapper
             'relation' => 'one',
             'foreign_key' => 'id',
             'mapper' => 'ratings/ratingsFolder',
-            //'options' => array('lazy')
+            'options' => array('lazy')
         )
     );
 

@@ -64,8 +64,6 @@ class ratingsRateController extends simpleController
 
                     $rate = $ratingsMapper->searchByUserAndFolder($user, $ratingsFolder);
 
-                    $rate = null;
-
                     if (!$rate) {
                         $ip = $this->request->getServer('REMOTE_ADDR');
                         $ua = $this->request->getServer('HTTP_USER_AGENT');

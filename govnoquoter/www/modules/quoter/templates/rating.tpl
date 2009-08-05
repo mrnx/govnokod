@@ -1,3 +1,4 @@
+{$quote->getCurrentUserRate()|@var_dump}
 {if $current_user->isLoggedIn()}
 {if $quote->getCurrentUserRate()}
     {if $quote->getCurrentUserRate() == -1}<span class="vote-on my-vote" title="Мой голос">{else}<span class="vote-on">{/if}&darr;</span>

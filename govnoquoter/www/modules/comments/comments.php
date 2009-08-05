@@ -21,11 +21,6 @@
  */
 class comments extends entity
 {
-    public function getCurrentUserRate()
-    {
-        return null;
-    }
-
     public function getAcl($name = null)
     {
         $user = systemToolkit::getInstance()->getUser();
