@@ -47,14 +47,10 @@ class userPreferencesController extends simpleController
             default:
                 $type = 'global';
 
-                $drivers = array(
-                    'js' => 'HighlightJS',
-                    'geshi' => 'Geshi',
-                );
-
                 $userMapper = $this->toolkit->getMapper('user', 'user');
                 $categoryMapper = $this->toolkit->getMapper('quoter', 'quoteCategory');
 
+                $drivers = $userMapper->getHighlighDrivers();
                 $categories = $categoryMapper->searchAll();
 
                 $validator = new formValidator();

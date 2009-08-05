@@ -27,6 +27,7 @@ class user extends entity
 
     protected $avatarUrls = array();
     protected $preferredLangs = null;
+    protected $preferredLangsObjects = null;
 
     /**
      * Проверяет является ли пользователь авторизированным
@@ -132,6 +133,18 @@ class user extends entity
         }
 
         return in_array($langId, $langs);
+    }
+
+    public function getHighlightDriverTitle()
+    {
+        $userMapper = systemToolkit::getInstance()->getMapper('user', 'user');
+        $drivers = $userMapper->getHighlighDrivers();
+
+        if (isset($drivers[$this->getHighlightDriver()])) {
+            return $drivers[$this->getHighlightDriver()];
+        }
+
+        return null;
     }
 }
 ?>

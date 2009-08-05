@@ -27,6 +27,11 @@ a:hover
 	color: #174c7e;
 }
 
+dl dd {
+    margin: 0;
+    padding-bottom: 1em;
+}
+
 /* Page wrapper */
 
 div#page
@@ -507,7 +512,7 @@ div.entry-comments ul .hcomment a.selected
     color: #000;
 }
 
-div.entry-comments ul .hcomment p
+div.entry-comments ul .hcomment p.entry-info
 {
 	margin: 0;
 	padding: 0;

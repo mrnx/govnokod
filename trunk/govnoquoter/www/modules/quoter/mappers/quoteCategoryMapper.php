@@ -14,6 +14,7 @@
 
 fileLoader::load('quoter/quoteCategory');
 fileLoader::load('orm/plugins/acl_simplePlugin');
+fileLoader::load('orm/plugins/identityMapPlugin');
 fileLoader::load('modules/jip/plugins/jipPlugin');
 
 /**
@@ -67,6 +68,7 @@ class quoteCategoryMapper extends mapper
         parent::__construct();
         $this->attach(new acl_simplePlugin(), 'acl');
         $this->plugins('jip');
+        $this->plugins('identityMap');
     }
 
     public function searchByName($name)

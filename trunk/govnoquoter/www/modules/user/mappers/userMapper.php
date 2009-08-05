@@ -275,6 +275,14 @@ class userMapper extends mapper
         );
     }
 
+    public function getHighlighDrivers()
+    {
+        return array(
+            'js' => 'HighlightJS',
+            'geshi' => 'Geshi',
+        );
+    }
+
     public function convertArgsToObj($args)
     {
         if (isset($args['id'])) {
