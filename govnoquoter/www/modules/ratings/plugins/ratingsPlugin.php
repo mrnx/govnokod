@@ -54,12 +54,14 @@ class ratingsPlugin extends observer
             $criterion = new criterion($ratingsFolderMapper->table(false) . '.parent_id', $this->mapper->table(false) . '.id', criteria::EQUAL, true);
             $criteria->addJoin($ratingsFolderMapper->table(), $criterion, $ratingsFolderMapper->table(false));
 
-            $criterion = new criterion('current_user_rate.folder_id', $ratingsFolderMapper->table(false) . '.id', criteria::EQUAL, true);
-            $criterion->addAnd(new criterion('current_user_rate.user_id', $user->getId()));
-            $criteria->addJoin($ratingsMapper->table(), $criterion, 'current_user_rate');
-            $criteria->setDistinct();
+            $criterion = new criterion($ratingsMapper->table(false) . '.folder_id', $ratingsFolderMapper->table(false) . '.id', criteria::EQUAL, true);
+            $criterion->addAnd(new criterion($ratingsMapper->table(false) . '.user_id', $user->getId()));
+            $criteria->addJoin($ratingsMapper->table(), $criterion, $ratingsMapper->table(false));
 
-            $ratingsMapper->addSelectFields($criteria, null, 'current_user_rate');
+            $criteria->addSelectField($ratingsMapper->table(false) . '.ratevalue', $this->mapper->table(false) . mapper::TABLE_KEY_DELIMITER  . 'current_user_rate');
+
+            //$criteria->setDistinct();
+            //$ratingsMapper->addSelectFields($criteria, null, 'current_user_rate');
         }
     }
 
