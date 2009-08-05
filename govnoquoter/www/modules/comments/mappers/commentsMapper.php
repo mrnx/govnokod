@@ -139,10 +139,12 @@ class commentsMapper extends mapper
                     $body = $smarty->fetch('comments/mail/quote_comment_reply.tpl');
 
                     $mailer = new simpleMailer($subject, $body, $parentCommentUser->getEmail(), 'noreply@govnokod.ru', 'Говнокод.ру');
-
+                    $mailer->send();
+                    /*
         			if (!$mailer->send()) {
         			    return $this->smarty->fetch('user/mail/mailCrash.tpl');
         			}
+        			*/
                 }
             }
         }

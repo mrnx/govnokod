@@ -32,7 +32,17 @@ class userViewController extends simpleController
             return $this->forward404($userMapper);
         }
 
+        $categoryMapper = $this->toolkit->getMapper('quoter', 'quoteCategory');
+
+        $criteria = new criteria;
+        if ($user->getPreferredLangs()) {
+            $criteria->add('category_id', $user->getPreferredLangs(), criteria::IN);
+        }
+
+        $categories = $categoryMapper->searchAllByCriteria($criteria);
+
         $this->smarty->assign('viewuser', $user);
+        $this->smarty->assign('categories', $categories);
         return $this->smarty->fetch('user/view.tpl');
     }
 }
