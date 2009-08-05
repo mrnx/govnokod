@@ -24,43 +24,58 @@ class ratingsPlugin extends observer
 
     protected $options = array(
         'driver' => 'simple',
+        'join_rate' => false,
+        'join_guest_rate' => false,
     );
 
     protected function updateMap(& $map)
     {
-        $map['current_user_rate'] = array(
-            'accessor' => 'getCurrentUserRate',
-            'options' => array('fake', 'ro')
-        );
+        if ($this->isJoinUserRate()) {
+            $map['current_user_rate'] = array(
+                'accessor' => 'getCurrentUserRate',
+                'options' => array('fake', 'ro')
+            );
+        }
     }
 
     public function preSqlSelect(criteria $criteria)
     {
-        /*
-        $toolkit = systemToolkit::getInstance();
-        $user = $toolkit->getUser();
+        if ($this->isJoinUserRate()) {
+            $toolkit = systemToolkit::getInstance();
+            $user = $toolkit->getUser();
 
-        $ratingsMapper = $toolkit->getMapper('ratings', 'ratings');
-        $ratingsFolderMapper = $toolkit->getMapper('ratings', 'ratingsFolder');
-        $ratingsAliasMapper = $toolkit->getMapper('ratings', 'ratingsAlias');
+            if (!$user->isLoggedIn() && !$this->isJoinUserGuestRate()) {
+                return;
+            }
 
-        $ratingsAlias = $ratingsAliasMapper->searchByModuleAndClass($this->mapper->module(), $this->mapper->getClass());
+            $ratingsMapper = $toolkit->getMapper('ratings', 'ratings');
+            $ratingsFolderMapper = $toolkit->getMapper('ratings', 'ratingsFolder');
 
-        $criterion = new criterion('ratingsFolder.parent_id', $this->mapper->table(false) . '.id', criteria::EQUAL, true);
-        $criterion->addAnd(new criterion('ratingsFolder.alias_id', $ratingsAlias->getId()));
-        $criteria->addJoin($ratingsFolderMapper->table(), $criterion, 'ratingsFolder');
+            $criterion = new criterion($ratingsFolderMapper->table(false) . '.parent_id', $this->mapper->table(false) . '.id', criteria::EQUAL, true);
+            $criteria->addJoin($ratingsFolderMapper->table(), $criterion, $ratingsFolderMapper->table(false));
 
-        $criterion = new criterion('ratings.folder_id', 'ratingsFolder.id', criteria::EQUAL, true);
-        $criterion->addAnd(new criterion('ratings.user_id', $user->getId()));
-        $criteria->addJoin($ratingsMapper->table(), $criterion, 'ratings');
+            $criterion = new criterion('current_user_rate.folder_id', $ratingsFolderMapper->table(false) . '.id', criteria::EQUAL, true);
+            $criterion->addAnd(new criterion('current_user_rate.user_id', $user->getId()));
+            $criteria->addJoin($ratingsMapper->table(), $criterion, 'current_user_rate');
+            $criteria->setDistinct();
 
-        $criteria->addSelectField('ratings.ratevalue', $this->mapper->table(false) . mapper::TABLE_KEY_DELIMITER . 'current_user_rate');
-        */
+            $ratingsMapper->addSelectFields($criteria, null, 'current_user_rate');
+        }
     }
 
     public function getDriver()
     {
         return $this->options['driver'];
+    }
+
+    public function isJoinUserRate()
+    {
+        return (bool)$this->options['join_rate'];
+    }
+
+    public function isJoinUserGuestRate()
+    {
+        return (bool)$this->options['join_guest_rate'];
     }
 
 }

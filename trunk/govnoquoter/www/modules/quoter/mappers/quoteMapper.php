@@ -91,7 +91,7 @@ class quoteMapper extends mapper
 
     public function __construct()
     {
-        $this->attach(new ratingsPlugin());
+        $this->attach(new ratingsPlugin(array('join_rate' => true)));
         parent::__construct();
         $this->plugins('acl_simple');
         $this->plugins('jip');
