@@ -37,6 +37,10 @@ class ratingsRateController extends simpleController
         $ratedObjectMapper = $ratingsFolder->getObjectMapper();
         $ratedObject = $ratingsFolder->getObject();
 
+        if (!$ratedObject->getAcl('rate')) {
+            return $this->forward403($ratingsFolderMapper);
+        }
+
         $ratingsPlugin = $ratedObjectMapper->plugin('ratings');
 
         switch ($ratingsPlugin->getDriver()) {

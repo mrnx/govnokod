@@ -1,4 +1,4 @@
-# SQL Manager 2007 for MySQL 4.4.0.5
+# SQL Manager 2007 for MySQL 4.4.0.3
 # ---------------------------------------
 # Host     : localhost
 # Port     : 3306
@@ -39,7 +39,7 @@ CREATE TABLE `comments_comments` (
   KEY `user_id` (`user_id`),
   KEY `folder_id` (`folder_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=11 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=13 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `comments_comments` table  (LIMIT 0,500)
@@ -47,7 +47,7 @@ AUTO_INCREMENT=11 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 INSERT INTO `comments_comments` (`id`, `text`, `user_id`, `created`, `folder_id`, `rating`) VALUES 
   (1,'test',2,1248489822,2,1),
-  (2,'test',1,1248493855,2,0),
+  (2,'test',1,1248493855,2,1),
   (3,'test',2,1248949870,1,2),
   (4,'test',2,1248949904,1,-2),
   (5,'test3',2,1248949924,1,5),
@@ -55,7 +55,9 @@ INSERT INTO `comments_comments` (`id`, `text`, `user_id`, `created`, `folder_id`
   (7,'test5',2,1248950053,1,1),
   (8,'test56',2,1248950180,1,-1),
   (9,'sdgfsdf',2,1248950407,1,0),
-  (10,'test',2,1249123678,2,1);
+  (10,'test',2,1249123678,2,0),
+  (11,'test',2,1249549359,1,1),
+  (12,'test',2,1249550096,3,0);
 COMMIT;
 
 #
@@ -82,9 +84,9 @@ AUTO_INCREMENT=4 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci'
 #
 
 INSERT INTO `comments_commentsFolder` (`id`, `parent_id`, `module`, `type`, `by_field`, `comments_count`) VALUES 
-  (1,3,'quoter','quote','id',7),
+  (1,3,'quoter','quote','id',8),
   (2,1,'quoter','quote','id',3),
-  (3,2,'quoter','quote','id',0);
+  (3,2,'quoter','quote','id',1);
 COMMIT;
 
 #
@@ -103,7 +105,7 @@ CREATE TABLE `comments_comments_tree` (
   KEY `parent_id` (`parent_id`),
   KEY `foreign_key` (`foreign_key`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=11 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=13 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `comments_comments_tree` table  (LIMIT 0,500)
@@ -119,7 +121,9 @@ INSERT INTO `comments_comments_tree` (`id`, `foreign_key`, `parent_id`, `level`,
   (7,7,0,1,'7/'),
   (8,8,7,2,'7/8/'),
   (9,9,0,1,'9/'),
-  (10,10,0,1,'10/');
+  (10,10,0,1,'10/'),
+  (11,11,0,1,'11/'),
+  (12,12,0,1,'12/');
 COMMIT;
 
 #
@@ -242,7 +246,7 @@ CREATE TABLE `page_page` (
   PRIMARY KEY (`id`),
   KEY `folder_id` (`folder_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=3 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=4 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `page_page` table  (LIMIT 0,500)
@@ -250,7 +254,8 @@ AUTO_INCREMENT=3 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 INSERT INTO `page_page` (`id`, `name`, `title`, `content`, `keywords`, `description`, `folder_id`, `allow_comment`, `compiled`, `keywords_reset`, `description_reset`) VALUES 
   (1,'whatisopenid','Что такое openID','OpenID — это открытая децентрализованная система единого входа. Поддержка сайтами технологии OpenID позволяет пользователю использовать единый логин для авторизации на любом из этих сайтов.','','',1,0,0,0,0),
-  (2,'preferences','Описание настроек','<h3><a href=\"#userpic\" name=\"userpic\">Юзерпик</a></h3>\n<p>На выбор авторизованного пользователя есть два варианта юзерпика:</p>\n<dl>\n    <dt><a href=\"http://gravatar.com/\">Gravatar</a></dt>\n    <dd>\n        <p><a href=\"http://gravatar.com/\"><img src=\"{$SITE_PATH}/files/avatars/gravatar_100.jpg\" alt=\"Gravatar\" /></a></p>\n        <p>Граватар, или глобально распознаваемый аватар - это просто изображение, которое следует за вами от сайта к сайту, всегда рядом с вашим именем, когда вы что-либо делаете. Аватары помогают идентифицировать ваши записи в блогах и на web-форумах, так почему бы не сделать это и на <del style=\"text-decoration: line-through\">всех остальных сайтах</del> Говнокод.ру?</p>\n    </dd>\n\n    <dt>Без аватара</dt>\n    <dd>\n        <p><img src=\"{$SITE_PATH}/files/avatars/noavatar_100.png\" alt=\"Без аватара\" /></p>\n        <p>Типичная унылая картинка, призванная хоть чем-то заполнить пространство.</p>\n    </dd>\n</dl>\n<p>Анонимусов мы не обошли стороной, предоставив ему прикольный, на наш взгляд, юзерпик:</p>\n<dl>\n    <dt>Юзерпик guest:</dt>\n    <dd>\n        <p><img src=\"{$SITE_PATH}/files/avatars/guest_100.png\" alt=\"guest avatar\" /></p>\n    </dd>\n</dl>\n<p> </p>\n<h3><a href=\"#langs\" name=\"langs\">Интересующие языки</a></h3>\n<p>Если какой-то язык Вы не понимаете или не хотите видеть по тем или иным убеждениям, то эта настройка Вам поможет! Опция не является агрессивной и будет участвовать только в формировании контента на главной странице. Это значит, что просматривать другие языки, перейдя в соответствующие разделы, всё равно будет возможно.</p>\n<p> </p>\n<h3><a href=\"#highlight\" name=\"highlight\">Способы подсветки кода</a></h3>\n<dl>\n    <dt>HighlightJS</dt>\n    <dd>\n        <p>Как видно из названия, это подсветка кода с помощью JavaScript. Плюсы подхода в том, что страницы заметно уменьшаются в размере, так как вся подсветка будет производится уже на клиентской стороне. Из минусов выделим, что с выключенным JS эта подсветка, естественно, не будет работать.</p> \n    </dd>\n\n    <dt>Geshi</dt>\n    <dd>\n        <p>Мощный движок подсветки кода. Является серверным решением со всем вытекающими.</p>\n    </dd>\n</dl>','','',1,0,1,0,0);
+  (2,'preferences','Описание настроек','<h3><a href=\"#userpic\" name=\"userpic\">Юзерпик</a></h3>\n<p>На выбор авторизованного пользователя есть два варианта юзерпика:</p>\n<dl>\n    <dt><a href=\"http://gravatar.com/\">Gravatar</a></dt>\n    <dd>\n        <p><a href=\"http://gravatar.com/\"><img src=\"{$SITE_PATH}/files/avatars/gravatar_100.jpg\" alt=\"Gravatar\" /></a></p>\n        <p>Граватар, или глобально распознаваемый аватар - это просто изображение, которое следует за вами от сайта к сайту, всегда рядом с вашим именем, когда вы что-либо делаете. Аватары помогают идентифицировать ваши записи в блогах и на web-форумах, так почему бы не сделать это и на <del style=\"text-decoration: line-through\">всех остальных сайтах</del> Говнокод.ру?</p>\n    </dd>\n\n    <dt>Без аватара</dt>\n    <dd>\n        <p><img src=\"{$SITE_PATH}/files/avatars/noavatar_100.png\" alt=\"Без аватара\" /></p>\n        <p>Типичная унылая картинка, призванная хоть чем-то заполнить пространство.</p>\n    </dd>\n</dl>\n<p>Анонимусов мы не обошли стороной, предоставив ему прикольный, на наш взгляд, юзерпик:</p>\n<dl>\n    <dt>Юзерпик guest:</dt>\n    <dd>\n        <p><img src=\"{$SITE_PATH}/files/avatars/guest_100.png\" alt=\"guest avatar\" /></p>\n    </dd>\n</dl>\n<p> </p>\n<h3><a href=\"#langs\" name=\"langs\">Интересующие языки</a></h3>\n<p>Если какой-то язык Вы не понимаете или не хотите видеть по тем или иным убеждениям, то эта настройка Вам поможет! Опция не является агрессивной и будет участвовать только в формировании контента на главной странице. Это значит, что просматривать другие языки, перейдя в соответствующие разделы, всё равно будет возможно.</p>\n<p> </p>\n<h3><a href=\"#highlight\" name=\"highlight\">Способы подсветки кода</a></h3>\n<dl>\n    <dt>HighlightJS</dt>\n    <dd>\n        <p>Как видно из названия, это подсветка кода с помощью JavaScript. Плюсы подхода в том, что страницы заметно уменьшаются в размере, так как вся подсветка будет производится уже на клиентской стороне. Из минусов выделим, что с выключенным JS эта подсветка, естественно, не будет работать.</p> \n    </dd>\n\n    <dt>Geshi</dt>\n    <dd>\n        <p>Мощный движок подсветки кода. Является серверным решением со всем вытекающими.</p>\n    </dd>\n</dl>','','',1,0,1,0,0),
+  (3,'feedback','Обратная связь','<dl>\n    <dt>Связаться непосредственно с автором можно по следующим адресам</dt>\n    <dd>\n        <ul>\n            <li>Электронная почта: {mailto address=\"wiistriker@gmail.com\" encode=\"hex\"}</li>\n            <li>Jabber: <a href=\"xmpp:страйкер@jabber.ru\">страйкер@jabber.ru</a></li>\n            <li>ICQ: 257073504</li>\n        </ul>\n    </dd>\n\n    <dt>Страница проекта на <a href=\"http://code.google.com/\">google.code</a></dt>\n    <dd><a href=\"http://code.google.com/p/govnokod/\">http://code.google.com/p/govnokod/</a></dd>\n</dl>','','',1,0,1,0,0);
 COMMIT;
 
 #
@@ -388,20 +393,16 @@ CREATE TABLE `ratings_ratings` (
   `folder_id` INTEGER(10) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_parent_uniq` (`user_id`, `folder_id`),
-  KEY `user_id` (`user_id`),
-  KEY `parent_id` (`folder_id`)
+  KEY `folder_id` (`folder_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=5 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=2 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `ratings_ratings` table  (LIMIT 0,500)
 #
 
 INSERT INTO `ratings_ratings` (`id`, `user_id`, `created`, `ip_address`, `useragent`, `ratevalue`, `folder_id`) VALUES 
-  (1,2,1249433142,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.2) Gecko/20090729 Firefox/3.5.2',1,1),
-  (2,2,1249433144,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.2) Gecko/20090729 Firefox/3.5.2',-1,5),
-  (3,2,1249433147,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.2) Gecko/20090729 Firefox/3.5.2',-1,2),
-  (4,2,1249433156,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.2) Gecko/20090729 Firefox/3.5.2',1,6);
+  (1,4,1249553474,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.2) Gecko/20090729 Firefox/3.5.2',-1,1);
 COMMIT;
 
 #
@@ -422,19 +423,14 @@ CREATE TABLE `ratings_ratingsFolder` (
   KEY `parent_id` (`parent_id`),
   KEY `module_class` (`module`, `class`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=7 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=2 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `ratings_ratingsFolder` table  (LIMIT 0,500)
 #
 
 INSERT INTO `ratings_ratingsFolder` (`id`, `module`, `class`, `ratings_on`, `ratings_against`, `rating`, `parent_id`) VALUES 
-  (1,'quoter','quote',5,0,5,2),
-  (2,'quoter','quote',0,2,-2,1),
-  (3,'comments','comments',1,0,1,7),
-  (4,'comments','comments',0,1,-1,8),
-  (5,'quoter','quote',0,1,-1,3),
-  (6,'comments','comments',1,0,1,10);
+  (1,'quoter','quote',0,1,-1,3);
 COMMIT;
 
 #
@@ -711,7 +707,7 @@ CREATE TABLE `sys_classes_actions` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `class_id` (`class_id`, `action_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=331 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=332 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_classes_actions` table  (LIMIT 0,500)
@@ -920,7 +916,8 @@ INSERT INTO `sys_classes_actions` (`id`, `class_id`, `action_id`) VALUES
   (327,50,118),
   (328,50,113),
   (329,57,119),
-  (330,55,120);
+  (330,55,120),
+  (331,57,109);
 COMMIT;
 
 #
@@ -1191,7 +1188,7 @@ CREATE TABLE `user_user` (
   PRIMARY KEY (`id`),
   KEY `login` (`login`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=4 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=5 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `user_user` table  (LIMIT 0,500)
@@ -1199,7 +1196,8 @@ AUTO_INCREMENT=4 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 INSERT INTO `user_user` (`id`, `login`, `email`, `password`, `created`, `confirmed`, `last_login`, `timezone`, `skin`, `highlight_driver`, `avatar_type`, `preferred_langs`) VALUES 
   (1,'guest','','',NULL,NULL,1248576546,'3',1,'js',0,''),
-  (2,'admin','','098f6bcd4621d373cade4e832627b4f6',NULL,NULL,1249538317,'10',1,'js',2,'');
+  (2,'admin','','098f6bcd4621d373cade4e832627b4f6',NULL,NULL,1249554625,'10',1,'js',2,''),
+  (4,'striker','striker@bk.ru','9647b5a8be9aa20cbc9324c363e9a3fb',1249553146,NULL,1249553779,'10',1,'js',2,'');
 COMMIT;
 
 #
@@ -1216,7 +1214,16 @@ CREATE TABLE `user_userAuth` (
   `time` INTEGER(11) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=1 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=5 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Data for the `user_userAuth` table  (LIMIT 0,500)
+#
+
+INSERT INTO `user_userAuth` (`id`, `user_id`, `ip`, `hash`, `time`) VALUES 
+  (1,2,'127.0.0.1','e3da75ac7c6434f4f22c96b095d968bf',1249547765),
+  (4,4,'127.0.0.1','a77c179dd844bfdbbfad3ce1ea21d6ed',1249554652);
+COMMIT;
 
 #
 # Structure for the `user_userGroup_rel` table : 
@@ -1284,7 +1291,15 @@ CREATE TABLE `user_userOpenID` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=1 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=2 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Data for the `user_userOpenID` table  (LIMIT 0,500)
+#
+
+INSERT INTO `user_userOpenID` (`id`, `user_id`, `openid_url`, `openid_url_standarized`) VALUES 
+  (1,4,'http://claimid.com/striker','claimid.com/striker');
+COMMIT;
 
 
 

@@ -329,6 +329,11 @@ p#entrance
 	color: red;
 }
 
+.posts .hentry .vote strong.just-rating
+{
+    padding-right: 1em;
+}
+
 .posts .hentry .vote img.preloader
 {
 	padding-right: 1.2em;
@@ -571,6 +576,11 @@ div.entry-comments ul .hcomment p .comment-vote span.my-vote.comment-vote-on
 div.entry-comments ul .hcomment p .comment-vote span.my-vote.comment-vote-against
 {
 	background-position: -18px 0;
+}
+
+div.entry-comments ul .hcomment p .comment-vote .just-rating
+{
+    padding-right: 1em;
 }
 
 img.avatar

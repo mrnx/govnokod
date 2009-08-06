@@ -29,8 +29,8 @@
 
     <div id="footer">
         <address>
-            <span>&copy; 2008-2009 &laquo;Говнокод.ру&raquo; {$timer->toString()}</span>
-            <span><a href="#">Credits</a> | <a href="#">Обратная связь</a></span>
+            <span>&copy; 2008-2009 &laquo;Говнокод.ру&raquo;{if $smarty.const.DEBUG_MODE} {$timer->toString()}{/if}</span>
+            <span><a href="{url route="pageActions" name="feedback"}">Обратная связь</a> | Работает на <a href="http://mzz.ru">mzz</a></span>
         </address>
     </div>
 </div>
