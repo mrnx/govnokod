@@ -36,7 +36,9 @@
 
                 {set name="helpLabel"}Способ подсветки кода (<a href="{$helpPageUrl}#langs">что выбрать?</a>):{/set}
                 <dt>{form->caption name="hdriver" value=$helpLabel}</dt>
-                <dd>{form->select name="hdriver" options=$drivers value=$user->getHighlightDriver()}</dd>
+                <dd>
+                    {form->select name="hdriver" options=$drivers value=$user->getHighlightDriver()}
+                </dd>
 
                 <dt>{form->caption name="timezone" value="Часовой пояс:"}</dt>
                 <dd>{form->select name="timezone" options=$timezones emptyFirst=true value=$user->getTimezone()}</dd>
