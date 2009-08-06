@@ -146,5 +146,10 @@ class user extends entity
 
         return null;
     }
+
+    public function getOnline()
+    {
+        return null;
+    }
 }
 ?>

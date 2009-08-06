@@ -24,4 +24,8 @@
             <td class="last center">{$category->getJip()}</td>
         </tr>
     {/foreach}
+    <tr class="last">
+        <td class="first"></td>
+        <td class="last center" colspan="6"></td>
+    </tr>
 </table>
