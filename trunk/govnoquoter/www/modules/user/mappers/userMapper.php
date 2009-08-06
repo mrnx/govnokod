@@ -196,6 +196,7 @@ class userMapper extends mapper
 
             $data['avatar_type'] = 2;
             $data['highlight_driver'] = 'js';
+            $data['last_login'] = time();
         }
     }
 

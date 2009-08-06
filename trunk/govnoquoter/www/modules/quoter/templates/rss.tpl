@@ -14,7 +14,7 @@
             <url>http://govnokod.ru/templates/images/brand.png</url>
             <title>Говнокод.ру</title>
         </image>
-        {foreach from=$quotes item="quote"}
+{foreach from=$quotes item="quote"}
         <item>
             <title>{$quote->getCategory()->getTitle()|h} / Говнокод #{$quote->getId()}</title>
             <guid isPermaLink="true">{url route="quoteView" id=$quote->getId()}</guid>
@@ -29,6 +29,6 @@
             <category>{$quote->getCategory()->getTitle()|h}</category>
             <author>{$quote->getUser()->getLogin()|h}</author>
         </item>
-        {/foreach}
+{/foreach}
     </channel>
 </rss>

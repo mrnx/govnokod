@@ -61,7 +61,9 @@ class quoteMapper extends mapper
         'created' => array(
             'accessor' => 'getCreated',
             'mutator' => 'setCreated',
-            'options' => array('once',)
+            'orderBy' => 1,
+            'orderByDirection' => 'desc',
+            'options' => array('once')
         ),
         'deleted' => array(
             'accessor' => 'getDeleted',
@@ -144,6 +146,17 @@ class quoteMapper extends mapper
         $ratingsFolder = $data['ratingsFolder'];
 
         $object->setRating($ratingsFolder->getRating());
+
+        $userMapper = systemToolkit::getInstance()->getMapper('user', 'user');
+        $usersCount = $userMapper->getActiveUsersCount();
+
+        $k = 100 / $usersCount;
+        $procentsOn = $ratingsFolder->getRatingsOn() * $k;
+        $procentsAgainst = $ratingsFolder->getRatingsAgainst() * $k;
+
+        if ($procentsAgainst >= 75) {
+            $object->setIsActive(0);
+        }
 
         $this->save($object);
     }

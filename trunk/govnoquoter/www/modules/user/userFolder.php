@@ -26,12 +26,10 @@ class userFolder extends entity
     {
         $user = systemToolkit::getInstance()->getUser();
 
-        if (!$user->isLoggedIn()) {
-            switch ($name) {
-                case 'preferences':
-                    return false;
-                    break;
-            }
+        switch ($name) {
+            case 'preferences':
+                return $user->isLoggedIn();
+                break;
         }
 
         return parent::__call('getAcl', array($name));

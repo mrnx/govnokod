@@ -30,7 +30,7 @@ class quoterListController extends simpleController
         $quoteMapper = $this->toolkit->getMapper('quoter', 'quote');
 
         $criteria = new criteria;
-        $criteria->add('active', 1)->setOrderByFieldDesc('created');
+        $criteria->add('active', 1);
 
         if (!$listAll) {
             $name = $this->request->getString('name');
