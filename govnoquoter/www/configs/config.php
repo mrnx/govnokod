@@ -22,7 +22,7 @@
 define('SITE_PATH', '');
 define('COOKIE_DOMAIN', '');
 
-define('DEBUG_MODE', 1);
+define('DEBUG_MODE', 0);
 define('SYSTEM_PATH', realpath(dirname(__FILE__) . '/../../../mzz/system/'));
 
 /**
@@ -42,6 +42,8 @@ systemConfig::$i18n = 'ru';
 
 // включаем мультиязычность
 systemConfig::$i18nEnable = false;
+
+systemConfig::$uri404 = 'content/404/view';
 
 // устанавливаем дефолтную кодировку для выдачи
 ini_set('default_charset', 'utf-8');
