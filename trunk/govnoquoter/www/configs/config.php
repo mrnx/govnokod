@@ -22,7 +22,7 @@
 define('SITE_PATH', '');
 define('COOKIE_DOMAIN', '');
 
-define('DEBUG_MODE', 0);
+define('DEBUG_MODE', 1);
 define('SYSTEM_PATH', realpath(dirname(__FILE__) . '/../../../mzz/system/'));
 
 /**

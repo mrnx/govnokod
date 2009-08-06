@@ -283,6 +283,19 @@ class userMapper extends mapper
         );
     }
 
+    public function getActiveUsersCount()
+    {
+        $criteria = new criteria($this->table());
+        $criteria->addSelectField(new sqlFunction('COUNT', '*'), 'active_users_count');
+
+        $criteria->add('last_login', strtotime('-1 month'), criteria::GREATER_EQUAL)->add('id', MZZ_USER_GUEST_ID, criteria::NOT_EQUAL);
+
+        $select = new simpleSelect($criteria);
+        $usersCount = $this->db()->getOne($select->toString());
+
+        return $usersCount;
+    }
+
     public function convertArgsToObj($args)
     {
         if (isset($args['id'])) {
