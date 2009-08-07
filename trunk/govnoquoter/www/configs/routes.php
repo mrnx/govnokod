@@ -43,6 +43,7 @@ $router->addRoute('default', new requestRoute('', array('section' => 'quoter', '
 
 $router->addRoute('tags', new requestRoute(':section/tag/:tag', array('action' => 'searchByTag'), array('tag' => '.+?')));
 
+$router->addRoute('rssUser', new requestRoute('user/:id/rss', array('section' => 'quoter', 'action' => 'userrss')));
 $router->addRoute('rssComments', new requestRoute('comments/:id/rss', array('section' => 'comments', 'action' => 'rss')));
 //$router->addRoute('rssAllComments', new requestRoute('comments/all/export', array('section' => 'quoter', 'action' => 'exportAllComments')));
 

@@ -27,7 +27,6 @@
                 {form->submit class="send" name="submit" value="Вхожу!"}
             </p>
         </form>
-        <p>&nbsp;</p>
-        <p><a href="{url route="default2" module="user" action="register"}">Регистрация</a> | Забыли пароль?</p>
+        <p><a href="{url route="default2" module="user" action="register"}">Регистрация</a>{* | Забыли пароль?*}</p>
     </li>
 </ol>
