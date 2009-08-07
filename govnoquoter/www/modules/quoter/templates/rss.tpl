@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
     <channel>
-        <title>Говнокод.ру{if $withCategory} — {$category->getTitle()|h}{/if}</title>
+        <title>Говнокод.ру{if $action == 'userrss'} — лента пользователя {$user->getLogin()|h}{/if}{if $withCategory} — {$category->getTitle()|h}{/if}</title>
         <link>{if !$withCategory}{url route="rss"}{else}{url route="rssFull" name=$category->getName()}{/if}</link>
         <description><![CDATA[Говнокод: по колено в коде]]></description>
         <language>ru</language>

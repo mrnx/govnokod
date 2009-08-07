@@ -517,7 +517,7 @@ CREATE TABLE `sys_actions` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=121 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=122 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_actions` table  (LIMIT 0,500)
@@ -617,7 +617,8 @@ INSERT INTO `sys_actions` (`id`, `name`) VALUES
   (117,'listCategories'),
   (118,'openIDLogin'),
   (119,'adminCategories'),
-  (120,'active');
+  (120,'active'),
+  (121,'userrss');
 COMMIT;
 
 #
@@ -707,7 +708,7 @@ CREATE TABLE `sys_classes_actions` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `class_id` (`class_id`, `action_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=332 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=333 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_classes_actions` table  (LIMIT 0,500)
@@ -917,7 +918,8 @@ INSERT INTO `sys_classes_actions` (`id`, `class_id`, `action_id`) VALUES
   (328,50,113),
   (329,57,119),
   (330,55,120),
-  (331,57,109);
+  (331,57,109),
+  (332,57,121);
 COMMIT;
 
 #
@@ -1187,11 +1189,16 @@ CREATE TABLE `user_user` (
   `preferred_langs` TEXT COLLATE utf8_general_ci,
   PRIMARY KEY (`id`),
   KEY `login` (`login`)
-)ENGINE=MyISAM CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+)ENGINE=MyISAM
+AUTO_INCREMENT=3 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Data for the `user_user` table  (LIMIT 0,500)
+#
 
 INSERT INTO `user_user` (`id`, `login`, `email`, `password`, `created`, `confirmed`, `last_login`, `timezone`, `skin`, `highlight_driver`, `avatar_type`, `preferred_langs`) VALUES 
   (1,'guest','','',NULL,NULL,1248576546,'3',1,'js',0,''),
-  (2,'admin','','098f6bcd4621d373cade4e832627b4f6',NULL,NULL,1249554625,'10',1,'js',2,'');
+  (2,'admin','','098f6bcd4621d373cade4e832627b4f6',NULL,NULL,1249630464,'10',1,'js',2,'');
 COMMIT;
 
 #
@@ -1208,7 +1215,7 @@ CREATE TABLE `user_userAuth` (
   `time` INTEGER(11) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=6 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=7 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `user_userAuth` table  (LIMIT 0,500)
@@ -1216,7 +1223,7 @@ AUTO_INCREMENT=6 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci'
 
 INSERT INTO `user_userAuth` (`id`, `user_id`, `ip`, `hash`, `time`) VALUES 
   (1,2,'127.0.0.1','e3da75ac7c6434f4f22c96b095d968bf',1249547765),
-  (5,2,'127.0.0.1','c1177ca3ae6a1894a014b9d71930fb15',1249556604);
+  (6,2,'127.0.0.1','785138252710bb11616264f7c7fcff77',1249631350);
 COMMIT;
 
 #
@@ -1284,7 +1291,9 @@ CREATE TABLE `user_userOpenID` (
   `openid_url_standarized` VARCHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-)ENGINE=MyISAM CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+)ENGINE=MyISAM
+AUTO_INCREMENT=1 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

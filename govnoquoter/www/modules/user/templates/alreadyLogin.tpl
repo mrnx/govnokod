@@ -16,6 +16,9 @@
             <dd>{$user->getHighlightDriverTitle()|h}</dd>
         </dl>
 
-        <p><a href="{url route="default2" module="user" action="preferences"}">Настройки</a></p>
+        <ul>
+            <li><a href="{url route="rssUser" id=$user->getId()}" title="Лента RSS, собранная на основе предпочитаемых языков">Моя RSS лента</a></li>
+            <li><a href="{url route="default2" module="user" action="preferences"}">Настройки</a></li>
+        </ul>
     </li>
 </ol>
