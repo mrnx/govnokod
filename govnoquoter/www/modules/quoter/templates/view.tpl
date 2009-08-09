@@ -29,11 +29,11 @@
             <pre><code class="{$langName|h}">{$quote->getText()|h}</code></pre>
             {/if}
         </div>
-        <p class="author">
-            Наговнокодил: <a style="background-image: url('{$quote->getUser()->getAvatarUrl(20)|h}');" href="{url route="withId" module="user" action="" id=$quote->getUser()->getId()}">{$quote->getUser()->getLogin()|h}</a>
-        </p>
         <p class="description">
             {$quote->getDescription()|trim|h|bbcode|nl2br}
+        </p>
+        <p class="author">
+            Наговнокодил: <a style="background-image: url('{$quote->getUser()->getAvatarUrl(20)|h}');" href="{url route="withId" module="user" action="" id=$quote->getUser()->getId()}">{$quote->getUser()->getLogin()|h}</a>
         </p>
         {load module="comments" action="list" object=$quote}
     </li>
