@@ -351,16 +351,6 @@ p#entrance
 	font-family: "Arial";
 }
 
-.posts .hentry .vote span.vote-on
-{
-	margin-right: 0;
-}
-
-.posts .hentry .vote span.vote-against
-{
-	margin-left: 0;
-}
-
 .posts .hentry .vote span.my-vote
 {
 	color: #6F6F6F;
