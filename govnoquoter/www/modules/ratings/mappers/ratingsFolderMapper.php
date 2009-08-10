@@ -153,17 +153,9 @@ class ratingsFolderMapper extends mapper
 
             $currentRating = (int)$ratingsFolder->getRating();
             $newRating = $currentRating + $value;
-            //echo ' ' . $newRating;
 
             $ratingsFolder->setRating($newRating);
             $this->save($ratingsFolder);
-
-            //echo ' ' . $ratingsFolder->getRating();
-
-            //Ничего не понимаю... Почему-то из БД берется старое значение рейтинга,
-            //поэтому мы его замерджим!
-            //@todo: разобраться!
-            $ratingsFolder->merge(array('rating' => $newRating, 'ratings_on' => $ratingsOn, 'ratings_against' => $ratingsAgainst));
 
             $data['ratingsFolder'] = &$ratingsFolder;
             $data['ratedObject'] = $ratingsFolder->getObject();

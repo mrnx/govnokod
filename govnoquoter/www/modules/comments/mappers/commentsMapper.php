@@ -140,11 +140,6 @@ class commentsMapper extends mapper
 
                     $mailer = new simpleMailer($subject, $body, $parentCommentUser->getEmail(), 'noreply@govnokod.ru', 'Говнокод.ру');
                     $mailer->send();
-                    /*
-        			if (!$mailer->send()) {
-        			    return $this->smarty->fetch('user/mail/mailCrash.tpl');
-        			}
-        			*/
                 }
             }
         }
