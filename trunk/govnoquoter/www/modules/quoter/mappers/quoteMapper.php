@@ -65,10 +65,6 @@ class quoteMapper extends mapper
             'orderByDirection' => 'desc',
             'options' => array('once')
         ),
-        'deleted' => array(
-            'accessor' => 'getDeleted',
-            'mutator' => 'setDeleted'
-        ),
         'text' => array(
             'accessor' => 'getText',
             'mutator' => 'setText'
