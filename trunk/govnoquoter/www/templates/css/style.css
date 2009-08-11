@@ -74,7 +74,7 @@ div#header h1 a
 {
 	display: block;
 
-	background: #f2f0e3 url(../images/brand.png) no-repeat;
+	background: #f2f0e3 url(../images/brand.gif) no-repeat;
 
 	width: 286px;
 	height: 174px;
@@ -429,12 +429,6 @@ p#entrance
 	background: url(../images/codeload.gif) no-repeat;
 }
 
-.posts .hentry .author a
-{
-    background-repeat: no-repeat;
-    padding-left: 22px;
-}
-
 div.entry-comments
 {
 	margin: 0.8em 0 0 0;
@@ -575,12 +569,14 @@ div.entry-comments ul .hcomment p .comment-vote .just-rating
 
 img.avatar
 {
-	width: 28px;
-	height: 28px;
-
 	vertical-align: top;
-
 	border: solid 1px #ddd;
+}
+
+div.entry-comments img.avatar
+{
+    width: 28px;
+	height: 28px;
 }
 
 div.entry-comments ul .hcomment p strong

@@ -28,7 +28,7 @@
             {$quote->getDescription()|trim|h|bbcode|nl2br}
         </p>
         <p class="author">
-            Наговнокодил: <a style="background-image: url('{$quote->getUser()->getAvatarUrl(20)|h}');" href="{url route="withId" module="user" action="" id=$quote->getUser()->getId()}">{$quote->getUser()->getLogin()|h}</a>
+            Наговнокодил: <a href="{url route="withId" module="user" action="" id=$quote->getUser()->getId()}"><img src="{$quote->getUser()->getAvatarUrl(20)|h}" alt="" class="avatar" /></a> <a href="{url route="withId" module="user" action="" id=$quote->getUser()->getId()}">{$quote->getUser()->getLogin()|h}</a>
         </p>
         <div class="entry-comments">
             <a href="{url route="quoteView" id=$quote->getId()}" class="entry-comments-load">Комментарии</a> <span class="count">({$quote->getCommentsCount()})</span>
