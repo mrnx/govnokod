@@ -239,7 +239,7 @@ class SimpleOpenID{
 		$get = array();
 
 		// Get details of their OpenID server and (optional) delegate
-		preg_match_all('/<link[^>]*rel=[\'"]openid.server[\'"][^>]*href=[\'"]([^\'"]+)[\'"][^>]*\/?>/i', $content, $matches1);
+		preg_match_all('/<link[^>]*rel=[\'"].*openid.server[\'"][^>]*href=[\'"]([^\'"]+)[\'"][^>]*\/?>/i', $content, $matches1);
 		preg_match_all('/<link[^>]*href=\'"([^\'"]+)[\'"][^>]*rel=[\'"]openid.server[\'"][^>]*\/?>/i', $content, $matches2);
 		$servers = array_merge($matches1[1], $matches2[1]);
 
