@@ -74,7 +74,7 @@ class userLoginController extends simpleController
 
         $criteria = new criteria;
         if ($user->getPreferredLangs()) {
-            $criteria->add('category_id', $user->getPreferredLangs(), criteria::IN);
+            $criteria->add('id', $user->getPreferredLangs(), criteria::IN);
         }
 
         $categories = $categoryMapper->searchAllByCriteria($criteria);
