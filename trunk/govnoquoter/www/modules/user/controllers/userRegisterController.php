@@ -118,9 +118,9 @@ class userRegisterController extends simpleController
                     $userGroupMapper->save($userGroup);
                 }
 
-                return 'Регистрация подтверждена';
+                return $this->smarty->fetch('user/register/registerConfirmed.tpl');
             } else {
-                return 'Нет такого пользователя';
+                return $this->smarty->fetch('user/register/registerNoNeed.tpl');
             }
         }
     }
