@@ -59,8 +59,8 @@ systemConfig::$pathToApplication = dirname(__FILE__) . '/..';
 systemConfig::$pathToTemp = realpath(dirname(__FILE__) . '/../../tmp');
 systemConfig::$pathToConf = dirname(__FILE__);
 
-systemConfig::$mailer['default']['backend'] = 'pool';
-//systemConfig::$mailer['default']['params'] = array('html' => true, 'smtp' => true, 'smtp_host' => 'localhost');
+systemConfig::$mailer['default']['backend'] = 'PHPMailer';
+systemConfig::$mailer['default']['params'] = array('html' => true, 'smtp' => true, 'smtp_host' => 'localhost');
 
 systemConfig::$cache['default']['backend'] = 'memory';
 systemConfig::$cache['memory']['backend'] = 'memory';
