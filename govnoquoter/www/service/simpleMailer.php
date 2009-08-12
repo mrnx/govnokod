@@ -5,7 +5,7 @@ class simpleMailer
 {
     protected $mailer;
 
-    public function __construct($subject, $body, $to, $from, $fromName)
+    public function __construct($subject, $body, $to, $toName, $from, $fromName)
     {
         $mail = new phpmailer();
         $mail->IsHtml(true);
