@@ -115,34 +115,6 @@ class commentsMapper extends mapper
         $commentsFolderMapper->notify('commentAdded', $data);
 
         $objectMapper->notify('commentAdded', $data);
-
-        if ($folder->getModule() == 'quoter' && $folder->getType() == 'quote') {
-            //если это был ответ, то отсылаем почту
-            if ($object->getTreeParent()) {
-                $thisCommentUser = $object->getUser();
-                $parentCommentUser = $object->getTreeParent()->getUser();
-
-                //не будем отсылать почту guest или самому себе
-                if ($parentCommentUser->isLoggedIn() && $thisCommentUser->getId() != $parentCommentUser->getId()) {
-                    fileLoader::load('service/simpleMailer');
-
-                    $subject = 'Ответ на Ваш комментарий к говнокоду #' . $commentedObject->getId();
-
-                    $smarty = systemToolkit::getInstance()->getSmarty();
-
-                    $smarty->assign('commentsFolder', $folder);
-                    $smarty->assign('yourComment', $object->getTreeParent());
-                    $smarty->assign('answerComment', $object);
-                    $smarty->assign('quote', $commentedObject);
-                    $smarty->assign('you', $parentCommentUser);
-                    $smarty->assign('him', $thisCommentUser);
-                    $body = $smarty->fetch('comments/mail/quote_comment_reply.tpl');
-
-                    $mailer = new simpleMailer($subject, $body, $parentCommentUser->getEmail(), 'noreply@govnokod.ru', 'Говнокод.ру');
-                    $mailer->send();
-                }
-            }
-        }
     }
 
     public function ratingAdded(Array $data)

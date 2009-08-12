@@ -42,23 +42,6 @@ CREATE TABLE `comments_comments` (
 AUTO_INCREMENT=11 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
-# Data for the `comments_comments` table  (LIMIT 0,500)
-#
-
-INSERT INTO `comments_comments` (`id`, `text`, `user_id`, `created`, `folder_id`, `rating`) VALUES 
-  (1,'test',2,1248489822,2,1),
-  (2,'test',1,1248493855,2,0),
-  (3,'test',2,1248949870,1,2),
-  (4,'test',2,1248949904,1,-2),
-  (5,'test3',2,1248949924,1,5),
-  (6,'test4',2,1248950009,1,0),
-  (7,'test5',2,1248950053,1,1),
-  (8,'test56',2,1248950180,1,-1),
-  (9,'sdgfsdf',2,1248950407,1,0),
-  (10,'test',2,1249123678,2,1);
-COMMIT;
-
-#
 # Structure for the `comments_commentsFolder` table : 
 #
 
@@ -78,16 +61,6 @@ CREATE TABLE `comments_commentsFolder` (
 AUTO_INCREMENT=4 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
-# Data for the `comments_commentsFolder` table  (LIMIT 0,500)
-#
-
-INSERT INTO `comments_commentsFolder` (`id`, `parent_id`, `module`, `type`, `by_field`, `comments_count`) VALUES 
-  (1,3,'quoter','quote','id',7),
-  (2,1,'quoter','quote','id',3),
-  (3,2,'quoter','quote','id',0);
-COMMIT;
-
-#
 # Structure for the `comments_comments_tree` table : 
 #
 
@@ -104,23 +77,6 @@ CREATE TABLE `comments_comments_tree` (
   KEY `foreign_key` (`foreign_key`)
 )ENGINE=MyISAM
 AUTO_INCREMENT=11 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
-# Data for the `comments_comments_tree` table  (LIMIT 0,500)
-#
-
-INSERT INTO `comments_comments_tree` (`id`, `foreign_key`, `parent_id`, `level`, `path`) VALUES 
-  (1,1,0,1,'1/'),
-  (2,2,0,1,'2/'),
-  (3,3,0,1,'3/'),
-  (4,4,0,1,'4/'),
-  (5,5,0,1,'5/'),
-  (6,6,0,1,'6/'),
-  (7,7,0,1,'7/'),
-  (8,8,7,2,'7/8/'),
-  (9,9,0,1,'9/'),
-  (10,10,0,1,'10/');
-COMMIT;
 
 #
 # Structure for the `fileManager_file` table : 
@@ -166,14 +122,6 @@ CREATE TABLE `fileManager_folder` (
 AUTO_INCREMENT=3 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
-# Data for the `fileManager_folder` table  (LIMIT 0,500)
-#
-
-INSERT INTO `fileManager_folder` (`id`, `name`, `title`, `filesize`, `exts`, `storage_id`) VALUES 
-  (1,'root','root',NULL,NULL,1);
-COMMIT;
-
-#
 # Structure for the `fileManager_folder_tree` table : 
 #
 
@@ -188,14 +136,6 @@ CREATE TABLE `fileManager_folder_tree` (
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
 AUTO_INCREMENT=3 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
-# Data for the `fileManager_folder_tree` table  (LIMIT 0,500)
-#
-
-INSERT INTO `fileManager_folder_tree` (`id`, `path`, `foreign_key`, `level`, `spath`) VALUES 
-  (1,'root/',1,1,'1/');
-COMMIT;
 
 #
 # Structure for the `fileManager_storage` table : 
@@ -213,13 +153,23 @@ CREATE TABLE `fileManager_storage` (
 AUTO_INCREMENT=3 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
-# Data for the `fileManager_storage` table  (LIMIT 0,500)
+# Structure for the `mailer_mail` table : 
 #
 
-INSERT INTO `fileManager_storage` (`id`, `name`, `path`, `web_path`) VALUES 
-  (1,'local','../files/','/'),
-  (2,'avatars','files/avatars/','/files/avatars/');
-COMMIT;
+DROP TABLE IF EXISTS `mailer_mail`;
+
+CREATE TABLE `mailer_mail` (
+  `id` INTEGER(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `to` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `toName` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `from` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `fromName` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `subject` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `body` TEXT COLLATE utf8_general_ci NOT NULL,
+  `created` INTEGER(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=1 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Structure for the `page_page` table : 
@@ -245,15 +195,6 @@ CREATE TABLE `page_page` (
 AUTO_INCREMENT=3 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
-# Data for the `page_page` table  (LIMIT 0,500)
-#
-
-INSERT INTO `page_page` (`id`, `name`, `title`, `content`, `keywords`, `description`, `folder_id`, `allow_comment`, `compiled`, `keywords_reset`, `description_reset`) VALUES 
-  (1,'whatisopenid','Что такое openID','OpenID — это открытая децентрализованная система единого входа. Поддержка сайтами технологии OpenID позволяет пользователю использовать единый логин для авторизации на любом из этих сайтов.','','',1,0,0,0,0),
-  (2,'preferences','Описание настроек','<h3><a href=\"#userpic\" name=\"userpic\">Юзерпик</a></h3>\n<p>На выбор авторизованного пользователя есть два варианта юзерпика:</p>\n<dl>\n    <dt><a href=\"http://gravatar.com/\">Gravatar</a></dt>\n    <dd>\n        <p><a href=\"http://gravatar.com/\"><img src=\"{$SITE_PATH}/files/avatars/gravatar_100.jpg\" alt=\"Gravatar\" /></a></p>\n        <p>Граватар, или глобально распознаваемый аватар - это просто изображение, которое следует за вами от сайта к сайту, всегда рядом с вашим именем, когда вы что-либо делаете. Аватары помогают идентифицировать ваши записи в блогах и на web-форумах, так почему бы не сделать это и на <del style=\"text-decoration: line-through\">всех остальных сайтах</del> Говнокод.ру?</p>\n    </dd>\n\n    <dt>Без аватара</dt>\n    <dd>\n        <p><img src=\"{$SITE_PATH}/files/avatars/noavatar_100.png\" alt=\"Без аватара\" /></p>\n        <p>Типичная унылая картинка, призванная хоть чем-то заполнить пространство.</p>\n    </dd>\n</dl>\n<p>Анонимусов мы не обошли стороной, предоставив ему прикольный, на наш взгляд, юзерпик:</p>\n<dl>\n    <dt>Юзерпик guest:</dt>\n    <dd>\n        <p><img src=\"{$SITE_PATH}/files/avatars/guest_100.png\" alt=\"guest avatar\" /></p>\n    </dd>\n</dl>\n<p> </p>\n<h3><a href=\"#langs\" name=\"langs\">Интересующие языки</a></h3>\n<p>Если какой-то язык Вы не понимаете или не хотите видеть по тем или иным убеждениям, то эта настройка Вам поможет! Опция не является агрессивной и будет участвовать только в формировании контента на главной странице. Это значит, что просматривать другие языки, перейдя в соответствующие разделы, всё равно будет возможно.</p>\n<p> </p>\n<h3><a href=\"#highlight\" name=\"highlight\">Способы подсветки кода</a></h3>\n<dl>\n    <dt>HighlightJS</dt>\n    <dd>\n        <p>Как видно из названия, это подсветка кода с помощью JavaScript. Плюсы подхода в том, что страницы заметно уменьшаются в размере, так как вся подсветка будет производится уже на клиентской стороне. Из минусов выделим, что с выключенным JS эта подсветка, естественно, не будет работать.</p> \n    </dd>\n\n    <dt>Geshi</dt>\n    <dd>\n        <p>Мощный движок подсветки кода. Является серверным решением со всем вытекающими.</p>\n    </dd>\n</dl>','','',1,0,1,0,0);
-COMMIT;
-
-#
 # Structure for the `page_pageFolder` table : 
 #
 
@@ -267,14 +208,6 @@ CREATE TABLE `page_pageFolder` (
   KEY `name` (`name`)
 )ENGINE=MyISAM
 AUTO_INCREMENT=2 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
-# Data for the `page_pageFolder` table  (LIMIT 0,500)
-#
-
-INSERT INTO `page_pageFolder` (`id`, `name`, `title`) VALUES 
-  (1,'root','root');
-COMMIT;
 
 #
 # Structure for the `page_pageFolder_tree` table : 
@@ -292,14 +225,6 @@ CREATE TABLE `page_pageFolder_tree` (
   KEY `foreign_key` (`foreign_key`)
 )ENGINE=MyISAM
 AUTO_INCREMENT=2 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
-# Data for the `page_pageFolder_tree` table  (LIMIT 0,500)
-#
-
-INSERT INTO `page_pageFolder_tree` (`id`, `path`, `foreign_key`, `level`, `spath`) VALUES 
-  (1,'root/',1,1,'1/');
-COMMIT;
 
 #
 # Structure for the `quoter_quote` table : 
@@ -325,16 +250,6 @@ CREATE TABLE `quoter_quote` (
 AUTO_INCREMENT=4 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
-# Data for the `quoter_quote` table  (LIMIT 0,500)
-#
-
-INSERT INTO `quoter_quote` (`id`, `category_id`, `user_id`, `created`, `deleted`, `text`, `description`, `rating`, `active`, `comments_count`) VALUES 
-  (1,1,1,1248257061,0,'$error = \"Всё хорошо\"; \r\nif (!$_POST[''mail''] || !checkEmail($_POST[''mail''])) {\r\n    $error .= \"Не верный E-mail\";\r\n}\r\n \r\n...\r\n \r\nif ($error == \"Всё хорошо\") {    $db->query(\"INSERT...\r\n} else {\r\n \r\n...','',-2,1,3),
-  (2,7,2,1248257148,0,'asdfasdf','asdfasdf',5,1,0),
-  (3,1,1,1248473224,0,'sdfsadf\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nasdfsdaf','asdfasdf',-1,1,7);
-COMMIT;
-
-#
 # Structure for the `quoter_quoteCategory` table : 
 #
 
@@ -351,27 +266,6 @@ CREATE TABLE `quoter_quoteCategory` (
   KEY `name` (`name`)
 )ENGINE=MyISAM
 AUTO_INCREMENT=15 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
-# Data for the `quoter_quoteCategory` table  (LIMIT 0,500)
-#
-
-INSERT INTO `quoter_quoteCategory` (`id`, `name`, `geshi_alias`, `js_alias`, `title`, `quote_counts`) VALUES 
-  (1,'php','php','php','PHP',2),
-  (2,'javascript','javascript','javascript','JavaScript',0),
-  (3,'sql','sql','sql','SQL',0),
-  (4,'perl','perl','perl','PERL',0),
-  (5,'python','python','python','Python',0),
-  (6,'c','c','cpp','Си',0),
-  (7,'cpp','cpp','cpp','C++',1),
-  (8,'csharp','csharp','cs','C#',0),
-  (9,'java','java','java','Java',0),
-  (10,'delphi','delphi','delphi','Delphi',0),
-  (11,'actionscript3','actionscript3','javascript','ActionScript',0),
-  (12,'asm','asm','avrasm','Assembler',0),
-  (13,'vb','vb','vbscript','VisualBasic',0),
-  (14,'kucha','','','Куча',0);
-COMMIT;
 
 #
 # Structure for the `ratings_ratings` table : 
@@ -395,17 +289,6 @@ CREATE TABLE `ratings_ratings` (
 AUTO_INCREMENT=5 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
-# Data for the `ratings_ratings` table  (LIMIT 0,500)
-#
-
-INSERT INTO `ratings_ratings` (`id`, `user_id`, `created`, `ip_address`, `useragent`, `ratevalue`, `folder_id`) VALUES 
-  (1,2,1249433142,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.2) Gecko/20090729 Firefox/3.5.2',1,1),
-  (2,2,1249433144,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.2) Gecko/20090729 Firefox/3.5.2',-1,5),
-  (3,2,1249433147,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.2) Gecko/20090729 Firefox/3.5.2',-1,2),
-  (4,2,1249433156,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.2) Gecko/20090729 Firefox/3.5.2',1,6);
-COMMIT;
-
-#
 # Structure for the `ratings_ratingsFolder` table : 
 #
 
@@ -424,19 +307,6 @@ CREATE TABLE `ratings_ratingsFolder` (
   KEY `module_class` (`module`, `class`)
 )ENGINE=MyISAM
 AUTO_INCREMENT=7 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
-# Data for the `ratings_ratingsFolder` table  (LIMIT 0,500)
-#
-
-INSERT INTO `ratings_ratingsFolder` (`id`, `module`, `class`, `ratings_on`, `ratings_against`, `rating`, `parent_id`) VALUES 
-  (1,'quoter','quote',5,0,5,2),
-  (2,'quoter','quote',0,2,-2,1),
-  (3,'comments','comments',1,0,1,7),
-  (4,'comments','comments',0,1,-1,8),
-  (5,'quoter','quote',0,1,-1,3),
-  (6,'comments','comments',1,0,1,10);
-COMMIT;
 
 #
 # Structure for the `sys_access` table : 
@@ -461,14 +331,6 @@ CREATE TABLE `sys_access` (
 AUTO_INCREMENT=4 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
-# Data for the `sys_access` table  (LIMIT 0,500)
-#
-
-INSERT INTO `sys_access` (`id`, `action_id`, `class_id`, `obj_id`, `uid`, `gid`, `allow`, `deny`) VALUES 
-  (3,1,55,0,NULL,5,1,0);
-COMMIT;
-
-#
 # Structure for the `sys_access_registry` table : 
 #
 
@@ -480,6 +342,417 @@ CREATE TABLE `sys_access_registry` (
   PRIMARY KEY (`obj_id`)
 )ENGINE=MyISAM
 AUTO_INCREMENT=24 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `sys_actions` table : 
+#
+
+DROP TABLE IF EXISTS `sys_actions`;
+
+CREATE TABLE `sys_actions` (
+  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
+  `name` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=121 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `sys_classes` table : 
+#
+
+DROP TABLE IF EXISTS `sys_classes`;
+
+CREATE TABLE `sys_classes` (
+  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
+  `name` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `module_id` INTEGER(11) UNSIGNED DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=62 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `sys_classes_actions` table : 
+#
+
+DROP TABLE IF EXISTS `sys_classes_actions`;
+
+CREATE TABLE `sys_classes_actions` (
+  `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `class_id` INTEGER(11) UNSIGNED DEFAULT NULL,
+  `action_id` INTEGER(11) UNSIGNED DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `class_id` (`class_id`, `action_id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=331 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `sys_config` table : 
+#
+
+DROP TABLE IF EXISTS `sys_config`;
+
+CREATE TABLE `sys_config` (
+  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
+  `obj_id` INTEGER(10) UNSIGNED NOT NULL,
+  `module_name` VARCHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `name` VARCHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `title` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `type_id` INTEGER(11) NOT NULL,
+  `value` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `args` TEXT COLLATE utf8_general_ci NOT NULL,
+  PRIMARY KEY (`id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=1 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `sys_lang` table : 
+#
+
+DROP TABLE IF EXISTS `sys_lang`;
+
+CREATE TABLE `sys_lang` (
+  `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` CHAR(20) COLLATE utf8_general_ci DEFAULT NULL,
+  `title` CHAR(20) COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=3 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `sys_lang_lang` table : 
+#
+
+DROP TABLE IF EXISTS `sys_lang_lang`;
+
+CREATE TABLE `sys_lang_lang` (
+  `id` INTEGER(11) UNSIGNED NOT NULL,
+  `lang_id` INTEGER(11) UNSIGNED NOT NULL,
+  `name` CHAR(32) COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`, `lang_id`)
+)ENGINE=MyISAM
+ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `sys_modules` table : 
+#
+
+DROP TABLE IF EXISTS `sys_modules`;
+
+CREATE TABLE `sys_modules` (
+  `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `title` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `icon` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `order` INTEGER(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=23 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `sys_obj_id` table : 
+#
+
+DROP TABLE IF EXISTS `sys_obj_id`;
+
+CREATE TABLE `sys_obj_id` (
+  `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=24 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `sys_obj_id_named` table : 
+#
+
+DROP TABLE IF EXISTS `sys_obj_id_named`;
+
+CREATE TABLE `sys_obj_id_named` (
+  `obj_id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`obj_id`),
+  UNIQUE KEY `name` (`name`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=24 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `sys_skins` table : 
+#
+
+DROP TABLE IF EXISTS `sys_skins`;
+
+CREATE TABLE `sys_skins` (
+  `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` CHAR(32) COLLATE utf8_general_ci DEFAULT NULL,
+  `title` CHAR(32) COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=3 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `user_group` table : 
+#
+
+DROP TABLE IF EXISTS `user_group`;
+
+CREATE TABLE `user_group` (
+  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
+  `obj_id` INTEGER(10) UNSIGNED NOT NULL DEFAULT '0',
+  `name` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `is_default` TINYINT(4) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=6 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `user_user` table : 
+#
+
+DROP TABLE IF EXISTS `user_user`;
+
+CREATE TABLE `user_user` (
+  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
+  `login` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `email` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `password` VARCHAR(32) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `created` INTEGER(11) DEFAULT NULL,
+  `confirmed` VARCHAR(32) COLLATE utf8_general_ci DEFAULT NULL,
+  `last_login` INTEGER(11) DEFAULT NULL,
+  `timezone` VARCHAR(50) COLLATE utf8_general_ci DEFAULT '3',
+  `skin` INTEGER(11) UNSIGNED DEFAULT '1',
+  `highlight_driver` CHAR(20) COLLATE utf8_general_ci DEFAULT 'js',
+  `avatar_type` INTEGER(11) DEFAULT '2',
+  `preferred_langs` TEXT COLLATE utf8_general_ci,
+  PRIMARY KEY (`id`),
+  KEY `login` (`login`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=4 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `user_userAuth` table : 
+#
+
+DROP TABLE IF EXISTS `user_userAuth`;
+
+CREATE TABLE `user_userAuth` (
+  `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` INTEGER(11) UNSIGNED DEFAULT NULL,
+  `ip` CHAR(15) COLLATE utf8_general_ci DEFAULT NULL,
+  `hash` CHAR(32) COLLATE utf8_general_ci DEFAULT NULL,
+  `time` INTEGER(11) UNSIGNED DEFAULT NULL,
+  PRIMARY KEY (`id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=1 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `user_userGroup_rel` table : 
+#
+
+DROP TABLE IF EXISTS `user_userGroup_rel`;
+
+CREATE TABLE `user_userGroup_rel` (
+  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
+  `group_id` INTEGER(11) DEFAULT NULL,
+  `user_id` INTEGER(11) DEFAULT NULL,
+  `obj_id` INTEGER(11) UNSIGNED DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `group_id` (`group_id`, `user_id`),
+  KEY `user_id` (`user_id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=39 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `user_userOnline` table : 
+#
+
+DROP TABLE IF EXISTS `user_userOnline`;
+
+CREATE TABLE `user_userOnline` (
+  `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` INTEGER(11) DEFAULT NULL,
+  `session` CHAR(32) COLLATE utf8_general_ci DEFAULT NULL,
+  `last_activity` INTEGER(11) DEFAULT NULL,
+  `url` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `ip` CHAR(15) COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`, `session`),
+  KEY `last_activity` (`last_activity`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=1 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Structure for the `user_userOpenID` table : 
+#
+
+DROP TABLE IF EXISTS `user_userOpenID`;
+
+CREATE TABLE `user_userOpenID` (
+  `id` INTEGER(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` INTEGER(11) NOT NULL,
+  `openid_url` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `openid_url_standarized` VARCHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=1 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Data for the `comments_comments` table  (LIMIT 0,500)
+#
+
+INSERT INTO `comments_comments` (`id`, `text`, `user_id`, `created`, `folder_id`, `rating`) VALUES 
+  (1,'test',2,1248489822,2,1),
+  (2,'test',1,1248493855,2,0),
+  (3,'test',2,1248949870,1,2),
+  (4,'test',2,1248949904,1,-2),
+  (5,'test3',2,1248949924,1,5),
+  (6,'test4',2,1248950009,1,0),
+  (7,'test5',2,1248950053,1,1),
+  (8,'test56',2,1248950180,1,-1),
+  (9,'sdgfsdf',2,1248950407,1,0),
+  (10,'test',2,1249123678,2,1);
+COMMIT;
+
+#
+# Data for the `comments_commentsFolder` table  (LIMIT 0,500)
+#
+
+INSERT INTO `comments_commentsFolder` (`id`, `parent_id`, `module`, `type`, `by_field`, `comments_count`) VALUES 
+  (1,3,'quoter','quote','id',7),
+  (2,1,'quoter','quote','id',3),
+  (3,2,'quoter','quote','id',0);
+COMMIT;
+
+#
+# Data for the `comments_comments_tree` table  (LIMIT 0,500)
+#
+
+INSERT INTO `comments_comments_tree` (`id`, `foreign_key`, `parent_id`, `level`, `path`) VALUES 
+  (1,1,0,1,'1/'),
+  (2,2,0,1,'2/'),
+  (3,3,0,1,'3/'),
+  (4,4,0,1,'4/'),
+  (5,5,0,1,'5/'),
+  (6,6,0,1,'6/'),
+  (7,7,0,1,'7/'),
+  (8,8,7,2,'7/8/'),
+  (9,9,0,1,'9/'),
+  (10,10,0,1,'10/');
+COMMIT;
+
+#
+# Data for the `fileManager_folder` table  (LIMIT 0,500)
+#
+
+INSERT INTO `fileManager_folder` (`id`, `name`, `title`, `filesize`, `exts`, `storage_id`) VALUES 
+  (1,'root','root',NULL,NULL,1);
+COMMIT;
+
+#
+# Data for the `fileManager_folder_tree` table  (LIMIT 0,500)
+#
+
+INSERT INTO `fileManager_folder_tree` (`id`, `path`, `foreign_key`, `level`, `spath`) VALUES 
+  (1,'root/',1,1,'1/');
+COMMIT;
+
+#
+# Data for the `fileManager_storage` table  (LIMIT 0,500)
+#
+
+INSERT INTO `fileManager_storage` (`id`, `name`, `path`, `web_path`) VALUES 
+  (1,'local','../files/','/'),
+  (2,'avatars','files/avatars/','/files/avatars/');
+COMMIT;
+
+#
+# Data for the `page_page` table  (LIMIT 0,500)
+#
+
+INSERT INTO `page_page` (`id`, `name`, `title`, `content`, `keywords`, `description`, `folder_id`, `allow_comment`, `compiled`, `keywords_reset`, `description_reset`) VALUES 
+  (1,'whatisopenid','Что такое openID','OpenID — это открытая децентрализованная система единого входа. Поддержка сайтами технологии OpenID позволяет пользователю использовать единый логин для авторизации на любом из этих сайтов.','','',1,0,0,0,0),
+  (2,'preferences','Описание настроек','<h3><a href=\"#userpic\" name=\"userpic\">Юзерпик</a></h3>\n<p>На выбор авторизованного пользователя есть два варианта юзерпика:</p>\n<dl>\n    <dt><a href=\"http://gravatar.com/\">Gravatar</a></dt>\n    <dd>\n        <p><a href=\"http://gravatar.com/\"><img src=\"{$SITE_PATH}/files/avatars/gravatar_100.jpg\" alt=\"Gravatar\" /></a></p>\n        <p>Граватар, или глобально распознаваемый аватар - это просто изображение, которое следует за вами от сайта к сайту, всегда рядом с вашим именем, когда вы что-либо делаете. Аватары помогают идентифицировать ваши записи в блогах и на web-форумах, так почему бы не сделать это и на <del style=\"text-decoration: line-through\">всех остальных сайтах</del> Говнокод.ру?</p>\n    </dd>\n\n    <dt>Без аватара</dt>\n    <dd>\n        <p><img src=\"{$SITE_PATH}/files/avatars/noavatar_100.png\" alt=\"Без аватара\" /></p>\n        <p>Типичная унылая картинка, призванная хоть чем-то заполнить пространство.</p>\n    </dd>\n</dl>\n<p>Анонимусов мы не обошли стороной, предоставив ему прикольный, на наш взгляд, юзерпик:</p>\n<dl>\n    <dt>Юзерпик guest:</dt>\n    <dd>\n        <p><img src=\"{$SITE_PATH}/files/avatars/guest_100.png\" alt=\"guest avatar\" /></p>\n    </dd>\n</dl>\n<p> </p>\n<h3><a href=\"#langs\" name=\"langs\">Интересующие языки</a></h3>\n<p>Если какой-то язык Вы не понимаете или не хотите видеть по тем или иным убеждениям, то эта настройка Вам поможет! Опция не является агрессивной и будет участвовать только в формировании контента на главной странице. Это значит, что просматривать другие языки, перейдя в соответствующие разделы, всё равно будет возможно.</p>\n<p> </p>\n<h3><a href=\"#highlight\" name=\"highlight\">Способы подсветки кода</a></h3>\n<dl>\n    <dt>HighlightJS</dt>\n    <dd>\n        <p>Как видно из названия, это подсветка кода с помощью JavaScript. Плюсы подхода в том, что страницы заметно уменьшаются в размере, так как вся подсветка будет производится уже на клиентской стороне. Из минусов выделим, что с выключенным JS эта подсветка, естественно, не будет работать.</p> \n    </dd>\n\n    <dt>Geshi</dt>\n    <dd>\n        <p>Мощный движок подсветки кода. Является серверным решением со всем вытекающими.</p>\n    </dd>\n</dl>','','',1,0,1,0,0);
+COMMIT;
+
+#
+# Data for the `page_pageFolder` table  (LIMIT 0,500)
+#
+
+INSERT INTO `page_pageFolder` (`id`, `name`, `title`) VALUES 
+  (1,'root','root');
+COMMIT;
+
+#
+# Data for the `page_pageFolder_tree` table  (LIMIT 0,500)
+#
+
+INSERT INTO `page_pageFolder_tree` (`id`, `path`, `foreign_key`, `level`, `spath`) VALUES 
+  (1,'root/',1,1,'1/');
+COMMIT;
+
+#
+# Data for the `quoter_quote` table  (LIMIT 0,500)
+#
+
+INSERT INTO `quoter_quote` (`id`, `category_id`, `user_id`, `created`, `deleted`, `text`, `description`, `rating`, `active`, `comments_count`) VALUES 
+  (1,1,1,1248257061,0,'$error = \"Всё хорошо\"; \r\nif (!$_POST[''mail''] || !checkEmail($_POST[''mail''])) {\r\n    $error .= \"Не верный E-mail\";\r\n}\r\n \r\n...\r\n \r\nif ($error == \"Всё хорошо\") {    $db->query(\"INSERT...\r\n} else {\r\n \r\n...','',-2,1,3),
+  (2,7,2,1248257148,0,'asdfasdf','asdfasdf',5,1,0),
+  (3,1,1,1248473224,0,'sdfsadf\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nasdfsdaf','asdfasdf',-1,1,7);
+COMMIT;
+
+#
+# Data for the `quoter_quoteCategory` table  (LIMIT 0,500)
+#
+
+INSERT INTO `quoter_quoteCategory` (`id`, `name`, `geshi_alias`, `js_alias`, `title`, `quote_counts`) VALUES 
+  (1,'php','php','php','PHP',2),
+  (2,'javascript','javascript','javascript','JavaScript',0),
+  (3,'sql','sql','sql','SQL',0),
+  (4,'perl','perl','perl','PERL',0),
+  (5,'python','python','python','Python',0),
+  (6,'c','c','cpp','Си',0),
+  (7,'cpp','cpp','cpp','C++',1),
+  (8,'csharp','csharp','cs','C#',0),
+  (9,'java','java','java','Java',0),
+  (10,'delphi','delphi','delphi','Delphi',0),
+  (11,'actionscript3','actionscript3','javascript','ActionScript',0),
+  (12,'asm','asm','avrasm','Assembler',0),
+  (13,'vb','vb','vbscript','VisualBasic',0),
+  (14,'kucha','','','Куча',0);
+COMMIT;
+
+#
+# Data for the `ratings_ratings` table  (LIMIT 0,500)
+#
+
+INSERT INTO `ratings_ratings` (`id`, `user_id`, `created`, `ip_address`, `useragent`, `ratevalue`, `folder_id`) VALUES 
+  (1,2,1249433142,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.2) Gecko/20090729 Firefox/3.5.2',1,1),
+  (2,2,1249433144,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.2) Gecko/20090729 Firefox/3.5.2',-1,5),
+  (3,2,1249433147,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.2) Gecko/20090729 Firefox/3.5.2',-1,2),
+  (4,2,1249433156,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.2) Gecko/20090729 Firefox/3.5.2',1,6);
+COMMIT;
+
+#
+# Data for the `ratings_ratingsFolder` table  (LIMIT 0,500)
+#
+
+INSERT INTO `ratings_ratingsFolder` (`id`, `module`, `class`, `ratings_on`, `ratings_against`, `rating`, `parent_id`) VALUES 
+  (1,'quoter','quote',5,0,5,2),
+  (2,'quoter','quote',0,2,-2,1),
+  (3,'comments','comments',1,0,1,7),
+  (4,'comments','comments',0,1,-1,8),
+  (5,'quoter','quote',0,1,-1,3),
+  (6,'comments','comments',1,0,1,10);
+COMMIT;
+
+#
+# Data for the `sys_access` table  (LIMIT 0,500)
+#
+
+INSERT INTO `sys_access` (`id`, `action_id`, `class_id`, `obj_id`, `uid`, `gid`, `allow`, `deny`) VALUES 
+  (3,1,55,0,NULL,5,1,0);
+COMMIT;
 
 #
 # Data for the `sys_access_registry` table  (LIMIT 0,500)
@@ -509,20 +782,6 @@ INSERT INTO `sys_access_registry` (`obj_id`, `class_id`) VALUES
   (22,52),
   (23,50);
 COMMIT;
-
-#
-# Structure for the `sys_actions` table : 
-#
-
-DROP TABLE IF EXISTS `sys_actions`;
-
-CREATE TABLE `sys_actions` (
-  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
-  `name` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=121 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_actions` table  (LIMIT 0,500)
@@ -626,21 +885,6 @@ INSERT INTO `sys_actions` (`id`, `name`) VALUES
 COMMIT;
 
 #
-# Structure for the `sys_classes` table : 
-#
-
-DROP TABLE IF EXISTS `sys_classes`;
-
-CREATE TABLE `sys_classes` (
-  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
-  `name` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `module_id` INTEGER(11) UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=62 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
 # Data for the `sys_classes` table  (LIMIT 0,500)
 #
 
@@ -698,21 +942,6 @@ INSERT INTO `sys_classes` (`id`, `name`, `module_id`) VALUES
   (59,'commentsVote',8),
   (60,'userOpenID',2);
 COMMIT;
-
-#
-# Structure for the `sys_classes_actions` table : 
-#
-
-DROP TABLE IF EXISTS `sys_classes_actions`;
-
-CREATE TABLE `sys_classes_actions` (
-  `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `class_id` INTEGER(11) UNSIGNED DEFAULT NULL,
-  `action_id` INTEGER(11) UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `class_id` (`class_id`, `action_id`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=331 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_classes_actions` table  (LIMIT 0,500)
@@ -925,39 +1154,6 @@ INSERT INTO `sys_classes_actions` (`id`, `class_id`, `action_id`) VALUES
 COMMIT;
 
 #
-# Structure for the `sys_config` table : 
-#
-
-DROP TABLE IF EXISTS `sys_config`;
-
-CREATE TABLE `sys_config` (
-  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
-  `obj_id` INTEGER(10) UNSIGNED NOT NULL,
-  `module_name` VARCHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `name` VARCHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `title` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `type_id` INTEGER(11) NOT NULL,
-  `value` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `args` TEXT COLLATE utf8_general_ci NOT NULL,
-  PRIMARY KEY (`id`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=1 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
-# Structure for the `sys_lang` table : 
-#
-
-DROP TABLE IF EXISTS `sys_lang`;
-
-CREATE TABLE `sys_lang` (
-  `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` CHAR(20) COLLATE utf8_general_ci DEFAULT NULL,
-  `title` CHAR(20) COLLATE utf8_general_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=3 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
 # Data for the `sys_lang` table  (LIMIT 0,500)
 #
 
@@ -965,20 +1161,6 @@ INSERT INTO `sys_lang` (`id`, `name`, `title`) VALUES
   (1,'ru','ру'),
   (2,'en','en');
 COMMIT;
-
-#
-# Structure for the `sys_lang_lang` table : 
-#
-
-DROP TABLE IF EXISTS `sys_lang_lang`;
-
-CREATE TABLE `sys_lang_lang` (
-  `id` INTEGER(11) UNSIGNED NOT NULL,
-  `lang_id` INTEGER(11) UNSIGNED NOT NULL,
-  `name` CHAR(32) COLLATE utf8_general_ci DEFAULT NULL,
-  PRIMARY KEY (`id`, `lang_id`)
-)ENGINE=MyISAM
-ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_lang_lang` table  (LIMIT 0,500)
@@ -990,22 +1172,6 @@ INSERT INTO `sys_lang_lang` (`id`, `lang_id`, `name`) VALUES
   (2,1,'английский'),
   (2,2,'english');
 COMMIT;
-
-#
-# Structure for the `sys_modules` table : 
-#
-
-DROP TABLE IF EXISTS `sys_modules`;
-
-CREATE TABLE `sys_modules` (
-  `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `title` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `icon` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `order` INTEGER(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=23 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_modules` table  (LIMIT 0,500)
@@ -1033,18 +1199,6 @@ INSERT INTO `sys_modules` (`id`, `name`, `title`, `icon`, `order`) VALUES
   (21,'ratings','Рейтинги','',0),
   (22,'quoter','Цитатник','',0);
 COMMIT;
-
-#
-# Structure for the `sys_obj_id` table : 
-#
-
-DROP TABLE IF EXISTS `sys_obj_id`;
-
-CREATE TABLE `sys_obj_id` (
-  `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=24 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_obj_id` table  (LIMIT 0,500)
@@ -1077,20 +1231,6 @@ INSERT INTO `sys_obj_id` (`id`) VALUES
 COMMIT;
 
 #
-# Structure for the `sys_obj_id_named` table : 
-#
-
-DROP TABLE IF EXISTS `sys_obj_id_named`;
-
-CREATE TABLE `sys_obj_id_named` (
-  `obj_id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
-  PRIMARY KEY (`obj_id`),
-  UNIQUE KEY `name` (`name`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=24 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
 # Data for the `sys_obj_id_named` table  (LIMIT 0,500)
 #
 
@@ -1121,20 +1261,6 @@ INSERT INTO `sys_obj_id_named` (`obj_id`, `name`) VALUES
 COMMIT;
 
 #
-# Structure for the `sys_skins` table : 
-#
-
-DROP TABLE IF EXISTS `sys_skins`;
-
-CREATE TABLE `sys_skins` (
-  `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` CHAR(32) COLLATE utf8_general_ci DEFAULT NULL,
-  `title` CHAR(32) COLLATE utf8_general_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=3 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
 # Data for the `sys_skins` table  (LIMIT 0,500)
 #
 
@@ -1142,21 +1268,6 @@ INSERT INTO `sys_skins` (`id`, `name`, `title`) VALUES
   (1,'default','default'),
   (2,'light','light');
 COMMIT;
-
-#
-# Structure for the `user_group` table : 
-#
-
-DROP TABLE IF EXISTS `user_group`;
-
-CREATE TABLE `user_group` (
-  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
-  `obj_id` INTEGER(10) UNSIGNED NOT NULL DEFAULT '0',
-  `name` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `is_default` TINYINT(4) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=6 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `user_group` table  (LIMIT 0,500)
@@ -1171,30 +1282,6 @@ INSERT INTO `user_group` (`id`, `obj_id`, `name`, `is_default`) VALUES
 COMMIT;
 
 #
-# Structure for the `user_user` table : 
-#
-
-DROP TABLE IF EXISTS `user_user`;
-
-CREATE TABLE `user_user` (
-  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
-  `login` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `email` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `password` VARCHAR(32) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `created` INTEGER(11) DEFAULT NULL,
-  `confirmed` VARCHAR(32) COLLATE utf8_general_ci DEFAULT NULL,
-  `last_login` INTEGER(11) DEFAULT NULL,
-  `timezone` VARCHAR(50) COLLATE utf8_general_ci DEFAULT '3',
-  `skin` INTEGER(11) UNSIGNED DEFAULT '1',
-  `highlight_driver` CHAR(20) COLLATE utf8_general_ci DEFAULT 'js',
-  `avatar_type` INTEGER(11) DEFAULT '2',
-  `preferred_langs` TEXT COLLATE utf8_general_ci,
-  PRIMARY KEY (`id`),
-  KEY `login` (`login`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=4 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
 # Data for the `user_user` table  (LIMIT 0,500)
 #
 
@@ -1202,39 +1289,6 @@ INSERT INTO `user_user` (`id`, `login`, `email`, `password`, `created`, `confirm
   (1,'guest','','',NULL,NULL,1248576546,'3',1,'js',0,''),
   (2,'admin','','098f6bcd4621d373cade4e832627b4f6',NULL,NULL,1249538317,'10',1,'js',2,'');
 COMMIT;
-
-#
-# Structure for the `user_userAuth` table : 
-#
-
-DROP TABLE IF EXISTS `user_userAuth`;
-
-CREATE TABLE `user_userAuth` (
-  `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `user_id` INTEGER(11) UNSIGNED DEFAULT NULL,
-  `ip` CHAR(15) COLLATE utf8_general_ci DEFAULT NULL,
-  `hash` CHAR(32) COLLATE utf8_general_ci DEFAULT NULL,
-  `time` INTEGER(11) UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=1 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
-# Structure for the `user_userGroup_rel` table : 
-#
-
-DROP TABLE IF EXISTS `user_userGroup_rel`;
-
-CREATE TABLE `user_userGroup_rel` (
-  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
-  `group_id` INTEGER(11) DEFAULT NULL,
-  `user_id` INTEGER(11) DEFAULT NULL,
-  `obj_id` INTEGER(11) UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `group_id` (`group_id`, `user_id`),
-  KEY `user_id` (`user_id`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=39 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `user_userGroup_rel` table  (LIMIT 0,500)
@@ -1251,41 +1305,6 @@ INSERT INTO `user_userGroup_rel` (`id`, `group_id`, `user_id`, `obj_id`) VALUES
   (37,2,6,975),
   (38,4,6,976);
 COMMIT;
-
-#
-# Structure for the `user_userOnline` table : 
-#
-
-DROP TABLE IF EXISTS `user_userOnline`;
-
-CREATE TABLE `user_userOnline` (
-  `id` INTEGER(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `user_id` INTEGER(11) DEFAULT NULL,
-  `session` CHAR(32) COLLATE utf8_general_ci DEFAULT NULL,
-  `last_activity` INTEGER(11) DEFAULT NULL,
-  `url` CHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `ip` CHAR(15) COLLATE utf8_general_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `user_id` (`user_id`, `session`),
-  KEY `last_activity` (`last_activity`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=1 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
-# Structure for the `user_userOpenID` table : 
-#
-
-DROP TABLE IF EXISTS `user_userOpenID`;
-
-CREATE TABLE `user_userOpenID` (
-  `id` INTEGER(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `user_id` INTEGER(11) NOT NULL,
-  `openid_url` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `openid_url_standarized` VARCHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`)
-)ENGINE=MyISAM
-AUTO_INCREMENT=1 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 
 

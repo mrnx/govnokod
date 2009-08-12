@@ -87,12 +87,12 @@ class userRegisterController extends simpleController
                 $this->smarty->assign('confirm', $confirm);
                 $this->smarty->assign('user', $user);
 
-                fileLoader::load('service/simpleMailer');
-
-                $subject = 'Подтверждение регистрации на сайте Говнокод.ру';
                 $body = $this->smarty->fetch('user/register/registerMail.tpl');
 
-                $mailer = new simpleMailer($subject, $body, $email, 'noreply@govnokod.ru', 'Говнокод.ру');
+                fileLoader::load('service/mailer/mailer');
+                $mailer = mailer::factory();
+
+                $mailer->set($user->getEmail(), $user->getLogin(), 'noreply@govnokod.ru', 'Говнокод.ру', 'Подтверждение регистрации на сайте Говнокод.ру', $body);
                 $mailer->send();
 
                 return $this->smarty->fetch('user/register/success.tpl');

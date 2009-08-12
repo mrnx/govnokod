@@ -134,6 +134,30 @@ class quoteMapper extends mapper
 
         $quote->setCommentsCount($commentsFolder->getCommentsCount());
         $this->save($quote);
+
+        if ($comment->getTreeParent()) {
+            $commentUser = $comment->getUser();
+            $parentCommentUser = $comment->getTreeParent()->getUser();
+
+            //не будем отсылать почту guest или самому себе
+            if ($parentCommentUser->isLoggedIn() && $commentUser->getId() != $parentCommentUser->getId()) {
+                $smarty = systemToolkit::getInstance()->getSmarty();
+
+                $smarty->assign('commentsFolder', $commentsFolder);
+                $smarty->assign('yourComment', $comment->getTreeParent());
+                $smarty->assign('answerComment', $comment);
+                $smarty->assign('quote', $quote);
+                $smarty->assign('you', $parentCommentUser);
+                $smarty->assign('him', $commentUser);
+                $body = $smarty->fetch('quoter/mail/quote_comment_reply.tpl');
+
+                fileLoader::load('service/mailer/mailer');
+                $mailer = mailer::factory();
+
+                $mailer->set($parentCommentUser->getEmail(), $parentCommentUser->getLogin(), 'noreply@govnokod.ru', 'Говнокод.ру', 'Ответ на Ваш комментарий к говнокоду #' . $quote->getId(), $body);
+                $mailer->send();
+            }
+        }
     }
 
     public function ratingAdded(Array $data)
