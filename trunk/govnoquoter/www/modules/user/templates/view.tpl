@@ -15,5 +15,9 @@
             <dt>Подсветка кода:</dt>
             <dd>{$viewuser->getHighlightDriverTitle()|h}</dd>
         </dl>
+
+        <ul>
+            <li><a href="{url route="userCodes" id=$viewuser->getId()}">Его говнокоды ({$viewuser->getQuotesCount()})</a></li>
+        </ul>
     </li>
 </ol>

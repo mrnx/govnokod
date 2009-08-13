@@ -110,11 +110,17 @@ class quoteMapper extends mapper
 
     public function postInsert(entity $object)
     {
-        $categoryMapper = systemToolkit::getInstance()->getMapper('quote', 'quoteCategory');
+        $toolkit = systemToolkit::getInstance();
+        $categoryMapper = $toolkit->getMapper('quote', 'quoteCategory');
         $category = $object->getCategory();
 
         $category->setQuoteCounts($category->getQuoteCounts() + 1);
         $categoryMapper->save($category);
+
+        $userMapper = $toolkit->getMapper('user', 'user');
+        $user = $object->getUser();
+        $user->setQuotesCount($user->getQuotesCount() + 1);
+        $userMapper->save($user);
     }
 
     public function preDelete(entity $object)
@@ -174,7 +180,7 @@ class quoteMapper extends mapper
         $procentsOn = $ratingsFolder->getRatingsOn() * $k;
         $procentsAgainst = $ratingsFolder->getRatingsAgainst() * $k;
 
-        if ($procentsAgainst >= 75) {
+        if ($procentsAgainst >= 60) {
             $object->setIsActive(0);
         }
 
