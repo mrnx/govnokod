@@ -85,6 +85,10 @@ class userMapper extends mapper
             'accessor' => 'getTimezone',
             'mutator' => 'setTimezone'
         ),
+        'quotes_count' => array(
+            'accessor' => 'getQuotesCount',
+            'mutator' => 'setQuotesCount'
+        ),
         'highlight_driver' => array(
             'accessor' => 'getHighlightDriver',
             'mutator' => 'setHighlightDriver'
