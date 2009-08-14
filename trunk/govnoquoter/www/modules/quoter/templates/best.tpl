@@ -47,3 +47,7 @@
     </li>
 {/foreach}
 </ol>
+
+{if $pager->getPagesTotal() > 1}
+    {$pager->toString()}
+{/if}

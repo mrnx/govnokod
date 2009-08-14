@@ -76,18 +76,19 @@ class quoterBestController extends simpleController
         $nomination = $this->request->getString('nomination');
         switch ($nomination) {
             case 'comments':
-                $criteria->add('comments_count', 0, criteria::GREATER)->setOrderByFieldDesc('comments_count')->setLimit(10);
+                $criteria->add('comments_count', 0, criteria::GREATER)->setOrderByFieldDesc('comments_count');
                 break;
 
             case 'rating':
             default:
                 $nomination = 'rating';
-                $criteria->add('rating', 0, criteria::GREATER)->setOrderByFieldDesc('rating')->setLimit(10);
+                $criteria->add('rating', 0, criteria::GREATER)->setOrderByFieldDesc('rating');
                 break;
         }
 
         $this->smarty->assign('nomination', $nomination);
 
+        $this->setPager($quoteMapper, 10, true, 4);
         $quotes = $quoteMapper->searchAllByCriteria($criteria);
 
         $this->smarty->assign('quotes', $quotes);
