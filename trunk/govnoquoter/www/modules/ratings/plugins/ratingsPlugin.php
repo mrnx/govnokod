@@ -52,6 +52,8 @@ class ratingsPlugin extends observer
             $ratingsFolderMapper = $toolkit->getMapper('ratings', 'ratingsFolder');
 
             $criterion = new criterion($ratingsFolderMapper->table(false) . '.parent_id', $this->mapper->table(false) . '.id', criteria::EQUAL, true);
+            $criterion->addAnd(new criterion($ratingsFolderMapper->table(false) . '.module', $this->mapper->module()));
+            $criterion->addAnd(new criterion($ratingsFolderMapper->table(false) . '.class', $this->mapper->getClass()));
             $criteria->addJoin($ratingsFolderMapper->table(), $criterion, $ratingsFolderMapper->table(false));
 
             $criterion = new criterion($ratingsMapper->table(false) . '.folder_id', $ratingsFolderMapper->table(false) . '.id', criteria::EQUAL, true);

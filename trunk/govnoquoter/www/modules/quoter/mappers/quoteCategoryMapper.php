@@ -55,12 +55,12 @@ class quoteCategoryMapper extends mapper
         ),
         'title' => array(
             'accessor' => 'getTitle',
-            'mutator' => 'setTitle',
+            'mutator' => 'setTitle'
         ),
         'quote_counts' => array(
             'accessor' => 'getQuoteCounts',
             'mutator' => 'setQuoteCounts'
-        ),
+        )
     );
 
     public function __construct()
@@ -82,18 +82,6 @@ class quoteCategoryMapper extends mapper
         $criteria->add('quote_counts', 0, criteria::GREATER)->setOrderByFieldDesc('quote_counts');
 
         return $this->searchAllByCriteria($criteria);
-    }
-
-    public function getPage(quoteCategory $category)
-    {
-        $pageMapper = systemToolkit::getInstance()->getMapper('page', 'page', 'page');
-
-        $criteria = new criteria;
-        $criteria->add('name', $category->getName());
-
-        //@todo: убрать хардкод
-        $criteria->add('folder_id', 2);
-        return $pageMapper->searchOneByCriteria($criteria);
     }
 
     /**
