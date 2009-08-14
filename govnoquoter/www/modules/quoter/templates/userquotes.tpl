@@ -7,7 +7,7 @@
 <ol class="posts hatom">
     <li class="hentry">
         <h2>Список говнокодов пользователя <a href="{url route="withId" module="user" action="" id=$user->getId()}">{$user->getLogin()|h}</a></h2>
-        <p>Всего: {$pager->getPagesTotal()|h}</p>
+        <p>Всего: {$pager->getItemsCount()|h}</p>
     </li>
 {foreach from=$quotes item="quote"}
     {include file="quoter/listitem.tpl" quote=$quote}
