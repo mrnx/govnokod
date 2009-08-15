@@ -68,7 +68,7 @@ class user extends entity
                 switch ($avatarValue) {
                     case 2:
                         $email = $this->getEmail();
-                        $avatarUrl = 'http://www.gravatar.com/avatar/' . md5(strtolower($email)) . '?default=' . urlencode($this->getNoAvatarUrl($size)). '&size=' . $size;
+                        $avatarUrl = 'http://www.gravatar.com/avatar/' . md5(strtolower($email)) . '?default=' . urlencode($this->getNoAvatarUrl($size)). '&r=pg&size=' . $size;
                         break;
 
                     default:
