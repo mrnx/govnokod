@@ -1,4 +1,4 @@
-# SQL Manager 2007 for MySQL 4.4.0.3
+# SQL Manager 2007 for MySQL 4.4.0.5
 # ---------------------------------------
 # Host     : localhost
 # Port     : 3306
@@ -75,7 +75,7 @@ CREATE TABLE `comments_commentsFolder` (
   UNIQUE KEY `parent_id_type` (`parent_id`, `type`),
   KEY `parent_id` (`parent_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=5 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=6 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `comments_commentsFolder` table  (LIMIT 0,500)
@@ -85,7 +85,8 @@ INSERT INTO `comments_commentsFolder` (`id`, `parent_id`, `module`, `type`, `by_
   (1,3,'quoter','quote','id',7),
   (2,1,'quoter','quote','id',3),
   (3,2,'quoter','quote','id',0),
-  (4,5,'quoter','quote','id',0);
+  (4,5,'quoter','quote','id',0),
+  (5,6,'quoter','quote','id',0);
 COMMIT;
 
 #
@@ -351,7 +352,7 @@ CREATE TABLE `quoter_quote` (
   KEY `category_id` (`category_id`),
   KEY `user_id` (`user_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=6 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=7 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `quoter_quote` table  (LIMIT 0,500)
@@ -362,7 +363,8 @@ INSERT INTO `quoter_quote` (`id`, `category_id`, `user_id`, `created`, `deleted`
   (2,7,2,1248257148,0,'asdfasdf','asdfasdf',5,1,0),
   (3,1,1,1248473224,0,'sdfsadf\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nasdfsdaf','asdfasdf',-1,1,7),
   (4,2,2,1250166047,0,'еуые','еуые',0,1,0),
-  (5,2,2,1250166079,0,'еуые','еуые',0,1,0);
+  (5,2,2,1250166079,0,'еуые','еуые',0,1,0),
+  (6,4,2,1250226959,0,'test','asdfasdf',0,1,0);
 COMMIT;
 
 #
@@ -391,7 +393,7 @@ INSERT INTO `quoter_quoteCategory` (`id`, `name`, `geshi_alias`, `js_alias`, `ti
   (1,'php','php','php','PHP',2),
   (2,'javascript','javascript','javascript','JavaScript',2),
   (3,'sql','sql','sql','SQL',0),
-  (4,'perl','perl','perl','PERL',0),
+  (4,'perl','perl','perl','PERL',1),
   (5,'python','python','python','Python',0),
   (6,'c','c','cpp','Си',0),
   (7,'cpp','cpp','cpp','C++',1),
@@ -1237,7 +1239,7 @@ AUTO_INCREMENT=4 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 INSERT INTO `user_user` (`id`, `login`, `email`, `password`, `created`, `confirmed`, `last_login`, `timezone`, `skin`, `quotes_count`, `highlight_driver`, `avatar_type`, `preferred_langs`) VALUES 
   (1,'guest','','',NULL,NULL,1248576546,'3',1,2,'js',0,''),
-  (2,'admin','','098f6bcd4621d373cade4e832627b4f6',NULL,NULL,1249538317,'10',1,3,'js',2,'');
+  (2,'admin','','098f6bcd4621d373cade4e832627b4f6',NULL,NULL,1249538317,'10',1,4,'js',2,'');
 COMMIT;
 
 #

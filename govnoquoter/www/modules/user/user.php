@@ -151,5 +151,20 @@ class user extends entity
     {
         return null;
     }
+
+    public function getGroups()
+    {
+        fileLoader::load('cache');
+        $cache = cache::factory();
+
+        $cacheKey = 'govnokod_user_' . $this->getId() . '_groups';
+        $groups = $cache->get($cacheKey);
+        if (!$groups || !is_a($groups, 'collection')) {
+            $groups = parent::__call('getGroups', array());
+            $cache->set($cacheKey, $groups, userMapper::USER_GROUPS_CACHE_TTL);
+        }
+
+        return $groups;
+    }
 }
 ?>
