@@ -9,6 +9,10 @@ function smarty_modifier_highlite($source, $language = 'text', $cacheKey = null)
         }
     }
 
+    if (empty($language)) {
+        $language = 'text';
+    }
+
     fileLoader::load('libs/geshi/geshi');
     $geshi = new GeSHi($source, $language);
 
