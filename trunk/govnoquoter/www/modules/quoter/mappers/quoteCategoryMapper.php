@@ -84,6 +84,23 @@ class quoteCategoryMapper extends mapper
         return $this->searchAllByCriteria($criteria);
     }
 
+    public function postInsert(entity $object)
+    {
+        $this->cleanCategoriesListCache();
+    }
+
+    public function postUpdate(entity $object)
+    {
+        $this->cleanCategoriesListCache();
+    }
+
+    public function cleanCategoriesListCache()
+    {
+        fileLoader::load('cache');
+        $cache = cache::factory();
+        $cache->delete('govnokod_main_categoriesList');
+    }
+
     /**
      * Возвращает доменный объект по аргументам
      *

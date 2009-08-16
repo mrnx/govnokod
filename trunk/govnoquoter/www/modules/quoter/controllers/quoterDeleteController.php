@@ -24,7 +24,7 @@ class quoterDeleteController extends simpleController
 {
     protected function getView()
     {
-        $onlyDelete = $this->request->getAction() == 'delete';
+        $justDelete = $this->request->getAction() == 'delete';
 
         $id = $this->request->getInteger('id');
 
@@ -35,8 +35,8 @@ class quoterDeleteController extends simpleController
             return $this->forward404($quoteMapper);
         }
 
-        if ($onlyDelete) {
-            $quoteMapper->delete();
+        if ($justDelete) {
+            $quoteMapper->delete($quote);
         } else {
             $quote->setIsActive(!$quote->getIsActive());
             $quoteMapper->save($quote);

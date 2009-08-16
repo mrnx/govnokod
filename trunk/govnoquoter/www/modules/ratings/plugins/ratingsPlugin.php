@@ -51,19 +51,18 @@ class ratingsPlugin extends observer
             $ratingsMapper = $toolkit->getMapper('ratings', 'ratings');
             $ratingsFolderMapper = $toolkit->getMapper('ratings', 'ratingsFolder');
 
-            $criterion = new criterion($ratingsFolderMapper->table(false) . '.parent_id', $this->mapper->table(false) . '.id', criteria::EQUAL, true);
-            $criterion->addAnd(new criterion($ratingsFolderMapper->table(false) . '.module', $this->mapper->module()));
-            $criterion->addAnd(new criterion($ratingsFolderMapper->table(false) . '.class', $this->mapper->getClass()));
-            $criteria->addJoin($ratingsFolderMapper->table(), $criterion, $ratingsFolderMapper->table(false));
+            $ratingsFolderTableAlias = $ratingsFolderMapper->table(false);
 
-            $criterion = new criterion($ratingsMapper->table(false) . '.folder_id', $ratingsFolderMapper->table(false) . '.id', criteria::EQUAL, true);
+            $criterion = new criterion($ratingsFolderTableAlias . '.parent_id', $this->mapper->table(false) . '.id', criteria::EQUAL, true);
+            $criterion->addAnd(new criterion($ratingsFolderTableAlias . '.module', $this->mapper->module()));
+            $criterion->addAnd(new criterion($ratingsFolderTableAlias . '.class', $this->mapper->getClass()));
+            $criteria->addJoin($ratingsFolderMapper->table(), $criterion, $ratingsFolderTableAlias);
+
+            $criterion = new criterion($ratingsMapper->table(false) . '.folder_id', $ratingsFolderTableAlias . '.id', criteria::EQUAL, true);
             $criterion->addAnd(new criterion($ratingsMapper->table(false) . '.user_id', $user->getId()));
             $criteria->addJoin($ratingsMapper->table(), $criterion, $ratingsMapper->table(false));
 
             $criteria->addSelectField($ratingsMapper->table(false) . '.ratevalue', $this->mapper->table(false) . mapper::TABLE_KEY_DELIMITER  . 'current_user_rate');
-
-            //$criteria->setDistinct();
-            //$ratingsMapper->addSelectFields($criteria, null, 'current_user_rate');
         }
     }
 

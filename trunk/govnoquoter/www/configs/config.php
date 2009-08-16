@@ -62,7 +62,9 @@ systemConfig::$pathToConf = dirname(__FILE__);
 systemConfig::$mailer['default']['backend'] = 'PHPMailer';
 systemConfig::$mailer['default']['params'] = array('html' => true, 'smtp' => true, 'smtp_host' => 'localhost');
 
-systemConfig::$cache['default']['backend'] = 'memory';
+systemConfig::$cache['default']['backend'] = 'memcache';
+systemConfig::$cache['default']['params'] = array('servers' => array('localhost' => array()));
+
 systemConfig::$cache['memory']['backend'] = 'memory';
 //systemConfig::$cache['default']['params'] = array('path' => systemConfig::$pathToTemp . DIRECTORY_SEPARATOR . 'cache', 'prefix' => 'cf2_');
 

@@ -21,14 +21,26 @@
  */
 class quoterListCategoriesController extends simpleController
 {
+    const CACHE_TTL = 3600;
+
     protected function getView()
     {
-        $categoryMapper = $this->toolkit->getMapper('quoter', 'quoteCategory');
+        fileLoader::load('cache');
+        $cache = cache::factory();
 
-        $categories = $categoryMapper->searchAllWithQuotes();
-        $this->smarty->assign('categories', $categories);
+        $cacheKey = 'govnokod_main_categoriesList';
+        $html = $cache->get($cacheKey);
+        if (!$html) {
+            $categoryMapper = $this->toolkit->getMapper('quoter', 'quoteCategory');
 
-        return $this->fetch('quoter/listCategories.tpl');
+            $categories = $categoryMapper->searchAllWithQuotes();
+
+            $this->smarty->assign('categories', $categories);
+            $html = $this->fetch('quoter/listCategories.tpl');
+            $cache->set($cacheKey, $html, self::CACHE_TTL);
+        }
+
+        return $html;
     }
 }
 ?>

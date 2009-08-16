@@ -25,6 +25,8 @@ fileLoader::load('modules/jip/plugins/jipPlugin');
  */
 class userMapper extends mapper
 {
+    const USER_GROUPS_CACHE_TTL = 86400;
+
     /**
      * Учётная запись не подтверждена
      *
