@@ -379,8 +379,9 @@ p#entrance
 	list-style: none;
 	text-align: right;
 
-	font-family: "Courier New", "Courier", "monospace";
+	font-family: monospace;
 	width: 30px;
+	line-height: 18px;
 }
 
 .posts .hentry .entry-content pre
@@ -392,7 +393,8 @@ p#entrance
 	overflow-x: auto;
 	overflow-y: hidden;
 
-	font-family: "Courier New", "Courier", "monospace";
+	font-family: monospace;
+	line-height: 18px;
 }
 
 .posts .hentry .entry-content a.trigger
@@ -842,5 +844,5 @@ div#footer address span a
 
 /* Geshi bold line-height hack */
 .kw1, .kw2, .kw3, .kw4 .kw5, .kw6, .kw7, .kw8, .li2, .es_h, .es0, .es1, .es2, .es3, .es4, .es5, .es6, .sy0, .imp, .nu0 {
-    line-height: 16px;
+    line-height: 18px;
 }
