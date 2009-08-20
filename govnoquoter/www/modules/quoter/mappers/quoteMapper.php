@@ -180,7 +180,7 @@ class quoteMapper extends mapper
         $procentsOn = $ratingsFolder->getRatingsOn() * $k;
         $procentsAgainst = $ratingsFolder->getRatingsAgainst() * $k;
 
-        if ($procentsAgainst >= 60) {
+        if ($procentsAgainst >= 30) {
             $object->setIsActive(0);
         }
 
