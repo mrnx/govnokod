@@ -7,9 +7,13 @@
         <dl>
             <dt>Предпочитаемые языки:</dt>
             <dd>
+                {if $user->getPreferredLangs() === false}
+                <strong>Все</strong>
+                {else}
                 {foreach from=$categories item="category" name="categoryIterator"}
                 {$category->getTitle()|h}{if !$smarty.foreach.categoryIterator.last},{/if}
                 {/foreach}
+                {/if}
             </dd>
 
             <dt>Подсветка кода:</dt>

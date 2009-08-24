@@ -27,7 +27,7 @@ class user extends entity
 
     protected $avatarUrls = array();
     protected $preferredLangs = null;
-    protected $preferredLangsObjects = null;
+    protected $preferredLangsCategories = null;
 
     /**
      * Проверяет является ли пользователь авторизированным
@@ -108,14 +108,36 @@ class user extends entity
         parent::__call('setPreferredLangs', array($langs));
     }
 
+    public function getPreferredLangsCategories()
+    {
+        if (is_null($this->preferredLangsCategories)) {
+            $categories = array();
+            if ($this->getPreferredLangs()) {
+                $quoteCategoryMapper = systemToolkit::getInstance()->getMapper('quoter', 'quoteCategory');
+
+                $criteria = new criteria;
+                $criteria->add('id', $user->getPreferredLangs(), criteria::IN);
+                $categories = $quoteCategoryMapper->searchAllByCriteria($criteria);
+            }
+
+            $this->preferredLangsCategories = $categories;
+        }
+
+        return $this->preferredLangsCategories;
+    }
+
     public function getPreferredLangs()
     {
         if (is_null($this->preferredLangs)) {
             $langs = parent::__call('getPreferredLangs', array());
-            try {
-                $langs = unserialize($langs);
-            } catch (mzzException $ex) {
+            if ($langs === '') {
                 $langs = false;
+            } else {
+                try {
+                    $langs = unserialize($langs);
+                } catch (mzzException $ex) {
+                    $langs = false;
+                }
             }
 
             $this->preferredLangs = $langs;
