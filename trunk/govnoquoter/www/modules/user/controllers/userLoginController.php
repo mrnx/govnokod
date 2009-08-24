@@ -70,16 +70,6 @@ class userLoginController extends simpleController
             return $this->fetch('user/loginForm.tpl');
         }
 
-        $categoryMapper = $this->toolkit->getMapper('quoter', 'quoteCategory');
-
-        $criteria = new criteria;
-        if ($user->getPreferredLangs()) {
-            $criteria->add('id', $user->getPreferredLangs(), criteria::IN);
-        }
-
-        $categories = $categoryMapper->searchAllByCriteria($criteria);
-        $this->smarty->assign('categories', $categories);
-
         $this->smarty->assign('user', $user);
         return $this->fetch('user/alreadyLogin.tpl');
     }
