@@ -20,11 +20,15 @@ if set != nil and set.num_rows > 0
     while row = set.fetch_hash do
         fromHeader = row['fromName'] ? row['fromName'] + ' <' + row['from'] + '>' : row['from'];
         toHeader = row['toName'] ? row['toName'] + ' <' + row['to'] + '>' : row['to']
-        subjectHeader = '=?UTF-8?B?' + Base64.encode64(row['subject']) + '?='
     
-        body = Base64.encode64(row['body'])
+        body = "From: #{fromHeader}\n" + 
+        "To: #{toHeader}\n" +
+        "Subject: =?UTF-8?B?#{Base64.encode64(row['subject'])}?=\n" +
+        "Content-type: text/html;charset=UTF-8\n" +
+        "Content-Transfer-Encoding: base64\n\n" + 
+        Base64.encode64(row['body'])
     
-        smtp.send_message "From: #{fromHeader}\nTo: #{toHeader}\nSubject: #{subjectHeader}\nContent-type: text/html;charset=UTF-8\nContent-Transfer-Encoding: base64\n\n#{body}", #Message text
+        smtp.send_message body, #Message text
             row["from"], #From field
             [row["to"]] #To array (may be many entries)
     end
