@@ -9,21 +9,26 @@ require "net/smtp"
 
 #Connects to server
 connection = Mysql.connect "localhost", "root", "", "govnokod"
-
 connection.query "SET NAMES `utf8`"
 
 #Gets set of elements
-set = connection.query "SELECT * FROM `mailer_mail` WHERE `id`"
+set = connection.query "SELECT * FROM `mailer_mail`"
 
 if set != nil and set.num_rows > 0
     smtp = Net::SMTP.start('localhost', 25)
+    
+    def encodeString s
+        '=?UTF-8?B?' + Base64.encode64(s) + '?='
+    end
+    
     while row = set.fetch_hash do
-        fromHeader = row['fromName'] ? row['fromName'] + ' <' + row['from'] + '>' : row['from'];
-        toHeader = row['toName'] ? row['toName'] + ' <' + row['to'] + '>' : row['to']
+        fromHeader = row['fromName'].length > 0 ? encodeString(row['fromName']) + ' <' + row['from'] + '>' : row['from'];
+        toHeader = row['toName'].length > 0 ? encodeString(row['toName']) + ' <' + row['to'] + '>' : row['to']
+        subjectHeader = encodeString(row['subject']);
     
         body = "From: #{fromHeader}\n" + 
         "To: #{toHeader}\n" +
-        "Subject: =?UTF-8?B?#{Base64.encode64(row['subject'])}?=\n" +
+        "Subject: #{subjectHeader}\n" +
         "Content-type: text/html;charset=UTF-8\n" +
         "Content-Transfer-Encoding: base64\n\n" + 
         Base64.encode64(row['body'])
