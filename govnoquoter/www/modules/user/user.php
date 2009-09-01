@@ -116,7 +116,7 @@ class user extends entity
                 $quoteCategoryMapper = systemToolkit::getInstance()->getMapper('quoter', 'quoteCategory');
 
                 $criteria = new criteria;
-                $criteria->add('id', $user->getPreferredLangs(), criteria::IN);
+                $criteria->add('id', $this->getPreferredLangs(), criteria::IN);
                 $categories = $quoteCategoryMapper->searchAllByCriteria($criteria);
             }
 
