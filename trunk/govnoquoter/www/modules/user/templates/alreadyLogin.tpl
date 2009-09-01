@@ -10,7 +10,7 @@
                 {if $user->getPreferredLangs() === false}
                 <strong>Все</strong>
                 {else}
-                {foreach from=$categories item="category" name="categoryIterator"}
+                {foreach from=$user->getPreferredLangsCategories() item="category" name="categoryIterator"}
                 {$category->getTitle()|h}{if !$smarty.foreach.categoryIterator.last},{/if}
                 {/foreach}
                 {/if}
