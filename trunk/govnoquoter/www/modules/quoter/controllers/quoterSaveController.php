@@ -50,6 +50,9 @@ class quoterSaveController extends simpleController
             $categoriesSelect[$category->getId()] = $category->getTitle();
         }
 
+        $previewValidator = new formValidator('preview');
+        $isPreview = $previewValidator->validate();
+
         $validator = new formValidator();
         $validator->add('required', 'category_id', 'Укажите язык');
         $validator->add('in', 'category_id', 'Укажите правильный язык', array_keys($categoriesSelect));
@@ -58,9 +61,11 @@ class quoterSaveController extends simpleController
         $validator->add('callback', 'description', 'Описание может быть не более ' . quote::MAX_DESC_CHARS . ' символов', array('checkDescLength'));
 
         if (!$isEdit) {
-            $validator->add('required', 'license', 'Примите лицензию!');
-            $validator->add('required', 'captcha', 'Произвол не пройдёт!');
-            $validator->add('captcha', 'captcha', 'Неверно введен проверочный код!');
+            //$validator->add('required', 'license', 'Примите лицензию!');
+            if (!$isPreview) {
+                $validator->add('required', 'captcha', 'Произвол не пройдёт! Укажите проверочный код!');
+                $validator->add('captcha', 'captcha', 'Неверно введен проверочный код!');
+            }
         }
 
         if ($validator->validate()) {
@@ -68,28 +73,39 @@ class quoterSaveController extends simpleController
             $description = mzz_trim($this->request->getString('description', SC_POST));
             $text = mzz_trim($this->request->getString('text', SC_POST));
 
-            $quote->setCategory($categoryId);
-            $quote->setDescription($description);
-            $quote->setText($text);
+            if (!$isPreview) {
+                $quote->setCategory($categoryId);
+                $quote->setDescription($description);
+                $quote->setText($text);
 
-            if ($isEdit) {
-                $cache = cache::factory('geshi_code');
-                $cache->delete($quote->getCacheKey());
+                if ($isEdit) {
+                    $cache = cache::factory('geshi_code');
+                    $cache->delete($quote->getCacheKey());
+                } else {
+                    $quote->setUser($user);
+                }
+
+                $quoteMapper->save($quote);
+
+                if ($this->request->isAjax()) {
+                    return jipTools::redirect();
+                } else {
+                    $url = new url('quoteView');
+                    $url->add('id', $quote->getId());
+
+                    $this->redirect($url->get());
+                    return;
+                }
             } else {
-                $quote->setUser($user);
+                $quote->merge(array(
+                    'category_id' => $categories[$categoryId],
+                    'description' => $description,
+                    'text' => $text,
+                    'user_id' => $user,
+                ));
             }
-
-            $quoteMapper->save($quote);
-
-            $url = new url('quoteView');
-            $url->add('id', $quote->getId());
-
-            if ($this->request->isAjax()) {
-                return jipTools::redirect();
-            } else {
-                $this->response->redirect($url->get());
-                return;
-            }
+        } else {
+            $isPreview = false;
         }
 
         if ($isEdit) {
@@ -103,6 +119,8 @@ class quoterSaveController extends simpleController
         $this->smarty->assign('categoriesSelect', $categoriesSelect);
         $this->smarty->assign('isEdit', $isEdit);
         $this->smarty->assign('quote', $quote);
+        $this->smarty->assign('user', $user);
+        $this->smarty->assign('isPreview', $isPreview);
         $this->smarty->assign('formAction', $url->get());
 
         if ($isEdit && $this->request->isAjax()) {
