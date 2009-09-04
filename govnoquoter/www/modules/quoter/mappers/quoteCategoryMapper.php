@@ -27,6 +27,8 @@ fileLoader::load('modules/jip/plugins/jipPlugin');
 
 class quoteCategoryMapper extends mapper
 {
+    protected $module = 'quoter';
+
     /**
      * Имя класса DataObject
      *

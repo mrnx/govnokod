@@ -39,6 +39,8 @@ class userMapper extends mapper
      */
     const WRONG_AUTH_DATA = 0;
 
+    protected $module = 'user';
+
     /**
      * Имя таблицы
      *

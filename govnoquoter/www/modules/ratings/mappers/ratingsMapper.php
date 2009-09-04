@@ -23,6 +23,8 @@ fileLoader::load('ratings');
  */
 class ratingsMapper extends mapper
 {
+    protected $module = 'ratings';
+
     /**
      * Имя класса DataObject
      *
