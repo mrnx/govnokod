@@ -23,6 +23,8 @@ fileLoader::load('user/userOpenID');
  */
 class userOpenIDMapper extends mapper
 {
+    protected $module = 'user';
+
     /**
      * DomainObject class name
      *

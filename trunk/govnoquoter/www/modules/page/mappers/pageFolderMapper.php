@@ -27,6 +27,8 @@ fileLoader::load('modules/jip/plugins/jipPlugin');
 
 class pageFolderMapper extends mapper
 {
+    protected $module = 'page';
+
     /**
      * Имя класса DataObject
      *

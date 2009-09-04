@@ -24,6 +24,8 @@ fileLoader::load('orm/plugins/identityMapPlugin');
  */
 class ratingsFolderMapper extends mapper
 {
+    protected $module = 'ratings';
+
     /**
      * Имя класса DataObject
      *

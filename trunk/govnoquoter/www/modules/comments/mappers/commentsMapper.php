@@ -27,6 +27,8 @@ fileLoader::load('modules/jip/plugins/jipPlugin');
  */
 class commentsMapper extends mapper
 {
+    protected $module = 'comments';
+
     /**
      * Имя класса DataObject
      *
