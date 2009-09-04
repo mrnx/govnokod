@@ -68,8 +68,8 @@ systemConfig::$cache['default']['params'] = array('servers' => array('localhost'
 systemConfig::$cache['memory']['backend'] = 'memory';
 //systemConfig::$cache['default']['params'] = array('path' => systemConfig::$pathToTemp . DIRECTORY_SEPARATOR . 'cache', 'prefix' => 'cf2_');
 
-systemConfig::$cache['geshi_code']['backend'] = 'memcache';
-systemConfig::$cache['geshi_code']['params'] = array('servers' => array('localhost' => array()));
+systemConfig::$cache['geshi_code']['backend'] = 'file';
+systemConfig::$cache['geshi_code']['params'] = array('path' => systemConfig::$pathToTemp . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'code', 'prefix' => 'highlighted_');
 
 systemConfig::$cache['file']['backend'] = 'file';
 systemConfig::$cache['file']['params'] = array('path' => systemConfig::$pathToTemp . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'code', 'prefix' => 'highlighted_');

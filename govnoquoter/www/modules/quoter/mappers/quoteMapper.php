@@ -86,6 +86,14 @@ class quoteMapper extends mapper
         'rating' => array(
             'accessor' => 'getRating',
             'mutator' => 'setRating'
+        ),
+        'ratings_on' => array (
+            'accessor' => 'getRatingsOn',
+            'mutator' => 'setRatingsOn',
+        ),
+        'ratings_against' => array (
+            'accessor' => 'getRatingsAgainst',
+            'mutator' => 'setRatingsAgainst',
         )
     );
 
@@ -174,6 +182,8 @@ class quoteMapper extends mapper
         $ratingsFolder = $data['ratingsFolder'];
 
         $object->setRating($ratingsFolder->getRating());
+        $object->setRatingsOn($ratingsFolder->getRatingsOn());
+        $object->setRatingsAgainst($ratingsFolder->getRatingsAgainst());
 
         $userMapper = systemToolkit::getInstance()->getMapper('user', 'user');
         $usersCount = $userMapper->getActiveUsersCount();
