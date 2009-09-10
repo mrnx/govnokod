@@ -103,7 +103,7 @@ class quoteMapper extends mapper
         parent::__construct();
         $this->plugins('acl_simple');
         $this->plugins('jip');
-        $this->plugins('comments');
+        $this->attach(new commentsPlugin(array('join_last_seen' => true)));
     }
 
     public function searchById($id)
