@@ -64,6 +64,7 @@ class commentsPlugin extends observer
                 $criteria->addJoin($commentsLastSeenMapper->table(), $criterion, $commentsLastSeenMapper->table(false));
 
                 $criteria->addSelectField($commentsLastSeenMapper->table(false) . '.cnt', $this->mapper->table(false) . mapper::TABLE_KEY_DELIMITER  . 'seen_comments_count');
+                //$criteria->addSelectField(new sqlOperator('-', array($commentsFolderTableAlias . '.comments_count', $commentsLastSeenMapper->table(false) . '.cnt')), $this->mapper->table(false) . mapper::TABLE_KEY_DELIMITER  . 'new_comments_count');
             }
         }
     }
