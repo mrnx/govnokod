@@ -1,4 +1,4 @@
-# SQL Manager 2007 for MySQL 4.4.0.3
+# SQL Manager 2007 for MySQL 4.4.0.5
 # ---------------------------------------
 # Host     : localhost
 # Port     : 3306
@@ -39,7 +39,7 @@ CREATE TABLE `comments_comments` (
   KEY `user_id` (`user_id`),
   KEY `folder_id` (`folder_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=11 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=15 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `comments_comments` table  (LIMIT 0,500)
@@ -55,7 +55,11 @@ INSERT INTO `comments_comments` (`id`, `text`, `user_id`, `created`, `folder_id`
   (7,'test5',2,1248950053,1,1),
   (8,'test56',2,1248950180,1,-1),
   (9,'sdgfsdf',2,1248950407,1,0),
-  (10,'test',2,1249123678,2,1);
+  (10,'test',2,1249123678,2,1),
+  (11,'testme',1,1252543218,8,0),
+  (12,'ёёёё!',1,1252561959,6,0),
+  (13,'стотыщраз!',1,1252562152,8,0),
+  (14,'фывафыва',1,1252562157,8,0);
 COMMIT;
 
 #
@@ -87,9 +91,35 @@ INSERT INTO `comments_commentsFolder` (`id`, `parent_id`, `module`, `type`, `by_
   (3,2,'quoter','quote','id',0),
   (4,5,'quoter','quote','id',0),
   (5,4,'quoter','quote','id',0),
-  (6,6,'quoter','quote','id',0),
+  (6,6,'quoter','quote','id',1),
   (7,7,'quoter','quote','id',0),
-  (8,8,'quoter','quote','id',0);
+  (8,8,'quoter','quote','id',3);
+COMMIT;
+
+#
+# Structure for the `comments_comments_lseen` table : 
+#
+
+DROP TABLE IF EXISTS `comments_comments_lseen`;
+
+CREATE TABLE `comments_comments_lseen` (
+  `id` INTEGER(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `folder_id` INTEGER(10) UNSIGNED NOT NULL,
+  `user_id` INTEGER(10) UNSIGNED NOT NULL,
+  `cnt` INTEGER(10) UNSIGNED NOT NULL DEFAULT '0',
+  `time_read` INTEGER(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `folder_id` (`folder_id`, `user_id`)
+)ENGINE=MyISAM
+AUTO_INCREMENT=5 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Data for the `comments_comments_lseen` table  (LIMIT 0,500)
+#
+
+INSERT INTO `comments_comments_lseen` (`id`, `folder_id`, `user_id`, `cnt`, `time_read`) VALUES 
+  (3,6,2,1,1252562007),
+  (4,8,2,3,1252562195);
 COMMIT;
 
 #
@@ -108,7 +138,7 @@ CREATE TABLE `comments_comments_tree` (
   KEY `parent_id` (`parent_id`),
   KEY `foreign_key` (`foreign_key`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=11 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=15 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `comments_comments_tree` table  (LIMIT 0,500)
@@ -124,7 +154,11 @@ INSERT INTO `comments_comments_tree` (`id`, `foreign_key`, `parent_id`, `level`,
   (7,7,0,1,'7/'),
   (8,8,7,2,'7/8/'),
   (9,9,0,1,'9/'),
-  (10,10,0,1,'10/');
+  (10,10,0,1,'10/'),
+  (11,11,0,1,'11/'),
+  (12,12,0,1,'12/'),
+  (13,13,0,1,'13/'),
+  (14,14,0,1,'14/');
 COMMIT;
 
 #
@@ -361,9 +395,9 @@ INSERT INTO `quoter_quote` (`id`, `category_id`, `user_id`, `created`, `deleted`
   (3,1,1,1248473224,0,'sdfsadf\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nasdfsdaf','asdfasdf',-2,0,2,0,7),
   (4,2,2,1250166047,0,'еуые','еуые',0,0,0,1,0),
   (5,2,2,1250166079,0,'еуые','еуые',0,0,0,1,0),
-  (6,3,2,1252065170,0,'sdfasdf\nasd\nf\nasdf','asdf',0,0,0,1,0),
+  (6,3,2,1252065170,0,'sdfasdf\nasd\nf\nasdf','asdf',0,0,0,1,1),
   (7,9,2,1252065623,0,'sdfasdfasdf','sdfsadf',0,0,0,1,0),
-  (8,5,2,1252066462,0,'sdfasdf','',0,0,0,1,0);
+  (8,5,2,1252066462,0,'sdfasdf','',0,0,0,1,3);
 COMMIT;
 
 #
@@ -648,7 +682,7 @@ CREATE TABLE `sys_classes` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=62 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=60 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `sys_classes` table  (LIMIT 0,500)
@@ -705,8 +739,8 @@ INSERT INTO `sys_classes` (`id`, `name`, `module_id`) VALUES
   (55,'quote',22),
   (56,'quoteCategory',22),
   (57,'quoteFolder',22),
-  (59,'commentsVote',8),
-  (60,'userOpenID',2);
+  (58,'userOpenID',2),
+  (59,'commentsLastSeen',8);
 COMMIT;
 
 #
@@ -1214,7 +1248,7 @@ AUTO_INCREMENT=4 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 INSERT INTO `user_user` (`id`, `login`, `email`, `password`, `created`, `confirmed`, `last_login`, `timezone`, `skin`, `quotes_count`, `highlight_driver`, `avatar_type`, `preferred_langs`) VALUES 
   (1,'guest','','',NULL,NULL,1248576546,'3',1,2,'js',0,''),
-  (2,'admin','','098f6bcd4621d373cade4e832627b4f6',NULL,NULL,1252063946,'10',1,6,'js',2,'');
+  (2,'admin','','098f6bcd4621d373cade4e832627b4f6',NULL,NULL,1252558542,'10',1,6,'js',2,'');
 COMMIT;
 
 #
@@ -1231,14 +1265,15 @@ CREATE TABLE `user_userAuth` (
   `time` INTEGER(11) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=3 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=4 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `user_userAuth` table  (LIMIT 0,500)
 #
 
 INSERT INTO `user_userAuth` (`id`, `user_id`, `ip`, `hash`, `time`) VALUES 
-  (1,2,'127.0.0.1','fb461ece1ab6031127154717ae617e4c',1250163905);
+  (1,2,'127.0.0.1','fb461ece1ab6031127154717ae617e4c',1250163905),
+  (3,2,'127.0.0.1','c1eb3d2913ac4da045ab835cc4dbc65d',1252543250);
 COMMIT;
 
 #
