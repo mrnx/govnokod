@@ -1,4 +1,4 @@
-            <div class="entry-comment-wrapper{if $commentsLastSeen|default:false && $comment->getCreated() > $commentsLastSeen->getTimeRead()} new{/if}">
+            <div class="entry-comment-wrapper{if $lastTimeRead|default:false && $comment->getCreated() > $lastTimeRead} new{/if}">
                 <p class="entry-info">
                     <img class="avatar" src="{$comment->getUser()->getAvatarUrl(28)|h}" alt="ava" title="Аватар" />
                     <strong class="entry-author"><a href="{url route="withId" module="user" id=$comment->getUser()->getId() action=""}">{$comment->getUser()->getLogin()|h}</a></strong>

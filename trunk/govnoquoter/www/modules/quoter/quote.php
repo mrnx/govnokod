@@ -85,6 +85,11 @@ class quote extends entity
 
     public function getNewCommentsCount()
     {
+        $user = systemToolkit::getInstance()->getUser();
+        if (!$user->isLoggedIn()) {
+            return 0;
+        }
+
         return $this->getCommentsCount() - (int)$this->getSeenCommentsCount();
     }
 
