@@ -471,10 +471,25 @@ div.entry-comments ul
 
 div.entry-comments ul .hcomment
 {
-	margin: 1.3em 0 0 0;
-	padding: 0;
+	margin: 1em 0 0 0;
+
 
 	border: none;
+}
+
+div.entry-comments ul .hcomment .entry-comment-wrapper
+{
+    padding: 0.3em;
+}
+
+div.entry-comments ul .hcomment .entry-comment-wrapper.new
+{
+    background-color: #FFF9DF;
+}
+
+div.entry-comments ul .hcomment .entry-comment-wrapper:hover
+{
+    background-color: #F6F6F6;
 }
 
 div.entry-comments ul .hcomment ul
@@ -513,8 +528,7 @@ div.entry-comments ul .hcomment p.entry-info
 
 div.entry-comments ul .hcomment p .comment-vote
 {
-	right: 1em;
-
+	right: 1.5em;
 	position: absolute;
 }
 
@@ -567,6 +581,12 @@ div.entry-comments ul .hcomment p .comment-vote span.my-vote.comment-vote-agains
 div.entry-comments ul .hcomment p .comment-vote .just-rating
 {
     padding-right: 1em;
+}
+
+div.entry-comments span.entry-comments-new
+{
+    font-weight: bold;
+    color: green;
 }
 
 img.avatar

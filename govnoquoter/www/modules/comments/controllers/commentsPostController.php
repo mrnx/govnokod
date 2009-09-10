@@ -85,6 +85,11 @@ class commentsPostController extends simpleController
             $comment->setText(mzz_trim($text));
             $commentsMapper->save($comment);
 
+            if ($user->isLoggedIn()) {
+                $commentsLastSeenMapper = $this->toolkit->getMapper('comments', 'commentsLastSeen');
+                $commentsLastSeenMapper->saveSeen($user, $commentsFolder, $commentsFolder->getCommentsCount());
+            }
+
             if ($isAjax) {
                 $this->smarty->disableMain();
                 $this->smarty->assign('comment', $comment);
