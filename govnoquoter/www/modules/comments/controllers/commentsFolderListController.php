@@ -87,7 +87,7 @@ class commentsFolderListController extends simpleController
         $this->smarty->assign('commentsFolder', $commentsFolder);
         $this->smarty->assign('comments', $comments);
         $this->smarty->assign('commentsLastSeen', $commentsLastSeen);
-        return $this->smarty->fetch('comments/list.tpl');
+        return $this->fetch('comments/list.tpl');
     }
 }
 
