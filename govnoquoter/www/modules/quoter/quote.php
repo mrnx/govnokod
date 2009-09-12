@@ -83,17 +83,10 @@ class quote extends entity
         return self::CACHE_PREFIX . $localPrefix . $this->getId();
     }
 
-    /*
     public function getNewCommentsCount()
     {
-        $user = systemToolkit::getInstance()->getUser();
-        if (!$user->isLoggedIn()) {
-            return 0;
-        }
-
         return $this->getCommentsCount() - (int)$this->getSeenCommentsCount();
     }
-    */
 
     public function getAcl($name = null)
     {

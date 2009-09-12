@@ -35,17 +35,17 @@ class commentsPlugin extends observer
     protected function updateMap(& $map)
     {
         if ($this->isWithLastSeen()) {
-            /*
             $map['seen_comments_count'] = array(
                 'accessor' => 'getSeenCommentsCount',
                 'options' => array('fake', 'ro')
             );
-            */
 
+            /*
             $map['new_comments_count'] = array(
                 'accessor' => 'getNewCommentsCount',
                 'options' => array('fake', 'ro')
             );
+            */
         }
     }
 
@@ -70,8 +70,8 @@ class commentsPlugin extends observer
                 $criterion->addAnd(new criterion($commentsLastSeenMapper->table(false) . '.user_id', $user->getId()));
                 $criteria->addJoin($commentsLastSeenMapper->table(), $criterion, $commentsLastSeenMapper->table(false));
 
-                //$criteria->addSelectField($commentsLastSeenMapper->table(false) . '.cnt', $this->mapper->table(false) . mapper::TABLE_KEY_DELIMITER  . 'seen_comments_count');
-                $criteria->addSelectField(new sqlOperator('-', array($commentsFolderTableAlias . '.comments_count', $commentsLastSeenMapper->table(false) . '.cnt')), $this->mapper->table(false) . mapper::TABLE_KEY_DELIMITER  . 'new_comments_count');
+                $criteria->addSelectField($commentsLastSeenMapper->table(false) . '.cnt', $this->mapper->table(false) . mapper::TABLE_KEY_DELIMITER  . 'seen_comments_count');
+                //$criteria->addSelectField(new sqlOperator('-', array($commentsFolderTableAlias . '.comments_count', $commentsLastSeenMapper->table(false) . '.cnt')), $this->mapper->table(false) . mapper::TABLE_KEY_DELIMITER  . 'new_comments_count');
             }
         }
     }
