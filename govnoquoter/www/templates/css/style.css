@@ -589,6 +589,7 @@ div.entry-comments span.comments-icon
     width: 14px;
     height: 14px;
     display: inline-block;
+    padding-right: 0.2em;
 }
 
 div.entry-comments span.comments-icon.comments-new
