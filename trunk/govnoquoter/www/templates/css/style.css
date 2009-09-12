@@ -583,6 +583,19 @@ div.entry-comments ul .hcomment p .comment-vote .just-rating
     padding-right: 1em;
 }
 
+div.entry-comments span.comments-icon
+{
+    background: url(../images/comments/icons.gif) no-repeat 0px 0px;
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+}
+
+div.entry-comments span.comments-icon.comments-new
+{
+    background-position: 0px -15px;
+}
+
 div.entry-comments span.entry-comments-new
 {
     color: green;
