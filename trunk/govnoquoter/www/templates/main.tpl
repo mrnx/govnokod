@@ -8,7 +8,7 @@
         <ul id="navigation">
             <li><a href="{$SITE_PATH}/">Все</a></li>
             <li><a href="{url route="best"}">Лучший</a></li>
-            <li><a href="{url route="search"}">Поиск</a></li>
+            <li><a href="{url route="search"}">Глупый поиск</a></li>
             {*<li><a href="#">Газета</a></li>*}
             <li class="add"><a href="{url route="quoteAdd"}">Наговнокодить!</a></li>
         </ul>
