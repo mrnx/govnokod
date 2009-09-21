@@ -654,6 +654,15 @@ div.entry-comments ul .hcomment .entry-comment
 	font-size: 1em;
 }
 
+/**
+ * code in comments fix
+ * @thanks to greevex
+ */
+div.entry-comments ul .hcomment .entry-comment pre
+{
+    overflow: auto;
+}
+
 div.entry-comments span.rss
 {
     font-size: 0.6em;
@@ -877,5 +886,5 @@ div#footer address span a
 
 /* Geshi bold line-height hack */
 .kw1, .kw2, .kw3, .kw4 .kw5, .kw6, .kw7, .kw8, .li2, .es_h, .es0, .es1, .es2, .es3, .es4, .es5, .es6, .sy0, .imp, .nu0 {
-    line-height: 18px;
+    line-height: 16px;
 }
