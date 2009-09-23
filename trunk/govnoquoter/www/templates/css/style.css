@@ -431,6 +431,12 @@ p#entrance
 	background: url(../images/codeload.gif) no-repeat;
 }
 
+.posts .hentry .author abbr
+{
+    margin-left: 0.5em;
+    font-size: 12px;
+}
+
 div.entry-comments
 {
 	margin: 0.8em 0 0 0;
