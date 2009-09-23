@@ -28,7 +28,8 @@
             {$quote->getDescription()|trim|h|bbcode|nl2br}
         </p>
         <p class="author">
-            Наговнокодил: <a href="{url route="withId" module="user" action="" id=$quote->getUser()->getId()}"><img src="{$quote->getUser()->getAvatarUrl(20)|h}" alt="" class="avatar" /></a> <a href="{url route="withId" module="user" action="" id=$quote->getUser()->getId()}">{$quote->getUser()->getLogin()|h}</a>
+            Запостил: <a href="{url route="withId" module="user" action="" id=$quote->getUser()->getId()}"><img src="{$quote->getUser()->getAvatarUrl(20)|h}" alt="" class="avatar" /></a> <a href="{url route="withId" module="user" action="" id=$quote->getUser()->getId()}">{$quote->getUser()->getLogin()|h}</a>,
+            <abbr title="{"c"|date:$quote->getCreated()}">{$quote->getCreated()|date_i18n:"date2"}</abbr>
         </p>
         <div class="entry-comments">
             <span class="comments-icon{if $current_user->isLoggedIn() && $quote->getNewCommentsCount() > 0} comments-new" title="Есть новые комментарии!{/if}"></span><a href="{url route="quoteView" id=$quote->getId()}" class="entry-comments-load">Комментарии</a> <span class="entry-comments-count">({$quote->getCommentsCount()}{if $current_user->isLoggedIn() && $quote->getNewCommentsCount() > 0}, <span title="Новые комментарии" class="entry-comments-new">+{$quote->getNewCommentsCount()|h}</span>{/if})</span>
