@@ -75,6 +75,7 @@ class commentsFolderListController extends simpleController
             $commentsLastSeen = $commentsLastSeenMapper->searchByUserAndFolder($user, $commentsFolder);
 
             $lastTimeRead = ($commentsLastSeen) ? $commentsLastSeen->getTimeRead() : 1;
+            $this->smarty->assign('lastTimeRead', $lastTimeRead);
 
             $commentsCount = $comments->count();
             if (!$commentsLastSeen || $commentsLastSeen->getSeenCommentsCount() != $commentsCount) {
