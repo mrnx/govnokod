@@ -151,6 +151,24 @@ class quoteMapper extends mapper
         $quote->setCommentsCount($commentsFolder->getCommentsCount());
         $this->save($quote);
 
+        $quoteUser = $quote->getUser();
+        //отсылаем уведомление создателю говнокода
+        if ($quoteUser->isLoggedIn() && $quoteUser->getId() != $comment->getUser()->getId()) {
+            $smarty = systemToolkit::getInstance()->getSmarty();
+
+            $smarty->assign('comment', $comment);
+            $smarty->assign('quote', $quote);
+            $smarty->assign('quoteUser', $quoteUser);
+            $body = $smarty->fetch('quoter/mail/new_comment.tpl');
+
+            fileLoader::load('service/mailer/mailer');
+            $mailer = mailer::factory();
+
+            $mailer->set($quoteUser->getEmail(), $quoteUser->getLogin(), 'noreply@govnokod.ru', 'Говнокод.ру', 'Новый комментарий к говнокоду #' . $quote->getId(), $body);
+            $mailer->send();
+        }
+
+        //Рассылаем почту, если данный комментарий был ответом на другое комментарий
         if ($comment->getTreeParent()) {
             $commentUser = $comment->getUser();
             $parentCommentUser = $comment->getTreeParent()->getUser();

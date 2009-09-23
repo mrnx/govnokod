@@ -34,7 +34,7 @@
                 <dd>{form->select name="timezone" options=$timezones emptyFirst=true}</dd>
             </dl>
             <p>
-                {form->submit class="send" name="submit" value="Зарегистрировать!"}
+                {form->submit class="send" name="submit" value="Зарегистрироваться!"}
             </p>
         </form>
     </li>
