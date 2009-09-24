@@ -217,6 +217,31 @@ class quoteMapper extends mapper
         $this->save($object);
     }
 
+    public function ratingGetVoteValue($vote, user $user, entity $object)
+    {
+        $rateValue = null;
+        switch ($vote) {
+            case 'on':
+                $rateValue = ($user->isLoggedIn()) ? 1 : 0.1;
+                break;
+
+            case 'against':
+                $rateValue = ($user->isLoggedIn()) ? -1 : -0.1;
+                break;
+        }
+
+        return $rateValue;
+    }
+
+    public function ratingUserCanRate($vote, user $user, entity $object)
+    {
+        if (!$object->getUser()->isLoggedIn()) {
+            return true;
+        }
+
+        return $object->getIsActive() && $object->getUser()->getId() != $user->getId();
+    }
+
     /**
      * Возвращает доменный объект по аргументам
      *

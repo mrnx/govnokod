@@ -374,7 +374,7 @@ CREATE TABLE `quoter_quote` (
   `deleted` INTEGER(11) NOT NULL DEFAULT '0',
   `text` TEXT COLLATE utf8_general_ci NOT NULL,
   `description` TEXT COLLATE utf8_general_ci NOT NULL,
-  `rating` INTEGER(11) NOT NULL,
+  `rating` FLOAT NOT NULL,
   `ratings_on` INTEGER(10) UNSIGNED NOT NULL DEFAULT '0',
   `ratings_against` INTEGER(10) UNSIGNED NOT NULL DEFAULT '0',
   `active` INTEGER(11) NOT NULL,
@@ -478,7 +478,15 @@ CREATE TABLE `ratings_ratingsFolder` (
   KEY `parent_id` (`parent_id`),
   KEY `module_class` (`module`, `class`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=1 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=2 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Data for the `ratings_ratingsFolder` table  (LIMIT 0,500)
+#
+
+INSERT INTO `ratings_ratingsFolder` (`id`, `module`, `class`, `ratings_on`, `ratings_against`, `rating`, `parent_id`) VALUES 
+  (1,'quoter','quote',0,0,0,5);
+COMMIT;
 
 #
 # Structure for the `sys_access` table : 
@@ -1248,7 +1256,7 @@ AUTO_INCREMENT=4 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 INSERT INTO `user_user` (`id`, `login`, `email`, `password`, `created`, `confirmed`, `last_login`, `timezone`, `skin`, `quotes_count`, `highlight_driver`, `avatar_type`, `preferred_langs`) VALUES 
   (1,'guest','','',NULL,NULL,1248576546,'3',1,2,'js',0,''),
-  (2,'admin','','098f6bcd4621d373cade4e832627b4f6',NULL,NULL,1252558542,'10',1,6,'js',2,'');
+  (2,'admin','','098f6bcd4621d373cade4e832627b4f6',NULL,NULL,1253773150,'10',1,6,'js',2,'');
 COMMIT;
 
 #
@@ -1266,15 +1274,6 @@ CREATE TABLE `user_userAuth` (
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM
 AUTO_INCREMENT=4 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-#
-# Data for the `user_userAuth` table  (LIMIT 0,500)
-#
-
-INSERT INTO `user_userAuth` (`id`, `user_id`, `ip`, `hash`, `time`) VALUES 
-  (1,2,'127.0.0.1','fb461ece1ab6031127154717ae617e4c',1250163905),
-  (3,2,'127.0.0.1','c1eb3d2913ac4da045ab835cc4dbc65d',1252543250);
-COMMIT;
 
 #
 # Structure for the `user_userGroup_rel` table : 

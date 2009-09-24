@@ -101,10 +101,6 @@ class quote extends entity
             }
         }
 
-        if ($name == 'rate') {
-            return $this->getIsActive() && $this->getUser()->getId() != $user->getId();
-        }
-
         return parent::__call('getAcl', array($name));
     }
 }
