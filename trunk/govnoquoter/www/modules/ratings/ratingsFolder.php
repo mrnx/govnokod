@@ -63,6 +63,7 @@ class ratingsFolder extends entity
 
     public function getAcl($name = null)
     {
+        return true;
         switch ($name) {
             case 'rate':
                 $user = systemToolkit::getInstance()->getUser();

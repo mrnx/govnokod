@@ -81,5 +81,36 @@ class ratingsPlugin extends observer
         return (bool)$this->options['join_guest_rate'];
     }
 
+    public function getRateByVote($vote, user $user, entity $object)
+    {
+        $rateValue = null;
+        if (method_exists($this->mapper, 'ratingGetVoteValue')) {
+            $rateValue = $this->mapper->ratingGetVoteValue($vote, $user, $object);
+        } else {
+            switch ($vote) {
+                case 'on':
+                    $rateValue = 1;
+                    break;
+
+                case 'against':
+                    $rateValue = -1;
+                    break;
+            }
+        }
+
+        return $rateValue;
+    }
+
+    public function canRate($vote, user $user, entity $object)
+    {
+        $can = true;
+
+        if (method_exists($this->mapper, 'ratingUserCanRate')) {
+            $can = $this->mapper->ratingUserCanRate($vote, $user, $object);
+        }
+
+        return $can;
+    }
+
 }
 ?>

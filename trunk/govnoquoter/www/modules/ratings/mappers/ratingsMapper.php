@@ -76,6 +76,14 @@ class ratingsMapper extends mapper
         return $this->searchOneByCriteria($criteria);
     }
 
+    public function searchByGestUserAndFolder($ip, ratingsFolder $folder)
+    {
+        $criteria = new criteria;
+        $criteria->add('ip_address', $ip)->add('folder_id', $folder->getId())->add('created', time() - 7200, criteria::GREATER); //таймаут голосования - 2 часа
+
+        return $this->searchOneByCriteria($criteria);
+    }
+
     public function preInsert(array & $data)
     {
         $data['created'] = time();
