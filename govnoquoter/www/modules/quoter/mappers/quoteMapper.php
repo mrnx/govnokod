@@ -245,13 +245,15 @@ class quoteMapper extends mapper
             if (!$user->isLoggedIn()) {
                 $toolkit = systemToolkit::getInstance();
                 $request = $toolkit->getRequest();
+                $session = $toolkit->getSession();
+
                 $allow = false;
                 $token = $request->getString('secret', SC_GET);
                 if ($token) {
-                    $session = $toolkit->getSession();
                     $value = $session->get($object->getTokenName(), false);
                     $allow = ($value === $token);
                 }
+                $session->destroy($object->getTokenName());
 
                 return $allow;
             }
