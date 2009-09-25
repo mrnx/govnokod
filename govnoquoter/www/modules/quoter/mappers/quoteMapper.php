@@ -111,11 +111,13 @@ class quoteMapper extends mapper
         return $this->searchByKey($id);
     }
 
-    public function preInsert(array & $data)
+    public function preInsert(& $data)
     {
-        $data['created'] = new sqlFunction('UNIX_TIMESTAMP');
-        $data['rating'] = 0;
-        $data['active'] = 1;
+        if (is_array($data)) {
+            $data['created'] = new sqlFunction('UNIX_TIMESTAMP');
+            $data['rating'] = 0;
+            $data['active'] = 1;
+        }
     }
 
     public function postInsert(entity $object)
