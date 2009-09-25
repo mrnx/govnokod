@@ -236,8 +236,24 @@ class quoteMapper extends mapper
     public function ratingUserCanRate($vote, user $user, entity $object)
     {
         if ($object->getIsActive()) {
+            //Если этот говнокод был запощен гостем (старые говнокоды, после апдейта сайта)
             if (!$object->getUser()->isLoggedIn()) {
                 return true;
+            }
+
+            //у гостя будем проверять токены
+            if (!$user->isLoggedIn()) {
+                $toolkit = systemToolkit::getInstance();
+                $request = $toolkit->getRequest();
+                $allow = false;
+                $token = $request->getString('secret', SC_GET);
+                if ($token) {
+                    $session = $toolkit->getSession();
+                    $value = $session->get($object->getTokenName(), false);
+                    $allow = ($value === $token);
+                }
+
+                return $allow;
             }
 
             return $object->getUser()->getId() != $user->getId();

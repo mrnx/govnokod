@@ -25,8 +25,10 @@ class quote extends entity
     const VOTE_TIMEOUT = 7200;
     const MAX_DESC_CHARS = 2000;
     const CACHE_PREFIX = 'quote_';
+    const SESSION_VOTE_TOKEN_PREFIX = 'votetoken_';
 
     protected $linesCount = 0;
+    protected $vote_token = null;
 
     public function getText($linesNum = null)
     {
@@ -76,6 +78,23 @@ class quote extends entity
     {
         $description = mzz_substr($description, 0, self::MAX_DESC_CHARS);
         parent::__call('setDescription', array($description));
+    }
+
+    public function getVoteToken()
+    {
+        if (is_null($this->vote_token)) {
+            $session = systemToolkit::getInstance()->getSession();
+            $token = md5(microtime(true) . $this->getId());
+            $session->set($this->getTokenName(), $token);
+            $this->vote_token = $token;
+        }
+
+        return $this->vote_token;
+    }
+
+    public function getTokenName()
+    {
+        return self::SESSION_VOTE_TOKEN_PREFIX . $this->getId();
     }
 
     public function getCacheKey($localPrefix = '')
