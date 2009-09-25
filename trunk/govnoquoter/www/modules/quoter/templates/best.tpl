@@ -30,7 +30,7 @@
             <dt>За время:</dt>
             <dd>
                 <ul>
-                    <li>{if $time != 'day'}<a href="{url _time="day"}">за этот день</a>{else}за этот день{/if}</li>
+                    <li>{if $time != 'day'}<a href="{url _time="day"}">за сегодня</a>{else}за сегодня{/if}</li>
                     <li>{if $time != 'week'}<a href="{url _time="week"}">за неделю</a>{else}за неделю{/if}</li>
                     <li>{if $time != 'month'}<a href="{url _time="month"}">за месяц</a>{else}за месяц{/if}</li>
                     <li>{if $time != 'ever'}<a href="{url _time="ever"}">за всё время</a>{else}за всё время{/if}</li>

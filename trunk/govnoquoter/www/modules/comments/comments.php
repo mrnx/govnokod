@@ -34,10 +34,6 @@ class comments extends entity
             }
         }
 
-        if ($name == 'rate') {
-            return $user->getId() != $this->getUser()->getId();
-        }
-
         return parent::__call('getAcl', array($name));
     }
 }

@@ -16,9 +16,12 @@
         {/if}
     {/if}
 {else}
+    {if $justRate|default:false}
+    <strong class="just-rating{if $quote->getRating() < 0} bad{/if}" title="{$quote->getRatingsOn()|h} за и {$quote->getRatingsAgainst()|h} против">{if $quote->getRating() > 0}+{elseif $quote->getRating() < 0}&minus;{/if}{$quote->getRating()|@abs}</strong>
+    {else}
     <a class="vote-against" rel="nofollow" href="{url route="rateForCode" id=$quote->getId() vote="against"}" title="Минусну!">&darr;</a>
     <strong{if $quote->getRating() < 0} class="bad"{/if} title="{$quote->getRatingsOn()|h} за и {$quote->getRatingsAgainst()|h} против">{if $quote->getRating() > 0}+{elseif $quote->getRating() < 0}&minus;{/if}{$quote->getRating()|@abs}</strong>
     <a class="vote-on" rel="nofollow" href="{url route="rateForCode" id=$quote->getId() vote="on"}" title="Плюсану!">&uarr;</a>
-    {*<strong class="just-rating{if $quote->getRating() < 0} bad{/if}" title="{$quote->getRatingsOn()|h} за и {$quote->getRatingsAgainst()|h} против">{if $quote->getRating() > 0}+{elseif $quote->getRating() < 0}&minus;{/if}{$quote->getRating()|@abs}</strong>*}
+    {/if}
 {/if}
 {/strip}

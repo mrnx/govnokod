@@ -100,7 +100,6 @@ class ratingsFolderMapper extends mapper
                         $folder->setModule($module);
                         $folder->setClass($class);
 
-
                         $pkAccessor = $ratedObjectMapper->pk();
                         $map = $ratedObjectMapper->map();
                         $objectId = $object->$map[$pkAccessor]['accessor']();
@@ -133,37 +132,30 @@ class ratingsFolderMapper extends mapper
         $ratingsFolder = $data['ratingsFolder'];
         $ratedObjectMapper = $ratingsFolder->getObjectMapper();
 
-        if ($ratedObjectMapper->plugin('ratings')->getDriver() == 'simple') {
-            $ratings = $data['ratings'];
+        $ratings = $data['ratings'];
 
-            $value = (int)$ratings->getRateValue();
+        $value = $ratings->getRateValue();
 
+        if ($value > 0) {
             $ratingsOn = $ratingsFolder->getRatingsOn();
+            $ratingsOn++;
+            $ratingsFolder->setRatingsOn($ratingsOn);
+        } elseif ($value < 0) {
             $ratingsAgainst = $ratingsFolder->getRatingsAgainst();
-
-            switch ($value) {
-                case 1:
-                    $ratingsOn++;
-                    $ratingsFolder->setRatingsOn($ratingsOn);
-                    break;
-
-                case -1:
-                    $ratingsAgainst++;
-                    $ratingsFolder->setRatingsAgainst($ratingsAgainst);
-                    break;
-            }
-
-            $currentRating = (int)$ratingsFolder->getRating();
-            $newRating = $currentRating + $value;
-
-            $ratingsFolder->setRating($newRating);
-            $this->save($ratingsFolder);
-
-            $data['ratingsFolder'] = &$ratingsFolder;
-            $data['ratedObject'] = $ratingsFolder->getObject();
-
-            $ratedObjectMapper->notify('ratingAdded', $data);
+            $ratingsAgainst++;
+            $ratingsFolder->setRatingsAgainst($ratingsAgainst);
         }
+
+        $currentRating = $ratingsFolder->getRating();
+        $newRating = $currentRating + $value;
+
+        $ratingsFolder->setRating($newRating);
+        $this->save($ratingsFolder);
+
+        $data['ratingsFolder'] = &$ratingsFolder;
+        $data['ratedObject'] = $ratingsFolder->getObject();
+
+        $ratedObjectMapper->notify('ratingAdded', $data);
     }
 
     public function convertArgsToObj($args)

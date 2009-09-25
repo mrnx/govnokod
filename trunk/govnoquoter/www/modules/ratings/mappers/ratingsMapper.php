@@ -72,21 +72,23 @@ class ratingsMapper extends mapper
     public function searchByUserAndFolder(user $user, ratingsFolder $folder)
     {
         $criteria = new criteria;
-        $criteria->add('user_id', $user->getId())->add('folder_id', $folder->getId());
+        $criteria->add('user_id', $user->getId())->add('folder_id', $folder->getId())->setLimit(1);
         return $this->searchOneByCriteria($criteria);
     }
 
-    public function searchByGestUserAndFolder($ip, ratingsFolder $folder)
+    public function searchByGestUserAndFolder($ip, ratingsFolder $folder, $rateTimeout = 7200)
     {
         $criteria = new criteria;
-        $criteria->add('ip_address', $ip)->add('folder_id', $folder->getId())->add('created', time() - 7200, criteria::GREATER); //таймаут голосования - 2 часа
+        $criteria->add('ip_address', $ip)->add('folder_id', $folder->getId())->add('created', time() - $rateTimeout, criteria::GREATER)->setLimit(1);
 
         return $this->searchOneByCriteria($criteria);
     }
 
-    public function preInsert(array & $data)
+    public function preInsert(& $data)
     {
-        $data['created'] = time();
+        if (is_array($data)) {
+            $data['created'] = time();
+        }
     }
 
     public function postInsert(entity $object)
