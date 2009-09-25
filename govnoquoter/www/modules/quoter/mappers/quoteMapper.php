@@ -235,11 +235,26 @@ class quoteMapper extends mapper
 
     public function ratingUserCanRate($vote, user $user, entity $object)
     {
-        if (!$object->getUser()->isLoggedIn()) {
-            return true;
+        if ($object->getIsActive()) {
+            if (!$object->getUser()->isLoggedIn()) {
+                return true;
+            }
+
+            return $object->getUser()->getId() != $user->getId();
         }
 
-        return $object->getIsActive() && $object->getUser()->getId() != $user->getId();
+        return false;
+    }
+
+    public function ratingSearchUserRate($vote, $rateValue, user $user, entity $ratedObject, $ratingsFolder, $ratingsMapper, $ip, $ua)
+    {
+        if ($user->isLoggedIn()) {
+            $rate = $ratingsMapper->searchByUserAndFolder($user, $ratingsFolder);
+        } else {
+            $rate = $ratingsMapper->searchByGestUserAndFolder($ip, $ratingsFolder, 7200); //таймаут голосования 2 часа
+        }
+
+        return $rate;
     }
 
     /**
@@ -255,6 +270,7 @@ class quoteMapper extends mapper
                 return $do;
             }
         }
+
         throw new mzzDONotFoundException();
     }
 }

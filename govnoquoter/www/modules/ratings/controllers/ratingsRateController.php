@@ -59,13 +59,7 @@ class ratingsRateController extends simpleController
 
             $ratingsMapper = $this->toolkit->getMapper('ratings', 'ratings');
 
-            $rate = $ratingsPlugin->searchUserRate($vote, $rateValue, $user, $ratedObject, $ratingsFolder, $ratingsMapper);
-
-            if ($user->isLoggedIn()) {
-                $rate = $ratingsMapper->searchByUserAndFolder($user, $ratingsFolder);
-            } else if ($moduleClass == 'quoter_quote') {
-                $rate = $ratingsMapper->searchByGestUserAndFolder($ip, $ratingsFolder);
-            }
+            $rate = $ratingsPlugin->searchUserRate($vote, $rateValue, $user, $ratedObject, $ratingsFolder, $ratingsMapper, $ip, $ua);
 
             if (!$rate) {
                 $rate = $ratingsMapper->create();
@@ -82,6 +76,7 @@ class ratingsRateController extends simpleController
             switch ($moduleClass) {
                 case 'quoter_quote':
                     if ($format == 'ajax') {
+                        $this->smarty->assign('justRate', true);
                         $this->smarty->assign('quote', $ratedObject);
                         return $this->smarty->fetch('quoter/rating.tpl');
                     } else {
@@ -93,14 +88,14 @@ class ratingsRateController extends simpleController
                     break;
 
                 case 'comments_comments':
-                    if ($object->getFolder()->getType() == 'quote') {
+                    if ($ratedObject->getFolder()->getType() == 'quote') {
                         if ($format == 'ajax') {
                              $this->smarty->assign('comment', $ratedObject);
-                        return $this->smarty->fetch('comments/rating.tpl');
+                            return $this->smarty->fetch('comments/rating.tpl');
                         } else {
                             $backUrl = new url('quoteView');
                             $backUrl->add('id', $ratedObject->getFolder()->getObject()->getId());
-                            $this->redirect($backUrl->get() . '#comment' . $object->getId());
+                            $this->redirect($backUrl->get() . '#comment' . $ratedObject->getId());
                         }
                     }
                     return;
@@ -110,7 +105,7 @@ class ratingsRateController extends simpleController
             return;
         }
 
-        return $this->forward403($ratingsFolderMapper);
+        return $this->forward404($ratingsFolderMapper);
     }
 }
 ?>

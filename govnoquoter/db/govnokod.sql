@@ -396,7 +396,7 @@ INSERT INTO `quoter_quote` (`id`, `category_id`, `user_id`, `created`, `deleted`
   (4,2,2,1250166047,0,'еуые','еуые',0,0,0,1,0),
   (5,2,2,1250166079,0,'еуые','еуые',0,0,0,1,0),
   (6,3,2,1252065170,0,'sdfasdf\nasd\nf\nasdf','asdf',0,0,0,1,1),
-  (7,9,2,1252065623,0,'sdfasdfasdf','sdfsadf',0,0,0,1,0),
+  (7,9,2,1252065623,0,'sdfasdfasdf','sdfsadf',0.1,1,0,1,0),
   (8,5,2,1252066462,0,'sdfasdf','',0,0,0,1,3);
 COMMIT;
 
@@ -451,14 +451,21 @@ CREATE TABLE `ratings_ratings` (
   `created` INTEGER(11) NOT NULL,
   `ip_address` CHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `useragent` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `ratevalue` INTEGER(11) NOT NULL,
+  `ratevalue` FLOAT NOT NULL,
   `folder_id` INTEGER(10) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `user_parent_uniq` (`user_id`, `folder_id`),
   KEY `user_id` (`user_id`),
   KEY `parent_id` (`folder_id`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=1 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=2 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+#
+# Data for the `ratings_ratings` table  (LIMIT 0,500)
+#
+
+INSERT INTO `ratings_ratings` (`id`, `user_id`, `created`, `ip_address`, `useragent`, `ratevalue`, `folder_id`) VALUES 
+  (1,1,1253838052,'127.0.0.1','Opera/9.80 (Windows NT 5.1; U; ru) Presto/2.2.15 Version/10.00',0.1,2);
+COMMIT;
 
 #
 # Structure for the `ratings_ratingsFolder` table : 
@@ -478,14 +485,15 @@ CREATE TABLE `ratings_ratingsFolder` (
   KEY `parent_id` (`parent_id`),
   KEY `module_class` (`module`, `class`)
 )ENGINE=MyISAM
-AUTO_INCREMENT=2 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+AUTO_INCREMENT=3 ROW_FORMAT=FIXED CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 #
 # Data for the `ratings_ratingsFolder` table  (LIMIT 0,500)
 #
 
 INSERT INTO `ratings_ratingsFolder` (`id`, `module`, `class`, `ratings_on`, `ratings_against`, `rating`, `parent_id`) VALUES 
-  (1,'quoter','quote',0,0,0,5);
+  (1,'quoter','quote',0,0,0,5),
+  (2,'quoter','quote',1,0,0.1,7);
 COMMIT;
 
 #

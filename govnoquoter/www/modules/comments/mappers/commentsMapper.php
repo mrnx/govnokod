@@ -129,6 +129,15 @@ class commentsMapper extends mapper
         $this->save($object);
     }
 
+    public function ratingUserCanRate($vote, user $user, entity $object)
+    {
+        if (!$user->isLoggedIn()) {
+            return false;
+        }
+
+        return $object->getUser()->getId() != $user->getId();
+    }
+
     public function convertArgsToObj($args)
     {
         if (isset($args['id']) && $comment = $this->searchById($args['id'])) {

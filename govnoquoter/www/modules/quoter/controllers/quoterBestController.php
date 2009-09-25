@@ -43,31 +43,23 @@ class quoterBestController extends simpleController
 
         $this->smarty->assign('category', $category);
 
-        $nowTime = time();
-
         $time = $this->request->getString('time', SC_GET);
         switch ($time) {
             case 'month':
-                $lastMonthTime = strtotime('-1 month', $nowTime);
-
-                $criteria->add('created', array($lastMonthTime, $nowTime), criteria::BETWEEN);
+                $criteria->add('created', gmmktime(null, null, null, date('m'), 1), criteria::GREATER);
                 break;
 
             case 'week':
-                $lastWeekTime = strtotime('-1 week', $nowTime);
-
-                $criteria->add('created', array($lastWeekTime, $nowTime), criteria::BETWEEN);
+                $criteria->add('created', gmmktime(1, 0, 0, date('m'), gmdate('d') - gmdate('w') + 1), criteria::GREATER);
                 break;
 
             case 'ever':
-                $time = 'ever';
                 break;
 
             case 'day':
             default:
                 $time = 'day';
-                $lastDayTime = strtotime('-1 day', $nowTime);
-                $criteria->add('created', array($lastDayTime, $nowTime), criteria::BETWEEN);
+                $criteria->add('created', gmmktime(0, 0, 0), criteria::GREATER);
                 break;
         }
 

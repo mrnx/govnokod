@@ -112,5 +112,15 @@ class ratingsPlugin extends observer
         return $can;
     }
 
+    public function searchUserRate($vote, $rateValue, user $user, entity $ratedObject, $ratingsFolder, $ratingsMapper, $ip, $ua)
+    {
+        if (method_exists($this->mapper, 'ratingSearchUserRate')) {
+            $rate = $this->mapper->ratingSearchUserRate($vote, $rateValue, $user, $ratedObject, $ratingsFolder, $ratingsMapper, $ip, $ua);
+        } else {
+            $rate = $ratingsMapper->searchByUserAndFolder($user, $ratingsFolder);
+        }
+
+        return $rate;
+    }
 }
 ?>
