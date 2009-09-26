@@ -140,7 +140,8 @@ class userOpenIDLoginController extends userLoginController
                         $this->toolkit->setUser($user);
                         $this->rememberUser($user);
 
-                        $this->redirect($this->getSuccessUrl());
+                        $url = new url('default');
+                        $this->redirect($url->get());
                         return;
                     } else {
                         $errors = array('openid_identifier' => 'Авторизация не подтверждена сервером!');

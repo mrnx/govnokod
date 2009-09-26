@@ -59,7 +59,7 @@
 
                 <dt>{form->caption name="text" value="Код (максимум 100 строк):"}</dt>
                 <dd>
-                    {if $quote->getText()}{assign var="text" value=$quote->getText()}{else}{assign var="text" value="\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"}{/if}
+                    {if $quote->getText()}{assign var="text" value=$quote->getText()}{else}{assign var="text" value="\n\n\n\n\n\n\n\n\n\n"}{/if}
                     {form->textarea class="code" name="text" value=$text rows="10" cols="50"}
                 </dd>
 
