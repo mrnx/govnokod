@@ -93,8 +93,14 @@ class userRegisterController extends simpleController
                 $mailer = mailer::factory();
 
                 $mailer->set($user->getEmail(), $user->getLogin(), 'noreply@govnokod.ru', 'Говнокод.ру', 'Подтверждение регистрации на сайте Говнокод.ру', $body);
-                $mailer->send();
+                $mailSended = $mailer->send();
 
+                if (!$mailSended) {
+                    $user->setConfirmed(null);
+                    $userMapper->save($user);
+                }
+
+                $this->smarty->assign('mailSended', $mailSended);
                 return $this->smarty->fetch('user/register/success.tpl');
             }
         } else {
