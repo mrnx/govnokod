@@ -7,7 +7,7 @@
 <ol class="posts hatom">
     <li class="hentry">
         <h2>Поиск говнокода</h2>
-        <p>Это поиск практически ничего не может найти! Но вы всё-таки попытайтесь, вдруг повезет.</p>
+        <p>Этот поиск практически ничего не может найти! Но вы всё-таки попытайтесь, вдруг повезет.</p>
         {strip}{capture name="searchUrl"}{if $category|default:false}{url route="search" name=$category->getName()}{else}{url route="search"}{/if}{/capture}
         <form action="{$smarty.capture.searchUrl|h}" method="get">
             <dl>
