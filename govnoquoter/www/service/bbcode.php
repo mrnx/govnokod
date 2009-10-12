@@ -51,16 +51,19 @@ class bbcode
      */
     protected $tags = array(
     'b' => array(
-    'html' => '<strong>%1$s</strong>',
+    'html' => '<b>%1$s</b>',
     ),
     'i' => array(
-    'html' => '<em>%1$s</em>',
+    'html' => '<i>%1$s</i>',
     ),
     'u' => array(
     'html' => '<span style="text-decoration: underline;">%1$s</span>',
     ),
     's' => array(
-    'html' => '<strike>%1$s</strike>',
+    'html' => '<span style="text-decoration: line-through;">%1$s</span>',
+    ),
+    'blink' => array(
+    'html' => '<span style="text-decoration: blink;">%1$s</span>',
     ),
     'color' => array(
     'html' => '<span style="color: %2$s;">%1$s</span>',
@@ -72,12 +75,12 @@ class bbcode
     'permanentWithAttributes' => true,
     'attributes' => array('1', '2', '3')
     ),
-    'img' => array(
+    /*'img' => array(
     'callback' => 'handleImg'
     ),
     'url' => array(
     'callback' => 'handleUrl'
-    ),
+    ),*/
     'code' => array(
     'callback' => 'handleCode',
     'no_wordwrap' => true,
