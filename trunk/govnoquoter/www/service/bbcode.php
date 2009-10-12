@@ -621,10 +621,60 @@ class bbcode
      */
     protected function handleCode($code, $lang = 'text')
     {
-        //$lang = strtolower($lang);
+        $toolkit = systemToolkit::getInstance();
+        $user = $toolkit->getUser();
+
+        $lang = mzz_strtolower($lang);
         $code = mzz_trim(str_replace(array('<br>', '<br />'), '', $code));
 
-        return '<pre><code> ' . $code . '</code></pre>';
+        //@todo наговнокодим-ка сюда весь список, чтобы не лезть в БД
+        $langs = array(
+            'php' => 'php',
+            'пхп' => 'php',
+            'php5' => 'php',
+            'javascript' => 'javascript',
+            'js' => 'javascript',
+            'жаваскрипт' => 'javascript',
+            'sql' => 'sql',
+            'mysql' => 'sql',
+            'perl' => 'perl',
+            'перл' => 'perl',
+            'python' => 'python',
+            'питон' => 'python',
+            'питун' => 'python',
+            'рутноп' => 'python',
+            'c' => 'c',
+            'си' => 'c',
+            'cpp' => 'cpp',
+            'c++' => 'cpp',
+            'csharp' => 'cs',
+            'cs' => 'cs',
+            'c#' => 'cs',
+            'шарп' => 'cs',
+            'java' => 'java',
+            'жава' => 'java',
+            'жаба' => 'java',
+            'delphi' => 'delphi',
+            'делфи' => 'delphi',
+            'дельфи' => 'delphi',
+            'avrasm' => 'avrasm',
+            'asm' => 'avrasm',
+            'асм' => 'avrasm',
+            'ассемблер' => 'avrasm',
+            'ассемблер' => 'avrasm',
+            'vbscript' => 'vbscript',
+            'vb' => 'vbscript',
+            'бейсик' => 'vbscript',
+            'ruby' => 'ruby',
+            'руби' => 'ruby',
+            'bash' => 'bash',
+            'баш' => 'bash',
+        );
+
+        $lang = (isset($langs[$lang])) ? $langs[$lang] : '';
+
+        $code = '<pre><code class="' . $lang . '">' . $code . '</code></pre>';
+        return $code;
 
         /*
         fileLoader::load('libs/geshi/geshi');

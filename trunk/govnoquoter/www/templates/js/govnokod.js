@@ -30,6 +30,13 @@ var code;
                     commentsHolder.fadeOut(0);
                     commentsHolder.html(msg);
                     commentsHolder.fadeIn(300);
+
+                    //Если подключен jshighlight, то ищем все [code] теги в комментариях и пробуем их подсветить
+                    if (typeof(hljs) == 'object') {
+                        commentsHolder.find('pre code').each(function() {
+                            hljs.highlightBlock(this);
+                        });
+                    }
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown){
                     preloader.remove();
@@ -206,5 +213,10 @@ var code;
             $('#userpane').toggleClass('expanded');
             return false;
         });
+
+        //Если вдруг подключили js higlight драйвер
+        if (typeof(hljs) == 'object') {
+            hljs.initHighlighting();
+        }
     });
 })(jQuery);
