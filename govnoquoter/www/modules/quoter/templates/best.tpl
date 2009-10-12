@@ -2,7 +2,7 @@
 {add file="jquery.js"}
 {add file="jquery.scrollTo.js"}
 {add file="govnokod.js"}
-{if $current_user->getHighlightDriver() == 'js'}{add file="jshighlight/govnokod.css"}{add file="jshighlight/highlight.pack.js"}{add file="govnokod.jsh.js"}{/if}
+{if $current_user->getHighlightDriver() == 'js'}{add file="jshighlight/govnokod.css"}{add file="jshighlight/highlight.pack.js"}{/if}
 
 {if $time == 'day'}
 {title append="Лучший говнокод за сегодня"}

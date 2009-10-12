@@ -10,7 +10,7 @@
 {assign var="langName" value=$quote->getCategory()->getGeshiAlias()|h}
 {if $langName}{add file="langs/$langName.css"}{/if}
 {else}
-{add file="jshighlight/govnokod.css"}{add file="jshighlight/highlight.pack.js"}{add file="govnokod.jsh.js"}
+{add file="jshighlight/govnokod.css"}{add file="jshighlight/highlight.pack.js"}
 {assign var="langName" value=$quote->getCategory()->getJsAlias()|h}
 {/if}
 
