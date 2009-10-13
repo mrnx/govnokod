@@ -369,7 +369,7 @@ class i18n
             $format = 'short_date_short_time';
         }
 
-        $tz = systemToolkit::getInstance()->getUserPreferences()->getTimezone();
+        $tz = systemToolkit::getInstance()->getUser()->getTimezone();
 
         $date += $tz * 3600 - date('Z') + date('I') * 3600;
 
