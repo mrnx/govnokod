@@ -41,16 +41,22 @@ class quoterBestController extends simpleController
             $criteria->add('category_id', $category->getId());
         }
 
+        $user = $this->toolkit->getUser();
+
         $this->smarty->assign('category', $category);
 
         $time = $this->request->getString('time', SC_GET);
         switch ($time) {
             case 'month':
-                $criteria->add('created', gmmktime(null, null, null, date('m'), 1), criteria::GREATER);
+                $startTime = mktime(0, 0, 0, date('m'), 1) + $user->getTimezone() * 3600 - date('Z') + date('I') * 3600;
+                $criteria->add('created', $startTime, criteria::GREATER);
                 break;
 
             case 'week':
-                $criteria->add('created', gmmktime(1, 0, 0, date('m'), gmdate('d') - gmdate('w') + 1), criteria::GREATER);
+                $startOfWeek = (date('w') == 0) ? date('d') - 6 : date('d') - date('w') - 1;
+
+                $startTime = mktime(0, 0, 0, date('m'), $startOfWeek) + $user->getTimezone() * 3600 - date('Z') + date('I') * 3600;
+                $criteria->add('created', $startTime, criteria::GREATER);
                 break;
 
             case 'ever':
@@ -59,7 +65,9 @@ class quoterBestController extends simpleController
             case 'day':
             default:
                 $time = 'day';
-                $criteria->add('created', gmmktime(0, 0, 0), criteria::GREATER);
+
+                $startTime = mktime(0, 0, 0) + $user->getTimezone() * 3600 - date('Z') + date('I') * 3600;
+                $criteria->add('created', $startTime, criteria::GREATER);
                 break;
         }
 
