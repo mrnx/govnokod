@@ -131,6 +131,25 @@ class commentsPostController extends simpleController
             }
         }
 
+        $formTitles = array(
+            'Я, <b>' . htmlspecialchars($user->getLogin()) . '</b>, находясь в здравом уме и твердой памяти, торжественно заявляю:',
+            'Помни, <b>' . htmlspecialchars($user->getLogin()) . '</b>, за тобой могут следить!',
+            'Семь раз отмерь — один отрежь, <b>' . htmlspecialchars($user->getLogin()) . '</b>!',
+        );
+
+        $session = $this->toolkit->getSession();
+        if ($onlyForm) {
+            $currentTitleIndex = mt_rand(0, sizeof($formTitles) - 1);
+            $session->set('comments_form_title_index', $currentTitleIndex);
+        } else {
+            $currentTitleIndex = $session->get('comments_form_title_index', -1);
+            if (!isset($formTitles[$currentTitleIndex])) {
+                $currentTitleIndex = mt_rand(0, sizeof($formTitles) - 1);
+                $session->set('comments_form_title_index', $currentTitleIndex);
+            }
+        }
+
+        $this->smarty->assign('formTitle', $formTitles[$currentTitleIndex]);
         $this->smarty->assign('backUrl', $backUrl);
         return $this->fetch('comments/post.tpl');
     }
