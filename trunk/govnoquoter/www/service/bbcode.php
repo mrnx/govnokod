@@ -57,23 +57,23 @@ class bbcode
     'html' => '<i>%1$s</i>',
     ),
     'u' => array(
-    'html' => '<span style="text-decoration: underline;">%1$s</span>',
+    'html' => '<span style="text-decoration:underline;">%1$s</span>',
     ),
     's' => array(
-    'html' => '<span style="text-decoration: line-through;">%1$s</span>',
+    'html' => '<span style="text-decoration:line-through;">%1$s</span>',
     ),
     'blink' => array(
-    'html' => '<span style="text-decoration: blink;">%1$s</span>',
+    'html' => '<span style="text-decoration:blink;">%1$s</span>',
     ),
     'color' => array(
-    'html' => '<span style="color: %2$s;">%1$s</span>',
+    'html' => '<span style="color:%2$s;">%1$s</span>',
     'permanentWithAttributes' => true,
-    'attributes' => array('red', 'blue', 'green')
+    'attributes' => array('red', 'blue', 'green', 'white')
     ),
     'size' => array(
-    'html' => '<font size="+%2$s">%1$s</font>',
+    'html' => '<span style="font-size:%2$spx;">%1$s</span>',
     'permanentWithAttributes' => true,
-    'attributes' => array('1', '2', '3')
+    'attributes' => array('10', '15', '20')
     ),
     /*'img' => array(
     'callback' => 'handleImg'

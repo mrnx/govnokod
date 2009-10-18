@@ -118,6 +118,7 @@ var code;
                 });
             }
         },
+
         vote: function(aElemTrigger) {
             var holder = aElemTrigger.closest('span.comment-vote');
             if (holder) {
@@ -137,6 +138,10 @@ var code;
                     }
                 });
             }
+        },
+
+        toggleBBCodeBlock: function(aElemTrigger) {
+            $(aElemTrigger).parent().find('.bbcodes').toggle();
         }
     }
 

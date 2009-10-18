@@ -807,6 +807,23 @@ input#openid_identifier_small
 	border-top-color: #6D6F70;
 }
 
+form div.field-info
+{
+    font-size: 12px;
+}
+
+
+form div.field-info div.bbcodes
+{
+    display: none;
+}
+
+form div.field-info div.bbcodes a
+{
+    border: 0;
+    text-decoration: underline;
+}
+
 /* Pagination classes */
 
 ul.pagination
