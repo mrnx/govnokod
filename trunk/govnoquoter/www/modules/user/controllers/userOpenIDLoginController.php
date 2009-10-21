@@ -48,6 +48,8 @@ class userOpenIDLoginController extends userLoginController
             $validator->add('required', 'login', 'Укажите логин!');
             $validator->add('required', 'email', 'Укажите адрес e-mail!');
             $validator->add('email', 'email', 'Неверный e-mail адрес!');
+            $validator->add('callback', 'login', 'Пользователь с таким логином уже существует', array(array($this, 'checkUniqueUserLogin'), $userMapper));
+            $validator->add('callback', 'email', 'Пользователь с таким email уже существует', array(array($this, 'checkUniqueUserEmail'), $userMapper));
             $validator->add('required', 'timezone', 'Укажите часовой пояс!');
             $validator->add('in', 'timezone', 'Укажите часовой пояс из списка!', array_keys($timezones));
 
@@ -233,5 +235,18 @@ class userOpenIDLoginController extends userLoginController
 
         return $url->get();
     }
+    
+    public function checkUniqueUserLogin($login, $userMapper)
+    {
+        $user = $userMapper->searchByLogin($login);
+        return is_null($user);
+    }
+
+    public function checkUniqueUserEmail($email, $userMapper)
+    {
+        $user = $userMapper->searchByEmail($email);
+        return is_null($user);
+    }
+
 }
 ?>
