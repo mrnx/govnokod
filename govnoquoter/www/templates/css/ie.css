@@ -130,3 +130,10 @@ div#footer address
 	margin: 0;
 	padding: 0 1.3em 0 1.3em;
 }
+
+/* Fix one-line code */
+
+.posts .hentry .entry-content pre
+{
+    padding-bottom: expression(this.scrollWidth > this.offsetWidth ? "19px" : "3px");
+}
