@@ -135,5 +135,5 @@ div#footer address
 
 .posts .hentry .entry-content pre
 {
-    padding-bottom: expression(this.scrollWidth > this.offsetWidth ? "19px" : "3px");
+    padding-bottom: expression(this.scrollWidth > this.offsetWidth ? '18px' : '0');
 }
