@@ -201,10 +201,15 @@ class quoteMapper extends mapper
         $object = $data['ratedObject'];
         $ratingsFolder = $data['ratingsFolder'];
 
-        $object->setRating($ratingsFolder->getRating());
-        $object->setRatingsOn($ratingsFolder->getRatingsOn());
-        $object->setRatingsAgainst($ratingsFolder->getRatingsAgainst());
+        $rating = $ratingsFolder->getRating();
+        $votesOn = (int)$ratingsFolder->getRatingsOn();
+        $votesAgainst = (int)$ratingsFolder->getRatingsAgainst();
 
+        $object->setRating($rating);
+        $object->setRatingsOn($votesOn);
+        $object->setRatingsAgainst($votesAgainst);
+
+        /*
         $userMapper = systemToolkit::getInstance()->getMapper('user', 'user');
         $usersCount = $userMapper->getActiveUsersCount();
 
@@ -213,6 +218,17 @@ class quoteMapper extends mapper
         $procentsAgainst = $ratingsFolder->getRatingsAgainst() * $k;
 
         if ($procentsAgainst >= 30) {
+            $object->setIsActive(0);
+        }
+        */
+
+        $ratesCount = $votesOn + $votesAgainst;
+        $k = 100 / $ratesCount;
+        $procentsOn = $ratingsFolder->getRatingsOn() * $k;
+        $procentsAgainst = $ratingsFolder->getRatingsAgainst() * $k;
+
+        //Если рейтинг стал ниже 10 и количество проголосовавших против больше 60%, то убираем говнокод
+        if ($rating < -10 && $procentsAgainst > 60) {
             $object->setIsActive(0);
         }
 
