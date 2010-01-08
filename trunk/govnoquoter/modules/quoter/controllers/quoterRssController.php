@@ -24,7 +24,7 @@ class quoterRssController extends simpleController
     protected function getView()
     {
         $criteria = new criteria;
-        $criteria->add('active', 1)->setLimit(50);
+        $criteria->where('active', 1)->limit(50);
 
         $action = $this->request->getAction();
         if ($action == 'userrss') {
@@ -40,7 +40,7 @@ class quoterRssController extends simpleController
             }
 
             if ($user->getPreferredLangs()) {
-                $criteria->add('category_id', $user->getPreferredLangs(), criteria::IN);
+                $criteria->where('category_id', $user->getPreferredLangs(), criteria::IN);
             }
 
             $this->smarty->assign('user', $user);
@@ -50,7 +50,7 @@ class quoterRssController extends simpleController
                 $categoryMapper = $this->toolkit->getMapper('quoter', 'quoteCategory');
                 $category = $categoryMapper->searchByName($name);
                 if ($category) {
-                    $criteria->add('category_id', $category->getId());
+                    $criteria->where('category_id', $category->getId());
                     $this->smarty->assign('category', $category);
                 }
             } elseif (!$this->request->getBoolean('pass', SC_GET)) {
