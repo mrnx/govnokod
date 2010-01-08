@@ -40,8 +40,10 @@ class externalBundleApplication extends core
         if ($filesString !== null && $hash !== null && isset($mimes[$ext]) && $strippedHash === md5($filesString)) {
             $source = $this->generateSource(explode(',', $filesString));
 
-            fileLoader::load('libs/jsmin/jsmin-1.1.1');
-            $source = JSMin::minify($source);
+            if ($ext == 'js') {
+                fileLoader::load('libs/jsmin/jsmin-1.1.1');
+                $source = JSMin::minify($source);
+            }
 
             file_put_contents(systemConfig::$pathToWebRoot . DIRECTORY_SEPARATOR . 'media' . DIRECTORY_SEPARATOR . $hash, $source);
             header('Location: ' . SITE_PATH . '/media/' . $hash . '?files=' . $filesString);
