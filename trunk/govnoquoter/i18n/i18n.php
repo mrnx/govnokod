@@ -61,11 +61,11 @@ class i18n
      * @param callback $generatorCallback callback на функцию-генератор кода, в случае когда в числе аргументов есть переменные
      * @return string результирующий перевод
      */
-    public function translate($name, $module, $lang, $args = '', $generatorCallback = '')
+    public function translate($name, $module, $lang, $args = '', $generatorCallback = '', $default = null)
     {
         if (is_bool($phrase = $this->search($name, $module, $lang))) {
             if ($lang == $this->getDefaultLang()) {
-                return $name;
+                return is_null($default) ? $name : $default;
             }
 
             return $this->translate($name, $module, $this->getDefaultLang(), $args);
@@ -112,6 +112,9 @@ class i18n
     public function replacePlaceholders($phrase, $args, $generatorCallback = false)
     {
         if (!is_array($args)) {
+            if (is_array($phrase) && !strlen($args)) {
+                return reset($phrase);
+            }
             if (!strlen($args)) {
                 return $phrase;
             }
@@ -180,7 +183,7 @@ class i18n
             $morphs = array($morphs);
         }
 
-        $locale = new locale($lang);
+        $locale = new fLocale($lang);
         $plural = $this->calculatePlural($number, $locale);
         // нужно чтобы можно было добавлять числовые переменные для строк,
         // которым морфология не нужна
@@ -205,7 +208,7 @@ class i18n
         }
 
         if (is_string($locale)) {
-            $locale = new locale($locale);
+            $locale = new fLocale($locale);
         }
 
         $algo = $locale->getPluralAlgo();
@@ -281,8 +284,10 @@ class i18n
     {
         static $i18n;
         if (empty($i18n)) {
-            $i18n = new i18n();
+            $i18n = systemToolkit::getInstance()->getI18n();
         }
+
+        $default = $name;
 
         if (empty($lang)) {
             $lang = systemToolkit::getInstance()->getLocale()->getName();
@@ -299,7 +304,7 @@ class i18n
             throw new mzzInvalidParameterException('Аргумент $module не указан', $module);
         }
 
-        return $i18n->translate($name, $module, $lang, $args, $generatorCalback);
+        return $i18n->translate($name, $module, $lang, $args, $generatorCalback, $default);
     }
 
     /**
@@ -334,7 +339,7 @@ class i18n
             $lang = systemToolkit::getInstance()->getLocale()->getName();
         }
 
-        $locale = new locale($lang);
+        $locale = new fLocale($lang);
 
         if ($format == 'relative_hour') {
             $hours = ceil((time() - $date) / 3600);

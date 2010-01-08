@@ -12,7 +12,7 @@
  * @version $Id$
  */
 
-fileLoader::load('ratings');
+fileLoader::load('ratings/models/ratings');
 
 /**
  * ratingsMapper: маппер
@@ -23,16 +23,25 @@ fileLoader::load('ratings');
  */
 class ratingsMapper extends mapper
 {
-    protected $module = 'ratings';
-
     /**
-     * Имя класса DataObject
+     * DomainObject class name
      *
      * @var string
      */
     protected $class = 'ratings';
+    
+    /**
+     * Table name
+     *
+     * @var string
+     */
     protected $table = 'ratings_ratings';
 
+    /**
+     * Map
+     *
+     * @var array
+     */
     protected $map = array(
         'id' => array(
             'accessor' => 'getId',
@@ -41,7 +50,12 @@ class ratingsMapper extends mapper
         ),
         'user_id' => array(
             'accessor' => 'getUser',
-            'mutator' => 'setUser'
+            'mutator' => 'setUser',
+            'relation' => 'one',
+            'foreign_key' => 'id',
+            'mapper' => 'user/user',
+            'join_type' => 'inner',
+            'options' => array('lazy')
         ),
         'created' => array(
             'accessor' => 'getCreated',
@@ -72,14 +86,14 @@ class ratingsMapper extends mapper
     public function searchByUserAndFolder(user $user, ratingsFolder $folder)
     {
         $criteria = new criteria;
-        $criteria->add('user_id', $user->getId())->add('folder_id', $folder->getId())->setLimit(1);
+        $criteria->where('user_id', $user->getId())->where('folder_id', $folder->getId());
         return $this->searchOneByCriteria($criteria);
     }
 
     public function searchByGestUserAndFolder($ip, ratingsFolder $folder, $rateTimeout = 7200)
     {
         $criteria = new criteria;
-        $criteria->add('ip_address', $ip)->add('folder_id', $folder->getId())->add('created', time() - $rateTimeout, criteria::GREATER)->setLimit(1);
+        $criteria->where('ip_address', $ip)->where('folder_id', $folder->getId())->where('created', time() - $rateTimeout, criteria::GREATER);
 
         return $this->searchOneByCriteria($criteria);
     }
@@ -98,14 +112,11 @@ class ratingsMapper extends mapper
         $data = array(
             'ratings' => $object,
             'ratingsFolder' => $folder,
+            'rateValue' => $object->getRateValue(),
         );
 
         $ratingsFolderMapper = systemToolkit::getInstance()->getMapper('ratings', 'ratingsFolder');
         $ratingsFolderMapper->notify('ratingAdded', $data);
-    }
-
-    public function convertArgsToObj($args)
-    {
     }
 }
 

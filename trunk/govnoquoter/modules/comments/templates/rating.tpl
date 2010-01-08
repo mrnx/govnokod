@@ -1,6 +1,6 @@
 {strip}
-{if $current_user->isLoggedIn()}
-    {if $current_user->getId() == $comment->getUser()->getId()}
+{if $toolkit->getUser()->isLoggedIn()}
+    {if $toolkit->getUser()->getId() == $comment->getUser()->getId()}
             <strong{if $comment->getRating() < 0} class="bad"{elseif $comment->getRating() > 0} class="good"{/if}>{if $comment->getRating() > 0}+{elseif $comment->getRating() < 0}&minus;{/if}{$comment->getRating()|@abs}</strong>
             <span class="comment-vote-against" title="Это мой комментарий, я не могу за него голосовать"> </span>
             <span class="comment-vote-on" title="Это мой комментарий, я не могу за него голосовать"> </span>

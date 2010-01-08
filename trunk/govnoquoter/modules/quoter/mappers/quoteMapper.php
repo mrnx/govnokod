@@ -12,8 +12,7 @@
  * @version $Id$
  */
 
-fileLoader::load('quoter/quote');
-fileLoader::load('orm/plugins/acl_simplePlugin');
+fileLoader::load('quoter/models/quote');
 fileLoader::load('modules/comments/plugins/commentsPlugin');
 fileLoader::load('modules/ratings/plugins/ratingsPlugin');
 fileLoader::load('modules/jip/plugins/jipPlugin');
@@ -23,21 +22,29 @@ fileLoader::load('modules/jip/plugins/jipPlugin');
  *
  * @package modules
  * @subpackage quoter
- * @version 0.2
+ * @version 0.3
  */
-
 class quoteMapper extends mapper
 {
-    protected $module = 'quoter';
-
     /**
-     * Имя класса DataObject
+     * DomainObject class name
      *
      * @var string
      */
     protected $class = 'quote';
+
+    /**
+     * Table name
+     *
+     * @var string
+     */
     protected $table = 'quoter_quote';
 
+    /**
+     * Map
+     *
+     * @var array
+     */
     protected $map = array(
         'id' => array(
             'accessor' => 'getId',
@@ -101,7 +108,6 @@ class quoteMapper extends mapper
     {
         $this->attach(new ratingsPlugin(array('join_rate' => true)));
         parent::__construct();
-        $this->plugins('acl_simple');
         $this->plugins('jip');
         $this->attach(new commentsPlugin(array('join_last_seen' => true)));
     }
@@ -110,7 +116,22 @@ class quoteMapper extends mapper
     {
         return $this->searchByKey($id);
     }
+    
+    public function searchActiveById($id)
+    {
+        $criteria = new criteria;
+        $criteria->where('active', 1)->where('id', $id);
+        return $this->searchOneByCriteria($criteria);
+    }
 
+    public function searchUserQuotes(user $user)
+    {
+        $criteria = new criteria;
+        $criteria->where('active', 1)->where('user_id', $user->getId());
+        
+        return $this->searchAllByCriteria($criteria);
+    }
+    
     public function preInsert(& $data)
     {
         if (is_array($data)) {

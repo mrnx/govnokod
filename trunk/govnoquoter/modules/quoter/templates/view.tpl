@@ -5,7 +5,7 @@
 {title append=$quote->getCategory()->getTitle()|h}
 {meta description=$quote->getDescription() reset=true}
 
-{assign var="highlight" value=$current_user->getHighlightDriver()}
+{assign var="highlight" value=$toolkit->getUser()->getHighlightDriver()}
 {if $highlight == "geshi"}
 {assign var="langName" value=$quote->getCategory()->getGeshiAlias()|h}
 {if $langName}{add file="langs/$langName.css"}{/if}

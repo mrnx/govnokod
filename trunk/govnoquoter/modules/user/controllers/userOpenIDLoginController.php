@@ -20,7 +20,7 @@ fileLoader::load('user/controllers/userLoginController');
  *
  * @package modules
  * @subpackage user
- * @version 0.1
+ * @version 0.2
  */
 class userOpenIDLoginController extends userLoginController
 {
@@ -42,16 +42,18 @@ class userOpenIDLoginController extends userLoginController
 
             $openIDUrl = $session->get('openID_url', false);
 
-            $cancelValidator = new formValidator('openid_reg_cancel');
+            $cancelValidator = new formValidator();
+            $cancelValidator->submit('openid_reg_cancel');
 
-            $validator = new formValidator('openid_reg_submit');
-            $validator->add('required', 'login', 'Укажите логин!');
-            $validator->add('required', 'email', 'Укажите адрес e-mail!');
-            $validator->add('email', 'email', 'Неверный e-mail адрес!');
-            $validator->add('callback', 'login', 'Пользователь с таким логином уже существует', array(array($this, 'checkUniqueUserLogin'), $userMapper));
-            $validator->add('callback', 'email', 'Пользователь с таким email уже существует', array(array($this, 'checkUniqueUserEmail'), $userMapper));
-            $validator->add('required', 'timezone', 'Укажите часовой пояс!');
-            $validator->add('in', 'timezone', 'Укажите часовой пояс из списка!', array_keys($timezones));
+            $validator = new formValidator();
+            $validator->submit('openid_reg_submit');
+            $validator->where('required', 'login', 'Укажите логин!');
+            $validator->where('required', 'email', 'Укажите адрес e-mail!');
+            $validator->where('email', 'email', 'Неверный e-mail адрес!');
+            $validator->where('callback', 'login', 'Пользователь с таким логином уже существует', array(array($this, 'checkUniqueUserLogin'), $userMapper));
+            $validator->where('callback', 'email', 'Пользователь с таким email уже существует', array(array($this, 'checkUniqueUserEmail'), $userMapper));
+            $validator->where('required', 'timezone', 'Укажите часовой пояс!');
+            $validator->where('in', 'timezone', 'Укажите часовой пояс из списка!', array_keys($timezones));
 
             if ($cancelValidator->validate()) {
                 $session->destroy('openID_url');
@@ -158,9 +160,13 @@ class userOpenIDLoginController extends userLoginController
                 break;
         }
 
-        $validator = new formValidator('openid_submit');
-        $validator->add('required', 'openid_identifier', 'Введите openID идентификатор!');
-        $validator->add('url', 'openid_identifier', 'Введите корректный openID идентификатор!');
+        $validator = new formValidator();
+        $validator->submit('openid_submit');
+        
+        $validator->filter('trim', 'openid_identifier');
+        
+        $validator->rule('required', 'openid_identifier', 'Введите openID идентификатор!');
+        $validator->rule('url', 'openid_identifier', 'Введите корректный openID идентификатор!');
 
         if (isset($errors)) {
             $openIDUrl = $session->get('openID_url', false);
@@ -170,7 +176,7 @@ class userOpenIDLoginController extends userLoginController
         }
 
         if (!$this->request->getBoolean('onlyForm') && $validator->validate()) {
-            $openIDUrl = mzz_trim($this->request->getString('openid_identifier', SC_POST));
+            $openIDUrl = $this->request->getString('openid_identifier', SC_POST);
 
             if ((stripos($openIDUrl, 'http://') === false) && (stripos($openIDUrl, 'https://') === false)){
                 $openIDUrl = 'http://' . $openIDUrl;
@@ -216,14 +222,14 @@ class userOpenIDLoginController extends userLoginController
                 }
             }
         } elseif (!isset($errors)) {
-            $errors = $validator->getErrors()->export();
+            $errors = $validator->getErrors();
         }
 
         $url = new url('openIDLogin');
 
         $this->smarty->assign('openIDUrl', $openIDUrl);
         $this->smarty->assign('form_action', $url->get());
-        $this->smarty->assign('errors', $errors);
+        $this->smarty->assign('validator', $validator);
         return $this->fetch('user/openIDLoginForm.tpl');
     }
 

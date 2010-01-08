@@ -791,7 +791,7 @@ form input.captcha
 	vertical-align: top;
 }
 
-input#openid_identifier
+input#formElm_openid_identifier
 {
     background: #fff url(../images/openid_big.png) 3px 50% no-repeat;
     padding-left: 1.6em;

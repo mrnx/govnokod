@@ -13,8 +13,6 @@
 */
 
 /**
- * commentsPlugin: плагин для комментируемых модулей.
- *
  * @package orm
  * @subpackage plugins
  * @version 0.0.2
@@ -39,13 +37,6 @@ class commentsPlugin extends observer
                 'accessor' => 'getSeenCommentsCount',
                 'options' => array('fake', 'ro')
             );
-
-            /*
-            $map['new_comments_count'] = array(
-                'accessor' => 'getNewCommentsCount',
-                'options' => array('fake', 'ro')
-            );
-            */
         }
     }
 
@@ -64,14 +55,13 @@ class commentsPlugin extends observer
                 $criterion = new criterion($commentsFolderTableAlias . '.parent_id', $this->mapper->table(false) . '.id', criteria::EQUAL, true);
                 $criterion->addAnd(new criterion($commentsFolderTableAlias . '.module', $this->mapper->getModule()));
                 $criterion->addAnd(new criterion($commentsFolderTableAlias . '.type', $this->mapper->getClass()));
-                $criteria->addJoin($commentsFolderMapper->table(), $criterion, $commentsFolderTableAlias);
+                $criteria->join($commentsFolderMapper->table(), $criterion, $commentsFolderTableAlias);
 
                 $criterion = new criterion($commentsLastSeenMapper->table(false) . '.folder_id', $commentsFolderTableAlias . '.id', criteria::EQUAL, true);
                 $criterion->addAnd(new criterion($commentsLastSeenMapper->table(false) . '.user_id', $user->getId()));
-                $criteria->addJoin($commentsLastSeenMapper->table(), $criterion, $commentsLastSeenMapper->table(false));
+                $criteria->join($commentsLastSeenMapper->table(), $criterion, $commentsLastSeenMapper->table(false));
 
-                $criteria->addSelectField($commentsLastSeenMapper->table(false) . '.cnt', $this->mapper->table(false) . mapper::TABLE_KEY_DELIMITER  . 'seen_comments_count');
-                //$criteria->addSelectField(new sqlOperator('-', array($commentsFolderTableAlias . '.comments_count', $commentsLastSeenMapper->table(false) . '.cnt')), $this->mapper->table(false) . mapper::TABLE_KEY_DELIMITER  . 'new_comments_count');
+                $criteria->select($commentsLastSeenMapper->table(false) . '.cnt', $this->mapper->table(false) . mapper::TABLE_KEY_DELIMITER  . 'seen_comments_count');
             }
         }
     }

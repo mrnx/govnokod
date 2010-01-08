@@ -1,4 +1,3 @@
-{assign var="highlight" value=$current_user->getHighlightDriver()}
 {if $highlight == "geshi"}
 {assign var="langName" value=$quote->getCategory()->getGeshiAlias()|h}
 {add file="langs/$langName.css"}
@@ -32,6 +31,6 @@
             <abbr title="{"c"|date:$quote->getCreated()}">{$quote->getCreated()|date_i18n:"date2"}</abbr>
         </p>
         <div class="entry-comments">
-            <span class="comments-icon{if $current_user->isLoggedIn() && $quote->getNewCommentsCount() > 0} comments-new" title="Есть новые комментарии!{/if}"></span><a href="{url route="quoteView" id=$quote->getId()}" class="entry-comments-load">Комментарии</a> <span class="entry-comments-count">({$quote->getCommentsCount()}{if $current_user->isLoggedIn() && $quote->getNewCommentsCount() > 0}, <span title="Новые комментарии" class="entry-comments-new">+{$quote->getNewCommentsCount()|h}</span>{/if})</span>
+            <span class="comments-icon{if $toolkit->getUser()->isLoggedIn() && $quote->getNewCommentsCount() > 0} comments-new" title="Есть новые комментарии!{/if}"></span><a href="{url route="quoteView" id=$quote->getId()}" class="entry-comments-load">Комментарии</a> <span class="entry-comments-count">({$quote->getCommentsCount()}{if $toolkit->getUser()->isLoggedIn() && $quote->getNewCommentsCount() > 0}, <span title="Новые комментарии" class="entry-comments-new">+{$quote->getNewCommentsCount()|h}</span>{/if})</span>
         </div>
     </li>

@@ -19,7 +19,7 @@ fileLoader::load('service/skin');
  *
  * @package modules
  * @subpackage user
- * @version 0.1.5
+ * @version 0.2
  */
 class user extends entity
 {
@@ -49,6 +49,11 @@ class user extends entity
     public function isActive()
     {
         return !is_null($this->getOnline());
+    }
+    
+    public function isRoot()
+    {
+        return in_array(MZZ_ROOT_GID, $this->getGroups()->keys());
     }
 
     public function getSkin()
@@ -174,6 +179,7 @@ class user extends entity
         return null;
     }
 
+    /*
     public function getGroups()
     {
         fileLoader::load('cache');
@@ -188,5 +194,6 @@ class user extends entity
 
         return $groups;
     }
+    */
 }
 ?>

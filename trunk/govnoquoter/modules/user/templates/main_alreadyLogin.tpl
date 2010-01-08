@@ -10,7 +10,7 @@
             <li><a href="{url route="default2" module="user" action="login"}">Кабинка</a></li>
             <li><a href="{url route="default2" module="user" action="preferences"}">Настройки</a></li>
             <li>&nbsp;</li>
-            <li>{set name="url}{url appendGet=true}{/set}<a href="{url route="default2" section="user" action="exit"}/?url={$url|urlencode}">Выйти</a></li>
+            <li>{assign var="url" value={url appendGet=true}}<a href="{url route="default2" section="user" action="exit"}/?url={$url|rawurlencode}">Выйти</a></li>
         </ul>
     </div>
 </div>

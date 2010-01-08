@@ -12,25 +12,17 @@
  * @version $Id$
  */
 
-fileLoader::load('comments/commentsLastSeen');
+fileLoader::load('comments/models/commentsLastSeen');
 
 /**
  * commentsLastSeenMapper
  *
  * @package modules
  * @subpackage comments
- * @version 0.1
+ * @version 0.2
  */
-
 class commentsLastSeenMapper extends mapper
 {
-    /**
-     * Module name
-     *
-     * @var string
-     */
-    protected $module = 'comments';
-
     /**
      * DomainObject class name
      *
@@ -77,7 +69,7 @@ class commentsLastSeenMapper extends mapper
     public function searchByUserAndFolder(user $user, commentsFolder $folder)
     {
         $criteria = new criteria;
-        $criteria->add('user_id', $user->getId())->add('folder_id', $folder->getId());
+        $criteria->where('user_id', $user->getId())->where('folder_id', $folder->getId());
         return $this->searchOneByCriteria($criteria);
     }
 
@@ -95,6 +87,7 @@ class commentsLastSeenMapper extends mapper
 
         $insertQuery = $insert->toString($data);
         $replaceQuery = preg_replace('!^INSERT!', 'REPLACE', $insertQuery);
+
         $this->db()->query($replaceQuery);
     }
 }

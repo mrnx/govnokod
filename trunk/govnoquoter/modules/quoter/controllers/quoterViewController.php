@@ -27,10 +27,8 @@ class quoterViewController extends simpleController
         $id = $this->request->getInteger('id');
 
         $quoteMapper = $this->toolkit->getMapper('quoter', 'quote');
-        $criteria = new criteria;
-        $criteria->add('active', 1)->add('id', $id);
-        $quote = $quoteMapper->searchOneByCriteria($criteria);
-
+        $quote = $quoteMapper->searchActiveById($id);
+        
         if (!$quote) {
             return $this->forward404($quoteMapper);
         }
