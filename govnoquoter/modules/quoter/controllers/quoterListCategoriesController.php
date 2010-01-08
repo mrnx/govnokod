@@ -37,7 +37,7 @@ class quoterListCategoriesController extends simpleController
 
             $this->smarty->assign('categories', $categories);
             $html = $this->fetch('quoter/listCategories.tpl');
-            $cache->set($cacheKey, $html, self::CACHE_TTL);
+            $cache->set($cacheKey, $html, array(), self::CACHE_TTL);
         }
 
         return $html;

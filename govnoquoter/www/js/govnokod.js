@@ -1,14 +1,14 @@
 var commentsPreloader = new Image();
-commentsPreloader.src = SITE_PATH + '/templates/images/commentsload.gif';
+commentsPreloader.src = SITE_PATH + '/images/commentsload.gif';
 
 var codePreloader = new Image();
-codePreloader.src = SITE_PATH + '/templates/images/codeload.gif';
+codePreloader.src = SITE_PATH + '/images/codeload.gif';
 
 var votePreloader = new Image();
-votePreloader.src = SITE_PATH + '/templates/images/govnovote.gif';
+votePreloader.src = SITE_PATH + '/images/govnovote.gif';
 
 var commentVotePreloader = new Image();
-commentVotePreloader.src = SITE_PATH + '/templates/images/commentvote.gif';
+commentVotePreloader.src = SITE_PATH + '/images/commentvote.gif';
 
 var comments;
 var code;
@@ -116,11 +116,6 @@ var code;
                         }
                     }
                 });
-            },
-            handleCtrEnter: function(event, formElem) {
-                if ((event.ctrlKey) && ((event.keyCode == 0xA)||(event.keyCode == 0xD))) {
-                    $(formElem).find('input[name=commentSubmit]').trigger('click');
-                }
             }
         },
 
@@ -147,6 +142,12 @@ var code;
 
         toggleBBCodeBlock: function(aElemTrigger) {
             $(aElemTrigger).parent().find('.bbcodes').toggle();
+        },
+        
+        handleCtrEnter: function(event, formElem) {
+            if ((event.ctrlKey) && ((event.keyCode == 0xA)||(event.keyCode == 0xD))) {
+                $(formElem).find('input[name=commentSubmit]').trigger('click');
+            }
         }
     }
 

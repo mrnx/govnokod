@@ -12,8 +12,7 @@
  * @version $Id$
  */
 
-fileLoader::load('quoter/quoteCategory');
-fileLoader::load('orm/plugins/acl_simplePlugin');
+fileLoader::load('quoter/models/quoteCategory');
 fileLoader::load('orm/plugins/identityMapPlugin');
 fileLoader::load('modules/jip/plugins/jipPlugin');
 
@@ -22,21 +21,29 @@ fileLoader::load('modules/jip/plugins/jipPlugin');
  *
  * @package modules
  * @subpackage quoter
- * @version 0.2
+ * @version 0.3
  */
-
 class quoteCategoryMapper extends mapper
 {
-    protected $module = 'quoter';
-
     /**
-     * Имя класса DataObject
+     * DomainObject class name
      *
      * @var string
      */
     protected $class = 'quoteCategory';
+    
+    /**
+     * Table name
+     *
+     * @var string
+     */
     protected $table = 'quoter_quoteCategory';
 
+    /**
+     * Map
+     *
+     * @var array
+     */
     protected $map = array(
         'id' => array(
             'accessor' => 'getId',
@@ -68,7 +75,6 @@ class quoteCategoryMapper extends mapper
     public function __construct()
     {
         parent::__construct();
-        $this->attach(new acl_simplePlugin(), 'acl');
         $this->plugins('jip');
         $this->plugins('identityMap');
     }
@@ -81,7 +87,7 @@ class quoteCategoryMapper extends mapper
     public function searchAllWithQuotes()
     {
         $criteria = new criteria;
-        $criteria->add('quote_counts', 0, criteria::GREATER)->setOrderByFieldDesc('quote_counts');
+        $criteria->where('quote_counts', 0, criteria::GREATER)->orderByDesc('quote_counts');
 
         return $this->searchAllByCriteria($criteria);
     }
@@ -101,22 +107,6 @@ class quoteCategoryMapper extends mapper
         fileLoader::load('cache');
         $cache = cache::factory();
         $cache->delete('govnokod_main_categoriesList');
-    }
-
-    /**
-     * Возвращает доменный объект по аргументам
-     *
-     * @return simple
-     */
-    public function convertArgsToObj($args)
-    {
-        if (isset($args['name'])) {
-            $do = $this->searchByName($args['name']);
-            if ($do) {
-                return $do;
-            }
-        }
-        throw new mzzDONotFoundException();
     }
 }
 

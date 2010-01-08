@@ -19,18 +19,13 @@ fileLoader::load('forms/validators/formValidator');
  *
  * @package modules
  * @subpackage comments
- * @version 0.1.2
+ * @version 0.2
  */
 class commentsPostController extends simpleController
 {
     protected function getView()
     {
         $user = $this->toolkit->getUser();
-        $access = $this->request->getBoolean('access');
-
-        if (!is_null($access) && !$access) {
-            return $user->getId() == MZZ_USER_GUEST_ID ? $this->smarty->fetch('comments/onlyAuth.tpl') : $this->smarty->fetch('comments/deny.tpl');
-        }
 
         $commentsFolderMapper = $this->toolkit->getMapper('comments', 'commentsFolder');
         $commentsMapper = $this->toolkit->getMapper('comments', 'comments');
@@ -60,13 +55,19 @@ class commentsPostController extends simpleController
             }
         }
 
-        $validator = new formValidator('commentSubmit');
-        $validator->add('required', 'text', 'Введите хоть что-нибудь!');
-        $validator->add('length', 'text', 'Слишком длинный комментарий! Максимум 2000 символов!', array(0, 2000));
+        $validator = new formValidator();
+        $validator->submit('commentSubmit');
+        
+        $validator->filter('trim', 'text');
+        
+        $validator->rule('required', 'text', 'Введите хоть что-нибудь!');
+        $validator->rule('length', 'text', 'Слишком длинный комментарий! Максимум 2000 символов!', array(0, 2000));
 
         if (!$user->isLoggedIn()) {
-            $validator->add('required', 'captcha', 'Введите проверочный код!');
-            $validator->add('captcha', 'captcha', 'Неверно введен проверочный код!');
+            $validator->filter('trim', 'captcha');
+            
+            $validator->rule('required', 'captcha', 'Введите проверочный код!');
+            $validator->rule('captcha', 'captcha', 'Неверно введен проверочный код!');
         }
 
         $isAjax = $this->request->getBoolean('ajax', SC_POST);
@@ -111,6 +112,7 @@ class commentsPostController extends simpleController
 
         $this->smarty->assign('action', $url->get());
         $this->smarty->assign('user', $user);
+        $this->smarty->assign('validator', $validator);
         $this->smarty->assign('comment', $comment);
         $this->smarty->assign('commentReply', $commentReply);
         $this->smarty->assign('commentsFolder', $commentsFolder);

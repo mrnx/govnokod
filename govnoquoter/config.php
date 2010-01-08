@@ -22,8 +22,8 @@
 define('SITE_PATH', '');
 define('COOKIE_DOMAIN', '');
 
-define('DEBUG_MODE', 1);
-define('SYSTEM_PATH', realpath(dirname(__FILE__) . '/../../../mzz_stable/system/'));
+define('DEBUG_MODE', true);
+define('SYSTEM_PATH', realpath(dirname(__FILE__) . '/../mzz/system/'));
 
 /**
  * Идентификатор записи в БД для неавторизированных пользователей
@@ -43,8 +43,6 @@ systemConfig::$i18n = 'ru';
 // включаем мультиязычность
 systemConfig::$i18nEnable = false;
 
-systemConfig::$uri404 = 'content/404/view';
-
 // устанавливаем дефолтную кодировку для выдачи
 ini_set('default_charset', 'utf-8');
 
@@ -55,13 +53,17 @@ systemConfig::$db['default']['password'] = '';
 systemConfig::$db['default']['charset'] = 'utf8';
 systemConfig::$db['default']['pdoOptions'] = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES `utf8`');
 
-systemConfig::$pathToApplication = dirname(__FILE__) . '/..';
-systemConfig::$pathToTemp = realpath(dirname(__FILE__) . '/../../tmp');
+systemConfig::$appName = 'govnokod';
+systemConfig::$appVersion = '1.1';
+systemConfig::$pathToApplication = dirname(__FILE__);
+systemConfig::$pathToWebRoot = systemConfig::$pathToApplication . '/www';
+systemConfig::$pathToTemp = realpath(dirname(__FILE__) . '/tmp');
 systemConfig::$pathToConf = dirname(__FILE__);
 
 systemConfig::$mailer['default']['backend'] = 'PHPMailer';
 systemConfig::$mailer['default']['params'] = array('html' => true, 'smtp' => true, 'smtp_host' => 'localhost');
 
+/*
 systemConfig::$cache['default']['backend'] = 'memcache';
 systemConfig::$cache['default']['params'] = array('servers' => array('localhost' => array()));
 
@@ -73,7 +75,7 @@ systemConfig::$cache['geshi_code']['params'] = array('path' => systemConfig::$pa
 
 systemConfig::$cache['file']['backend'] = 'file';
 systemConfig::$cache['file']['params'] = array('path' => systemConfig::$pathToTemp . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'code', 'prefix' => 'highlighted_');
-
+*/
 systemConfig::init();
 
 ?>

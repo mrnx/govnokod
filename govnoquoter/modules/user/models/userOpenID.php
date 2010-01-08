@@ -20,7 +20,6 @@
  * @subpackage user
  * @version 0.1
  */
-
 class userOpenID extends entity
 {
 }

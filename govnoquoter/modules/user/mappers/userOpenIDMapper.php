@@ -12,19 +12,17 @@
  * @version $Id$
  */
 
-fileLoader::load('user/userOpenID');
+fileLoader::load('user/models/userOpenID');
 
 /**
  * userOpenIDMapper
  *
  * @package modules
  * @subpackage user
- * @version 0.1
+ * @version 0.2
  */
 class userOpenIDMapper extends mapper
 {
-    protected $module = 'user';
-
     /**
      * DomainObject class name
      *
@@ -39,6 +37,11 @@ class userOpenIDMapper extends mapper
      */
     protected $table = 'user_userOpenID';
 
+    /**
+     * Map
+     *
+     * @var array
+     */
     protected $map = array(
         'id' => array(
             'accessor' => 'getId',
@@ -76,11 +79,6 @@ class userOpenIDMapper extends mapper
     public function searchByUrl($url)
     {
         return $this->searchOneByField('openid_url_standarized', $url);
-    }
-
-    public function convertArgsToObj($args)
-    {
-
     }
 }
 ?>

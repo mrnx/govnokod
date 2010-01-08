@@ -1,9 +1,9 @@
-    {if $form|default:false && !$form->isValid()}
+    {if !$validator->isValid()}
     <dl class="errors">
         <dt>Ошибка компиляции комментария:</dt>
         <dd>
             <ol>
-            {foreach from=$form->export() item="error"}
+            {foreach from=$validator->getErrors() item="error"}
                 <li>{$error}</li>
             {/foreach}
             </ol>
@@ -38,5 +38,5 @@
 
     <p>
         {form->hidden name="backUrl" value=$backUrl}
-        {form->submit class="send" name="commentSubmit" value="Отправить комментарий"}
+        {form->submit class="send" name="commentSubmit" value="Отправить комментарий [Ctrl+Enter]"}
     </p>

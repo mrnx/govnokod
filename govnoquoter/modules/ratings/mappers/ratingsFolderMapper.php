@@ -12,7 +12,7 @@
  * @version $Id$
  */
 
-fileLoader::load('ratings/ratingsFolder');
+fileLoader::load('ratings/models/ratingsFolder');
 fileLoader::load('orm/plugins/identityMapPlugin');
 
 /**
@@ -24,16 +24,25 @@ fileLoader::load('orm/plugins/identityMapPlugin');
  */
 class ratingsFolderMapper extends mapper
 {
-    protected $module = 'ratings';
-
     /**
-     * Имя класса DataObject
+     * DomainObject class name
      *
      * @var string
      */
     protected $class = 'ratingsFolder';
+    
+    /**
+     * Table name
+     *
+     * @var string
+     */
     protected $table = 'ratings_ratingsFolder';
 
+    /**
+     * Map
+     *
+     * @var array
+     */
     protected $map = array (
         'id' => array (
             'accessor' => 'getId',
@@ -73,7 +82,6 @@ class ratingsFolderMapper extends mapper
     public function __construct()
     {
         parent::__construct();
-        $this->plugins('acl_simple');
         $this->plugins('identityMap');
     }
 
@@ -85,7 +93,7 @@ class ratingsFolderMapper extends mapper
     public function searchByModuleClassAndParent($module, $class, $id)
     {
         $criteria = new criteria;
-        $criteria->add('module', $module)->add('class', $class)->add('parent_id', $id);
+        $criteria->where('module', $module)->where('class', $class)->where('parent_id', $id);
 
         $folder = $this->searchOneByCriteria($criteria);
 
@@ -105,7 +113,6 @@ class ratingsFolderMapper extends mapper
                         $objectId = $object->$map[$pkAccessor]['accessor']();
                         $folder->setParentId($objectId);
 
-
                         $this->save($folder);
 
                         $folder->setObjectMapper($ratedObjectMapper);
@@ -120,11 +127,13 @@ class ratingsFolderMapper extends mapper
         return $folder;
     }
 
-    public function preInsert(array & $data)
+    public function preInsert(&$data)
     {
-        $data['rating'] = 0;
-        $data['ratings_on'] = 0;
-        $data['ratings_against'] = 0;
+        if (is_array($data)) {
+            $data['rating'] = 0;
+            $data['ratings_on'] = 0;
+            $data['ratings_against'] = 0;
+        }
     }
 
     public function ratingAdded(Array $data)
@@ -136,12 +145,13 @@ class ratingsFolderMapper extends mapper
 
         $value = $ratings->getRateValue();
 
+        $ratingsOn = $ratingsFolder->getRatingsOn();
+        $ratingsAgainst = $ratingsFolder->getRatingsAgainst();
+
         if ($value > 0) {
-            $ratingsOn = $ratingsFolder->getRatingsOn();
             $ratingsOn++;
             $ratingsFolder->setRatingsOn($ratingsOn);
         } elseif ($value < 0) {
-            $ratingsAgainst = $ratingsFolder->getRatingsAgainst();
             $ratingsAgainst++;
             $ratingsFolder->setRatingsAgainst($ratingsAgainst);
         }
@@ -152,23 +162,10 @@ class ratingsFolderMapper extends mapper
         $ratingsFolder->setRating($newRating);
         $this->save($ratingsFolder);
 
-        $data['ratingsFolder'] = &$ratingsFolder;
+        $data['ratingsFolder'] = $ratingsFolder;
         $data['ratedObject'] = $ratingsFolder->getObject();
 
         $ratedObjectMapper->notify('ratingAdded', $data);
-    }
-
-    public function convertArgsToObj($args)
-    {
-        if (isset($args['module_name']) && isset($args['class_name']) && isset($args['id'])) {
-            $do = $this->searchByModuleClassAndParent($args['module_name'], $args['class_name'], $args['id']);
-
-            if ($do) {
-                return $do;
-            }
-        }
-
-        throw new mzzDONotFoundException();
     }
 }
 

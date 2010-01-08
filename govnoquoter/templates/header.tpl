@@ -7,8 +7,8 @@
     <meta name="description" content="{meta show="description" default="Сборник говнокода на различных языках программирования"}" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="icon" href="/animated_favicon.gif" type="image/gif" />
-    <link rel="stylesheet" href="{$SITE_PATH}/templates/css/style.css" media="all" type="text/css" />
-    <!--[if lte IE 7]><link href="{$SITE_PATH}/templates/css/ie.css?v=2" rel="stylesheet" type="text/css"><![endif]-->
+    <link rel="stylesheet" href="{$SITE_PATH}/css/style.css" media="all" type="text/css" />
+    <!--[if lte IE 7]><link href="{$SITE_PATH}/css/ie.css?v=2" rel="stylesheet" type="text/css"><![endif]-->
 {if $listAll|default:true}
     <link title="rss govnokod.ru" type="application/rss+xml" rel="alternate" href="{url route="rss"}"/>
 {else}

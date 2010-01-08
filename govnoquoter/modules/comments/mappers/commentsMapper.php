@@ -12,11 +12,11 @@
  * @version $Id$
 */
 
-fileLoader::load('comments');
+fileLoader::load('comments/models/comments');
 fileLoader::load('orm/plugins/tree_alPlugin');
-fileLoader::load('orm/plugins/acl_simplePlugin');
 fileLoader::load('modules/ratings/plugins/ratingsPlugin');
 fileLoader::load('modules/jip/plugins/jipPlugin');
+fileLoader::load('orm/plugins/identityMapPlugin');
 
 /**
  * commentsMapper: маппер
@@ -27,16 +27,25 @@ fileLoader::load('modules/jip/plugins/jipPlugin');
  */
 class commentsMapper extends mapper
 {
-    protected $module = 'comments';
-
     /**
-     * Имя класса DataObject
+     * DomainObject class name
      *
      * @var string
      */
     protected $class = 'comments';
+    
+    /**
+     * Table name
+     *
+     * @var string
+     */
     protected $table = 'comments_comments';
 
+    /**
+     * Map
+     *
+     * @var array
+     */
     protected $map = array(
         'id' => array(
             'accessor' => 'getId',
@@ -72,6 +81,14 @@ class commentsMapper extends mapper
         'rating' => array(
             'accessor' => 'getRating',
             'mutator' => 'setRating'
+        ),
+        'votes_on' => array(
+            'accessor' => 'getVotesOn',
+            'mutator' => 'setVotesOn'
+        ),
+        'votes_against' => array(
+            'accessor' => 'getVotesAgainst',
+            'mutator' => 'setVotesAgainst'
         )
     );
 
@@ -80,8 +97,8 @@ class commentsMapper extends mapper
         $this->attach(new ratingsPlugin(array('join_rate' => true)));
         parent::__construct();
         $this->attach(new tree_alPlugin(array('path_name' => 'id')), 'tree');
-        $this->attach(new acl_simplePlugin(), 'acl');
         $this->plugins('jip');
+        $this->plugins('identityMap');
     }
 
     public function searchById($id)
@@ -92,7 +109,7 @@ class commentsMapper extends mapper
     public function searchByFolderAndId(commentsFolder $folder, $id)
     {
         $criteria = new criteria;
-        $criteria->add('folder_id', $folder->getId())->add('id', $id);
+        $criteria->where('folder_id', $folder->getId())->where('id', $id);
         return $this->searchOneByCriteria($criteria);
     }
 
@@ -119,32 +136,32 @@ class commentsMapper extends mapper
         $objectMapper->notify('commentAdded', $data);
     }
 
-    public function ratingAdded(Array $data)
-    {
-        $object = $data['ratedObject'];
-        $ratingsFolder = $data['ratingsFolder'];
-
-        $object->setRating($ratingsFolder->getRating());
-
-        $this->save($object);
-    }
-
     public function ratingUserCanRate($vote, user $user, entity $object)
     {
         if (!$user->isLoggedIn()) {
             return false;
         }
 
-        return $object->getUser()->getId() != $user->getId();
+        return $object->getAuthor()->getId() != $user->getId();
     }
 
-    public function convertArgsToObj($args)
+    public function ratingAdded(Array $data)
     {
-        if (isset($args['id']) && $comment = $this->searchById($args['id'])) {
-            return $comment;
-        }
+        $object = $data['ratedObject'];
+        $ratingsFolder = $data['ratingsFolder'];
 
-        throw new mzzDONotFoundException();
+        $object->setRating($ratingsFolder->getRating());
+        $object->setVotesOn($ratingsFolder->getRatingsOn());
+        $object->setVotesAgainst($ratingsFolder->getRatingsAgainst());
+
+        $this->save($object);
+
+        //опять хак.
+        $object->merge(array(
+            'rating' => $ratingsFolder->getRating(),
+            'votes_on' => $ratingsFolder->getRatingsOn(),
+            'votes_against' => $ratingsFolder->getRatingsAgainst()
+        ));
     }
 }
 

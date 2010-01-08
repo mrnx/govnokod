@@ -1,9 +1,11 @@
+{stirp}
 {title append="Поиск говнокода"}
 {add file="jquery.js"}
 {add file="jquery.scrollTo.js"}
 {add file="govnokod.js"}
-{if $current_user->getHighlightDriver() == 'js'}{add file="jshighlight/govnokod.css"}{add file="jshighlight/highlight.pack.js"}{/if}
-
+{assign var="highlight" value=$toolkit->getUser()->getHighlightDriver()}
+{if $highlight == 'js'}{add file="jshighlight/govnokod.css"}{add file="jshighlight/highlight.pack.js"}{/if}
+{/strip}
 <ol class="posts hatom">
     <li class="hentry">
         <h2>Поиск говнокода</h2>
@@ -28,7 +30,7 @@
     </li>
     {if $word != ''}
 {foreach from=$quotes item="quote"}
-    {include file="quoter/listitem.tpl" quote=$quote}
+    {include file="quoter/listitem.tpl" quote=$quote highlight=$highlight}
 {foreachelse}
     <li class="hentry">
         <h2>Ничего не найдено</h2>

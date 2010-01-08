@@ -30,7 +30,7 @@ class quoterListController extends simpleController
         $quoteMapper = $this->toolkit->getMapper('quoter', 'quote');
 
         $criteria = new criteria;
-        $criteria->add('active', 1);
+        $criteria->where('active', 1);
 
         if (!$listAll) {
             $name = $this->request->getString('name');
@@ -42,12 +42,12 @@ class quoterListController extends simpleController
                 return $this->forward404($categoryMapper);
             }
 
-            $criteria->add('category_id', $category->getId());
+            $criteria->where('category_id', $category->getId());
             $this->smarty->assign('category', $category);
         } else {
             $user = $this->toolkit->getUser();
             if ($user->getPreferredLangs()) {
-                $criteria->add('category_id', $user->getPreferredLangs(), criteria::IN);
+                $criteria->where('category_id', $user->getPreferredLangs(), criteria::IN);
             }
         }
 

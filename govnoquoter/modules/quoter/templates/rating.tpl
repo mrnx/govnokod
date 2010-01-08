@@ -1,6 +1,6 @@
 {strip}
-{if $current_user->isLoggedIn()}
-    {if $current_user->getId() == $quote->getUser()->getId()}
+{if $toolkit->getUser()->isLoggedIn()}
+    {if $toolkit->getUser()->getId() == $quote->getUser()->getId()}
         <span class="vote-on" title="Я не могу голосовать за собственный код">&darr;</span>
         <strong{if $quote->getRating() < 0} class="bad"{/if} title="{$quote->getRatingsOn()|h} за и {$quote->getRatingsAgainst()|h} против">{if $quote->getRating() > 0}+{elseif $quote->getRating() < 0}&minus;{/if}{$quote->getRating()|@abs}</strong>
         <span class="vote-against" title="Я не могу голосовать за собственный код">&uarr;</span>

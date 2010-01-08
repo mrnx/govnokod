@@ -32,15 +32,12 @@ class quoterUserQuotesController extends simpleController
             return $this->forward404($user);
         }
 
-        $criteria = new criteria;
-        $criteria->add('active', 1)->add('user_id', $user->getId());
-
         $quoteMapper = $this->toolkit->getMapper('quoter', 'quote');
 
-        //SELECT `qc`.`name`, COUNT(*) FROM `quoter_quote` `q` INNER JOIN `quoter_quoteCategory` `qc` ON `q`.`category_id` = `qc`.`id` WHERE `q`.`user_id` = 1 GROUP BY `q`.`category_id`
-
         $pager = $this->setPager($quoteMapper, 10, true, 4);
-        $quotes = $quoteMapper->searchAllByCriteria($criteria);
+        $quotes = $quoteMapper->searchUserQuotes($user);
+        
+        //SELECT `qc`.`name`, COUNT(*) FROM `quoter_quote` `q` INNER JOIN `quoter_quoteCategory` `qc` ON `q`.`category_id` = `qc`.`id` WHERE `q`.`user_id` = 1 GROUP BY `q`.`category_id`
 
         if ($user->getQuotesCount() != $pager->getItemsCount()) {
             $user->setQuotesCount($pager->getItemsCount());
