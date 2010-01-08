@@ -1,4 +1,4 @@
-{stirp}
+{strip}
 {title append="Поиск говнокода"}
 {add file="jquery.js"}
 {add file="jquery.scrollTo.js"}

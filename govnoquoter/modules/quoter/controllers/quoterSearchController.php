@@ -28,7 +28,7 @@ class quoterSearchController extends simpleController
 
         $quoteMapper = $this->toolkit->getMapper('quoter', 'quote');
         $criteria = new criteria;
-        $criteria->add('active', 1);
+        $criteria->where('active', 1);
 
         $categoryMapper = $this->toolkit->getMapper('quoter', 'quoteCategory');
         $categories = $categoryMapper->searchAll();
@@ -47,7 +47,7 @@ class quoterSearchController extends simpleController
         }
 
         if ($category) {
-            $criteria->add('category_id', $category->getId());
+            $criteria->where('category_id', $category->getId());
         }
 
         $this->smarty->assign('category', $category);
@@ -68,7 +68,7 @@ class quoterSearchController extends simpleController
                     $criterion = new criterion('text', '%' . $word . '%', criteria::LIKE);
                     $criterion->addOr(new criterion('description', '%' . $word . '%', criteria::LIKE));
 
-                    $criteria->add($criterion);
+                    $criteria->where($criterion);
 
                     $quotes = $quoteMapper->searchAllByCriteria($criteria);
                 }
