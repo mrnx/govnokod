@@ -19,7 +19,6 @@
  * @subpackage quoter
  * @version 0.2
  */
-
 class quoteCategory extends entity
 {
     protected $page = false;

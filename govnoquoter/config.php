@@ -63,6 +63,9 @@ systemConfig::$pathToConf = dirname(__FILE__);
 systemConfig::$mailer['default']['backend'] = 'PHPMailer';
 systemConfig::$mailer['default']['params'] = array('html' => true, 'smtp' => true, 'smtp_host' => 'localhost');
 
+systemConfig::$cache['memcache']['backend'] = 'memcache';
+systemConfig::$cache['memcache']['params'] = array('servers' => array('localhost' => array()));
+
 /*
 systemConfig::$cache['default']['backend'] = 'memcache';
 systemConfig::$cache['default']['params'] = array('servers' => array('localhost' => array()));
@@ -76,6 +79,7 @@ systemConfig::$cache['geshi_code']['params'] = array('path' => systemConfig::$pa
 systemConfig::$cache['file']['backend'] = 'file';
 systemConfig::$cache['file']['params'] = array('path' => systemConfig::$pathToTemp . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'code', 'prefix' => 'highlighted_');
 */
+
 systemConfig::init();
 
 ?>

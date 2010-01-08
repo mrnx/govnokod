@@ -19,21 +19,7 @@
  * @subpackage quoter
  * @version 0.1
  */
-
 class quoteFolder extends entity
 {
-
-    public function getAcl($name = null)
-    {
-        switch ($name) {
-            case 'add':
-                $user = systemToolkit::getInstance()->getUser();
-                return $user->isLoggedIn();
-                break;
-        }
-
-        return parent::__call('getAcl', array($name));
-    }
-
 }
 ?>

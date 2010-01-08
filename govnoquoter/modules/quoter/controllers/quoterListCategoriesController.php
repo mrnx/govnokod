@@ -26,15 +26,15 @@ class quoterListCategoriesController extends simpleController
     protected function getView()
     {
         fileLoader::load('cache');
-        $cache = cache::factory();
+        $cache = cache::factory('memcache');
 
-        $cacheKey = 'govnokod_main_categoriesList';
-        $html = $cache->get($cacheKey);
-        if (!$html) {
+        $cacheKey = 'main_categoriesList';
+        $result = $cache->get($cacheKey, $html);
+        if (!$result) {
             $categoryMapper = $this->toolkit->getMapper('quoter', 'quoteCategory');
 
             $categories = $categoryMapper->searchAllWithQuotes();
-
+            
             $this->smarty->assign('categories', $categories);
             $html = $this->fetch('quoter/listCategories.tpl');
             $cache->set($cacheKey, $html, array(), self::CACHE_TTL);

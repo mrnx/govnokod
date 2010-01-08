@@ -3,8 +3,9 @@ function smarty_modifier_highlite($source, $language = 'text', $cacheKey = null)
 {
     if ($cacheKey) {
         fileLoader::load('cache');
-        $cache = cache::factory('geshi_code');
-        if ($code = $cache->get($cacheKey)) {
+        $cache = cache::factory('memcache');
+        $result = $cache->get($cacheKey, $code);
+        if ($result) {
             return $code;
         }
     }
@@ -44,7 +45,7 @@ function smarty_modifier_highlite($source, $language = 'text', $cacheKey = null)
     $code = $geshi->parse_code();
 
     if ($cacheKey) {
-        $cache->set($cacheKey, $code, 3600 * 24);
+        $cache->set($cacheKey, $code, array(), 3600 * 24);
     }
 
     return $code;

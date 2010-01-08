@@ -182,8 +182,7 @@ class user extends entity
     /*
     public function getGroups()
     {
-        fileLoader::load('cache');
-        $cache = cache::factory();
+        $cache = cache::factory('memcache');
 
         $cacheKey = 'govnokod_user_' . $this->getId() . '_groups';
         $groups = $cache->get($cacheKey);

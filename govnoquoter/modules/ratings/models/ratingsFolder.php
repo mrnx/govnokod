@@ -19,7 +19,6 @@
  * @subpackage ratings
  * @version 0.1
  */
-
 class ratingsFolder extends entity
 {
     protected $object = null;
@@ -60,26 +59,5 @@ class ratingsFolder extends entity
     {
         $this->object = $object;
     }
-
-    public function getAcl($name = null)
-    {
-        return true;
-        switch ($name) {
-            case 'rate':
-                $user = systemToolkit::getInstance()->getUser();
-
-                $allow = $user->isLoggedIn();
-                if ($allow) {
-                    $ratedObject = $this->getObject();
-                    $allow = $ratedObject->getAcl('rate');
-                }
-
-                return $allow;
-                break;
-        }
-
-        return false;
-    }
-
 }
 ?>

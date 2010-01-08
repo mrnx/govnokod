@@ -72,10 +72,13 @@ class ratingsRateController extends simpleController
                 $ratingsMapper->save($rate);
             }
 
-            $format = $this->request->getString('format', SC_GET);
+            //little hack
+            $ratedObject->merge(array('current_user_rate' => $rateValue));
+
+            $isAjax = $this->request->getBoolean('isAjax', SC_GET);
             switch ($moduleClass) {
                 case 'quoter_quote':
-                    if ($format == 'ajax') {
+                    if ($isAjax) {
                         $this->smarty->assign('justRate', true);
                         $this->smarty->assign('quote', $ratedObject);
                         return $this->smarty->fetch('quoter/rating.tpl');
@@ -89,7 +92,7 @@ class ratingsRateController extends simpleController
 
                 case 'comments_comments':
                     if ($ratedObject->getFolder()->getType() == 'quote') {
-                        if ($format == 'ajax') {
+                        if ($isAjax) {
                              $this->smarty->assign('comment', $ratedObject);
                             return $this->smarty->fetch('comments/rating.tpl');
                         } else {

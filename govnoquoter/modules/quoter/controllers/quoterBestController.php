@@ -76,13 +76,13 @@ class quoterBestController extends simpleController
         $nomination = $this->request->getString('nomination');
         switch ($nomination) {
             case 'comments':
-                $criteria->where('comments_count', 0, criteria::GREATER)->setOrderByFieldDesc('comments_count');
+                $criteria->where('comments_count', 0, criteria::GREATER)->orderByDesc('comments_count');
                 break;
 
             case 'rating':
             default:
                 $nomination = 'rating';
-                $criteria->where('rating', 0, criteria::GREATER)->setOrderByFieldDesc('rating');
+                $criteria->where('rating', 0, criteria::GREATER)->orderByDesc('rating');
                 break;
         }
 

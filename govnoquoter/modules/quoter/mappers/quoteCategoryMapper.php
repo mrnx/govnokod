@@ -104,9 +104,8 @@ class quoteCategoryMapper extends mapper
 
     public function cleanCategoriesListCache()
     {
-        fileLoader::load('cache');
-        $cache = cache::factory();
-        $cache->delete('govnokod_main_categoriesList');
+        $cache = cache::factory('memcache');
+        $cache->delete('main_categoriesList');
     }
 }
 

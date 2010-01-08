@@ -2,7 +2,8 @@
 {add file="jquery.js"}
 {add file="jquery.scrollTo.js"}
 {add file="govnokod.js"}
-{if $current_user->getHighlightDriver() == 'js'}{add file="jshighlight/govnokod.css"}{add file="jshighlight/highlight.pack.js"}{/if}
+{assign var="highlight" value=$toolkit->getUser()->getHighlightDriver()}
+{if $highlight == 'js'}{add file="jshighlight/govnokod.css"}{add file="jshighlight/highlight.pack.js"}{/if}
 
 {if $time == 'day'}
 {title append="Лучший говнокод за сегодня"}
@@ -39,7 +40,7 @@
         </dl>
     </li>
 {foreach from=$quotes item="quote"}
-    {include file="quoter/listitem.tpl" quote=$quote}
+    {include file="quoter/listitem.tpl" quote=$quote highlight=$highlight}
 {foreachelse}
     <li class="hentry">
         <h2>В этой номинации ничего нет!</h2>

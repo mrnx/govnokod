@@ -17,9 +17,8 @@
  *
  * @package modules
  * @subpackage quoter
- * @version 0.2
+ * @version 0.3
  */
-
 class quote extends entity
 {
     const VOTE_TIMEOUT = 7200;
@@ -41,7 +40,7 @@ class quote extends entity
             $lastString = array_pop($lines);
             $text .= "…\n" . $lastString;
         }
-
+        
         return $text;
     }
 
@@ -105,22 +104,6 @@ class quote extends entity
     public function getNewCommentsCount()
     {
         return $this->getCommentsCount() - (int)$this->getSeenCommentsCount();
-    }
-
-    public function getAcl($name = null)
-    {
-        $user = systemToolkit::getInstance()->getUser();
-
-        if (!$user->isLoggedIn()) {
-            switch ($name) {
-                case 'edit':
-                case 'delete':
-                    return false;
-                    break;
-            }
-        }
-
-        return parent::__call('getAcl', array($name));
     }
 }
 ?>

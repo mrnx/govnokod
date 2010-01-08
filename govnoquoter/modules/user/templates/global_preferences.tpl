@@ -1,15 +1,15 @@
 {title append="Настройки сайта"}
-{set name="helpPageUrl"}{url route="pageActions" name="preferences"}{/set}
+{assign var="helpPageUrl" value={url route="pageActions" name="preferences"}}
 <ol class="posts">
     <li class="hentry">
         <h2>Настройки сайта</h2>
         {form action=$form_action method="post"}
-            {if !$form->isValid()}
+            {if !$validator->isValid()}
             <dl class="errors">
                 <dt>Ошибка сохранения настроек:</dt>
                 <dd>
                     <ol>
-                    {foreach from=$form->export() item="error"}
+                    {foreach from=$validator->getErrors() item="error"}
                         <li>{$error}</li>
                     {/foreach}
                     </ol>
@@ -17,15 +17,13 @@
             </dl>
             {/if}
             <dl>
-                {set name="helpLabel"}Юзерпик (<a href="{$helpPageUrl}#userpic">подробнее</a>):{/set}
-                <dt>{form->caption name="avatar" value=$helpLabel label=false}</dt>
+                <dt>{form->caption name="avatar" value="Юзерпик (<a href='{$helpPageUrl}#userpic'>подробнее</a>):" label=false}</dt>
                 <dd>
                     {form->radio name="avatar" values="0|1" label="Без" style="width: auto;" value=$user->getAvatarType()}
                     {form->radio name="avatar" values="0|2" label="Gravatar" style="width: auto;" value=$user->getAvatarType()}
                 </dd>
 
-                {set name="helpLabel"}Интересующие языки (<a href="{$helpPageUrl}#langs">подробнее</a>):{/set}
-                <dt>{form->caption name="lang" value=$helpLabel label=false}</dt>
+                <dt>{form->caption name="lang" value="Интересующие языки (<a href='{$helpPageUrl}#langs'>подробнее</a>):" label=false}</dt>
                 <dd>
                     <ul>
                     {foreach from=$categories item="category" key="id"}
@@ -34,8 +32,7 @@
                     </ul>
                 </dd>
 
-                {set name="helpLabel"}Способ подсветки кода (<a href="{$helpPageUrl}#langs">что выбрать?</a>):{/set}
-                <dt>{form->caption name="hdriver" value=$helpLabel}</dt>
+                <dt>{form->caption name="hdriver" value="Способ подсветки кода (<a href={$helpPageUrl}#langs'>что выбрать?</a>):"}</dt>
                 <dd>
                     {form->select name="hdriver" options=$drivers value=$user->getHighlightDriver()}
                 </dd>

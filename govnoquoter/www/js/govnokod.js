@@ -128,7 +128,7 @@ var code;
 
                 $.ajax({
                     url: voteUrl,
-                    data: {format: 'ajax'},
+                    data: {isAjax: true},
                     success: function(msg) {
                         holder.html(msg);
                     },
@@ -186,7 +186,7 @@ var code;
 
                 $.ajax({
                     url: voteUrl,
-                    data: {format: 'ajax'},
+                    data: {isAjax: true},
                     success: function(msg) {
                         holder.html(msg);
                     },
