@@ -116,6 +116,11 @@ var code;
                         }
                     }
                 });
+            },
+            handleCtrEnter: function(event, formElem) {
+                if ((event.ctrlKey) && ((event.keyCode == 0xA)||(event.keyCode == 0xD))) {
+                    $(formElem).find('input[name=commentSubmit]').trigger('click');
+                }
             }
         },
 
