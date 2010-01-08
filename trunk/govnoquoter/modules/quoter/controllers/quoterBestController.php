@@ -26,7 +26,7 @@ class quoterBestController extends simpleController
     {
         $quoteMapper = $this->toolkit->getMapper('quoter', 'quote');
         $criteria = new criteria;
-        $criteria->add('active', 1);
+        $criteria->where('active', 1);
 
         $category = null;
         $name = $this->request->getString('name');
@@ -38,7 +38,7 @@ class quoterBestController extends simpleController
                 return $this->forward404($categoryMapper);
             }
 
-            $criteria->add('category_id', $category->getId());
+            $criteria->where('category_id', $category->getId());
         }
 
         $user = $this->toolkit->getUser();
@@ -49,14 +49,14 @@ class quoterBestController extends simpleController
         switch ($time) {
             case 'month':
                 $startTime = mktime(0, 0, 0, date('m'), 1) + $user->getTimezone() * 3600 - date('Z') + date('I') * 3600;
-                $criteria->add('created', $startTime, criteria::GREATER);
+                $criteria->where('created', $startTime, criteria::GREATER);
                 break;
 
             case 'week':
                 $startOfWeek = (date('w') == 0) ? date('d') - 6 : date('d') - date('w') - 1;
 
                 $startTime = mktime(0, 0, 0, date('m'), $startOfWeek) + $user->getTimezone() * 3600 - date('Z') + date('I') * 3600;
-                $criteria->add('created', $startTime, criteria::GREATER);
+                $criteria->where('created', $startTime, criteria::GREATER);
                 break;
 
             case 'ever':
@@ -67,7 +67,7 @@ class quoterBestController extends simpleController
                 $time = 'day';
 
                 $startTime = mktime(0, 0, 0) + $user->getTimezone() * 3600 - date('Z') + date('I') * 3600;
-                $criteria->add('created', $startTime, criteria::GREATER);
+                $criteria->where('created', $startTime, criteria::GREATER);
                 break;
         }
 
@@ -76,13 +76,13 @@ class quoterBestController extends simpleController
         $nomination = $this->request->getString('nomination');
         switch ($nomination) {
             case 'comments':
-                $criteria->add('comments_count', 0, criteria::GREATER)->setOrderByFieldDesc('comments_count');
+                $criteria->where('comments_count', 0, criteria::GREATER)->setOrderByFieldDesc('comments_count');
                 break;
 
             case 'rating':
             default:
                 $nomination = 'rating';
-                $criteria->add('rating', 0, criteria::GREATER)->setOrderByFieldDesc('rating');
+                $criteria->where('rating', 0, criteria::GREATER)->setOrderByFieldDesc('rating');
                 break;
         }
 

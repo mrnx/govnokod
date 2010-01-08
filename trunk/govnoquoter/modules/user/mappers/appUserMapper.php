@@ -1,6 +1,6 @@
 <?php
 /**
- * $URL$
+ * $URL: https://govnokod.googlecode.com/svn/trunk/govnoquoter/modules/user/mappers/userMapper.php $
  *
  * MZZ Content Management System (c) 2005-2007
  * Website : http://www.mzz.ru
@@ -9,57 +9,28 @@
  * the GNU/GPL License (See /docs/GPL.txt).
  *
  * @link http://www.mzz.ru
- * @version $Id$
+ * @version $Id: userMapper.php 296 2010-01-08 02:57:55Z wiistriker $
  */
 
-fileLoader::load('user');
-fileLoader::load('orm/plugins/acl_simplePlugin');
-fileLoader::load('modules/jip/plugins/jipPlugin');
-
 /**
- * userMapper: маппер для пользователей
+ * appUserMapper: маппер для пользователей
  *
  * @package modules
  * @subpackage user
  * @version 0.2.3
  */
-class userMapper extends mapper
+class appUserMapper extends userMapper 
 {
-    const USER_GROUPS_CACHE_TTL = 86400;
-
     /**
-     * Учётная запись не подтверждена
+     * Map
      *
+     * @var array
      */
-    const NOT_CONFIRMED = -1;
-
-    /**
-     * Неверные аутентификационные данные
-     *
-     */
-    const WRONG_AUTH_DATA = 0;
-
-    protected $module = 'user';
-
-    /**
-     * Имя таблицы
-     *
-     * @var string
-     */
-    protected $table = 'user_user';
-
-    /**
-     * Имя класса DataObject
-     *
-     * @var string
-     */
-    protected $class = 'user';
-
     public $map = array(
         'id' => array(
             'accessor' => 'getId',
             'mutator' => 'setId',
-            'options' => array('pk')
+            'options' => array('pk', 'once')
          ),
         'login' => array(
             'accessor' => 'getLogin',
@@ -126,74 +97,55 @@ class userMapper extends mapper
         )
     );
 
-    public function __construct()
+    /**
+     * Выполняет поиск пользователя по логину или email адресу
+     *
+     * @param string $loginOrEmail
+     * @return user
+     */
+    public function searchByLoginOrEmail($loginOrEmail)
     {
-        parent::__construct();
-        $this->plugins('acl_simple');
-        $this->plugins('jip');
-    }
+        $criteria = new criteria;
 
-    public function searchById($id)
-    {
-        return $this->searchByKey($id);
+        $criterion = new criterion('login', $loginOrEmail);
+        $criterion->addOr(new criterion('email', $loginOrEmail));
+
+        $criteria->where($criterion);
+
+        return $this->searchOneByCriteria($criteria);
     }
 
     /**
-     * Выполняет поиск объекта по логину
+     * Выполняет поиск пользователя по логину или email адресу и паролю
      *
-     * @param string $login логин
-     * @return object
+     * @param string $loginOrEmail
+     * @param string $password
+     * @return user
      */
-    public function searchByLogin($login)
+    public function searchByLoginOrEmailAndPassword($loginOrEmail, $password)
     {
-        return $this->searchOneByField('login', $login);
+        $criteria = new criteria;
+
+        $criterion = new criterion('login', $loginOrEmail);
+        $criterion->addOr(new criterion('email', $loginOrEmail));
+
+        $criteria->where($criterion)->where('password', $this->cryptPassword($password));
+
+        return $this->searchOneByCriteria($criteria);
     }
 
-    /**
-     * Выполняет поиск объекта по email
-     *
-     * @param string $email
-     * @return object
-     */
-    public function searchByEmail($email)
+    public function searchAllNotConfirmed()
     {
-        return $user = $this->searchOneByField('email', $email);
+        $criteria = new criteria;
+        $criteria->where('confirmed', '', criteria::NOT_EQUAL);
+        return $this->searchAllByCriteria($criteria);
     }
 
-    /**
-     * Идентифицирует пользователя по логину и паролю и
-     * в случае успеха устанавливает сессию
-     * идентифицированного пользователя
-     *
-     * @param string $login логин
-     * @param string $password пароль
-     * @param string $loginField имя поля, которое используется в качестве логина
-     * @return object
-     */
-    public function login($login, $password, $loginField = 'login')
+    public function searchByConfirmCode($code)
     {
-        $criteria = new criteria();
-        $criteria->add($loginField, $login)->add('password', $this->cryptPassword($password));
-
-        $user = $this->searchOneByCriteria($criteria);
-
-        if ($user) {
-            return $user->isConfirmed() ? $user : self::NOT_CONFIRMED;
-        }
-
-        return self::WRONG_AUTH_DATA;
+        return $this->searchOneByField('confirmed', $code);
     }
-
-    /**
-     * Возвращает объект для гостя (id = MZZ_USER_GUEST_ID)
-     *
-     * @return object
-     */
-    public function getGuest()
-    {
-        return $this->searchByKey(MZZ_USER_GUEST_ID);
-    }
-
+    
     protected function preInsert(& $data)
     {
         if (is_array($data)) {
@@ -206,26 +158,6 @@ class userMapper extends mapper
             $data['highlight_driver'] = 'js';
             $data['last_login'] = time();
         }
-    }
-
-    protected function preUpdate(& $data)
-    {
-        if (is_array($data)) {
-            if (isset($data['password'])) {
-                $data['password'] = $this->cryptPassword($data['password']);
-            }
-        }
-    }
-
-    public function updateLastLoginTime($user)
-    {
-        $user->setLastLogin(new sqlFunction('unix_timestamp'));
-        $this->save($user);
-    }
-
-    protected function cryptPassword($password)
-    {
-        return md5($password);
     }
 
     public static function generatePassword($nums)
@@ -310,23 +242,6 @@ class userMapper extends mapper
         }
 
         return $usersCount;
-    }
-
-    public function convertArgsToObj($args)
-    {
-        if (isset($args['id'])) {
-            if ($args['id'] == 0) {
-                $toolkit = systemToolkit::getInstance();
-                $user = $toolkit->getUser();
-            } else {
-                $user = $this->searchByKey($args['id']);
-            }
-            if ($user) {
-                return $user;
-            }
-        }
-
-        throw new mzzDONotFoundException();
     }
 }
 

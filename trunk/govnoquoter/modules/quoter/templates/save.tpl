@@ -32,7 +32,8 @@
             {$quote->getDescription()|trim|h|bbcode|nl2br}
         </p>
         <p class="author">
-            Наговнокодил: <a href="{url route="withId" module="user" action="" id=$user->getId()}"><img src="{$user->getAvatarUrl(20)|h}" alt="" class="avatar" /></a> <a href="{url route="withId" module="user" action="" id=$user->getId()}">{$user->getLogin()|h}</a>
+            Запостил: <a href="{url route="withId" module="user" action="" id=$user->getId()}"><img src="{$user->getAvatarUrl(20)|h}" alt="" class="avatar" /></a> <a href="{url route="withId" module="user" action="" id=$user->getId()}">{$user->getLogin()|h}</a>,
+            <abbr title="{"c"|date:$quote->getCreated()}">{$quote->getCreated()|date_i18n:"date2"}</abbr>
         </p>
     </li>
     {/if}
@@ -40,12 +41,12 @@
     <li class="hentry add">
         <h2>{if $isEdit}Редактирование <a href="{url route="quoteView" id=$quote->getId()}">говнокода #{$quote->getId()}</a>{else}Наговнокодить{/if}</h2>
         {form action=$formAction method="post"}
-            {if !$form->isValid()}
+            {if !$validator->isValid()}
             <dl class="errors">
                 <dt>Ошибка компиляции кода:</dt>
                 <dd>
                     <ol>
-                    {foreach from=$form->export() item="error"}
+                    {foreach from=$validator->getErrors() item="error"}
                         <li>{$error}</li>
                     {/foreach}
                     </ol>

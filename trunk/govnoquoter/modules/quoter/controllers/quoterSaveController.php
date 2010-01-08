@@ -12,8 +12,6 @@
  * @version $Id$
  */
 
-fileLoader::load('forms/validators/formValidator');
-
 /**
  * quoterSaveController: контроллер для метода add модуля quoter
  *
@@ -21,7 +19,6 @@ fileLoader::load('forms/validators/formValidator');
  * @subpackage quoter
  * @version 0.1
  */
-
 class quoterSaveController extends simpleController
 {
     protected function getView()
@@ -50,21 +47,26 @@ class quoterSaveController extends simpleController
             $categoriesSelect[$category->getId()] = $category->getTitle();
         }
 
-        $previewValidator = new formValidator('preview');
+        $previewValidator = new formValidator();
+        $previewValidator->submit('preview');
         $isPreview = $previewValidator->validate();
 
         $validator = new formValidator();
-        $validator->add('required', 'category_id', 'Укажите язык');
-        $validator->add('in', 'category_id', 'Укажите правильный язык', array_keys($categoriesSelect));
-        $validator->add('required', 'text', 'Укажите код');
-        $validator->add('callback', 'text', 'Такой длинный код врядли может быть смешным. Пожалуйста, ограничьтесь сотней строк и 4000 символами.', array('checkCodeLength'));
-        $validator->add('callback', 'description', 'Описание может быть не более ' . quote::MAX_DESC_CHARS . ' символов', array('checkDescLength'));
+        
+        $validator->filter('trim', 'category_id');
+        $validator->filter('trim', 'text');
+        
+        $validator->rule('required', 'category_id', 'Укажите язык');
+        $validator->rule('in', 'category_id', 'Укажите правильный язык', array_keys($categoriesSelect));
+        $validator->rule('required', 'text', 'Укажите код');
+        $validator->rule('callback', 'text', 'Такой длинный код врядли может быть смешным. Пожалуйста, ограничьтесь сотней строк и 4000 символами.', array('checkCodeLength'));
+        $validator->rule('callback', 'description', 'Описание может быть не более ' . quote::MAX_DESC_CHARS . ' символов', array('checkDescLength'));
 
         if (!$isEdit) {
             //$validator->add('required', 'license', 'Примите лицензию!');
             if (!$isPreview) {
-                $validator->add('required', 'captcha', 'Произвол не пройдёт! Укажите проверочный код!');
-                $validator->add('captcha', 'captcha', 'Неверно введен проверочный код!');
+                $validator->rule('required', 'captcha', 'Произвол не пройдёт! Укажите проверочный код!');
+                $validator->rule('captcha', 'captcha', 'Неверно введен проверочный код!');
             }
         }
 
@@ -122,6 +124,7 @@ class quoterSaveController extends simpleController
         $this->smarty->assign('user', $user);
         $this->smarty->assign('isPreview', $isPreview);
         $this->smarty->assign('formAction', $url->get());
+        $this->smarty->assign('validator', $validator);
 
         if ($isEdit && $this->request->isAjax()) {
             $this->setTemplatePrefix('ajax_');
