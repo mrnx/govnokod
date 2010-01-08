@@ -29,7 +29,7 @@ class userPreferencesController extends simpleController
         switch ($type) {
             case 'personal':
                 $validator = new formValidator();
-                $validator->add('in', 'avatar', 'Выберите способ отображения аватара из списка!', array(1, 2));
+                $validator->rule('in', 'avatar', 'Выберите способ отображения аватара из списка!', array(1, 2));
                 if ($validator->validate()) {
                     $avatar = $this->request->getInteger('avatar', SC_POST);
                     $user->setAvatarType($avatar);
@@ -54,15 +54,15 @@ class userPreferencesController extends simpleController
                 $categories = $categoryMapper->searchAll();
 
                 $validator = new formValidator();
-                $validator->add('required', 'hdriver', 'Укажите способ подсветки кода');
-                $validator->add('in', 'hdriver', 'Укажите способ подсветки кода из списка', array_keys($drivers));
-                $validator->add('required', 'avatar', 'Укажите способ отображения юзерпика!');
-                $validator->add('in', 'avatar', 'Выберите способ отображения юзерпика из списка!', array(1, 2));
-                $validator->add('required', 'lang', 'Должен быть выбран хотя бы один язык!');
+                $validator->rule('required', 'hdriver', 'Укажите способ подсветки кода');
+                $validator->rule('in', 'hdriver', 'Укажите способ подсветки кода из списка', array_keys($drivers));
+                $validator->rule('required', 'avatar', 'Укажите способ отображения юзерпика!');
+                $validator->rule('in', 'avatar', 'Выберите способ отображения юзерпика из списка!', array(1, 2));
+                $validator->rule('required', 'lang', 'Должен быть выбран хотя бы один язык!');
 
                 $timezones = $userMapper->getTimezones();
-                $validator->add('required', 'timezone', 'Укажите часовой пояс!');
-                $validator->add('in', 'timezone', 'Укажите часовой пояс из списка!', array_keys($timezones));
+                $validator->rule('required', 'timezone', 'Укажите часовой пояс!');
+                $validator->rule('in', 'timezone', 'Укажите часовой пояс из списка!', array_keys($timezones));
 
                 if ($validator->validate()) {
                     $avatar = $this->request->getInteger('avatar', SC_POST);
@@ -108,6 +108,7 @@ class userPreferencesController extends simpleController
         $url->setAction('preferences');
 
         $this->smarty->assign('form_action', $url->get());
+        $this->smarty->assign('validator', $validator);
 
         $this->smarty->assign('user', $user);
         $this->smarty->assign('type', $type);

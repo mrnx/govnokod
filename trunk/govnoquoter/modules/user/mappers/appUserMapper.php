@@ -226,9 +226,8 @@ class appUserMapper extends userMapper
 
     public function getActiveUsersCount()
     {
-        fileLoader::load('cache');
-        $cache = cache::factory();
-        $cacheKey = 'govnokod_active_users_count';
+        $cache = cache::factory('memcache');
+        $cacheKey = 'active_users_count';
         $usersCount = $cache->get($cacheKey);
         if (!$usersCount) {
             $criteria = new criteria($this->table());

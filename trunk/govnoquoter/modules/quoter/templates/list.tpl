@@ -9,7 +9,7 @@
 {else}
     {title append="По колено в коде"}
 {/if}
-
+{/strip}
 <ol class="posts hatom">
 {foreach from=$quotes item="quote"}
     {include file="quoter/listitem.tpl" quote=$quote highlight=$highlight}
@@ -23,4 +23,3 @@
 {if $pager->getPagesTotal() > 1}
     {$pager->toString()}
 {/if}
-{/strip}

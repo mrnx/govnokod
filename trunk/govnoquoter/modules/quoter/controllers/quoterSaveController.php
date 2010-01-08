@@ -81,7 +81,7 @@ class quoterSaveController extends simpleController
                 $quote->setText($text);
 
                 if ($isEdit) {
-                    $cache = cache::factory('geshi_code');
+                    $cache = cache::factory('memcache');
                     $cache->delete($quote->getCacheKey());
                 } else {
                     $quote->setUser($user);
@@ -89,7 +89,7 @@ class quoterSaveController extends simpleController
 
                 $quoteMapper->save($quote);
 
-                if ($this->request->isAjax()) {
+                if ($this->request->isJip()) {
                     return jipTools::redirect();
                 } else {
                     $url = new url('quoteView');
@@ -126,7 +126,7 @@ class quoterSaveController extends simpleController
         $this->smarty->assign('formAction', $url->get());
         $this->smarty->assign('validator', $validator);
 
-        if ($isEdit && $this->request->isAjax()) {
+        if ($isEdit && $this->request->isJip()) {
             $this->setTemplatePrefix('ajax_');
         }
 

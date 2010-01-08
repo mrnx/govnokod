@@ -1,11 +1,11 @@
 <div class="jipTitle">Редактирование говнокода #{$quote->getId()}</div>
 {form action=$formAction method="post" jip=true}
-    {if !$form->isValid()}
+    {if !$validator->isValid()}
     <dl class="errors">
         <dt>Ошибка компиляции кода:</dt>
         <dd>
             <ol>
-            {foreach from=$form->export() item="error"}
+            {foreach from=$validator->getErrors() item="error"}
                 <li>{$error}</li>
             {/foreach}
             </ol>
