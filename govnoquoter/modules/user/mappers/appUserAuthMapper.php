@@ -28,7 +28,7 @@ class appUserAuthMapper extends userAuthMapper
         }
 
         $criteria = new criteria();
-        $criteria->add('hash', $hash);
+        $criteria->where('hash', $hash);
 
         $auth = $this->searchOneByCriteria($criteria);
 
