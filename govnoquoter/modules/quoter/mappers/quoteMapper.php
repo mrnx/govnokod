@@ -101,6 +101,14 @@ class quoteMapper extends mapper
         'ratings_against' => array (
             'accessor' => 'getRatingsAgainst',
             'mutator' => 'setRatingsAgainst',
+        ),
+        'last_comment_id' => array(
+            'accessor' => 'getLastComment',
+            'mutator' => 'setLastComment',
+            'relation' => 'one',
+            'foreign_key' => 'id',
+            'mapper' => 'comments/comments',
+            'options' => array('lazy')
         )
     );
 
@@ -130,6 +138,15 @@ class quoteMapper extends mapper
         $criteria->where('active', 1)->where('user_id', $user->getId());
         
         return $this->searchAllByCriteria($criteria);
+    }
+    
+    public function searchForLiveComments($limit = 20)
+    {
+        $criteria = new criteria;
+        $criteria->where('last_comment_id', 0, criteria::GREATER)->orderByDesc('last_comment_id')->limit($limit);
+        
+        $collection = $this->searchAllByCriteria($criteria);
+        return $collection;
     }
     
     public function preInsert(& $data)
@@ -171,8 +188,12 @@ class quoteMapper extends mapper
         $comment = $data['commentObject'];
         $commentsFolder = $data['commentFolderObject'];
 
+        $quote->setLastComment($comment->getId());
         $quote->setCommentsCount($commentsFolder->getCommentsCount());
         $this->save($quote);
+        
+        $cache = cache::factory('memcache');
+        $cache->delete('live_comments');
 
         $quoteUser = $quote->getUser();
         //отсылаем уведомление создателю говнокода

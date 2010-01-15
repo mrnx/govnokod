@@ -8,6 +8,7 @@
         <ul id="navigation">
             <li><a href="{$SITE_PATH}/">Все</a></li>
             <li><a href="{url route="best"}">Лучший</a></li>
+            <li style="background: url({$SITE_PATH}/images/new.png) no-repeat; padding-left: 20px;"><a href="{url route="livecomments"}">Сток</a></li>
             <li><a href="{url route="search"}">Глупый поиск</a></li>
             {*<li><a href="#">Газета</a></li>*}
             <li class="add"><a href="{url route="quoteAdd"}">Наговнокодить!</a></li>
@@ -29,7 +30,7 @@
 
     <div id="footer">
         <address>
-            <span>&copy; 2008-2009 &laquo;Говнокод.ру&raquo;{if $smarty.const.DEBUG_MODE} {$timer->toString()}{/if}</span>
+            <span>&copy; 2008-2010 &laquo;Говнокод.ру&raquo;{if $smarty.const.DEBUG_MODE} {$timer->toString()}{/if}</span>
             <span><a href="{url route="pageActions" name="feedback"}">Обратная связь</a> | Работает на <a href="http://mzz.ru">mzz</a></span>
         </address>
     </div>

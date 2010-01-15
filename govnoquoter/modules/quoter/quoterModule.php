@@ -34,6 +34,7 @@ class quoterModule extends simpleModule
                 'best' => new requestRoute('best/:nomination/:name', array('module' => 'quoter', 'action' => 'best', 'nomination' => 'rating', 'name' => '')),
                 'rss' => new requestRoute('rss', array('module' => 'quoter', 'action' => 'rss')),
                 'rssFull' => new requestRoute(':name/rss', array('module' => 'quoter', 'action' => 'rss')),
+                'livecomments' => new requestRoute('comments', array('module' => 'quoter', 'action' => 'livecomments')),
                 
                 'quoteAdd' => new requestRoute('add', array('module' => 'quoter', 'action' => 'add')),
                 'quoteView' => new requestRoute(':id', array('module' => 'quoter', 'action' => 'view'), array('id' => '\d+')),
