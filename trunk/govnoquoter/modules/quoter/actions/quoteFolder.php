@@ -1,58 +1,92 @@
 <?php
-return array(
-    'listAll' => array(
+//quoteFolder actions config
+
+return array (
+    'listAll' => 
+    array (
         'controller' => 'list',
-        'title' => 'Листинг всех'
+        'title' => 'Листинг всех',
     ),
-    'add' => array(
+    'add' => 
+    array (
         'controller' => 'save',
         'title' => 'Добавление записи',
-        'role' => array('user')
+        'role' => 
+        array (
+            0 => 'user',
+        ),
     ),
-    'search' => array(
+    'search' => 
+    array (
         'controller' => 'search',
-        'title' => 'Поиск'
+        'title' => 'Поиск',
     ),
-    'best' => array(
+    'best' => 
+    array (
         'controller' => 'best',
-        'title' => 'Список лучших'
+        'title' => 'Список лучших',
     ),
-    'listCategories' => array(
+    'listCategories' => 
+    array (
         'controller' => 'listCategories',
         'title' => 'Список категорий',
-        'main' => 'deny'
+        'main' => 'deny',
     ),
-    'rss' => array(
+    'rss' => 
+    array (
         'controller' => 'rss',
         'title' => 'RSS',
-        'main' => 'active.blank.tpl'
+        'main' => 'active.blank.tpl',
     ),
-    'userrss' => array(
+    'userrss' => 
+    array (
         'controller' => 'rss',
         'title' => 'RSS лента пользователя',
-        'main' => 'active.blank.tpl'
+        'main' => 'active.blank.tpl',
     ),
-    'userquotes' => array(
+    'userquotes' => 
+    array (
         'controller' => 'userQuotes',
-        'title' => 'Записи пользователя'
+        'title' => 'Записи пользователя',
     ),
-    'admin' => array(
+    'admin' => 
+    array (
         'controller' => 'admin',
         'admin' => true,
-        'role' => array('moderator')
+        'role' => 
+        array (
+            0 => 'moderator',
+        ),
     ),
-    'adminCategories' => array(
+    'adminCategories' => 
+    array (
         'controller' => 'adminCategories',
         'title' => 'Список категорий',
         'admin' => true,
-        'role' => array('admin')
+        'role' => 
+        array (
+            0 => 'admin',
+        ),
     ),
-    'addCategory' => array(
+    'addCategory' => 
+    array (
         'controller' => 'saveCategory',
         'title' => 'Добавить категорию',
         'jip' => '1',
         'icon' => 'sprite:mzz-icon/page/add',
-        'role' => array('admin')
-    )
+        'route_name' => 'default2',
+        'role' => 
+        array (
+            0 => 'admin',
+        ),
+    ),
+    'livecomments' => 
+    array (
+        'controller' => 'livecomments',
+        'title' => 'Последние комментарии',
+        'jip' => '0',
+        'icon' => '',
+        'crud_class' => 'quoteFolder',
+    ),
 );
 ?>

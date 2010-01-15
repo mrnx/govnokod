@@ -12,8 +12,7 @@
  * @version $Id$
  */
 
-fileLoader::load('quoter/quoteFolder');
-fileLoader::load('orm/plugins/acl_simplePlugin');
+fileLoader::load('quoter/models/quoteFolder');
 fileLoader::load('modules/jip/plugins/jipPlugin');
 
 /**
@@ -23,11 +22,8 @@ fileLoader::load('modules/jip/plugins/jipPlugin');
  * @subpackage quoter
  * @version 0.1
  */
-
 class quoteFolderMapper extends mapper
 {
-    protected $module = 'quoter';
-
     /**
      * Имя класса DataObject
      *
@@ -36,13 +32,7 @@ class quoteFolderMapper extends mapper
     protected $class = 'quoteFolder';
     protected $table = '';
 
-    protected $map = array(
-        'id' => array(
-            'accessor' => 'getId',
-            'mutator' => 'setId',
-            'options' => array('pk', 'once')
-        )
-    );
+    protected $map = array();
 
     public function getFolder()
     {
@@ -53,18 +43,7 @@ class quoteFolderMapper extends mapper
      public function __construct()
     {
         parent::__construct();
-        $this->plugins('acl_simple');
         $this->plugins('jip');
-    }
-
-    /**
-     * Возвращает доменный объект по аргументам
-     *
-     * @return simple
-     */
-    public function convertArgsToObj($args)
-    {
-        return $this->getFolder();
     }
 }
 

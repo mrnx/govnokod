@@ -42,7 +42,7 @@ CREATE TABLE `comments_comments` (
   PRIMARY KEY  (`id`),
   KEY `user_id` (`user_id`),
   KEY `folder_id` (`folder_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `comments_comments`
@@ -50,7 +50,7 @@ CREATE TABLE `comments_comments` (
 
 
 /*!40000 ALTER TABLE `comments_comments` DISABLE KEYS */;
-INSERT INTO `comments_comments` VALUES (1,'test',2,1248489822,2,1,0,0),(2,'test',1,1248493855,2,0,0,0),(3,'test',2,1248949870,1,2,0,0),(4,'test',2,1248949904,1,-10,0,0),(5,'test3',2,1248949924,1,5,0,0),(6,'test4',2,1248950009,1,0,0,0),(7,'test5',2,1248950053,1,1,0,0),(8,'test56',2,1248950180,1,-1,0,0),(9,'sdgfsdf',2,1248950407,1,0,0,0),(10,'test',2,1249123678,2,1,0,0),(11,'testme',1,1252543218,8,0,0,0),(12,'ёёёё!',1,1252561959,6,0,0,0),(13,'стотыщраз!',1,1252562152,8,0,0,0),(14,'фывафыва',1,1252562157,8,0,0,0),(15,'test',2,1262931692,8,0,0,0);
+INSERT INTO `comments_comments` VALUES (1,'test',2,1248489822,2,1,0,0),(2,'test',1,1248493855,2,0,0,0),(3,'test',2,1248949870,1,2,0,0),(4,'test',2,1248949904,1,-10,0,0),(5,'test3',2,1248949924,1,5,0,0),(6,'test4',2,1248950009,1,0,0,0),(7,'test5',2,1248950053,1,1,0,0),(8,'test56',2,1248950180,1,-1,0,0),(9,'sdgfsdf',2,1248950407,1,0,0,0),(10,'test',2,1249123678,2,1,0,0),(11,'testme',1,1252543218,8,0,0,0),(12,'ёёёё!',1,1252561959,6,0,0,0),(13,'стотыщраз!',1,1252562152,8,0,0,0),(14,'фывафыва',1,1252562157,8,0,0,0),(15,'test',2,1262931692,8,0,0,0),(16,'trololo',2,1263565387,8,0,0,0),(17,'trululu',2,1263565501,8,0,0,0),(18,'sdfsdf',2,1263566367,7,0,0,0),(19,'zskdfjslkdfj',2,1263566482,5,0,0,0),(20,'sdfsdf',2,1263567040,3,0,0,0),(21,'казу казу казу',2,1263568350,5,0,0,0);
 /*!40000 ALTER TABLE `comments_comments` ENABLE KEYS */;
 
 --
@@ -76,7 +76,7 @@ CREATE TABLE `comments_commentsFolder` (
 
 
 /*!40000 ALTER TABLE `comments_commentsFolder` DISABLE KEYS */;
-INSERT INTO `comments_commentsFolder` VALUES (1,3,'quoter','quote','id',7),(2,1,'quoter','quote','id',3),(3,2,'quoter','quote','id',0),(4,5,'quoter','quote','id',0),(5,4,'quoter','quote','id',0),(6,6,'quoter','quote','id',1),(7,7,'quoter','quote','id',0),(8,8,'quoter','quote','id',4);
+INSERT INTO `comments_commentsFolder` VALUES (1,3,'quoter','quote','id',7),(2,1,'quoter','quote','id',3),(3,2,'quoter','quote','id',1),(4,5,'quoter','quote','id',0),(5,4,'quoter','quote','id',2),(6,6,'quoter','quote','id',1),(7,7,'quoter','quote','id',1),(8,8,'quoter','quote','id',6);
 /*!40000 ALTER TABLE `comments_commentsFolder` ENABLE KEYS */;
 
 --
@@ -92,7 +92,7 @@ CREATE TABLE `comments_comments_lseen` (
   `time_read` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `folder_id` (`folder_id`,`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
 
 --
 -- Dumping data for table `comments_comments_lseen`
@@ -100,7 +100,7 @@ CREATE TABLE `comments_comments_lseen` (
 
 
 /*!40000 ALTER TABLE `comments_comments_lseen` DISABLE KEYS */;
-INSERT INTO `comments_comments_lseen` VALUES (3,6,2,1,1252562007),(5,8,2,4,1262931692);
+INSERT INTO `comments_comments_lseen` VALUES (3,6,2,1,1252562007),(8,8,2,6,1263565501),(9,7,2,1,1263566367),(14,5,2,2,1263568350),(13,3,2,1,1263567040);
 /*!40000 ALTER TABLE `comments_comments_lseen` ENABLE KEYS */;
 
 --
@@ -117,7 +117,7 @@ CREATE TABLE `comments_comments_tree` (
   PRIMARY KEY  (`id`),
   KEY `parent_id` (`parent_id`),
   KEY `foreign_key` (`foreign_key`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `comments_comments_tree`
@@ -125,7 +125,7 @@ CREATE TABLE `comments_comments_tree` (
 
 
 /*!40000 ALTER TABLE `comments_comments_tree` DISABLE KEYS */;
-INSERT INTO `comments_comments_tree` VALUES (1,1,0,1,'1/'),(2,2,0,1,'2/'),(3,3,0,1,'3/'),(4,4,0,1,'4/'),(5,5,0,1,'5/'),(6,6,0,1,'6/'),(7,7,0,1,'7/'),(8,8,7,2,'7/8/'),(9,9,0,1,'9/'),(10,10,0,1,'10/'),(11,11,0,1,'11/'),(12,12,0,1,'12/'),(13,13,0,1,'13/'),(14,14,0,1,'14/'),(15,15,11,2,'11/15/');
+INSERT INTO `comments_comments_tree` VALUES (1,1,0,1,'1/'),(2,2,0,1,'2/'),(3,3,0,1,'3/'),(4,4,0,1,'4/'),(5,5,0,1,'5/'),(6,6,0,1,'6/'),(7,7,0,1,'7/'),(8,8,7,2,'7/8/'),(9,9,0,1,'9/'),(10,10,0,1,'10/'),(11,11,0,1,'11/'),(12,12,0,1,'12/'),(13,13,0,1,'13/'),(14,14,0,1,'14/'),(15,15,11,2,'11/15/'),(16,16,0,1,'16/'),(17,17,16,2,'16/17/'),(18,18,0,1,'18/'),(19,19,0,1,'19/'),(20,20,0,1,'20/'),(21,21,19,2,'19/21/');
 /*!40000 ALTER TABLE `comments_comments_tree` ENABLE KEYS */;
 
 --
@@ -339,7 +339,7 @@ CREATE TABLE `quoter_quote` (
   `id` int(11) NOT NULL auto_increment,
   `category_id` int(11) NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
-  `created` int(11) default NULL,
+  `created` int(11) unsigned NOT NULL default '0',
   `deleted` int(11) NOT NULL default '0',
   `text` text NOT NULL,
   `description` text NOT NULL,
@@ -347,6 +347,7 @@ CREATE TABLE `quoter_quote` (
   `ratings_on` int(10) unsigned NOT NULL default '0',
   `ratings_against` int(10) unsigned NOT NULL default '0',
   `active` int(11) NOT NULL,
+  `last_comment_id` int(10) unsigned NOT NULL default '0',
   `comments_count` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `category_id` (`category_id`),
@@ -359,7 +360,7 @@ CREATE TABLE `quoter_quote` (
 
 
 /*!40000 ALTER TABLE `quoter_quote` DISABLE KEYS */;
-INSERT INTO `quoter_quote` VALUES (1,1,1,1248257061,0,'$error = \"Всё хорошо\"; \r\nif (!$_POST[\'mail\'] || !checkEmail($_POST[\'mail\'])) {\r\n    $error .= \"Не верный E-mail\";\r\n}\r\n \r\n...\r\n \r\nif ($error == \"Всё хорошо\") {    $db->query(\"INSERT...\r\n} else {\r\n \r\n...','',-1,1,2,0,3),(2,7,2,1248257148,0,'asdfasdf','asdfasdf',5,0,0,1,0),(3,1,1,1248473224,0,'sdfsadf\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nasdfsdaf','asdfasdf',-2,0,2,0,7),(4,2,2,1250166047,0,'еуые','еуые',0,0,0,1,0),(5,2,2,1250166079,0,'еуые','еуые',0,0,0,1,0),(6,3,2,1252065170,0,'sdfasdf\nasd\nf\nasdf','asdf',0,0,0,1,1),(7,9,2,1252065623,0,'sdfasdfasdf','sdfsadf',0.2,2,0,1,0),(8,5,2,1252066462,0,'sdfasdf','',0.1,1,0,1,4);
+INSERT INTO `quoter_quote` VALUES (1,1,1,1248257061,0,'$error = \"Всё хорошо\"; \r\nif (!$_POST[\'mail\'] || !checkEmail($_POST[\'mail\'])) {\r\n    $error .= \"Не верный E-mail\";\r\n}\r\n \r\n...\r\n \r\nif ($error == \"Всё хорошо\") {    $db->query(\"INSERT...\r\n} else {\r\n \r\n...','',-1,1,2,0,0,3),(2,7,2,1248257148,0,'asdfasdf','asdfasdf',5,0,0,1,20,1),(3,1,1,1248473224,0,'sdfsadf\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nasdfsdaf','asdfasdf',-2,0,2,0,0,7),(4,2,2,1250166047,0,'еуые\nsdfsdfasdf','еуые',0,0,0,1,21,2),(5,2,2,1250166079,0,'еуые','еуые',0,0,0,1,0,0),(6,3,2,1252065170,0,'SELECT * FROM\n`table`','asdfsadf\nas\ndf\nasdfasdf',0.1,1,0,1,0,1),(7,9,2,1252065623,0,'sdfasdfasdf','sdfsadf',0.3,3,0,1,18,1),(8,5,2,1252066462,0,'sdfasdf','',0.2,2,0,1,17,6);
 /*!40000 ALTER TABLE `quoter_quote` ENABLE KEYS */;
 
 --
@@ -384,7 +385,7 @@ CREATE TABLE `quoter_quoteCategory` (
 
 
 /*!40000 ALTER TABLE `quoter_quoteCategory` DISABLE KEYS */;
-INSERT INTO `quoter_quoteCategory` VALUES (1,'php','php','php','PHP',0),(2,'javascript','javascript','javascript','JavaScript',3),(3,'sql','sql','sql','SQL',0),(4,'perl','perl','perl','PERL',0),(5,'python','python','python','Python',1),(6,'c','c','cpp','Си',0),(7,'cpp','cpp','cpp','C++',1),(8,'csharp','csharp','cs','C#',0),(9,'java','java','java','Java',0),(10,'delphi','delphi','delphi','Delphi',0),(11,'actionscript3','actionscript3','javascript','ActionScript',0),(12,'asm','asm','avrasm','Assembler',0),(13,'vb','vb','vbscript','VisualBasic',0),(14,'kucha','','','Куча',0);
+INSERT INTO `quoter_quoteCategory` VALUES (1,'php','php','php','PHP',0),(2,'javascript','javascript','javascript','JavaScript',2),(3,'sql','sql','sql','SQL',1),(4,'perl','perl','perl','PERL',0),(5,'python','python','python','Python',1),(6,'c','c','cpp','Си',0),(7,'cpp','cpp','cpp','C++',1),(8,'csharp','csharp','cs','C#',0),(9,'java','java','java','Java',0),(10,'delphi','delphi','delphi','Delphi',0),(11,'actionscript3','actionscript3','javascript','ActionScript',0),(12,'asm','asm','avrasm','Assembler',0),(13,'vb','vb','vbscript','VisualBasic',0),(14,'kucha','','','Куча',0);
 /*!40000 ALTER TABLE `quoter_quoteCategory` ENABLE KEYS */;
 
 --
@@ -403,7 +404,7 @@ CREATE TABLE `ratings_ratings` (
   PRIMARY KEY  (`id`),
   KEY `user_id` (`user_id`),
   KEY `parent_id` (`folder_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ratings_ratings`
@@ -411,7 +412,7 @@ CREATE TABLE `ratings_ratings` (
 
 
 /*!40000 ALTER TABLE `ratings_ratings` DISABLE KEYS */;
-INSERT INTO `ratings_ratings` VALUES (1,1,1253838052,'127.0.0.1','Opera/9.80 (Windows NT 5.1; U; ru) Presto/2.2.15 Version/10.00',0.1,2),(2,1,1253867722,'127.0.0.1','Opera/9.80 (Windows NT 5.1; U; ru) Presto/2.2.15 Version/10.00',0.1,2),(3,1,1253867894,'127.0.0.1','Opera/9.80 (Windows NT 5.1; U; ru) Presto/2.2.15 Version/10.00',0.1,4);
+INSERT INTO `ratings_ratings` VALUES (1,1,1253838052,'127.0.0.1','Opera/9.80 (Windows NT 5.1; U; ru) Presto/2.2.15 Version/10.00',0.1,2),(2,1,1253867722,'127.0.0.1','Opera/9.80 (Windows NT 5.1; U; ru) Presto/2.2.15 Version/10.00',0.1,2),(3,1,1253867894,'127.0.0.1','Opera/9.80 (Windows NT 5.1; U; ru) Presto/2.2.15 Version/10.00',0.1,4),(4,1,1262934092,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6',0.1,4),(5,1,1262934330,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6',0.1,2),(6,1,1262934337,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6',0.1,5);
 /*!40000 ALTER TABLE `ratings_ratings` ENABLE KEYS */;
 
 --
@@ -430,7 +431,7 @@ CREATE TABLE `ratings_ratingsFolder` (
   PRIMARY KEY  (`id`),
   KEY `parent_id` (`parent_id`),
   KEY `module_class` (`module`,`class`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
 
 --
 -- Dumping data for table `ratings_ratingsFolder`
@@ -438,7 +439,7 @@ CREATE TABLE `ratings_ratingsFolder` (
 
 
 /*!40000 ALTER TABLE `ratings_ratingsFolder` DISABLE KEYS */;
-INSERT INTO `ratings_ratingsFolder` VALUES (1,'quoter','quote',0,0,0,5),(2,'quoter','quote',2,0,0.2,7),(3,'comments','comments',0,0,0,11),(4,'quoter','quote',1,0,0.1,8);
+INSERT INTO `ratings_ratingsFolder` VALUES (1,'quoter','quote',0,0,0,5),(2,'quoter','quote',3,0,0.3,7),(3,'comments','comments',0,0,0,11),(4,'quoter','quote',2,0,0.2,8),(5,'quoter','quote',1,0,0.1,6);
 /*!40000 ALTER TABLE `ratings_ratingsFolder` ENABLE KEYS */;
 
 --
@@ -779,7 +780,7 @@ CREATE TABLE `user_user` (
 
 
 /*!40000 ALTER TABLE `user_user` DISABLE KEYS */;
-INSERT INTO `user_user` VALUES (1,'guest','','',NULL,NULL,1248576546,'3',1,2,'js',0,''),(2,'admin','','098f6bcd4621d373cade4e832627b4f6',NULL,NULL,1253773150,'10',1,6,'js',2,''),(4,'sdfasdfasdf','sadfsadf@sdfasdf.ru','202cb962ac59075b964b07152d234b70',1253961725,'005a0882dcea82748a4f3f6a46c3ed7b',1253961725,'-5',1,0,'js',2,NULL),(5,'sdfasdfasdfsdf','sadfsadfsdf@sdfasdf.ru','202cb962ac59075b964b07152d234b70',1253961805,NULL,1253961805,'-5',1,0,'js',2,NULL);
+INSERT INTO `user_user` VALUES (1,'guest','','',NULL,NULL,1248576546,'3',1,2,'js',0,''),(2,'admin','','098f6bcd4621d373cade4e832627b4f6',NULL,NULL,1263564166,'10',1,6,'js',2,''),(4,'sdfasdfasdf','sadfsadf@sdfasdf.ru','202cb962ac59075b964b07152d234b70',1253961725,'005a0882dcea82748a4f3f6a46c3ed7b',1253961725,'-5',1,0,'js',2,NULL),(5,'sdfasdfasdfsdf','sadfsadfsdf@sdfasdf.ru','202cb962ac59075b964b07152d234b70',1253961805,NULL,1253961805,'-5',1,0,'js',2,NULL);
 /*!40000 ALTER TABLE `user_user` ENABLE KEYS */;
 
 --
@@ -794,7 +795,7 @@ CREATE TABLE `user_userAuth` (
   `hash` char(32) default NULL,
   `time` int(11) unsigned default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
 
 --
 -- Dumping data for table `user_userAuth`
@@ -802,7 +803,7 @@ CREATE TABLE `user_userAuth` (
 
 
 /*!40000 ALTER TABLE `user_userAuth` DISABLE KEYS */;
-INSERT INTO `user_userAuth` VALUES (4,2,'127.0.0.1','1e27e369faa572da4ef2dd5ce8d5a438',1262928828);
+INSERT INTO `user_userAuth` VALUES (6,2,'127.0.0.1','2e2df9ab709a8c1b8180f702125c5f34',1263564888);
 /*!40000 ALTER TABLE `user_userAuth` ENABLE KEYS */;
 
 --
