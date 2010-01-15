@@ -105,5 +105,10 @@ class quote extends entity
     {
         return $this->getCommentsCount() - (int)$this->getSeenCommentsCount();
     }
+    
+    public function isSpecial()
+    {
+        return $this->getId() == 2222;
+    }
 }
 ?>

@@ -22,11 +22,15 @@
             {include file="quoter/rating.tpl" quote=$quote}
         </p>
         <div class="entry-content">
+            {if $quote->isSpecial()}
+            {$quote->getText()}
+            {else}
             <ol>{foreach from=$quote->generateLines() item="line"}<li>{$line}</li>{/foreach}</ol>
             {if $highlight == "geshi"}
             {$quote->getText()|highlite:$langName:$quote->getCacheKey()}
             {else}
             <pre><code class="{$langName|h}">{$quote->getText()|h}</code></pre>
+            {/if}
             {/if}
         </div>
         <p class="description">

@@ -22,7 +22,11 @@
             <description>
                 <![CDATA[
                     {if $quote->getDescription() != ''}<p>{$quote->getDescription()|trim|h|bbcode|nl2br}</p>{/if}
+                    {if $quote->isSpecial()}
+                    {$quote->getText()}
+                    {else}
                     <pre><code class="{$quote->getCategory()->getJsAlias()|h}">{$quote->getText()|h}</code></pre>
+                    {/if}
                 ]]>
             </description>
             <pubDate>{"D, d M Y H:i:s"|date:$quote->getCreated()} GMT</pubDate>
