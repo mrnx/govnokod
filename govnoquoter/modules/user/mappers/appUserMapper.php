@@ -77,6 +77,14 @@ class appUserMapper extends userMapper implements iACLMapper
             'accessor' => 'getPreferredLangs',
             'mutator' => 'setPreferredLangs',
         ),
+        'recover_code' => array(
+            'accessor' => 'getRecoverCode',
+            'mutator' => 'setRecoverCode'
+        ),
+        'recover_time' => array(
+            'accessor' => 'getRecoverTime',
+            'mutator' => 'setRecoverTime'
+        ),
         'openID_identifiers' => array(
             'accessor' => 'getOpenIDIdentifiers',
             'mutator' => 'setOpenIDIdentifiers',
@@ -145,6 +153,11 @@ class appUserMapper extends userMapper implements iACLMapper
     public function searchByConfirmCode($code)
     {
         return $this->searchOneByField('confirmed', $code);
+    }
+    
+    public function searchByRecoverCode($code)
+    {
+        return $this->searchOneByField('recover_code', $code);
     }
     
     protected function preInsert(& $data)
