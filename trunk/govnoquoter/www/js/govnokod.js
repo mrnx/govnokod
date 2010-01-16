@@ -18,8 +18,8 @@ var code;
             var commentsLoadUrl = aElemTrigger.attr('href');
 
             var commentsHolder = aElemTrigger.parent();
-            aElemTrigger.replaceWith(aElemTrigger.text());
-
+            aElemTrigger.replaceWith(document.createTextNode(aElemTrigger.text()));
+            
             var preloader = $('<img src="' + commentsPreloader.src + '" alt="Загрузка" title="Загрузка списка комментариев…" />');
             commentsHolder.append(preloader);
 
