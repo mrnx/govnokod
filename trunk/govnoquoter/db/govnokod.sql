@@ -264,13 +264,8 @@ CREATE TABLE `page_page` (
   `name` varchar(255) NOT NULL default '',
   `title` varchar(255) NOT NULL default '',
   `content` text NOT NULL,
-  `keywords` varchar(255) NOT NULL default '',
-  `description` varchar(255) NOT NULL default '',
-  `folder_id` int(11) unsigned default NULL,
-  `allow_comment` tinyint(4) default '1',
-  `compiled` int(11) default NULL,
-  `keywords_reset` tinyint(1) default '0',
-  `description_reset` tinyint(1) default '0',
+  `folder_id` int(11) unsigned NOT NULL default '0',
+  `compiled` tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `folder_id` (`folder_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
@@ -281,7 +276,7 @@ CREATE TABLE `page_page` (
 
 
 /*!40000 ALTER TABLE `page_page` DISABLE KEYS */;
-INSERT INTO `page_page` VALUES (1,'whatisopenid','Что такое openID','OpenID — это открытая децентрализованная система единого входа. Поддержка сайтами технологии OpenID позволяет пользователю использовать единый логин для авторизации на любом из этих сайтов.','','',1,0,0,0,0),(2,'preferences','Описание настроек','<h3><a href=\"#userpic\" name=\"userpic\">Юзерпик</a></h3>\n<p>На выбор авторизованного пользователя есть два варианта юзерпика:</p>\n<dl>\n    <dt><a href=\"http://gravatar.com/\">Gravatar</a></dt>\n    <dd>\n        <p><a href=\"http://gravatar.com/\"><img src=\"{$SITE_PATH}/files/avatars/gravatar_100.jpg\" alt=\"Gravatar\" /></a></p>\n        <p>Граватар, или глобально распознаваемый аватар - это просто изображение, которое следует за вами от сайта к сайту, всегда рядом с вашим именем, когда вы что-либо делаете. Аватары помогают идентифицировать ваши записи в блогах и на web-форумах, так почему бы не сделать это и на <del style=\"text-decoration: line-through\">всех остальных сайтах</del> Говнокод.ру?</p>\n    </dd>\n\n    <dt>Без аватара</dt>\n    <dd>\n        <p><img src=\"{$SITE_PATH}/files/avatars/noavatar_100.png\" alt=\"Без аватара\" /></p>\n        <p>Типичная унылая картинка, призванная хоть чем-то заполнить пространство.</p>\n    </dd>\n</dl>\n<p>Анонимусов мы не обошли стороной, предоставив ему прикольный, на наш взгляд, юзерпик:</p>\n<dl>\n    <dt>Юзерпик guest:</dt>\n    <dd>\n        <p><img src=\"{$SITE_PATH}/files/avatars/guest_100.png\" alt=\"guest avatar\" /></p>\n    </dd>\n</dl>\n<p> </p>\n<h3><a href=\"#langs\" name=\"langs\">Интересующие языки</a></h3>\n<p>Если какой-то язык Вы не понимаете или не хотите видеть по тем или иным убеждениям, то эта настройка Вам поможет! Опция не является агрессивной и будет участвовать только в формировании контента на главной странице. Это значит, что просматривать другие языки, перейдя в соответствующие разделы, всё равно будет возможно.</p>\n<p> </p>\n<h3><a href=\"#highlight\" name=\"highlight\">Способы подсветки кода</a></h3>\n<dl>\n    <dt>HighlightJS</dt>\n    <dd>\n        <p>Как видно из названия, это подсветка кода с помощью JavaScript. Плюсы подхода в том, что страницы заметно уменьшаются в размере, так как вся подсветка будет производится уже на клиентской стороне. Из минусов выделим, что с выключенным JS эта подсветка, естественно, не будет работать.</p> \n    </dd>\n\n    <dt>Geshi</dt>\n    <dd>\n        <p>Мощный движок подсветки кода. Является серверным решением со всем вытекающими.</p>\n    </dd>\n</dl>','','',1,0,1,0,0),(3,'feedback','Обратная связь','<dl>\n    <dt>Связаться непосредственно с автором можно по следующим адресам</dt>\n\n    <dd>\n        <ul>\n            <li>Электронная почта: <a href=\"&#109;&#97;&#105;&#108;&#116;&#111;&#58;%77%69%69%73%74%72%69%6b%65%72@%67%6d%61%69%6c.%63%6f%6d\" >&#x77;&#x69;&#x69;&#x73;&#x74;&#x72;&#x69;&#x6b;&#x65;&#x72;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a></li>\n            <li>Jabber: <a href=\"xmpp:страйкер@jabber.ru\">страйкер@jabber.ru</a></li>\n            <li>ICQ: 257073504</li>\n        </ul>\n    </dd>\n\n    <dt>Страница проекта на <a href=\"http://code.google.com/\">google.code</a></dt>\n    <dd><a href=\"http://code.google.com/p/govnokod/\">http://code.google.com/p/govnokod/</a></dd>\n</dl>','','',1,0,0,0,0);
+INSERT INTO `page_page` VALUES (1,'whatisopenid','Что такое openID','OpenID — это открытая децентрализованная система единого входа. Поддержка сайтами технологии OpenID позволяет пользователю использовать единый логин для авторизации на любом из этих сайтов.',1,0),(2,'preferences','Описание настроек','<h3><a href=\"#userpic\" name=\"userpic\">Юзерпик</a></h3>\n<p>На выбор авторизованного пользователя есть два варианта юзерпика:</p>\n<dl>\n    <dt><a href=\"http://gravatar.com/\">Gravatar</a></dt>\n    <dd>\n        <p><a href=\"http://gravatar.com/\"><img src=\"{$SITE_PATH}/files/avatars/gravatar_100.jpg\" alt=\"Gravatar\" /></a></p>\n        <p>Граватар, или глобально распознаваемый аватар - это просто изображение, которое следует за вами от сайта к сайту, всегда рядом с вашим именем, когда вы что-либо делаете. Аватары помогают идентифицировать ваши записи в блогах и на web-форумах, так почему бы не сделать это и на <del style=\"text-decoration: line-through\">всех остальных сайтах</del> Говнокод.ру?</p>\n    </dd>\n\n    <dt>Без аватара</dt>\n    <dd>\n        <p><img src=\"{$SITE_PATH}/files/avatars/noavatar_100.png\" alt=\"Без аватара\" /></p>\n        <p>Типичная унылая картинка, призванная хоть чем-то заполнить пространство.</p>\n    </dd>\n</dl>\n<p>Анонимусов мы не обошли стороной, предоставив ему прикольный, на наш взгляд, юзерпик:</p>\n<dl>\n    <dt>Юзерпик guest:</dt>\n    <dd>\n        <p><img src=\"{$SITE_PATH}/files/avatars/guest_100.png\" alt=\"guest avatar\" /></p>\n    </dd>\n</dl>\n<p> </p>\n<h3><a href=\"#langs\" name=\"langs\">Интересующие языки</a></h3>\n<p>Если какой-то язык Вы не понимаете или не хотите видеть по тем или иным убеждениям, то эта настройка Вам поможет! Опция не является агрессивной и будет участвовать только в формировании контента на главной странице. Это значит, что просматривать другие языки, перейдя в соответствующие разделы, всё равно будет возможно.</p>\n<p> </p>\n<h3><a href=\"#highlight\" name=\"highlight\">Способы подсветки кода</a></h3>\n<dl>\n    <dt>HighlightJS</dt>\n    <dd>\n        <p>Как видно из названия, это подсветка кода с помощью JavaScript. Плюсы подхода в том, что страницы заметно уменьшаются в размере, так как вся подсветка будет производится уже на клиентской стороне. Из минусов выделим, что с выключенным JS эта подсветка, естественно, не будет работать.</p> \n    </dd>\n\n    <dt>Geshi</dt>\n    <dd>\n        <p>Мощный движок подсветки кода. Является серверным решением со всем вытекающими.</p>\n    </dd>\n</dl>',1,1),(3,'feedback','Обратная связь','<dl>\n    <dt>Связаться непосредственно с автором можно по следующим адресам</dt>\n\n    <dd>\n        <ul>\n            <li>Электронная почта: <a href=\"&#109;&#97;&#105;&#108;&#116;&#111;&#58;%77%69%69%73%74%72%69%6b%65%72@%67%6d%61%69%6c.%63%6f%6d\" >&#x77;&#x69;&#x69;&#x73;&#x74;&#x72;&#x69;&#x6b;&#x65;&#x72;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a></li>\n            <li>Jabber: <a href=\"xmpp:страйкер@jabber.ru\">страйкер@jabber.ru</a></li>\n            <li>ICQ: 257073504</li>\n        </ul>\n    </dd>\n\n    <dt>Страница проекта на <a href=\"http://code.google.com/\">google.code</a></dt>\n    <dd><a href=\"http://code.google.com/p/govnokod/\">http://code.google.com/p/govnokod/</a></dd>\n</dl>',1,0);
 /*!40000 ALTER TABLE `page_page` ENABLE KEYS */;
 
 --
@@ -291,8 +286,8 @@ INSERT INTO `page_page` VALUES (1,'whatisopenid','Что такое openID','OpenID — эт
 DROP TABLE IF EXISTS `page_pageFolder`;
 CREATE TABLE `page_pageFolder` (
   `id` int(11) NOT NULL auto_increment,
-  `name` char(255) default NULL,
-  `title` char(255) default NULL,
+  `name` char(255) NOT NULL default '',
+  `title` char(255) NOT NULL default '',
   PRIMARY KEY  (`id`),
   KEY `name` (`name`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
@@ -313,10 +308,10 @@ INSERT INTO `page_pageFolder` VALUES (1,'root','root');
 DROP TABLE IF EXISTS `page_pageFolder_tree`;
 CREATE TABLE `page_pageFolder_tree` (
   `id` int(11) unsigned NOT NULL auto_increment,
-  `path` text,
-  `foreign_key` int(11) default NULL,
-  `level` int(11) unsigned default NULL,
-  `spath` text,
+  `path` text NOT NULL,
+  `foreign_key` int(11) NOT NULL default '0',
+  `level` int(11) unsigned NOT NULL default '0',
+  `spath` text NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `foreign_key` (`foreign_key`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
@@ -780,7 +775,7 @@ CREATE TABLE `user_user` (
 
 
 /*!40000 ALTER TABLE `user_user` DISABLE KEYS */;
-INSERT INTO `user_user` VALUES (1,'guest','','',NULL,NULL,1248576546,'3',1,2,'js',0,''),(2,'admin','','098f6bcd4621d373cade4e832627b4f6',NULL,NULL,1263564166,'10',1,6,'js',2,''),(4,'sdfasdfasdf','sadfsadf@sdfasdf.ru','202cb962ac59075b964b07152d234b70',1253961725,'005a0882dcea82748a4f3f6a46c3ed7b',1253961725,'-5',1,0,'js',2,NULL),(5,'sdfasdfasdfsdf','sadfsadfsdf@sdfasdf.ru','202cb962ac59075b964b07152d234b70',1253961805,NULL,1253961805,'-5',1,0,'js',2,NULL);
+INSERT INTO `user_user` VALUES (1,'guest','','',NULL,NULL,1248576546,'3',1,2,'js',0,''),(2,'admin','','098f6bcd4621d373cade4e832627b4f6',NULL,NULL,1263623229,'10',1,6,'js',2,''),(4,'sdfasdfasdf','sadfsadf@sdfasdf.ru','202cb962ac59075b964b07152d234b70',1253961725,'005a0882dcea82748a4f3f6a46c3ed7b',1253961725,'-5',1,0,'js',2,NULL),(5,'sdfasdfasdfsdf','sadfsadfsdf@sdfasdf.ru','202cb962ac59075b964b07152d234b70',1253961805,NULL,1253961805,'-5',1,0,'js',2,NULL);
 /*!40000 ALTER TABLE `user_user` ENABLE KEYS */;
 
 --

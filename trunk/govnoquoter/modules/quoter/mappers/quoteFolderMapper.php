@@ -32,7 +32,12 @@ class quoteFolderMapper extends mapper
     protected $class = 'quoteFolder';
     protected $table = '';
 
-    protected $map = array();
+    protected $map = array(
+        'id' => array(
+            'accessor' => 'getId',
+            'mutator' => 'setId',
+        )
+    );
 
     public function getFolder()
     {

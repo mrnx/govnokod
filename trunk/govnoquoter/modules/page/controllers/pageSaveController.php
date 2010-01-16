@@ -12,8 +12,6 @@
  * @version $Id$
  */
 
-fileLoader::load('forms/validators/formValidator');
-
 /**
  * pageSaveController: контроллер для метода save модуля page
  *
@@ -21,7 +19,6 @@ fileLoader::load('forms/validators/formValidator');
  * @subpackage page
  * @version 0.1
  */
-
 class pageSaveController extends simpleController
 {
     protected function getView()
@@ -51,25 +48,32 @@ class pageSaveController extends simpleController
 
 
         $validator = new formValidator();
-        $validator->add('required', 'page[name]', i18n::getMessage('error_name_required', 'page'));
-        $validator->add('regex', 'page[name]', i18n::getMessage('error_name_invalid', 'page'), '/^[-_a-z0-9]+$/i');
-        $validator->add('callback', 'page[name]', i18n::getMessage('error_name_unique', 'page'), array(array($this, 'checkUniquePageName'), $page, $pageFolder));
+        
+        $validator->filter('trim', 'page[name]');
+        
+        $validator->rule('required', 'page[name]', i18n::getMessage('error_name_required', 'page'));
+        $validator->rule('regex', 'page[name]', i18n::getMessage('error_name_invalid', 'page'), '/^[-_a-z0-9]+$/i');
+        $validator->rule('callback', 'page[name]', i18n::getMessage('error_name_unique', 'page'), array(array($this, 'checkUniquePageName'), $page, $pageFolder));
 
         if ($validator->validate()) {
             $data = new arrayDataspace($this->request->getArray('page', SC_POST));
 
-            $page->setKeywords($data['keywords']);
-            $page->setDescription($data['description']);
             $page->setName($data['name']);
-            $page->setTitle($data['title']);
-            $page->setContent($data['content']);
+            
+            if (isset($data['title'])) {
+                $page->setTitle($data['title']);
+            }
+            if (isset($data['content'])) {
+                $page->setContent($data['content']);
+            }
 
-            $page->setCompiled((int) $data['compiled']);
-            $page->setAllowComment((int) $data['allow_comment']);
-            $page->setDescriptionReset((int) $data['descriptionReset']);
-            $page->setKeywordsReset((int) $data['keywordsReset']);
+            if (isset($data['compiled'])) {
+                $page->setCompiled((int) $data['compiled']);
+            }
 
-            $page->setFolder($pageFolder);
+            if (!$isEdit) {
+                $page->setFolder($pageFolder);
+            }
             $pageMapper->save($page);
             return jipTools::redirect();
         }
@@ -79,7 +83,7 @@ class pageSaveController extends simpleController
         $url->setAction($action);
 
         $this->smarty->assign('form_action', $url->get());
-        $this->smarty->assign('errors', $validator->getErrors());
+        $this->smarty->assign('validator', $validator);
         $this->smarty->assign('page', $page);
         $this->smarty->assign('isEdit', $isEdit);
 

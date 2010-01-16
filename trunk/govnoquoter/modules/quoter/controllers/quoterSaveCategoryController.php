@@ -42,11 +42,11 @@ class quoterSaveCategoryController extends simpleController
         }
 
         $validator = new formValidator();
-        $validator->add('required', 'title', 'Укажите заголовок');
-        $validator->add('required', 'geshi_alias', 'Укажите алиас для Geshi');
-        $validator->add('required', 'js_alias', 'Укажите алиас для HighglightJS');
-        $validator->add('required', 'name', 'Укажите идентификатор');
-        $validator->add('callback', 'name', 'Идентификатор должен быть уникален', array('checkCategoryName', $category, $quoteCategoryMapper));
+        $validator->rule('required', 'title', 'Укажите заголовок');
+        $validator->rule('required', 'geshi_alias', 'Укажите алиас для Geshi');
+        $validator->rule('required', 'js_alias', 'Укажите алиас для HighglightJS');
+        $validator->rule('required', 'name', 'Укажите идентификатор');
+        $validator->rule('callback', 'name', 'Идентификатор должен быть уникален', array('checkCategoryName', $category, $quoteCategoryMapper));
 
         if ($validator->validate()) {
             $title = $this->request->getString('title', SC_POST);
