@@ -20,6 +20,8 @@ class quoterModule extends simpleModule
         'user'
     );
     
+    protected $moduleTitle = 'Цитатник';
+    
     public function getRoutes()
     {
         return array(
