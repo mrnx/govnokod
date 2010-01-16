@@ -28,6 +28,6 @@
             </p>
         </form>
         <p>&nbsp;</p>
-        <p><a href="{url route="default2" module="user" action="register"}">Регистрация</a> | Забыли пароль? | Не пришло письмо подтверждения регистрации? | <a href="{url route="openIDLogin"}">Вход через OpenID</a></p>
+        <p><a href="{url route="default2" module="user" action="register"}">Регистрация</a> | <a href="{url route="user-recover-pass"}">Забыли пароль?</a> | <a href="{url route="pageActions" name="injustice"}">Не пришло письмо подтверждения регистрации?</a> | <a href="{url route="openIDLogin"}">Вход через OpenID</a></p>
     </li>
 </ol>

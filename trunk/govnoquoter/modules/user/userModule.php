@@ -45,6 +45,8 @@ class userModule extends simpleModule
             ),
             array(
                 'openIDLogin' => new requestRoute('user/openid/login', array('module' => 'user', 'action' => 'openIDLogin')),
+                'user-confirm' => new requestRoute('user/confirm', array('module' => 'user', 'action' => 'confirm')),
+                'user-recover-pass' => new requestRoute('user/recover', array('module' => 'user', 'action' => 'recover')),
             )
         );
     }

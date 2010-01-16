@@ -1,15 +1,15 @@
-{title append="Регистрация пользователя"}
+{title append="Регистрация нового пользователя"}
 <ol class="posts">
     <li class="hentry">
-        <h2>Регистрация пользователя</h2>
+        <h2>Регистрация нового пользователя</h2>
 
         {form action=$form_action method="post"}
-            {if !$form->isValid()}
+            {if !$validator->isValid()}
             <dl class="errors">
                 <dt>Ошибка регистрации:</dt>
                 <dd>
                     <ol>
-                    {foreach from=$form->export() item="error"}
+                    {foreach from=$validator->getErrors() item="error"}
                         <li>{$error}</li>
                     {/foreach}
                     </ol>
@@ -29,9 +29,9 @@
 
                 <dt>{form->caption name="repassword" value="Повтор пароля:"}</dt>
                 <dd>{form->password name="repassword"}</dd>
-
-                <dt>{form->caption name="timezone" value="Часовой пояс:"}</dt>
-                <dd>{form->select name="timezone" options=$timezones emptyFirst=true}</dd>
+                
+                <dt>{form->caption name="captcha" value="Проверочный код:"}</dt>
+                <dd>{form->captcha name="captcha"}</dd>
             </dl>
             <p>
                 {form->submit class="send" name="submit" value="Зарегистрироваться!"}
