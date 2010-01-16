@@ -5,6 +5,15 @@ return array(
     'view' => array(
         'controller' => 'view',
         'title' => 'Кабинка пользователя'
-    )
+    ),
+    'activate' => array(
+        'controller' => 'activate',
+        'title' => 'Активировать',
+        'confirm' => 'Вы уверены, что хотите активировать этого пользователя?',
+        'main' => 'active.blank.tpl',
+        'jip' => '1',
+        'icon' => 'sprite:mzz-icon/accept',
+        'role' => 'moderator'
+    ),
 );
 ?>

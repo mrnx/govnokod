@@ -205,17 +205,17 @@ var code;
             return false;
         });
 
-        $('.vote a').live('click', function() {
+        $('p.vote a').live('click', function() {
             code.vote($(this));
             return false;
         });
 
-        $('.comment-vote a').live('click', function() {
+        $('span.comment-vote a').live('click', function() {
             comments.vote($(this));
             return false;
         });
 
-        $('.entry-content a.trigger').click(function(){
+        $('div.entry-content a.trigger').click(function(){
             code.unfold($(this));
             return false;
         });
@@ -225,6 +225,11 @@ var code;
             return false;
         });
 
+        $('span.hidden-text a.ajax').click(function() {
+            $(this).closest('div.entry-comment-hidden').removeClass('entry-comment-hidden');
+            return false; 
+        });
+        
         //Если вдруг подключили js higlight драйвер
         if (typeof(hljs) == 'object') {
             hljs.initHighlighting();

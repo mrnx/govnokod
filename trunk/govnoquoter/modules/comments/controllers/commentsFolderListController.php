@@ -19,7 +19,6 @@
  * @subpackage comments
  * @version 0.1.1
  */
-
 class commentsFolderListController extends simpleController
 {
     protected function getView()

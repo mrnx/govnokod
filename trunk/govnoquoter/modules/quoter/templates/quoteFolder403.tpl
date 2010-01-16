@@ -1,5 +1,5 @@
 {title append="Вам запрещен доступ в этот раздел!"}
-{if $request->getAction() == 'add'}
+{if $request->getAction() == 'add' && !$toolkit->getUser()->isLoggedIn()}
 <ol class="posts">
     <li class="hentry">
         <h2>Говнокодить могут только авторизованные пользователи</h2>
