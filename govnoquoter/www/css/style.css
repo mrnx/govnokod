@@ -694,6 +694,21 @@ div.entry-comments a.comment-link
     border-bottom: none;
 }
 
+div.entry-comment .hidden-text
+{
+    display: none;
+}
+
+div.entry-comment-hidden .hidden-text
+{
+    display: inline;
+}
+
+div.entry-comment-hidden .comment-text
+{
+    display: none;
+}
+
 /* Form styles */
 
 form

@@ -19,7 +19,7 @@
  * @subpackage user
  * @version 0.2.3
  */
-class appUserMapper extends userMapper 
+class appUserMapper extends userMapper implements iACLMapper
 {
     /**
      * Map
@@ -30,7 +30,8 @@ class appUserMapper extends userMapper
         'id' => array(
             'accessor' => 'getId',
             'mutator' => 'setId',
-            'options' => array('pk', 'once')
+            'options' => array('pk', 'once'),
+            'orderBy' => 1
          ),
         'login' => array(
             'accessor' => 'getLogin',
@@ -241,6 +242,18 @@ class appUserMapper extends userMapper
         }
 
         return $usersCount;
+    }
+    
+    public function convertArgsToObj(Array $args)
+    {
+        if (isset($args['id'])) {
+            $user = $this->searchByKey($args['id']);
+            if ($user) {
+                return $user;
+            }
+        }
+
+        throw new mzzDONotFoundException();
     }
 }
 

@@ -12,8 +12,6 @@
  * @version $Id$
  */
 
-fileLoader::load('forms/validators/formValidator');
-
 /**
  * quoterSaveCategoryController: контроллер для метода addCategory модуля quoter
  *
@@ -21,7 +19,6 @@ fileLoader::load('forms/validators/formValidator');
  * @subpackage quoter
  * @version 0.1
  */
-
 class quoterSaveCategoryController extends simpleController
 {
     protected function getView()
@@ -42,6 +39,12 @@ class quoterSaveCategoryController extends simpleController
         }
 
         $validator = new formValidator();
+        
+        $validator->filter('trim', 'title');
+        $validator->filter('trim', 'name');
+        $validator->filter('trim', 'geshi_alias');
+        $validator->filter('trim', 'js_alias');
+        
         $validator->rule('required', 'title', 'Укажите заголовок');
         $validator->rule('required', 'geshi_alias', 'Укажите алиас для Geshi');
         $validator->rule('required', 'js_alias', 'Укажите алиас для HighglightJS');
@@ -72,6 +75,7 @@ class quoterSaveCategoryController extends simpleController
 
         $this->smarty->assign('category', $category);
         $this->smarty->assign('isEdit', $isEdit);
+        $this->smarty->assign('validator', $validator);
         $this->smarty->assign('form_action', $url->get());
 
         return $this->smarty->fetch('quoter/saveCategory.tpl');

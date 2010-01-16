@@ -8,6 +8,6 @@
                         {include file="comments/rating.tpl" comment=$comment}
                     </span>
                 </p>
-                <div class="entry-comment">{$comment->getText()|h|nl2br|bbcode}</div>
+                <div class="entry-comment{if $comment->getRating() <= -5} entry-comment-hidden{/if}">{if $comment->getRating() <= -5}<span class="hidden-text"><a href="#" class="ajax">показать все, что скрыто</a></span>{/if}<span class="comment-text">{$comment->getText()|h|nl2br|bbcode}</span></div>
                 <a class="answer" href="{url route="withId" module="comments" action="post" id=$commentsFolder->getId()}?replyTo={$comment->getId()}" onclick="comments.moveForm({$comment->getId()}, {$commentsFolder->getId()}, this); return false;">Ответить</a>
             </div>

@@ -50,7 +50,7 @@ CREATE TABLE `comments_comments` (
 
 
 /*!40000 ALTER TABLE `comments_comments` DISABLE KEYS */;
-INSERT INTO `comments_comments` VALUES (1,'test',2,1248489822,2,1,0,0),(2,'test',1,1248493855,2,0,0,0),(3,'test',2,1248949870,1,2,0,0),(4,'test',2,1248949904,1,-10,0,0),(5,'test3',2,1248949924,1,5,0,0),(6,'test4',2,1248950009,1,0,0,0),(7,'test5',2,1248950053,1,1,0,0),(8,'test56',2,1248950180,1,-1,0,0),(9,'sdgfsdf',2,1248950407,1,0,0,0),(10,'test',2,1249123678,2,1,0,0),(11,'testme',1,1252543218,8,0,0,0),(12,'ёёёё!',1,1252561959,6,0,0,0),(13,'стотыщраз!',1,1252562152,8,0,0,0),(14,'фывафыва',1,1252562157,8,0,0,0),(15,'test',2,1262931692,8,0,0,0),(16,'trololo',2,1263565387,8,0,0,0),(17,'trululu',2,1263565501,8,0,0,0),(18,'sdfsdf',2,1263566367,7,0,0,0),(19,'zskdfjslkdfj',2,1263566482,5,0,0,0),(20,'sdfsdf',2,1263567040,3,0,0,0),(21,'казу казу казу',2,1263568350,5,0,0,0);
+INSERT INTO `comments_comments` VALUES (1,'test',2,1248489822,2,1,0,0),(2,'test',1,1248493855,2,0,0,0),(3,'test',2,1248949870,1,2,0,0),(4,'test',2,1248949904,1,-10,0,0),(5,'test3',2,1248949924,1,5,0,0),(6,'test4',2,1248950009,1,0,0,0),(7,'test5',2,1248950053,1,1,0,0),(8,'test56',2,1248950180,1,-1,0,0),(9,'sdgfsdf',2,1248950407,1,0,0,0),(10,'test',2,1249123678,2,1,0,0),(11,'testme',1,1252543218,8,0,0,0),(12,'ёёёё!',1,1252561959,6,0,0,0),(13,'стотыщраз!',1,1252562152,8,0,0,0),(14,'фывафыва',1,1252562157,8,-1,0,1),(15,'test',2,1262931692,8,0,0,0),(16,'trololo',2,1263565387,8,0,0,0),(17,'trululu',2,1263565501,8,0,0,0),(18,'sdfsdf',2,1263566367,7,0,0,0),(19,'zskdfjslkdfj',2,1263566482,5,0,0,0),(20,'sdfsdf',2,1263567040,3,0,0,0),(21,'казу казу казу',2,1263568350,5,0,0,0);
 /*!40000 ALTER TABLE `comments_comments` ENABLE KEYS */;
 
 --
@@ -135,18 +135,17 @@ INSERT INTO `comments_comments_tree` VALUES (1,1,0,1,'1/'),(2,2,0,1,'2/'),(3,3,0
 DROP TABLE IF EXISTS `fileManager_file`;
 CREATE TABLE `fileManager_file` (
   `id` int(11) unsigned NOT NULL auto_increment,
-  `realname` varchar(255) default 'имя в фс в каталоге на сервере',
-  `name` varchar(255) default 'имя с которым файл будет отдаваться клиенту',
-  `ext` varchar(20) default NULL,
-  `size` int(11) default NULL,
-  `modified` int(11) default NULL,
-  `downloads` int(11) default '0',
-  `right_header` tinyint(4) default NULL,
-  `direct_link` int(11) default '0',
-  `about` text,
-  `folder_id` int(11) unsigned default NULL,
-  `obj_id` int(11) unsigned default NULL,
-  `storage_id` int(11) default NULL,
+  `realname` char(255) NOT NULL default '',
+  `name` char(255) NOT NULL default '',
+  `ext` char(20) NOT NULL default '',
+  `size` int(11) NOT NULL default '0',
+  `modified` int(11) NOT NULL default '0',
+  `downloads` int(11) NOT NULL default '0',
+  `right_header` tinyint(4) NOT NULL default '0',
+  `direct_link` int(11) NOT NULL default '0',
+  `about` text NOT NULL,
+  `folder_id` int(11) unsigned NOT NULL default '0',
+  `storage_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `realname` (`realname`),
   KEY `folder_id` (`folder_id`,`name`,`ext`)
@@ -167,11 +166,11 @@ CREATE TABLE `fileManager_file` (
 DROP TABLE IF EXISTS `fileManager_folder`;
 CREATE TABLE `fileManager_folder` (
   `id` int(11) unsigned NOT NULL auto_increment,
-  `name` char(255) default NULL,
-  `title` char(255) default NULL,
-  `filesize` int(11) unsigned default NULL,
-  `exts` char(255) default NULL,
-  `storage_id` int(11) NOT NULL,
+  `name` char(255) NOT NULL default '',
+  `title` char(255) NOT NULL default '',
+  `filesize` int(11) unsigned NOT NULL default '0',
+  `exts` char(255) NOT NULL default '',
+  `storage_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
 
@@ -181,7 +180,7 @@ CREATE TABLE `fileManager_folder` (
 
 
 /*!40000 ALTER TABLE `fileManager_folder` DISABLE KEYS */;
-INSERT INTO `fileManager_folder` VALUES (1,'root','root',NULL,NULL,1);
+INSERT INTO `fileManager_folder` VALUES (1,'root','root',0,'',1);
 /*!40000 ALTER TABLE `fileManager_folder` ENABLE KEYS */;
 
 --
@@ -191,10 +190,10 @@ INSERT INTO `fileManager_folder` VALUES (1,'root','root',NULL,NULL,1);
 DROP TABLE IF EXISTS `fileManager_folder_tree`;
 CREATE TABLE `fileManager_folder_tree` (
   `id` int(11) unsigned NOT NULL auto_increment,
-  `path` text,
-  `foreign_key` int(11) default NULL,
-  `level` int(11) unsigned default NULL,
-  `spath` text,
+  `path` text NOT NULL,
+  `foreign_key` int(11) unsigned NOT NULL default '0',
+  `level` int(11) unsigned NOT NULL default '0',
+  `spath` text NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
@@ -214,9 +213,9 @@ INSERT INTO `fileManager_folder_tree` VALUES (1,'root/',1,1,'1/');
 DROP TABLE IF EXISTS `fileManager_storage`;
 CREATE TABLE `fileManager_storage` (
   `id` int(11) unsigned NOT NULL auto_increment,
-  `name` char(255) default NULL,
-  `path` char(255) default NULL,
-  `web_path` char(255) default NULL,
+  `name` char(255) NOT NULL,
+  `path` char(255) NOT NULL,
+  `web_path` char(255) NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
 
@@ -399,7 +398,7 @@ CREATE TABLE `ratings_ratings` (
   PRIMARY KEY  (`id`),
   KEY `user_id` (`user_id`),
   KEY `parent_id` (`folder_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ratings_ratings`
@@ -407,7 +406,7 @@ CREATE TABLE `ratings_ratings` (
 
 
 /*!40000 ALTER TABLE `ratings_ratings` DISABLE KEYS */;
-INSERT INTO `ratings_ratings` VALUES (1,1,1253838052,'127.0.0.1','Opera/9.80 (Windows NT 5.1; U; ru) Presto/2.2.15 Version/10.00',0.1,2),(2,1,1253867722,'127.0.0.1','Opera/9.80 (Windows NT 5.1; U; ru) Presto/2.2.15 Version/10.00',0.1,2),(3,1,1253867894,'127.0.0.1','Opera/9.80 (Windows NT 5.1; U; ru) Presto/2.2.15 Version/10.00',0.1,4),(4,1,1262934092,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6',0.1,4),(5,1,1262934330,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6',0.1,2),(6,1,1262934337,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6',0.1,5);
+INSERT INTO `ratings_ratings` VALUES (1,1,1253838052,'127.0.0.1','Opera/9.80 (Windows NT 5.1; U; ru) Presto/2.2.15 Version/10.00',0.1,2),(2,1,1253867722,'127.0.0.1','Opera/9.80 (Windows NT 5.1; U; ru) Presto/2.2.15 Version/10.00',0.1,2),(3,1,1253867894,'127.0.0.1','Opera/9.80 (Windows NT 5.1; U; ru) Presto/2.2.15 Version/10.00',0.1,4),(4,1,1262934092,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6',0.1,4),(5,1,1262934330,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6',0.1,2),(6,1,1262934337,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6',0.1,5),(7,2,1263625236,'127.0.0.1','Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.7) Gecko/20091221 Firefox/3.5.7',-1,6);
 /*!40000 ALTER TABLE `ratings_ratings` ENABLE KEYS */;
 
 --
@@ -426,7 +425,7 @@ CREATE TABLE `ratings_ratingsFolder` (
   PRIMARY KEY  (`id`),
   KEY `parent_id` (`parent_id`),
   KEY `module_class` (`module`,`class`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
 
 --
 -- Dumping data for table `ratings_ratingsFolder`
@@ -434,147 +433,8 @@ CREATE TABLE `ratings_ratingsFolder` (
 
 
 /*!40000 ALTER TABLE `ratings_ratingsFolder` DISABLE KEYS */;
-INSERT INTO `ratings_ratingsFolder` VALUES (1,'quoter','quote',0,0,0,5),(2,'quoter','quote',3,0,0.3,7),(3,'comments','comments',0,0,0,11),(4,'quoter','quote',2,0,0.2,8),(5,'quoter','quote',1,0,0.1,6);
+INSERT INTO `ratings_ratingsFolder` VALUES (1,'quoter','quote',0,0,0,5),(2,'quoter','quote',3,0,0.3,7),(3,'comments','comments',0,0,0,11),(4,'quoter','quote',2,0,0.2,8),(5,'quoter','quote',1,0,0.1,6),(6,'comments','comments',0,1,-1,14);
 /*!40000 ALTER TABLE `ratings_ratingsFolder` ENABLE KEYS */;
-
---
--- Table structure for table `sys_access`
---
-
-DROP TABLE IF EXISTS `sys_access`;
-CREATE TABLE `sys_access` (
-  `id` int(11) NOT NULL auto_increment,
-  `action_id` int(11) unsigned default NULL,
-  `class_id` int(11) default NULL,
-  `obj_id` int(11) default NULL,
-  `uid` int(11) default NULL,
-  `gid` int(11) default NULL,
-  `allow` tinyint(1) unsigned default '0',
-  `deny` tinyint(1) unsigned default '0',
-  PRIMARY KEY  (`id`),
-  KEY `class_action_id` (`class_id`,`obj_id`,`uid`,`gid`),
-  KEY `obj_id_gid` (`obj_id`,`gid`),
-  KEY `obj_id_uid` (`obj_id`,`uid`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
-
---
--- Dumping data for table `sys_access`
---
-
-
-/*!40000 ALTER TABLE `sys_access` DISABLE KEYS */;
-INSERT INTO `sys_access` VALUES (3,1,55,0,NULL,5,1,0);
-/*!40000 ALTER TABLE `sys_access` ENABLE KEYS */;
-
---
--- Table structure for table `sys_access_registry`
---
-
-DROP TABLE IF EXISTS `sys_access_registry`;
-CREATE TABLE `sys_access_registry` (
-  `obj_id` int(11) unsigned NOT NULL auto_increment,
-  `class_id` int(11) unsigned default NULL,
-  PRIMARY KEY  (`obj_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
-
---
--- Dumping data for table `sys_access_registry`
---
-
-
-/*!40000 ALTER TABLE `sys_access_registry` DISABLE KEYS */;
-INSERT INTO `sys_access_registry` VALUES (1,9),(2,7),(3,7),(4,7),(5,7),(6,7),(7,7),(8,7),(9,7),(10,7),(11,7),(12,7),(13,7),(14,7),(15,7),(16,7),(17,7),(18,7),(19,7),(20,7),(22,52),(23,50);
-/*!40000 ALTER TABLE `sys_access_registry` ENABLE KEYS */;
-
---
--- Table structure for table `sys_actions`
---
-
-DROP TABLE IF EXISTS `sys_actions`;
-CREATE TABLE `sys_actions` (
-  `id` int(11) NOT NULL auto_increment,
-  `name` char(255) default NULL,
-  PRIMARY KEY  (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=123 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
-
---
--- Dumping data for table `sys_actions`
---
-
-
-/*!40000 ALTER TABLE `sys_actions` DISABLE KEYS */;
-INSERT INTO `sys_actions` VALUES (1,'edit'),(2,'delete'),(3,'view'),(4,'create'),(5,'list'),(6,'createFolder'),(7,'editFolder'),(8,'deleteFolder'),(9,'editACL'),(10,'login'),(11,'exit'),(12,'memberOf'),(13,'groupDelete'),(14,'groupsList'),(15,'groupEdit'),(16,'membersList'),(17,'addToGroup'),(18,'editDefault'),(19,'post'),(20,'admin'),(21,'devToolbar'),(27,'upload'),(28,'get'),(29,'move'),(30,'moveFolder'),(51,'groupCreate'),(52,'viewGallery'),(53,'createAlbum'),(54,'editAlbum'),(55,'viewAlbum'),(56,'uploadPhoto'),(57,'viewThumbnail'),(59,'viewPhoto'),(60,'editPhoto'),(61,'save'),(62,'deletemenu'),(63,'addmenu'),(64,'editmenu'),(65,'additem'),(66,'last'),(67,'moveUp'),(68,'moveDown'),(69,'register'),(70,'results'),(71,'send'),(72,'addCategory'),(73,'deleteCategory'),(74,'editCategory'),(75,'viewActual'),(76,'deleteAlbum'),(77,'deletecat'),(78,'createcat'),(79,'editcat'),(80,'forum'),(81,'thread'),(82,'newThread'),(83,'createCategory'),(84,'createForum'),(85,'editForum'),(86,'goto'),(87,'editThread'),(88,'moveThread'),(89,'up'),(90,'down'),(91,'createRoot'),(92,'browse'),(93,'new'),(94,'editTags'),(95,'tagsCloud'),(96,'itemsTagsCloud'),(97,'searchByTag'),(98,'profile'),(99,'groupAdmin'),(100,'editProfile'),(101,'massAction'),(102,'translate'),(103,'configuration'),(104,'adminTypes'),(105,'adminProperties'),(106,'listAll'),(107,'add'),(108,'quote'),(109,'rss'),(110,'vote'),(111,'rate'),(112,'loginForm'),(113,'preferences'),(114,'search'),(115,'best'),(116,'exportAllComments'),(117,'listCategories'),(118,'openIDLogin'),(119,'adminCategories'),(120,'active'),(121,'userrss'),(122,'userquotes');
-/*!40000 ALTER TABLE `sys_actions` ENABLE KEYS */;
-
---
--- Table structure for table `sys_classes`
---
-
-DROP TABLE IF EXISTS `sys_classes`;
-CREATE TABLE `sys_classes` (
-  `id` int(11) NOT NULL auto_increment,
-  `name` char(255) default NULL,
-  `module_id` int(11) unsigned default NULL,
-  PRIMARY KEY  (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=60 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
-
---
--- Dumping data for table `sys_classes`
---
-
-
-/*!40000 ALTER TABLE `sys_classes` DISABLE KEYS */;
-INSERT INTO `sys_classes` VALUES (1,'news',1),(2,'newsFolder',1),(3,'user',2),(4,'group',2),(6,'page',4),(7,'access',5),(8,'userGroup',2),(9,'admin',6),(10,'comments',8),(11,'commentsFolder',8),(12,'userAuth',2),(13,'pageFolder',4),(17,'file',9),(18,'folder',9),(19,'catalogue',10),(20,'catalogueFolder',10),(21,'gallery',11),(22,'album',11),(23,'photo',11),(24,'menuItem',12),(25,'menu',12),(26,'menuFolder',12),(27,'userOnline',2),(28,'question',13),(29,'answer',13),(30,'voteFolder',13),(32,'message',14),(33,'messageCategory',14),(34,'voteCategory',13),(35,'forum',15),(36,'category',15),(37,'thread',15),(38,'post',15),(39,'faq',16),(41,'faqCategory',16),(42,'faqFolder',16),(43,'categoryFolder',15),(44,'tags',17),(45,'tagsItem',17),(46,'tagsItemRel',17),(47,'captcha',18),(48,'profile',15),(49,'storage',9),(50,'userFolder',2),(52,'groupFolder',2),(53,'ratingsFolder',21),(54,'ratings',21),(55,'quote',22),(56,'quoteCategory',22),(57,'quoteFolder',22),(58,'userOpenID',2),(59,'commentsLastSeen',8);
-/*!40000 ALTER TABLE `sys_classes` ENABLE KEYS */;
-
---
--- Table structure for table `sys_classes_actions`
---
-
-DROP TABLE IF EXISTS `sys_classes_actions`;
-CREATE TABLE `sys_classes_actions` (
-  `id` int(11) unsigned NOT NULL auto_increment,
-  `class_id` int(11) unsigned default NULL,
-  `action_id` int(11) unsigned default NULL,
-  PRIMARY KEY  (`id`),
-  UNIQUE KEY `class_id` (`class_id`,`action_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=335 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
-
---
--- Dumping data for table `sys_classes_actions`
---
-
-
-/*!40000 ALTER TABLE `sys_classes_actions` DISABLE KEYS */;
-INSERT INTO `sys_classes_actions` VALUES (1,1,1),(2,1,2),(3,1,3),(4,1,9),(5,2,4),(6,2,5),(7,2,6),(8,2,7),(9,2,8),(10,2,9),(11,3,10),(12,3,11),(14,3,1),(15,3,12),(16,3,2),(17,4,13),(19,4,15),(20,4,16),(21,4,17),(23,4,9),(24,6,3),(25,6,9),(28,6,1),(29,6,2),(31,7,18),(32,7,9),(34,9,3),(35,9,9),(36,10,1),(37,10,2),(38,10,9),(39,11,5),(40,11,19),(46,13,9),(47,13,7),(48,13,6),(49,13,4),(50,13,5),(51,9,21),(62,18,27),(63,17,1),(64,17,28),(65,17,2),(66,17,9),(67,18,9),(68,17,18),(69,18,18),(70,1,29),(71,17,29),(72,18,6),(73,18,8),(74,18,7),(76,2,30),(77,18,30),(91,13,8),(92,13,30),(95,19,2),(99,20,5),(100,20,4),(102,20,6),(103,20,7),(104,20,30),(105,20,8),(107,19,29),(108,19,1),(111,19,9),(114,7,20),(115,20,9),(116,6,29),(129,19,3),(130,21,9),(131,22,9),(132,23,9),(133,21,52),(134,21,53),(135,22,54),(136,22,55),(137,22,56),(138,23,57),(139,23,2),(141,23,3),(143,23,59),(144,23,60),(145,24,9),(146,25,9),(147,25,3),(151,24,1),(152,24,4),(155,25,62),(156,24,2),(157,26,9),(158,26,20),(160,26,63),(161,25,64),(168,21,20),(169,28,9),(170,29,9),(171,30,9),(172,31,9),(174,28,3),(176,28,70),(177,28,1),(178,28,19),(179,32,9),(180,33,9),(181,33,5),(182,32,3),(185,33,71),(186,32,2),(187,30,20),(189,28,2),(190,34,9),(192,34,4),(194,30,72),(195,34,73),(196,34,74),(197,34,75),(198,22,76),(199,24,29),(200,35,9),(201,36,9),(202,37,9),(203,38,9),(205,39,9),(206,40,9),(207,41,9),(208,42,9),(209,41,5),(210,41,4),(211,39,1),(212,39,2),(214,41,77),(215,42,20),(216,42,78),(217,41,79),(218,43,9),(219,43,80),(221,37,81),(222,35,5),(223,35,82),(224,37,19),(225,38,1),(226,43,83),(227,35,20),(229,36,74),(230,36,84),(231,35,85),(232,37,66),(233,38,86),(234,37,87),(235,37,88),(239,25,91),(240,18,5),(241,18,92),(242,44,9),(243,45,9),(244,46,9),(249,45,96),(250,45,95),(251,45,94),(252,45,5),(253,1,97),(254,47,9),(255,47,3),(258,48,9),(259,48,98),(260,49,9),(261,36,73),(266,50,69),(270,50,4),(272,51,9),(277,52,9),(279,52,51),(280,52,14),(281,48,100),(282,20,101),(288,19,104),(289,19,105),(299,55,2),(300,55,1),(301,56,74),(302,57,72),(303,58,9),(304,59,9),(306,10,110),(309,56,5),(310,3,112),(311,50,5),(313,11,8),(314,11,109),(315,57,106),(316,57,107),(318,57,20),(319,57,114),(320,57,115),(322,57,117),(323,3,3),(325,53,111),(326,55,3),(327,50,118),(328,50,113),(329,57,119),(330,55,120),(331,57,109),(332,57,121),(334,57,122);
-/*!40000 ALTER TABLE `sys_classes_actions` ENABLE KEYS */;
-
---
--- Table structure for table `sys_config`
---
-
-DROP TABLE IF EXISTS `sys_config`;
-CREATE TABLE `sys_config` (
-  `id` int(11) NOT NULL auto_increment,
-  `obj_id` int(10) unsigned NOT NULL,
-  `module_name` varchar(50) NOT NULL default '',
-  `name` varchar(50) NOT NULL default '',
-  `title` varchar(255) NOT NULL default '',
-  `type_id` int(11) NOT NULL,
-  `value` varchar(255) NOT NULL default '',
-  `args` text NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `sys_config`
---
-
-
-/*!40000 ALTER TABLE `sys_config` DISABLE KEYS */;
-/*!40000 ALTER TABLE `sys_config` ENABLE KEYS */;
 
 --
 -- Table structure for table `sys_lang`
@@ -617,29 +477,6 @@ CREATE TABLE `sys_lang_lang` (
 /*!40000 ALTER TABLE `sys_lang_lang` DISABLE KEYS */;
 INSERT INTO `sys_lang_lang` VALUES (1,1,'русский'),(1,2,'russian'),(2,1,'английский'),(2,2,'english');
 /*!40000 ALTER TABLE `sys_lang_lang` ENABLE KEYS */;
-
---
--- Table structure for table `sys_modules`
---
-
-DROP TABLE IF EXISTS `sys_modules`;
-CREATE TABLE `sys_modules` (
-  `id` int(11) unsigned NOT NULL auto_increment,
-  `name` char(255) default NULL,
-  `title` char(255) default NULL,
-  `icon` char(255) default NULL,
-  `order` int(11) default NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
-
---
--- Dumping data for table `sys_modules`
---
-
-
-/*!40000 ALTER TABLE `sys_modules` DISABLE KEYS */;
-INSERT INTO `sys_modules` VALUES (1,'news','Новости','news.gif',10),(2,'user','Пользователи','users.gif',90),(4,'page','Страницы','pages.gif',20),(5,'access','Права доступа','access.gif',10),(6,'admin','Администрирование','admin.gif',20),(8,'comments','Комментарии','comments.gif',40),(9,'fileManager','Менеджер файлов','fm.gif',50),(10,'catalogue','Каталог','catalogue.gif',30),(11,'gallery','Галерея','gallery.gif',80),(12,'menu','Меню','pages.gif',90),(13,'voting','Голосование','voting.gif',0),(14,'message','Сообщения пользователей','page.gif',0),(15,'forum','Форум','forum.gif',0),(16,'faq','FAQ','faq.gif',0),(17,'tags','','',0),(18,'captcha','Captcha','',0),(19,'pager','Пейджер',NULL,NULL),(20,'simple','simple',NULL,NULL),(21,'ratings','Рейтинги','',0),(22,'quoter','Цитатник','',0);
-/*!40000 ALTER TABLE `sys_modules` ENABLE KEYS */;
 
 --
 -- Table structure for table `sys_obj_id`
@@ -709,9 +546,8 @@ INSERT INTO `sys_skins` VALUES (1,'default','default'),(2,'light','light');
 DROP TABLE IF EXISTS `user_group`;
 CREATE TABLE `user_group` (
   `id` int(11) NOT NULL auto_increment,
-  `obj_id` int(10) unsigned NOT NULL default '0',
-  `name` char(255) default NULL,
-  `is_default` tinyint(4) default NULL,
+  `name` char(255) default '',
+  `is_default` tinyint(4) default '0',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
 
@@ -721,7 +557,7 @@ CREATE TABLE `user_group` (
 
 
 /*!40000 ALTER TABLE `user_group` DISABLE KEYS */;
-INSERT INTO `user_group` VALUES (1,14,'unauth',NULL),(2,15,'auth',1),(3,16,'root',0),(4,824,'moderators',0),(5,0,'admins',0);
+INSERT INTO `user_group` VALUES (1,'unauth',NULL),(2,'auth',1),(3,'root',0),(4,'moderators',0),(5,'admins',0);
 /*!40000 ALTER TABLE `user_group` ENABLE KEYS */;
 
 --
@@ -736,7 +572,7 @@ CREATE TABLE `user_roles` (
   `role` char(32) NOT NULL default '',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `group_module_role` (`group_id`,`module`,`role`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user_roles`
@@ -744,6 +580,7 @@ CREATE TABLE `user_roles` (
 
 
 /*!40000 ALTER TABLE `user_roles` DISABLE KEYS */;
+INSERT INTO `user_roles` VALUES (1,2,'quoter','user'),(2,4,'quoter','moderator'),(3,5,'quoter','admin'),(4,5,'quoter','moderator'),(5,4,'admin','moderator'),(8,5,'user','moderator');
 /*!40000 ALTER TABLE `user_roles` ENABLE KEYS */;
 
 --
@@ -753,21 +590,21 @@ CREATE TABLE `user_roles` (
 DROP TABLE IF EXISTS `user_user`;
 CREATE TABLE `user_user` (
   `id` int(11) NOT NULL auto_increment,
-  `login` varchar(255) NOT NULL default '',
-  `email` varchar(255) NOT NULL default '',
-  `password` varchar(32) NOT NULL default '',
-  `created` int(11) default NULL,
-  `confirmed` varchar(32) default NULL,
-  `last_login` int(11) default NULL,
-  `timezone` varchar(50) default '3',
-  `skin` int(11) unsigned default '1',
+  `login` char(255) NOT NULL default '',
+  `email` char(255) NOT NULL default '',
+  `password` char(32) NOT NULL default '',
+  `created` int(11) unsigned NOT NULL default '0',
+  `confirmed` char(32) NOT NULL default '',
+  `last_login` int(11) unsigned NOT NULL default '0',
+  `timezone` int(11) NOT NULL default '3',
+  `skin` int(11) unsigned NOT NULL default '1',
   `quotes_count` int(10) unsigned NOT NULL default '0',
-  `highlight_driver` char(20) default 'js',
-  `avatar_type` int(11) default '2',
-  `preferred_langs` text,
+  `highlight_driver` char(20) NOT NULL default 'js',
+  `avatar_type` int(11) NOT NULL default '2',
+  `preferred_langs` text NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `login` (`login`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user_user`
@@ -775,7 +612,7 @@ CREATE TABLE `user_user` (
 
 
 /*!40000 ALTER TABLE `user_user` DISABLE KEYS */;
-INSERT INTO `user_user` VALUES (1,'guest','','',NULL,NULL,1248576546,'3',1,2,'js',0,''),(2,'admin','','098f6bcd4621d373cade4e832627b4f6',NULL,NULL,1263623229,'10',1,6,'js',2,''),(4,'sdfasdfasdf','sadfsadf@sdfasdf.ru','202cb962ac59075b964b07152d234b70',1253961725,'005a0882dcea82748a4f3f6a46c3ed7b',1253961725,'-5',1,0,'js',2,NULL),(5,'sdfasdfasdfsdf','sadfsadfsdf@sdfasdf.ru','202cb962ac59075b964b07152d234b70',1253961805,NULL,1253961805,'-5',1,0,'js',2,NULL);
+INSERT INTO `user_user` VALUES (1,'guest','','',0,'',1248576546,3,1,2,'js',0,''),(2,'admin','','098f6bcd4621d373cade4e832627b4f6',0,'',1263623229,10,1,6,'js',2,''),(6,'striker','striker@bk.ru','202cb962ac59075b964b07152d234b70',1263629202,'',1263629202,3,1,0,'js',2,''),(5,'sdfasdfasdfsdf','sadfsadfsdf@sdfasdf.ru','202cb962ac59075b964b07152d234b70',1253961805,'',1253961805,-5,1,0,'js',2,''),(7,'striker123','striker123@bk.ru','202cb962ac59075b964b07152d234b70',1263629733,'',1263629733,3,1,0,'js',2,'');
 /*!40000 ALTER TABLE `user_user` ENABLE KEYS */;
 
 --
@@ -785,12 +622,12 @@ INSERT INTO `user_user` VALUES (1,'guest','','',NULL,NULL,1248576546,'3',1,2,'js
 DROP TABLE IF EXISTS `user_userAuth`;
 CREATE TABLE `user_userAuth` (
   `id` int(11) unsigned NOT NULL auto_increment,
-  `user_id` int(11) unsigned default NULL,
-  `ip` char(15) default NULL,
-  `hash` char(32) default NULL,
-  `time` int(11) unsigned default NULL,
+  `user_id` int(11) unsigned NOT NULL default '0',
+  `ip` char(15) NOT NULL default '',
+  `hash` char(32) NOT NULL default '',
+  `time` int(11) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
 
 --
 -- Dumping data for table `user_userAuth`
@@ -798,7 +635,7 @@ CREATE TABLE `user_userAuth` (
 
 
 /*!40000 ALTER TABLE `user_userAuth` DISABLE KEYS */;
-INSERT INTO `user_userAuth` VALUES (6,2,'127.0.0.1','2e2df9ab709a8c1b8180f702125c5f34',1263564888);
+INSERT INTO `user_userAuth` VALUES (6,2,'127.0.0.1','2e2df9ab709a8c1b8180f702125c5f34',1263564888),(7,6,'127.0.0.1','9d99a876eae8034ba5ae2628a648250e',1263629413);
 /*!40000 ALTER TABLE `user_userAuth` ENABLE KEYS */;
 
 --
@@ -808,13 +645,12 @@ INSERT INTO `user_userAuth` VALUES (6,2,'127.0.0.1','2e2df9ab709a8c1b8180f702125
 DROP TABLE IF EXISTS `user_userGroup_rel`;
 CREATE TABLE `user_userGroup_rel` (
   `id` int(11) NOT NULL auto_increment,
-  `group_id` int(11) default NULL,
-  `user_id` int(11) default NULL,
-  `obj_id` int(11) unsigned default NULL,
+  `group_id` int(11) unsigned NOT NULL default '0',
+  `user_id` int(11) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `group_id` (`group_id`,`user_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
 
 --
 -- Dumping data for table `user_userGroup_rel`
@@ -822,7 +658,7 @@ CREATE TABLE `user_userGroup_rel` (
 
 
 /*!40000 ALTER TABLE `user_userGroup_rel` DISABLE KEYS */;
-INSERT INTO `user_userGroup_rel` VALUES (1,1,1,19),(23,2,2,20),(24,3,2,21),(31,2,4,780),(33,2,5,783),(35,4,5,825),(36,4,4,826),(37,2,6,975),(38,4,6,976);
+INSERT INTO `user_userGroup_rel` VALUES (1,1,1),(2,3,2),(3,2,6),(4,2,7),(5,4,6),(6,5,6);
 /*!40000 ALTER TABLE `user_userGroup_rel` ENABLE KEYS */;
 
 --
@@ -857,9 +693,9 @@ CREATE TABLE `user_userOnline` (
 DROP TABLE IF EXISTS `user_userOpenID`;
 CREATE TABLE `user_userOpenID` (
   `id` int(10) unsigned NOT NULL auto_increment,
-  `user_id` int(11) NOT NULL,
-  `openid_url` varchar(255) NOT NULL default '',
-  `openid_url_standarized` varchar(255) default NULL,
+  `user_id` int(11) unsigned NOT NULL,
+  `openid_url` char(255) NOT NULL default '',
+  `openid_url_standarized` char(255) NOT NULL default '',
   PRIMARY KEY  (`id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

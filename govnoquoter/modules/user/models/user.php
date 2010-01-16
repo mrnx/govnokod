@@ -21,7 +21,7 @@ fileLoader::load('service/skin');
  * @subpackage user
  * @version 0.2
  */
-class user extends entity
+class user extends entity implements iACL
 {
     const LOCAL_AVATARS_URL = '/files/avatars/';
 
@@ -49,6 +49,11 @@ class user extends entity
     public function isActive()
     {
         return !is_null($this->getOnline());
+    }
+    
+    public function activate()
+    {
+        $this->setConfirmed('');
     }
     
     public function isRoot()
@@ -194,5 +199,27 @@ class user extends entity
         return $groups;
     }
     */
+    
+    public function getAcl($action)
+    {
+        switch ($action) {
+            case 'preferences':
+                if (!$this->isConfirmed()) {
+                    return false;
+                }
+
+                $user = systemToolkit::getInstance()->getUser();
+                if ($this->getId() === $user->getId()) {
+                    return true;
+                }
+                break;
+
+            case 'activate':
+                if ($this->isConfirmed()) {
+                    return false;
+                }
+                break;
+        }
+    }
 }
 ?>

@@ -142,7 +142,7 @@ class commentsMapper extends mapper
             return false;
         }
 
-        return $object->getAuthor()->getId() != $user->getId();
+        return $object->getUser()->getId() != $user->getId();
     }
 
     public function ratingAdded(Array $data)
