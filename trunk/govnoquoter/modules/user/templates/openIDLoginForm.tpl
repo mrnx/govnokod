@@ -8,7 +8,7 @@
                 <dt>Ошибка авторизации:</dt>
                 <dd>
                     <ol>
-                    {foreach from=$validators->getErrors() item="error"}
+                    {foreach from=$validator->getErrors() item="error"}
                         <li>{$error}</li>
                     {/foreach}
                     </ol>

@@ -35,13 +35,13 @@ class userConfirmController extends simpleController
                 $groupMapper = $this->toolkit->getMapper('user', 'group');
                 $groups = $groupMapper->searchDefaultGroups();
         
-                $userGroups = $user->getGroups();
+                $userGroups = $userForConfirm->getGroups();
         
                 foreach ($groups as $group) {
                     $userGroups->add($group);
                 }
         
-                $userMapper->save($user);
+                $userMapper->save($userForConfirm);
 
                 return $this->smarty->fetch('user/register/confirmed.tpl');
             } else {

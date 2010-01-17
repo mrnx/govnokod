@@ -174,7 +174,7 @@ class appUserMapper extends userMapper implements iACLMapper
         }
     }
 
-    public static function generatePassword($nums)
+    public function generatePassword($nums)
     {
         if ($nums <= 0) {
             throw new mzzRuntimeException('Wrong nums for password');

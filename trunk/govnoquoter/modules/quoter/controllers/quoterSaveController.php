@@ -53,7 +53,6 @@ class quoterSaveController extends simpleController
 
         $validator = new formValidator();
         
-        $validator->filter('trim', 'category_id');
         $validator->filter('trim', 'text');
         
         $validator->rule('required', 'category_id', 'Укажите язык');

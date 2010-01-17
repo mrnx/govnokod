@@ -12,15 +12,19 @@
  * @version $Id$
  */
 
-fileLoader::load('libs/simpleOpenID/class.openid');
+//fileLoader::load('libs/simpleOpenID/class.openid');
 fileLoader::load('user/controllers/userLoginController');
+
+require_once "Zend/OpenId/Consumer.php";
+require_once "Zend/OpenId/Extension/Sreg.php";
+define('SID', true);
 
 /**
  * userOpenIDLoginController
  *
  * @package modules
  * @subpackage user
- * @version 0.2
+ * @version 0.1
  */
 class userOpenIDLoginController extends userLoginController
 {
@@ -38,7 +42,7 @@ class userOpenIDLoginController extends userLoginController
         $this->smarty->assign('isValidated', $isValidated);
         if (!$this->request->getBoolean('onlyForm') && $isValidated === true) {
             $userMapper = $this->toolkit->getMapper('user', 'user');
-            $timezones = $userMapper->getTimezones();
+            //$timezones = $userMapper->getTimezones();
 
             $openIDUrl = $session->get('openID_url', false);
 
@@ -47,18 +51,22 @@ class userOpenIDLoginController extends userLoginController
 
             $validator = new formValidator();
             $validator->submit('openid_reg_submit');
-            $validator->where('required', 'login', 'Укажите логин!');
-            $validator->where('required', 'email', 'Укажите адрес e-mail!');
-            $validator->where('email', 'email', 'Неверный e-mail адрес!');
-            $validator->where('callback', 'login', 'Пользователь с таким логином уже существует', array(array($this, 'checkUniqueUserLogin'), $userMapper));
-            $validator->where('callback', 'email', 'Пользователь с таким email уже существует', array(array($this, 'checkUniqueUserEmail'), $userMapper));
-            $validator->where('required', 'timezone', 'Укажите часовой пояс!');
-            $validator->where('in', 'timezone', 'Укажите часовой пояс из списка!', array_keys($timezones));
+
+            $validator->filter('trim', 'login');
+            $validator->filter('trim', 'email');
+
+            $validator->rule('required', 'login', 'Пожалуйста, укажите логин');
+            $validator->rule('regex', 'login', 'Логин может содержать только латинские символы, цифры, дефис и знак подчеркивания', '/^[-_a-z0-9]+$/i');
+            $validator->rule('callback', 'login', 'Пользователь с таким логином уже существует. Пожалуйста, выберите другой', array(array($this, 'checkUniqueUserLogin'), $userMapper));
+            $validator->rule('required', 'email', 'Пожалуйста, укажите E-mail');
+            $validator->rule('email', 'email', 'Пожалуйста, укажите правильный адрес E-mail');
+            $validator->rule('callback', 'email', 'Пользователь с таким email уже существует. Пожалуйста, укажите другой', array(array($this, 'checkUniqueUserEmail'), $userMapper));
 
             if ($cancelValidator->validate()) {
                 $session->destroy('openID_url');
                 $session->destroy('openID_validated');
                 $session->destroy('openID_RegData');
+                $session->destroy('openid_backurl');
 
                 $url = new url('openIDLogin');
 
@@ -67,23 +75,30 @@ class userOpenIDLoginController extends userLoginController
             } else if ($validator->validate()) {
                 $login = $this->request->getString('login', SC_POST);
                 $email = $this->request->getString('email', SC_POST);
-                $timezone = $this->request->getNumeric('timezone', SC_POST);
 
                 $user = $userMapper->create();
                 $user->setLogin($login);
                 $user->setEmail($email);
-                $user->setTimezone($timezone);
-                $user->setPassword(userMapper::generatePassword(mt_rand(6, 10)));
-                $userMapper->save($user);
 
-                $openid = new SimpleOpenID;
-                $normalizedOpenIDUrl = $openid->OpenID_Standarize($openIDUrl);
+                $generatedPassword = $userMapper->generatePassword(mt_rand(6, 10));
+                $user->setPassword($generatedPassword);
+                $userMapper->save($user);
+                
+                $groupMapper = $this->toolkit->getMapper('user', 'group');
+                $groups = $groupMapper->searchDefaultGroups();
+        
+                $userGroups = $user->getGroups();
+        
+                foreach ($groups as $group) {
+                    $userGroups->add($group);
+                }
+                
+                $userMapper->save($user);
 
                 $userOpenIDMapper = $this->toolkit->getMapper('user', 'userOpenID');
                 $userOpenID = $userOpenIDMapper->create();
                 $userOpenID->setUser($user);
                 $userOpenID->setUrl($openIDUrl);
-                $userOpenID->setStandarizedUrl($normalizedOpenIDUrl);
                 $userOpenIDMapper->save($userOpenID);
 
                 $this->toolkit->setUser($user);
@@ -93,7 +108,13 @@ class userOpenIDLoginController extends userLoginController
                 $session->destroy('openID_validated');
                 $session->destroy('openID_RegData');
 
-                $this->redirect($this->getSuccessUrl());
+                $back_url = $session->get('openid_backurl');
+                if (!$back_url) {
+                    $url = new url('default');
+                    $back_url = $url->get();
+                }
+                $session->destroy('openid_backurl');
+                $this->redirect($back_url);
                 return;
             }
 
@@ -103,131 +124,95 @@ class userOpenIDLoginController extends userLoginController
             $url = new url('openIDLogin');
 
             $this->smarty->assign('openIDUrl', $openIDUrl);
-            $this->smarty->assign('timezones', $timezones);
+            //$this->smarty->assign('timezones', $timezones);
             $this->smarty->assign('form_action', $url->get());
+            $this->smarty->assign('validator', $validator);
             return $this->smarty->fetch('user/openIDRegForm.tpl');
         }
 
-        $openIDMode = $this->request->getString('openid_mode', SC_GET);
+        $open_id_mode = $this->request->getString('openid_mode', SC_GET);
 
-        switch ($openIDMode) {
+        switch ($open_id_mode) {
             case 'id_res':
-                $openIDUrl = $session->get('openID_url', false);
-                if ($openIDUrl) {
-                    $openid = new SimpleOpenID;
-                    $openid->SetTrustRoot($this->request->getUrl());
+                $consumer = $this->getConsumer();
+                $sreg = $this->getConsumerSreg();
 
-                    $normalizedOpenIDUrl = $openid->OpenID_Standarize($openIDUrl);
-                    $openid->SetIdentity($openIDUrl);
+                if ($consumer->verify($_GET, $id, $sreg)) {
+                    $userOpenIDMapper = $this->toolkit->getMapper('user', 'userOpenID');
 
-                    $url = new url('openIDLogin');
+                    $userOpenID = $userOpenIDMapper->searchByUrl($id);
+                    if (!$userOpenID) {
+                        $data = $sreg->getProperties();
 
-                    $openid->SetApprovedURL($url->get());
+                        $session->set('openID_validated', true);
+                        $session->set('openID_url', $id);
+                        $session->set('openID_RegData', $data);
 
-                    if ($openid->ValidateWithServer()) {
-                        $userOpenIDMapper = $this->toolkit->getMapper('user', 'userOpenID');
-                        $userOpenID = $userOpenIDMapper->searchByUrl($normalizedOpenIDUrl);
-                        if (!$userOpenID) {
-                            $regData = array();
-                            $regData['login'] = $this->request->getString('openid_sreg_nickname', SC_GET);
-                            $regData['email'] = $this->request->getString('openid_sreg_email', SC_GET);
-
-                            $session->set('openID_validated', true);
-                            $session->set('openID_RegData', $regData);
-
-                            $url = new url('openIDLogin');
-                            $this->redirect($url->get());
-                            return;
-                        }
-
-                        $user = $userOpenID->getUser();
-                        $this->toolkit->setUser($user);
-                        $this->rememberUser($user);
-
-                        $url = new url('default');
+                        $url = new url('openIDLogin');
                         $this->redirect($url->get());
                         return;
-                    } else {
-                        $errors = array('openid_identifier' => 'Авторизация не подтверждена сервером!');
                     }
+
+                    $user = $userOpenID->getUser();
+                    $this->toolkit->setUser($user);
+                    $this->rememberUser($user);
+
+                    $session->destroy('openID_url');
+                    $session->destroy('openID_validated');
+                    $session->destroy('openID_RegData');
+
+                    $back_url = $session->get('openid_backurl');
+                    if (!$back_url) {
+                        $url = new url('default');
+                        $back_url = $url->get();
+                    }
+                    $session->destroy('openid_backurl');
+                    $this->redirect($back_url);
+                    return;
                 } else {
-                    $errors = array('openid_identifier' => 'Bad request!');
+                    $errors = array(
+                        'username' => $consumer->getError()
+                    );
                 }
                 break;
 
             case 'cancel':
-                $errors = array('openid_identifier' => 'Авторизация отменена');
+                $errors = array('username' => 'Авторизация отменена');
                 break;
         }
 
         $validator = new formValidator();
         $validator->submit('openid_submit');
-        
-        $validator->filter('trim', 'openid_identifier');
-        
-        $validator->rule('required', 'openid_identifier', 'Введите openID идентификатор!');
-        $validator->rule('url', 'openid_identifier', 'Введите корректный openID идентификатор!');
 
+        $validator->rule('required', 'openid_identifier', 'Введите OpenID идентификатор!');
+        $validator->rule('url', 'openid_identifier', 'Введите корректный OpenID идентификатор!');
+        
         if (isset($errors)) {
-            $openIDUrl = $session->get('openID_url', false);
-            $session->destroy('openID_url');
-        } else {
-            $openIDUrl = '';
+            foreach ($errors as $field => $error) {
+                $validator->setError($field, $error);
+            }
         }
 
         if (!$this->request->getBoolean('onlyForm') && $validator->validate()) {
             $openIDUrl = $this->request->getString('openid_identifier', SC_POST);
 
-            if ((stripos($openIDUrl, 'http://') === false) && (stripos($openIDUrl, 'https://') === false)){
-                $openIDUrl = 'http://' . $openIDUrl;
+            $back_url = $this->request->getString('url', SC_POST);
+            if (!$back_url) {
+                $url = new url('default');
+                $back_url = $url->get();
             }
+            $session->set('openid_backurl', $back_url);
 
-            $openid = new SimpleOpenID;
+            $consumer = $this->getConsumer();
+            $sreg = $this->getConsumerSreg();
 
-            //@todo: метод httpRequest::getUrl() не совсем подходит, так как содержит в себе еще и SITE_PATH
-            //при SITE_PATH == '' всё нормально, но иначе будет плохо (а будет ли иначе?)
-            $openid->SetTrustRoot($this->request->getUrl());
-            $openid->SetIdentity($openIDUrl);
-
-            $normalizedOpenIDUrl = $openid->OpenID_Standarize($openIDUrl);
-            $userOpenIDMapper = $this->toolkit->getMapper('user', 'userOpenID');
-            $userOpenID = $userOpenIDMapper->searchByUrl($normalizedOpenIDUrl);
-            if (!$userOpenID) {
-                $openid->SetRequiredFields(array('email', 'nickname'));
+            if (!$consumer->login($openIDUrl, null, $this->request->getUrl(), $sreg)) {
+                $validator->setError('username', $consumer->getError());
             }
-
-            $openIDServer = $openid->GetOpenIDServer();
-
-            if ($openIDServer) {
-                $session = $this->toolkit->getSession();
-                $session->set('openID_url', $openIDUrl);
-
-                $url = new url('openIDLogin');
-
-                $openid->SetApprovedURL($url->get());
-                $this->redirect($openid->GetRedirectURL());
-                return;
-            } else {
-                $error = $openid->GetError();
-                if ($error) {
-                    switch ($error['code']) {
-                        case 'OPENID_NOSERVERSFOUND':
-                            $errors['openid_identifier'] = 'Не удалось установить сервер провайдера OpenID. Возможно, ошиблись адресом?';
-                            break;
-
-                        default:
-                            $errors['openid_identifier'] = 'Неопознанная ошибка OpenID';
-                            break;
-                    }
-                }
-            }
-        } elseif (!isset($errors)) {
-            $errors = $validator->getErrors();
         }
 
         $url = new url('openIDLogin');
 
-        $this->smarty->assign('openIDUrl', $openIDUrl);
         $this->smarty->assign('form_action', $url->get());
         $this->smarty->assign('validator', $validator);
         return $this->fetch('user/openIDLoginForm.tpl');
@@ -235,13 +220,10 @@ class userOpenIDLoginController extends userLoginController
 
     protected function getSuccessUrl()
     {
-        $url = new url('default2');
-        $url->setModule('user');
-        $url->setAction('login');
-
+        $url = new url('userLogin');
         return $url->get();
     }
-    
+
     public function checkUniqueUserLogin($login, $userMapper)
     {
         $user = $userMapper->searchByLogin($login);
@@ -252,6 +234,41 @@ class userOpenIDLoginController extends userLoginController
     {
         $user = $userMapper->searchByEmail($email);
         return is_null($user);
+    }
+
+    protected function getConsumer()
+    {
+        require_once "Zend/OpenId/Consumer/Storage/File.php";
+        $storage = new Zend_OpenId_Consumer_Storage_File(systemConfig::$pathToTemp . DIRECTORY_SEPARATOR . 'openid');
+
+        $consumer = new Zend_OpenId_Consumer($storage, true);
+
+        $client = new Zend_Http_Client(
+            null,
+            array(
+                'maxredirects' => 4,
+                'timeout'      => 15,
+                'useragent'    => 'Zend_OpenId',
+                'adapter'    => 'Zend_Http_Client_Adapter_Curl',
+                'curloptions' => array(
+                    CURLOPT_SSL_VERIFYPEER => false,
+                    CURLOPT_SSL_VERIFYHOST => false
+                )
+            )
+        );
+
+        $consumer->setHttpClient($client);
+
+        return $consumer;
+    }
+
+    protected function getConsumerSreg()
+    {
+        return new Zend_OpenId_Extension_Sreg(
+            array(
+                'email' => false,
+                'nickname' => false
+            ), null, 1.1);
     }
 
 }
