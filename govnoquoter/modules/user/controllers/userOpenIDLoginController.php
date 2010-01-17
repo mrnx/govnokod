@@ -15,8 +15,8 @@
 //fileLoader::load('libs/simpleOpenID/class.openid');
 fileLoader::load('user/controllers/userLoginController');
 
-require_once "Zend/OpenId/Consumer.php";
-require_once "Zend/OpenId/Extension/Sreg.php";
+require_once 'Zend/OpenId/Consumer.php';
+require_once 'Zend/OpenId/Extension/Sreg.php';
 define('SID', true);
 
 /**
