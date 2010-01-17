@@ -11,7 +11,7 @@
                 <strong>Все</strong>
                 {else}
                 {foreach from=$viewuser->getPreferredLangsCategories() item="category" name="categoryIterator"}
-                {$category->getTitle()|h}{if !$smarty.foreach.categoryIterator.last},{/if}
+                <a href="{url route="categoryList" name=$category->getName()}">{$category->getTitle()|h}</a>{if !$smarty.foreach.categoryIterator.last}, {/if}
                 {/foreach}
                 {/if}
             </dd>
