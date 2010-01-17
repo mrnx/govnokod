@@ -1,4 +1,4 @@
-{assign var="highlight" value=$current_user->getHighlightDriver()}
+{assign var="highlight" value=$toolkit->getUser()->getHighlightDriver()}
 <ol>{foreach from=$quote->generateLines() item="line"}<li>{$line}</li>{/foreach}</ol>
 {if $highlight == "geshi"}
 {assign var="langName" value=$quote->getCategory()->getGeshiAlias()|h}

@@ -8,7 +8,7 @@
         <ul id="navigation">
             <li><a href="{$SITE_PATH}/">Все</a></li>
             <li><a href="{url route="best"}">Лучший</a></li>
-            <li style="background: url({$SITE_PATH}/images/new.png) no-repeat; padding-left: 20px;"><a href="{url route="livecomments"}">Сток</a></li>
+            <li style="background: url({$SITE_PATH}/images/new.png) no-repeat scroll 0% 50%; padding-left: 10px;"><a href="{url route="livecomments"}">Сток</a></li>
             <li><a href="{url route="search"}">Глупый поиск</a></li>
             {*<li><a href="#">Газета</a></li>*}
             <li class="add"><a href="{url route="quoteAdd"}">Наговнокодить!</a></li>
