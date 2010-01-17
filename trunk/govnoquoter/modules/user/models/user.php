@@ -126,7 +126,7 @@ class user extends entity implements iACL
                 $quoteCategoryMapper = systemToolkit::getInstance()->getMapper('quoter', 'quoteCategory');
 
                 $criteria = new criteria;
-                $criteria->add('id', $this->getPreferredLangs(), criteria::IN);
+                $criteria->where('id', $this->getPreferredLangs(), criteria::IN);
                 $categories = $quoteCategoryMapper->searchAllByCriteria($criteria);
             }
 
@@ -184,6 +184,7 @@ class user extends entity implements iACL
         return null;
     }
 
+    /*
     public function getGroups()
     {
         $cache = cache::factory('memcache');
@@ -197,6 +198,7 @@ class user extends entity implements iACL
 
         return $groups;
     }
+    */
     
     public function getAcl($action)
     {
