@@ -8,6 +8,7 @@ return array(
     'preferences' => array(
         'controller' => 'preferences',
         'title' => 'Настройки пользователя',
+        'role' => 'user'
     ),
     'list' => array(
         'controller' => 'list',

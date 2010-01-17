@@ -11,10 +11,7 @@ return array (
     array (
         'controller' => 'save',
         'title' => 'Добавление записи',
-        'role' => 
-        array (
-            0 => 'user',
-        ),
+        'role' => 'user'
     ),
     'search' => 
     array (
@@ -83,10 +80,7 @@ return array (
     'livecomments' => 
     array (
         'controller' => 'livecomments',
-        'title' => 'Последние комментарии',
-        'jip' => '0',
-        'icon' => '',
-        'crud_class' => 'quoteFolder',
+        'title' => 'Последние комментарии'
     ),
 );
 ?>
