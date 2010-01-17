@@ -25,7 +25,6 @@ class quoterListCategoriesController extends simpleController
 
     protected function getView()
     {
-        fileLoader::load('cache');
         $cache = cache::factory('memcache');
 
         $cacheKey = 'main_categoriesList';

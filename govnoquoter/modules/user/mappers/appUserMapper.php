@@ -105,7 +105,7 @@ class appUserMapper extends userMapper implements iACLMapper
             'ref_foreign_key' => 'group_id'
         )
     );
-
+    
     /**
      * Выполняет поиск пользователя по логину или email адресу
      *
@@ -160,7 +160,7 @@ class appUserMapper extends userMapper implements iACLMapper
         return $this->searchOneByField('recover_code', $code);
     }
     
-    protected function preInsert(& $data)
+    public function preInsert(& $data)
     {
         if (is_array($data)) {
             $data['created'] = time();
