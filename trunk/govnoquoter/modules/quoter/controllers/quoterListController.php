@@ -53,7 +53,7 @@ class quoterListController extends simpleController
 
         $pager = $this->setPager($quoteMapper, 10, true, 4);
         $quotes = $quoteMapper->searchAllByCriteria($criteria);
-
+        
         //если получаем список конкретной категории, то есть шанс пересчитать количество элементов в категории
         if (!$listAll) {
             if ($category->getQuoteCounts() != $pager->getItemsCount()) {

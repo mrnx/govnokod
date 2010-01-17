@@ -184,21 +184,19 @@ class user extends entity implements iACL
         return null;
     }
 
-    /*
     public function getGroups()
     {
         $cache = cache::factory('memcache');
 
-        $cacheKey = 'govnokod_user_' . $this->getId() . '_groups';
-        $groups = $cache->get($cacheKey);
-        if (!$groups || !is_a($groups, 'collection')) {
+        $cacheKey = 'user_' . $this->getId() . '_groups';
+        $result = $cache->get($cacheKey, $groups);
+        if (!$result || !is_a($groups, 'collection')) {
             $groups = parent::__call('getGroups', array());
-            $cache->set($cacheKey, $groups, userMapper::USER_GROUPS_CACHE_TTL);
+            $cache->set($cacheKey, $groups, array(), 3600*24);
         }
 
         return $groups;
     }
-    */
     
     public function getAcl($action)
     {
