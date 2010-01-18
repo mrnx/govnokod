@@ -161,7 +161,7 @@ class quoteMapper extends mapper
     public function postInsert(entity $object)
     {
         $toolkit = systemToolkit::getInstance();
-        $categoryMapper = $toolkit->getMapper('quote', 'quoteCategory');
+        $categoryMapper = $toolkit->getMapper('quoter', 'quoteCategory');
         $category = $object->getCategory();
 
         $category->setQuoteCounts($category->getQuoteCounts() + 1);
@@ -175,7 +175,7 @@ class quoteMapper extends mapper
 
     public function preDelete(entity $object)
     {
-        $categoryMapper = systemToolkit::getInstance()->getMapper('quote', 'quoteCategory');
+        $categoryMapper = systemToolkit::getInstance()->getMapper('quoter', 'quoteCategory');
         $category = $object->getCategory();
 
         $category->setQuoteCounts($category->getQuoteCounts() - 1);
