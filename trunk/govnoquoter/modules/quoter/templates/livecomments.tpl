@@ -1,11 +1,12 @@
 <ol class="posts hatom">
 {foreach from=$quotes item="quote"}
+{assign var="comment" value=$quote->getLastComment()}
+{if $comment}
     <li class="hentry">
         <h2>Комментарий к <a rel="bookmark" class="entry-title" href="{url route="quoteView" id=$quote->getId()}">говнокоду #{$quote->getId()}</a></h2>
         <div class="entry-comments">
             <ul>
                 <li class="hcomment">
-                    {assign var="comment" value=$quote->getLastComment()}
                     {assign var="commentsFolder" value=$comment->getFolder()}
                     <div class="entry-comment-wrapper">
                         <p class="entry-info">
@@ -21,5 +22,6 @@
             </ul>
         </div>
     </li>
+{/if}
 {/foreach}
 </ol>
