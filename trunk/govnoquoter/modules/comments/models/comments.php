@@ -19,22 +19,19 @@
  * @subpackage comments
  * @version 0.2
  */
-class comments extends entity
+class comments extends entity implements iACL
 {
-    public function getAcl($name = null)
+    public function getAcl($action)
     {
-        $user = systemToolkit::getInstance()->getUser();
+        if ($action == 'edit') {
+            $user = systemToolkit::getInstance()->getUser();
 
-        if (!$user->isLoggedIn()) {
-            switch ($name) {
-                case 'edit':
-                case 'delete':
-                    return false;
-                    break;
+            if ($user->isLoggedIn() && $user->getId() == $this->getUser()->getId()) {
+                return (($this->getCreated() + 60 * 5) > time());
             }
-        }
 
-        return parent::__call('getAcl', array($name));
+            return false;
+        }
     }
 }
 ?>

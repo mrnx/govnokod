@@ -524,6 +524,18 @@ div.entry-comments ul .hcomment a.selected
     color: #000;
 }
 
+div.entry-comments ul .hcomment a.edit-comment-link
+{
+	margin: 0.2em 0 0 1em;
+	display: -moz-inline-stack;
+	display: inline-block;
+    border-bottom: 1px dotted #0060B6;
+	font-size: 0.8em;
+
+	padding-left: 1em;
+	background: url(../images/new.png) no-repeat scroll 0% 50%;
+}
+
 div.entry-comments ul .hcomment p.entry-info
 {
 	margin: 0;

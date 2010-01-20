@@ -25,7 +25,7 @@ fileLoader::load('orm/plugins/identityMapPlugin');
  * @subpackage comments
  * @version 0.1
  */
-class commentsMapper extends mapper
+class commentsMapper extends mapper implements iACLMapper
 {
     /**
      * DomainObject class name
@@ -33,7 +33,7 @@ class commentsMapper extends mapper
      * @var string
      */
     protected $class = 'comments';
-    
+
     /**
      * Table name
      *
@@ -77,6 +77,14 @@ class commentsMapper extends mapper
             'accessor' => 'getCreated',
             'mutator' => 'setCreated',
             'options' => array('once')
+        ),
+        'edit_times' => array(
+            'accessor' => 'getEditTimes',
+            'mutator' => 'setEditTimes'
+        ),
+        'edited' => array(
+            'accessor' => 'getEdited',
+            'mutator' => 'setEdited'
         ),
         'rating' => array(
             'accessor' => 'getRating',
@@ -162,6 +170,18 @@ class commentsMapper extends mapper
             'votes_on' => $ratingsFolder->getRatingsOn(),
             'votes_against' => $ratingsFolder->getRatingsAgainst()
         ));
+    }
+
+    public function convertArgsToObj(array $args)
+    {
+        if (isset($args['id'])) {
+            $do = $this->searchByKey($args['id']);
+            if ($do) {
+                return $do;
+            }
+        }
+
+        throw new mzzDONotFoundException();
     }
 }
 

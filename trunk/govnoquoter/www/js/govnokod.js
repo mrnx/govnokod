@@ -19,7 +19,7 @@ var code;
 
             var commentsHolder = aElemTrigger.parent();
             aElemTrigger.replaceWith(document.createTextNode(aElemTrigger.text()));
-            
+
             var preloader = $('<img src="' + commentsPreloader.src + '" alt="Загрузка" title="Загрузка списка комментариев…" />');
             commentsHolder.append(preloader);
 
@@ -143,7 +143,7 @@ var code;
         toggleBBCodeBlock: function(aElemTrigger) {
             $(aElemTrigger).parent().find('.bbcodes').toggle();
         },
-        
+
         handleCtrEnter: function(event, formElem) {
             if ((event.ctrlKey) && ((event.keyCode == 0xA)||(event.keyCode == 0xD))) {
                 $(formElem).find('input[name=commentSubmit]').trigger('click');
@@ -227,10 +227,54 @@ var code;
 
         $('span.hidden-text a.ajax').click(function() {
             $(this).closest('div.entry-comment-hidden').removeClass('entry-comment-hidden');
-            return false; 
+            return false;
         });
-        
-        //Если вдруг подключили js higlight драйвер
+
+        $('a.edit-comment-link').live('click', function() {
+            var holder = $(this).parent().find('div.entry-comment');
+
+            var edit_url = $(this).attr('href');
+            $(this).remove();
+
+            var preloader = $('<img src="' + SITE_PATH + '/images/comments/edit-preload.gif" alt="Загрузка" title="Идёт загрузка формы…" />');
+            holder.html(preloader);
+
+            $.ajax({
+                url: edit_url,
+                data: {ajax: true},
+                success: function(msg) {
+                    holder.html(msg);
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown){
+                    preloader.remove();
+                    alert("Ошибка загрузки формы редактирования!\nВозможно, что отведенное на редактирование время истекло.\nОбновите страницу и попытайтесь еще раз");
+                }
+            });
+
+            return false;
+        });
+
+        $('form.edit-comment-form').live('submit', function() {
+            var formElem = $(this);
+            var formData = formElem.serialize();
+            formElem.find('input, textarea, select').attr('disabled', 'disabled');
+
+            $.ajax({
+                url: formElem.attr('action'),
+                type: "POST",
+                data: formData + '&ajax=true',
+                success: function(msg) {
+                    formElem.replaceWith(msg);
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown){
+                    alert("Ошибка редактирования!\nВозможно, что отведенное на редактирование время истекло.\nОбновите страницу и попытайтесь еще раз");
+                }
+            });
+
+            return false;
+        });
+
+        //Если вдруг подключили js highlight драйвер
         if (typeof(hljs) == 'object') {
             hljs.initHighlighting();
         }

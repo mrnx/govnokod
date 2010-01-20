@@ -12,16 +12,14 @@
  * @version $Id$
 */
 
-fileLoader::load('forms/validators/formValidator');
-
 /**
- * commentsPostController: контроллер для метода post модуля comments
+ * commentsSaveController: контроллер для метода save модуля comments
  *
  * @package modules
  * @subpackage comments
  * @version 0.2
  */
-class commentsPostController extends simpleController
+class commentsSaveController extends simpleController
 {
     protected function getView()
     {
@@ -71,6 +69,7 @@ class commentsPostController extends simpleController
         }
 
         $isAjax = $this->request->getBoolean('ajax', SC_POST);
+        $backUrl = $this->request->getString('backUrl', SC_POST);
 
         if (!$onlyForm && $validator->validate()) {
             $text = $this->request->getString('text', SC_POST);
@@ -96,14 +95,7 @@ class commentsPostController extends simpleController
                 $this->smarty->assign('commentsFolder', $commentsFolder);
                 return $this->smarty->fetch('comments/post_added_ajax.tpl');
             } else {
-                $back_url = $commentsFolder->getDefaultBackUrl();
-
-                if (!$back_url) {
-                    $url = new url('default');
-                    $back_url = $url->get();
-                }
-
-                $this->redirect($back_url . '#comment' . $comment->getId());
+                $this->redirect($backUrl . '#comment' . $comment->getId());
                 return;
             }
         }
@@ -131,6 +123,14 @@ class commentsPostController extends simpleController
             $this->setTemplatePrefix('ajax_');
         }
 
+        if (!$backUrl) {
+            $backUrl = $commentsFolder->getDefaultBackUrl();
+
+            if (!$backUrl) {
+                $backUrl = $this->request->getServer('REQUEST_URI');
+            }
+        }
+
         $formTitles = array(
             'Я, <b>' . htmlspecialchars($user->getLogin()) . '</b>, находясь в здравом уме и твердой памяти, торжественно заявляю:',
             'Помни, <b>' . htmlspecialchars($user->getLogin()) . '</b>, за тобой могут следить!',
@@ -150,6 +150,7 @@ class commentsPostController extends simpleController
         }
 
         $this->smarty->assign('formTitle', $formTitles[$currentTitleIndex]);
+        $this->smarty->assign('backUrl', $backUrl);
         return $this->fetch('comments/post.tpl');
     }
 }
