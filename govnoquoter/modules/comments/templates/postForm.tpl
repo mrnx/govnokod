@@ -37,6 +37,5 @@
     </dl>
 
     <p>
-        {form->hidden name="backUrl" value=$backUrl}
         {form->submit class="send" name="commentSubmit" value="Отправить комментарий [Ctrl+Enter]"}
     </p>
