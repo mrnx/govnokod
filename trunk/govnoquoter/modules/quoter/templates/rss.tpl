@@ -6,8 +6,8 @@
         <description><![CDATA[Говнокод: по колено в коде]]></description>
         <language>ru</language>
         <managingEditor>govnoed@govnokod.ru</managingEditor>
-        <generator>{$smarty.const.MZZ_NAME} v.{$smarty.const.MZZ_VERSION}-{$smarty.const.MZZ_REVISION}</generator>
-        <pubDate>{"D, d M Y H:i:s"|date:$smarty.now} GMT</pubDate>
+        <generator>{$smarty.const.MZZ_NAME} v.100500-{$smarty.const.MZZ_REVISION}</generator>
+        <pubDate>{"D, d M Y H:i:s O"|date:$smarty.now}</pubDate>
         <lastBuildDate></lastBuildDate>
         <image>
             <link>http://govnokod.ru/</link>
@@ -29,7 +29,7 @@
                     {/if}
                 ]]>
             </description>
-            <pubDate>{"D, d M Y H:i:s"|date:$quote->getCreated()} GMT</pubDate>
+            <pubDate>{"D, d M Y H:i:s O"|date:$quote->getCreated()}</pubDate>
             <category>{$quote->getCategory()->getTitle()|h}</category>
             <author>{$quote->getUser()->getLogin()|h}</author>
         </item>
