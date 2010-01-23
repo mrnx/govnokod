@@ -31,7 +31,7 @@ class userOpenIDLoginController extends userLoginController
     protected function getView()
     {
         $user = $this->toolkit->getUser();
-
+        
         if ($user->isLoggedIn()) {
             $this->smarty->assign('user', $user);
             return $this->fetch('user/alreadyLogin.tpl');
