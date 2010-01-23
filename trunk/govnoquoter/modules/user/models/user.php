@@ -50,14 +50,15 @@ class user extends entity implements iACL
     {
         return !is_null($this->getOnline());
     }
-    
+
     public function activate()
     {
         $this->setConfirmed('');
     }
-    
+
     public function isRoot()
     {
+        return false;
         return in_array(MZZ_ROOT_GID, $this->getGroups()->keys());
     }
 
@@ -199,7 +200,7 @@ class user extends entity implements iACL
         return $groups;
     }
     */
-    
+
     public function getAcl($action)
     {
         switch ($action) {
