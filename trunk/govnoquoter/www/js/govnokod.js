@@ -225,7 +225,7 @@ var code;
             return false;
         });
 
-        $('span.hidden-text a.ajax').click(function() {
+        $('span.hidden-text a.ajax').live('click', function() {
             $(this).closest('div.entry-comment-hidden').removeClass('entry-comment-hidden');
             return false;
         });
