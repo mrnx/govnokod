@@ -32,7 +32,7 @@
                     </ul>
                 </dd>
 
-                <dt>{form->caption name="hdriver" value="Способ подсветки кода (<a href={$helpPageUrl}#langs'>что выбрать?</a>):"}</dt>
+                <dt>{form->caption name="hdriver" value="Способ подсветки кода (<a href='{$helpPageUrl}#highlight'>что выбрать?</a>):"}</dt>
                 <dd>
                     {form->select name="hdriver" options=$drivers value=$user->getHighlightDriver()}
                 </dd>

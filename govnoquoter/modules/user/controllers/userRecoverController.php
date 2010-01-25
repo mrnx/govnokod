@@ -98,7 +98,7 @@ class userRecoverController extends simpleController
                 fileLoader::load('service/mailer/mailer');
                 $mailer = mailer::factory();
 
-                $mailer->set($user->getEmail(), $user->getLogin(), 'noreply@govnokod.ru', 'Говнокод.ру', 'Восстановление забытого пароля на сайте Говнокод.ру', $body, $alt_body);
+                $mailer->set($user->getEmail(), $user->getLogin(), 'support@govnokod.ru', 'Говнокод.ру', 'Восстановление забытого пароля на сайте Говнокод.ру', $body, $alt_body);
                 $mailer->send();
             }
 
