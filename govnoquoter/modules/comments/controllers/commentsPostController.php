@@ -135,6 +135,7 @@ class commentsPostController extends simpleController
             'Я, <b>' . htmlspecialchars($user->getLogin()) . '</b>, находясь в здравом уме и твердой памяти, торжественно заявляю:',
             'Помни, <b>' . htmlspecialchars($user->getLogin()) . '</b>, за тобой могут следить!',
             'Семь раз отмерь — один отрежь, <b>' . htmlspecialchars($user->getLogin()) . '</b>!',
+            'Где здесь C++, <b>' . htmlspecialchars($user->getLogin()) . '</b>?!',
         );
 
         $session = $this->toolkit->getSession();
