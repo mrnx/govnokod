@@ -208,7 +208,7 @@ class quoteMapper extends mapper
             fileLoader::load('service/mailer/mailer');
             $mailer = mailer::factory();
 
-            $mailer->set($quoteUser->getEmail(), $quoteUser->getLogin(), 'noreply@govnokod.ru', 'Говнокод.ру', 'Новый комментарий к говнокоду #' . $quote->getId(), $body);
+            $mailer->set($quoteUser->getEmail(), $quoteUser->getLogin(), 'support@govnokod.ru', 'Говнокод.ру', 'Новый комментарий к говнокоду #' . $quote->getId(), $body);
             $mailer->send();
         }
 
@@ -232,7 +232,7 @@ class quoteMapper extends mapper
                 fileLoader::load('service/mailer/mailer');
                 $mailer = mailer::factory();
 
-                $mailer->set($parentCommentUser->getEmail(), $parentCommentUser->getLogin(), 'noreply@govnokod.ru', 'Говнокод.ру', 'Ответ на Ваш комментарий к говнокоду #' . $quote->getId(), $body);
+                $mailer->set($parentCommentUser->getEmail(), $parentCommentUser->getLogin(), 'support@govnokod.ru', 'Говнокод.ру', 'Ответ на Ваш комментарий к говнокоду #' . $quote->getId(), $body);
                 $mailer->send();
             }
         }
