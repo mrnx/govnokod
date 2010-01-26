@@ -34,7 +34,7 @@ class commentsExportController extends simpleController
             }
 
             if ($commentsFolder->getModule() == 'quoter' && $commentsFolder->getType() == 'quote') {
-                $this->response->setHeader('Content-type', 'text/xml; charset=utf-8;');
+                $this->response->setHeader('Content-type', 'application/rss+xml; charset=utf-8;');
 
                 $comments = $commentsFolder->getComments();
 
