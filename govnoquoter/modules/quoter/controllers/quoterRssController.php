@@ -53,7 +53,7 @@ class quoterRssController extends simpleController
                     $criteria->where('category_id', $category->getId());
                     $this->smarty->assign('category', $category);
                 }
-            } elseif (!$this->request->getBoolean('pass', SC_GET)) {
+            } else if (!$this->request->getBoolean('pass', SC_GET)) {
                 $this->redirect('http://feeds.feedburner.com/Govnokodru');
                 return;
             }
@@ -61,11 +61,12 @@ class quoterRssController extends simpleController
 
         $quoteMapper = $this->toolkit->getMapper('quoter', 'quote');
         $quotes = $quoteMapper->searchAllByCriteria($criteria);
-
+        
         $this->smarty->assign('quotes', $quotes);
         $this->smarty->assign('withCategory', (isset($category)));
         $this->smarty->assign('action', $action);
-
+        
+        $this->response->setHeader('Content-type', 'application/rss+xml; charset=utf-8;');
         return $this->smarty->fetch('quoter/rss.tpl');
     }
 }
