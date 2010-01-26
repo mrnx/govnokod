@@ -58,7 +58,6 @@ class user extends entity implements iACL
 
     public function isRoot()
     {
-        return false;
         return in_array(MZZ_ROOT_GID, $this->getGroups()->keys());
     }
 
@@ -216,6 +215,7 @@ class user extends entity implements iACL
                 break;
 
             case 'activate':
+            case 'sendregmail':
                 if ($this->isConfirmed()) {
                     return false;
                 }
