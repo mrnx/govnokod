@@ -59,6 +59,14 @@ systemConfig::$pathToApplication = dirname(__FILE__);
 systemConfig::$pathToWebRoot = systemConfig::$pathToApplication . '/www';
 systemConfig::$pathToTemp = realpath(dirname(__FILE__) . '/tmp');
 systemConfig::$pathToConf = dirname(__FILE__);
+systemConfig::$enabledModules = array(
+    'page',
+    'captcha',
+    'comments',
+    'quoter',
+    'ratings',
+    'user',
+);
 
 systemConfig::$mailer['default']['backend'] = 'PHPMailer';
 systemConfig::$mailer['default']['params'] = array('html' => true, 'smtp' => true, 'smtp_host' => 'localhost');

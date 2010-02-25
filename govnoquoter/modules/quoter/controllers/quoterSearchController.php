@@ -42,7 +42,6 @@ class quoterSearchController extends simpleController
             $categorySelect[$cat->getName()] = $cat->getTitle();
             if ($cat->getName() == $name) {
                 $category = $cat;
-                break;
             }
         }
 
