@@ -57,7 +57,8 @@ class quoteMapper extends mapper
             'relation' => 'one',
             'foreign_key' => 'id',
             'mapper' => 'quoter/quoteCategory',
-            'join_type' => 'inner'
+            'join_type' => 'inner',
+            'options' => array('lazy')
         ),
         'user_id' => array(
             'accessor' => 'getUser',
@@ -124,7 +125,7 @@ class quoteMapper extends mapper
     {
         return $this->searchByKey($id);
     }
-    
+
     public function searchActiveById($id)
     {
         $criteria = new criteria;
@@ -136,19 +137,19 @@ class quoteMapper extends mapper
     {
         $criteria = new criteria;
         $criteria->where('active', 1)->where('user_id', $user->getId());
-        
+
         return $this->searchAllByCriteria($criteria);
     }
-    
+
     public function searchForLiveComments($limit = 20)
     {
         $criteria = new criteria;
         $criteria->where('last_comment_id', 0, criteria::GREATER)->orderByDesc('last_comment_id')->limit($limit);
-        
+
         $collection = $this->searchAllByCriteria($criteria);
         return $collection;
     }
-    
+
     public function preInsert(& $data)
     {
         if (is_array($data)) {
@@ -191,7 +192,7 @@ class quoteMapper extends mapper
         $quote->setLastComment($comment->getId());
         $quote->setCommentsCount($commentsFolder->getCommentsCount());
         $this->save($quote);
-        
+
         $cache = cache::factory('memcache');
         $cache->delete('live_comments');
 

@@ -29,12 +29,12 @@ class quoterLivecommentsController extends simpleController
         if (!$result) {
             $quoteMapper = $this->toolkit->getMapper('quoter', 'quote');
             $quotes = $quoteMapper->searchForLiveComments();
-            
+
             $this->smarty->assign('quotes', $quotes);
             $html = $this->smarty->fetch('quoter/livecomments.tpl');
             $cache->set($cache_key, $html, array(), 3600 * 3);
         }
-        
+
         $this->smarty->assign('html', $html);
         return $this->smarty->fetch('quoter/livecomments_holder.tpl');
     }
