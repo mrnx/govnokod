@@ -93,7 +93,8 @@ class ratingsRateController extends simpleController
                 case 'comments_comments':
                     if ($ratedObject->getFolder()->getType() == 'quote') {
                         if ($isAjax) {
-                             $this->smarty->assign('comment', $ratedObject);
+                            $this->smarty->assign('justRate', true);
+                            $this->smarty->assign('comment', $ratedObject);
                             return $this->smarty->fetch('comments/rating.tpl');
                         } else {
                             $backUrl = new url('quoteView');

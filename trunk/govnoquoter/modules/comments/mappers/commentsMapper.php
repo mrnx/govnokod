@@ -144,13 +144,60 @@ class commentsMapper extends mapper implements iACLMapper
         $objectMapper->notify('commentAdded', $data);
     }
 
+    public function ratingGetVoteValue($vote, user $user, entity $object)
+    {
+        $rateValue = null;
+        switch ($vote) {
+            case 'on':
+                $rateValue = ($user->isLoggedIn()) ? 1 : 0.2;
+                break;
+
+            case 'against':
+                $rateValue = ($user->isLoggedIn()) ? -1 : -0.2;
+                break;
+        }
+
+        return $rateValue;
+    }
+
     public function ratingUserCanRate($vote, user $user, entity $object)
     {
+        //у гостя будем проверять токены
+        if (!$user->isLoggedIn()) {
+            $toolkit = systemToolkit::getInstance();
+            $request = $toolkit->getRequest();
+            $session = $toolkit->getSession();
+
+            $allow = false;
+            $token = $request->getString('secret', SC_GET);
+            if ($token) {
+                $value = $session->get($object->getTokenName(), false);
+                $allow = ($value === $token);
+            }
+            $session->destroy($object->getTokenName());
+
+            return $allow;
+        }
+
+        return true;
+        /*
         if (!$user->isLoggedIn()) {
             return false;
         }
 
         return $object->getUser()->getId() != $user->getId();
+        */
+    }
+
+    public function ratingSearchUserRate($vote, $rateValue, user $user, entity $ratedObject, $ratingsFolder, $ratingsMapper, $ip, $ua)
+    {
+        if ($user->isLoggedIn()) {
+            $rate = $ratingsMapper->searchByUserAndFolder($user, $ratingsFolder);
+        } else {
+            $rate = $ratingsMapper->searchByGestUserAndFolder($ip, $ratingsFolder, 7200); //таймаут голосования 2 часа
+        }
+
+        return $rate;
     }
 
     public function ratingAdded(Array $data)
