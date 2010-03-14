@@ -21,6 +21,30 @@
                 </li>
             </ul>
         </div>
+        <div class="show-code">
+            <a href="{url route="quoteView" id=$quote->getId()}" class="show-code-trigger">Показать код ▼</a>
+            <div class="code-holder">
+                <h3><a rel="chapter" href="{url route="categoryList" name=$quote->getCategory()->getName()|h}">{$quote->getCategory()->getTitle()|h}</a> / <a rel="bookmark" class="entry-title" href="{url route="quoteView" id=$quote->getId()}">Говнокод #{$quote->getId()}</a></h3>
+                <div class="entry-content">
+                {if $quote->isSpecial()}
+                    {$quote->getText()}
+                {else}
+                    <ol>{foreach from=$quote->generateLines() item="line"}<li>{$line}</li>{/foreach}</ol>
+                    {$quote->getText()|highlite:$langName:$quote->getCacheKey()}
+                {/if}
+                </div>
+                <p class="description">
+                    {$quote->getDescription()|trim|h|bbcode|nl2br}
+                </p>
+                <p class="author">
+                    Запостил: <a href="{url route="withId" module="user" action="" id=$quote->getUser()->getId()}"><img src="{$quote->getUser()->getAvatarUrl(20)|h}" alt="" class="avatar" /></a> <a href="{url route="withId" module="user" action="" id=$quote->getUser()->getId()}">{$quote->getUser()->getLogin()|h}</a>,
+                    <abbr title="{"c"|date:$quote->getCreated()}">{$quote->getCreated()|date_i18n:"date2"}</abbr>
+                </p>
+                <div class="entry-comments">
+                    <span class="comments-icon"></span><a href="{url route="quoteView" id=$quote->getId()}#comments">Все комментарии</a> <span class="entry-comments-count">({$quote->getCommentsCount()})</span>
+                </div>
+            </div>
+        </div>
     </li>
 {/if}
 {/foreach}

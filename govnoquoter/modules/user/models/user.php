@@ -29,6 +29,8 @@ class user extends entity implements iACL
     protected $preferredLangs = null;
     protected $preferredLangsCategories = null;
 
+    protected $groups = null;
+
     /**
      * Проверяет является ли пользователь авторизированным
      * Пользователь считается таковым, если у него установлен

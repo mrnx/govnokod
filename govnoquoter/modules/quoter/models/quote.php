@@ -29,6 +29,8 @@ class quote extends entity
     protected $linesCount = 0;
     protected $vote_token = null;
 
+    protected $category = null;
+
     public function getText($linesNum = null)
     {
         $text = parent::__call('getText', array());
@@ -40,7 +42,7 @@ class quote extends entity
             $lastString = array_pop($lines);
             $text .= "…\n" . $lastString;
         }
-        
+
         return $text;
     }
 
@@ -105,10 +107,39 @@ class quote extends entity
     {
         return $this->getCommentsCount() - (int)$this->getSeenCommentsCount();
     }
-    
+
     public function isSpecial()
     {
         return $this->getId() == 2222;
+    }
+
+    public function getCategoryId()
+    {
+        if ($this->state() == entity::STATE_NEW) {
+            return null;
+        }
+
+        return $this->data['category_id'];
+    }
+
+    public function getCategory()
+    {
+        if (is_null($this->category)) {
+            $cache_key = 'category_' . $this->getCategoryId();
+            $cache = cache::factory('memcache');
+
+            $result = $cache->get($cache_key, $category);
+            if (!$result) {
+                $category = parent::__call('getCategory', array());
+                if ($category) {
+                    $cache->set($cache_key, $category, array(), 86400);
+                }
+            }
+
+            $this->category = $category;
+        }
+
+        return $this->category;
     }
 }
 ?>
