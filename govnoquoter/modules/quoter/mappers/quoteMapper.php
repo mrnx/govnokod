@@ -213,7 +213,7 @@ class quoteMapper extends mapper
             $mailer->send();
         }
 
-        //Рассылаем почту, если данный комментарий был ответом на другое комментарий
+        //Рассылаем почту, если данный комментарий был ответом на другой комментарий
         if ($comment->getTreeParent()) {
             $commentUser = $comment->getUser();
             $parentCommentUser = $comment->getTreeParent()->getUser();
@@ -283,11 +283,11 @@ class quoteMapper extends mapper
         $rateValue = null;
         switch ($vote) {
             case 'on':
-                $rateValue = ($user->isLoggedIn()) ? 1 : 0.1;
+                $rateValue = ($user->isLoggedIn()) ? 1 : 0.2;
                 break;
 
             case 'against':
-                $rateValue = ($user->isLoggedIn()) ? -1 : -0.1;
+                $rateValue = ($user->isLoggedIn()) ? -1 : -0.2;
                 break;
         }
 
