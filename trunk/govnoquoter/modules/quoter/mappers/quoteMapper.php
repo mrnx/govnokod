@@ -174,6 +174,13 @@ class quoteMapper extends mapper
         $userMapper->save($user);
     }
 
+    public function postUpdate(entity $object)
+    {
+        $cache = cache::factory('memcache');
+        $cache->delete($object->getCacheKey());
+        $cache->delete($object->getCacheKey('15_'));
+    }
+
     public function preDelete(entity $object)
     {
         $categoryMapper = systemToolkit::getInstance()->getMapper('quoter', 'quoteCategory');
