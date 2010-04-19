@@ -97,6 +97,10 @@ class commentsMapper extends mapper implements iACLMapper
         'votes_against' => array(
             'accessor' => 'getVotesAgainst',
             'mutator' => 'setVotesAgainst'
+        ),
+        'author_ip' => array(
+            'accessor' => 'getAuthorIp',
+            'mutator' => 'setAuthorIp',
         )
     );
 
