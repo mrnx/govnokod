@@ -82,6 +82,9 @@ class commentsPostController extends simpleController
                 $comment->setTreeParent($commentReply);
             }
 
+            $ip = $this->request->getServer('REMOTE_ADDR');
+            $comment->setAuthorIp($ip);
+
             $comment->setText(mzz_trim($text));
             $commentsMapper->save($comment);
 
