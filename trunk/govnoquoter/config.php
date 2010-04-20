@@ -23,7 +23,7 @@ define('SITE_PATH', '');
 define('COOKIE_DOMAIN', '');
 
 define('DEBUG_MODE', true);
-define('SYSTEM_PATH', realpath(dirname(__FILE__) . '/../mzz/system/'));
+define('SYSTEM_PATH', realpath(dirname(__FILE__) . '/../wiweb/mzz/system/'));
 
 /**
  * Идентификатор записи в БД для неавторизированных пользователей
@@ -58,7 +58,7 @@ systemConfig::$appVersion = '1.1';
 systemConfig::$pathToApplication = dirname(__FILE__);
 systemConfig::$pathToWebRoot = systemConfig::$pathToApplication . '/www';
 systemConfig::$pathToTemp = realpath(dirname(__FILE__) . '/tmp');
-systemConfig::$pathToConf = dirname(__FILE__);
+//systemConfig::$pathToConfigs = dirname(__FILE__);
 systemConfig::$enabledModules = array(
     'page',
     'captcha',

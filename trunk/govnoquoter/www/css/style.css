@@ -757,6 +757,11 @@ form dl dd input
 	border-top-color: #6D6F70;
 }
 
+input[type=radio], input[type=checkbox]
+{
+    border: none;
+}
+
 form dl dd textarea
 {
 	width: 60%;
