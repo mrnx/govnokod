@@ -52,9 +52,9 @@ class quoterSaveController extends simpleController
         $isPreview = $previewValidator->validate();
 
         $validator = new formValidator();
-        
+
         $validator->filter('trim', 'text');
-        
+
         $validator->rule('required', 'category_id', 'Укажите язык');
         $validator->rule('in', 'category_id', 'Укажите правильный язык', array_keys($categoriesSelect));
         $validator->rule('required', 'text', 'Укажите код');
@@ -111,7 +111,7 @@ class quoterSaveController extends simpleController
 
         if ($isEdit) {
             $url = new url('withId');
-            $url->setAction("edit");
+            $url->setAction('edit');
             $url->add('id', $id);
         } else {
             $url = new url('quoteAdd');

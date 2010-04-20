@@ -122,9 +122,13 @@ class quote extends entity
         return $this->data['category_id'];
     }
 
-    public function getCategory()
+    public function getCategory($refresh = false)
     {
-        if (is_null($this->category)) {
+        if (is_null($this->category) || $refresh === true) {
+            if ($this->state() == entity::STATE_NEW) {
+                return parent::__call('getCategory', array());
+            }
+
             $cache_key = 'category_' . $this->getCategoryId();
             $cache = cache::factory('memcache');
 
