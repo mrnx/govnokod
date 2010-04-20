@@ -10,6 +10,11 @@ return array(
         'title' => 'Настройки пользователя',
         'role' => 'user'
     ),
+    'addOpenID' => array (
+        'controller' => 'addOpenID',
+        'title' => 'Прилепить OpenID',
+        'role' => 'user'
+    ),
     'list' => array(
         'controller' => 'list',
         'title' => 'Список пользователей',
