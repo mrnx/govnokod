@@ -26,10 +26,14 @@ class userPreferencesController extends simpleController
         $user = $this->toolkit->getUser();
 
         $type = $this->request->getString('name');
+
         switch ($type) {
             case 'personal':
                 $validator = new formValidator();
-                $validator->rule('in', 'avatar', 'Выберите способ отображения аватара из списка!', array(1, 2));
+
+                $validator->rule('required', 'avatar', 'Укажите способ отображения юзерпика!');
+                $validator->rule('in', 'avatar', 'Выберите способ отображения юзерпика из списка!', array(1, 2));
+
                 if ($validator->validate()) {
                     $avatar = $this->request->getInteger('avatar', SC_POST);
                     $user->setAvatarType($avatar);
@@ -37,16 +41,27 @@ class userPreferencesController extends simpleController
                     $userMapper = $this->toolkit->getMapper('user', 'user');
                     $userMapper->save($user);
 
-                    $this->redirect('/');
+                    $url = new url('default2');
+                    $url->setModule('user');
+                    $url->setAction('preferences');
+                    $url->add('saved', 1, true);
+
+                    $this->redirect($url->get());
                     return;
                 }
+
+                $url = new url('withAnyParam');
+                $url->setModule('user');
+                $url->setAction('preferences');
+                $url->add('name', $type);
+
+                $this->smarty->assign('form_action', $url->get());
+                $this->smarty->assign('validator', $validator);
 
                 $this->setTemplatePrefix('personal_');
                 break;
 
-            default:
-                $type = 'global';
-
+            case 'global':
                 $userMapper = $this->toolkit->getMapper('user', 'user');
                 $categoryMapper = $this->toolkit->getMapper('quoter', 'quoteCategory');
 
@@ -56,8 +71,8 @@ class userPreferencesController extends simpleController
                 $validator = new formValidator();
                 $validator->rule('required', 'hdriver', 'Укажите способ подсветки кода');
                 $validator->rule('in', 'hdriver', 'Укажите способ подсветки кода из списка', array_keys($drivers));
-                $validator->rule('required', 'avatar', 'Укажите способ отображения юзерпика!');
-                $validator->rule('in', 'avatar', 'Выберите способ отображения юзерпика из списка!', array(1, 2));
+                //$validator->rule('required', 'avatar', 'Укажите способ отображения юзерпика!');
+                //$validator->rule('in', 'avatar', 'Выберите способ отображения юзерпика из списка!', array(1, 2));
                 $validator->rule('required', 'lang', 'Должен быть выбран хотя бы один язык!');
 
                 $timezones = $userMapper->getTimezones();
@@ -65,7 +80,6 @@ class userPreferencesController extends simpleController
                 $validator->rule('in', 'timezone', 'Укажите часовой пояс из списка!', array_keys($timezones));
 
                 if ($validator->validate()) {
-                    $avatar = $this->request->getInteger('avatar', SC_POST);
                     $driver = $this->request->getString('hdriver', SC_POST);
                     $langs = $this->request->getArray('lang', SC_POST);
                     $timezone = $this->request->getNumeric('timezone', SC_POST);
@@ -83,32 +97,43 @@ class userPreferencesController extends simpleController
                         $user->setPreferredLangs($preferredLangs);
                     }
 
-                    $user->setAvatarType($avatar);
+                    //$user->setAvatarType($avatar);
                     $user->setHighlightDriver($driver);
                     $user->setTimezone($timezone);
                     $userMapper->save($user);
 
                     $url = new url('default2');
                     $url->setModule('user');
-                    $url->setAction('login');
+                    $url->setAction('preferences');
+                    $url->add('saved', 1, true);
 
                     $this->redirect($url->get());
                     return;
                 }
+
+                $url = new url('withAnyParam');
+                $url->setModule('user');
+                $url->setAction('preferences');
+                $url->add('name', $type);
+
+                $this->smarty->assign('form_action', $url->get());
+                $this->smarty->assign('validator', $validator);
 
                 $this->smarty->assign('drivers', $drivers);
                 $this->smarty->assign('categories', $categories);
                 $this->smarty->assign('timezones', $timezones);
                 $this->setTemplatePrefix('global_');
                 break;
+
+            default:
+                $is_saved = $this->request->getBoolean('saved', SC_GET);
+
+                $this->smarty->assign('is_saved', $is_saved);
+
+                $type = 'main';
+                $this->setTemplatePrefix('main_');
+                break;
         }
-
-        $url = new url('default2');
-        $url->setModule('user');
-        $url->setAction('preferences');
-
-        $this->smarty->assign('form_action', $url->get());
-        $this->smarty->assign('validator', $validator);
 
         $this->smarty->assign('user', $user);
         $this->smarty->assign('type', $type);
