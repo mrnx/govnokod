@@ -1,7 +1,7 @@
 {title append="Добавление OpenID идентификатора"}
 <ol class="posts">
     <li class="hentry">
-        <h2><a href="{url route="default2" module="user" action="login"}">Моя личная кабинка</a> → <a href="{url route="default2" module="user" action="preferences"}">Настройки</a> → <a href="{url route="withAnyParam" module="user" action="preferences" name="personal"}">Персональные</a> → Добавление OpenID идентификатора</h2>
+        <h2><a href="{url route="default2" module="user" action="login"}">Моя личная кабинка</a> → <a href="{url route="default2" module="user" action="preferences"}">Настройки</a> → <a href="{url route="withAnyParam" module="user" action="preferences" name="personal"}">Персональные</a> → Добавить OpenID</h2>
         {form action=$form_action method="post"}
             {if !$validator->isValid()}
             <dl class="errors">
