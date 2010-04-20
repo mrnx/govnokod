@@ -168,6 +168,7 @@ class commentsMapper extends mapper implements iACLMapper
     {
         //у гостя будем проверять токены
         if (!$user->isLoggedIn()) {
+            return false;
             $toolkit = systemToolkit::getInstance();
             $request = $toolkit->getRequest();
             $session = $toolkit->getSession();

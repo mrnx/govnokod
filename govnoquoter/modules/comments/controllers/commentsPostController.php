@@ -68,6 +68,11 @@ class commentsPostController extends simpleController
 
             $validator->rule('required', 'captcha', 'Введите проверочный код!');
             $validator->rule('captcha', 'captcha', 'Неверно введен проверочный код!');
+
+            $guest_comments_disabled_until = strtotime('2010-04-27');
+            if (!$user->isLoggedIn() && time() < $guest_comments_disabled_until) {
+                $validator->setError('text', 'На сайте проводится профилактика, поэтому гостям нельзя писать комментарии до 27 апреля. Говнокод.ру благодарит Вас за понимание!');
+            }
         }
 
         $isAjax = $this->request->getBoolean('ajax', SC_POST);
