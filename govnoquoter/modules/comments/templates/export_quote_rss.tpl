@@ -15,9 +15,9 @@
             <title>Говнокод.ру — Комментарии говнокода #{$commentsFolder->getParentId()}</title>
         </image>
         <atom:link href="{$rss_url|h}" rel="self" type="application/rss+xml" />
-{foreach from=$comments item="comment" name="commentsIterator"}{assign var="curCommentNum" value=1}
+{foreach from=$comments item="comment" name="commentsIterator"}
         <item>
-            <title>Комментарий #{$curCommentNum}</title>
+            <title>Комментарий #{$smarty.foreach.commentsIterator.iteration}</title>
             <guid isPermaLink="true">{assign var="item_url" value={url route="quoteView" id=$commentsFolder->getParentId()}}{$item_url|h}#comment{$comment->getId()}</guid>
             <link>{$item_url|h}#comment{$comment->getId()}</link>
             <description>
@@ -28,6 +28,6 @@
             <pubDate>{"D, d M Y H:i:s O"|date:$comment->getCreated()}</pubDate>
             <author>{$comment->getUser()->getLogin()|h}</author>
         </item>
-{assign var="curCommentNum" value=$curCommentNum+1}{/foreach}
+{/foreach}
     </channel>
 </rss>
