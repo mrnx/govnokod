@@ -28,18 +28,20 @@ define('SID', true);
  */
 class userOpenIDLoginController extends userLoginController
 {
+    protected $backend = 'native';
+    
     protected function getView()
     {
         $user = $this->toolkit->getUser();
         
         if ($user->isLoggedIn()) {
-            $this->smarty->assign('user', $user);
-            return $this->fetch('user/alreadyLogin.tpl');
+            $this->view->assign('user', $user);
+            return $this->render('user/alreadyLogin.tpl');
         }
 
         $session = $this->toolkit->getSession();
         $isValidated = $session->get('openID_validated', false);
-        $this->smarty->assign('isValidated', $isValidated);
+        $this->view->assign('isValidated', $isValidated);
         if (!$this->request->getBoolean('onlyForm') && $isValidated === true) {
             $userMapper = $this->toolkit->getMapper('user', 'user');
             //$timezones = $userMapper->getTimezones();
@@ -119,15 +121,15 @@ class userOpenIDLoginController extends userLoginController
             }
 
             $regData = $session->get('openID_RegData');
-            $this->smarty->assign('regData', $regData);
+            $this->view->assign('regData', $regData);
 
             $url = new url('openIDLogin');
 
-            $this->smarty->assign('openIDUrl', $openIDUrl);
-            //$this->smarty->assign('timezones', $timezones);
-            $this->smarty->assign('form_action', $url->get());
-            $this->smarty->assign('validator', $validator);
-            return $this->smarty->fetch('user/openIDRegForm.tpl');
+            $this->view->assign('openIDUrl', $openIDUrl);
+            //$this->view->assign('timezones', $timezones);
+            $this->view->assign('form_action', $url->get());
+            $this->view->assign('validator', $validator);
+            return $this->view->render('user/openIDRegForm.tpl', 'native');
         }
 
         $open_id_mode = $this->request->getString('openid_mode', SC_GET);
@@ -213,9 +215,9 @@ class userOpenIDLoginController extends userLoginController
 
         $url = new url('openIDLogin');
 
-        $this->smarty->assign('form_action', $url->get());
-        $this->smarty->assign('validator', $validator);
-        return $this->fetch('user/openIDLoginForm.tpl');
+        $this->view->assign('form_action', $url->get());
+        $this->view->assign('validator', $validator);
+        return $this->render('user/openIDLoginForm.tpl');
     }
 
     protected function getSuccessUrl()

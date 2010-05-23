@@ -13,13 +13,13 @@
  */
 
 /**
- * quoterListCategoriesController: контроллер для метода listCategories модуля quoter
+ * quoterCategoriesController: контроллер для метода categories модуля quoter
  *
  * @package modules
  * @subpackage quoter
- * @version 0.1
+ * @version 0.2
  */
-class quoterListCategoriesController extends simpleController
+class quoterCategoriesController extends simpleController
 {
     const CACHE_TTL = 3600;
 
@@ -34,8 +34,8 @@ class quoterListCategoriesController extends simpleController
 
             $categories = $categoryMapper->searchAllWithQuotes();
             
-            $this->smarty->assign('categories', $categories);
-            $html = $this->fetch('quoter/listCategories.tpl');
+            $this->view->assign('categories', $categories);
+            $html = $this->view->render('quoter/main_categories.tpl', 'native');
             $cache->set($cacheKey, $html, array(), self::CACHE_TTL);
         }
 

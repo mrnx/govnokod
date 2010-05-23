@@ -23,9 +23,9 @@ return array (
         'controller' => 'best',
         'title' => 'Список лучших',
     ),
-    'listCategories' => 
+    'categories' => 
     array (
-        'controller' => 'listCategories',
+        'controller' => 'categories',
         'title' => 'Список категорий',
         'main' => 'deny',
     ),
