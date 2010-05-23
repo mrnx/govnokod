@@ -23,7 +23,6 @@ class quote extends entity
 {
     const VOTE_TIMEOUT = 7200;
     const MAX_DESC_CHARS = 2000;
-    const CACHE_PREFIX = 'quote_';
     const SESSION_VOTE_TOKEN_PREFIX = 'votetoken_';
 
     protected $linesCount = 0;
@@ -98,11 +97,6 @@ class quote extends entity
         return self::SESSION_VOTE_TOKEN_PREFIX . $this->getId();
     }
 
-    public function getCacheKey($localPrefix = '')
-    {
-        return self::CACHE_PREFIX . $localPrefix . $this->getId();
-    }
-
     public function getNewCommentsCount()
     {
         return $this->getCommentsCount() - (int)$this->getSeenCommentsCount();
@@ -144,6 +138,49 @@ class quote extends entity
         }
 
         return $this->category;
+    }
+    
+    public function getGeshiText($lines_count = null)
+    {
+        $cache = cache::factory('memcache');
+        $cache_key = 'quote_geshi_' . $this->getId();
+        if (!is_null($lines_count) && is_int($lines_count)) {
+            $cache_key .= '_' . $lines_count;
+        }
+        
+        $result = $cache->get($cache_key, $code);
+        if (!$result) {
+            $source = $this->getText($lines_count);
+            $language = $this->getCategory()->getGeshiAlias();
+            
+            fileLoader::load('libs/geshi/geshi');
+            $geshi = new GeSHi($source, $language);
+            
+            //если такой язык подсветки не найден, то принуждаем использовать простой текст
+            if ($geshi->error() !== false) {
+                $geshi->set_language('text');
+            } else {
+                $css = systemConfig::$pathToWebRoot . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'langs' . DIRECTORY_SEPARATOR . $language . '.css';
+                if (!file_exists($css)) {
+                    @file_put_contents($css, $geshi->get_stylesheet(false));
+                }
+            }
+        
+            $geshi->set_comments_style(1, 'color: #666666;');
+            $geshi->set_comments_style(2, 'color: #666666;');
+            $geshi->set_comments_style(3, 'color: #0000cc;');
+            $geshi->set_comments_style(4, 'color: #009933;');
+            $geshi->set_comments_style('MULTI', 'color: #666666;');
+        
+            //$geshi->set_header_type(GESHI_HEADER_NONE);
+            //$geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
+            $geshi->enable_classes();
+            $code = $geshi->parse_code();
+            
+            $cache->set($cache_key, $code, array(), 86400);
+        }
+        
+        return $code;
     }
 }
 ?>

@@ -20,10 +20,10 @@
  *
  */
 define('SITE_PATH', '');
-define('COOKIE_DOMAIN', '');
+define('COOKIE_DOMAIN', '.govnokod');
 
 define('DEBUG_MODE', true);
-define('SYSTEM_PATH', realpath(dirname(__FILE__) . '/../wiweb/mzz/system/'));
+define('SYSTEM_PATH', realpath(dirname(__FILE__) . '/../mzz/system/'));
 
 /**
  * Идентификатор записи в БД для неавторизированных пользователей
@@ -45,6 +45,7 @@ systemConfig::$i18nEnable = false;
 
 // устанавливаем дефолтную кодировку для выдачи
 ini_set('default_charset', 'utf-8');
+ini_set('session.cookie_domain', COOKIE_DOMAIN);
 
 systemConfig::$db['default']['driver'] = 'pdo';
 systemConfig::$db['default']['dsn']  = 'mysql:host=localhost;dbname=govnokod';
@@ -57,8 +58,8 @@ systemConfig::$appName = 'govnokod';
 systemConfig::$appVersion = '1.1';
 systemConfig::$pathToApplication = dirname(__FILE__);
 systemConfig::$pathToWebRoot = systemConfig::$pathToApplication . '/www';
-systemConfig::$pathToTemp = realpath(dirname(__FILE__) . '/tmp');
-//systemConfig::$pathToConfigs = dirname(__FILE__);
+systemConfig::$pathToTemp = systemConfig::$pathToApplication . '/tmp';
+systemConfig::$pathToConfigs = systemConfig::$pathToApplication . '/configs';
 systemConfig::$enabledModules = array(
     'page',
     'captcha',
@@ -67,6 +68,8 @@ systemConfig::$enabledModules = array(
     'ratings',
     'user',
 );
+
+systemConfig::$mainTemplateDriver = 'native';
 
 systemConfig::$mailer['default']['backend'] = 'PHPMailer';
 systemConfig::$mailer['default']['params'] = array('html' => true, 'smtp' => true, 'smtp_host' => 'localhost');
@@ -89,5 +92,4 @@ systemConfig::$cache['file']['params'] = array('path' => systemConfig::$pathToTe
 */
 
 systemConfig::init();
-
 ?>

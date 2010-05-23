@@ -1,17 +1,19 @@
-{* main="header.tpl" placeholder="content" *}
+<?php
+$this->wrap('header.tpl', 'content');
+$this->add('style.css');
+?>
 <div id="page">
     <div id="header">
         <h1><a rel="homepage" href="/">Говнокод: по колено в коде.</a></h1>
 
-        {load module="user" action="openIDLogin" onlyForm=true tplPrefix="main_"}
+        <?php echo $this->load('user', 'openIDLogin', array('onlyForm' => true, 'tplPrefix' => 'main_')); ?>
 
         <ul id="navigation">
-            <li><a href="{$SITE_PATH}/">Все</a></li>
-            <li><a href="{url route="best"}">Лучший</a></li>
-            <li style="background: url({$SITE_PATH}/images/new.png) no-repeat scroll 0% 50%; padding-left: 10px;"><a href="{url route="livecomments"}">Сток</a></li>
-            <li><a href="{url route="search"}">Глупый поиск</a></li>
-            {*<li><a href="#">Газета</a></li>*}
-            <li class="add"><a href="{url route="quoteAdd"}">Наговнокодить!</a></li>
+            <li><a href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl()); ?>/">Все</a></li>
+            <li><a href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl()); ?>/best">Лучший</a></li>
+            <li><a href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl()); ?>/comments">Сток</a></li>
+            <li><a href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl()); ?>/search">Глупый поиск</a></li>
+            <li class="add"><a href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl()); ?>/add">Наговнокодить!</a></li>
         </ul>
 
         <p id="entrance">
@@ -21,17 +23,20 @@
             говнокод.ру, посмеёмся вместе!
         </p>
 
-        {load module="quoter" action="listCategories"}
+        <?php echo $this->load('quoter', 'categories'); ?>
     </div>
 
     <div id="content">
-        {$content}
+        <?php echo $content; ?>
     </div>
 
     <div id="footer">
         <address>
-            <span>&copy; 2008-2010 &laquo;Говнокод.ру&raquo;{if $smarty.const.DEBUG_MODE} {$timer->toString()}{/if}</span>
-            <span><a href="{url route="pageActions" name="feedback"}">Обратная связь</a> | Работает на <a href="http://mzz.ru">mzz</a></span>
+            <span>&copy; 2008-2010 &laquo;Говнокод.ру&raquo; <?php if (DEBUG_MODE) echo $timer->toString(); ?></span>
+            <span><a href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl()); ?>/page/feedback">Обратная связь</a> | Работает на <a href="http://mzz.ru" title="opensource php5 framework">mzz</a></span>
         </address>
     </div>
 </div>
+<?php
+$this->wrap();
+?>

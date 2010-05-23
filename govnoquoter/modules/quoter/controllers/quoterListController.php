@@ -17,9 +17,8 @@
  *
  * @package modules
  * @subpackage quoter
- * @version 0.1
+ * @version 0.2
  */
-
 class quoterListController extends simpleController
 {
     protected function getView()
@@ -43,7 +42,7 @@ class quoterListController extends simpleController
             }
 
             $criteria->where('category_id', $category->getId());
-            $this->smarty->assign('category', $category);
+            $this->view->assign('list_category', $category);
         } else {
             $user = $this->toolkit->getUser();
             if ($user->getPreferredLangs()) {
@@ -62,9 +61,9 @@ class quoterListController extends simpleController
             }
         }
 
-        $this->smarty->assign('quotes', $quotes);
-        $this->smarty->assign('listAll', $listAll);
-        return $this->smarty->fetch('quoter/list.tpl');
+        $this->view->assign('quotes', $quotes);
+        $this->view->assign('listAll', $listAll);
+        return $this->view->render('quoter/list.tpl', 'native');
     }
 }
 

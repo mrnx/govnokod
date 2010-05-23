@@ -1,0 +1,1 @@
+Время: <?php echo round($timer->getPeriod(), 4); ?> сек. Запросов к БД: <?php echo $timer->getQueriesNum(); ?>+<?php echo $timer->getPreparedNum(); ?>: <?php echo number_format($timer->getQueriesTime(), 4); ?> сек.
