@@ -38,6 +38,16 @@ class userPreferencesController extends simpleController
                     $avatar = $this->request->getInteger('avatar', SC_POST);
                     $user->setAvatarType($avatar);
 
+                    $is_mail_send_item = $this->request->getInteger('send_mail_on_item', SC_POST);
+                    if ($is_mail_send_item) {
+                        $user->setIsMailSendItem((bool)($is_mail_send_item - 1));
+                    }
+                    
+                    $is_mail_send_reply = $this->request->getInteger('send_mail_on_reply', SC_POST);
+                    if ($is_mail_send_reply) {
+                        $user->setIsMailSendReply((bool)($is_mail_send_reply - 1));
+                    }
+                    
                     $userMapper = $this->toolkit->getMapper('user', 'user');
                     $userMapper->save($user);
 
