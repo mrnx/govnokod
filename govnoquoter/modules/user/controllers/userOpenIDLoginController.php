@@ -58,7 +58,7 @@ class userOpenIDLoginController extends userLoginController
             $validator->filter('trim', 'email');
 
             $validator->rule('required', 'login', 'Пожалуйста, укажите логин');
-            $validator->rule('regex', 'login', 'Логин может содержать только латинские символы, цифры, дефис и знак подчеркивания', '/^[-_a-z0-9]+$/i');
+            $validator->rule('regex', 'login', 'Логин может содержать только латинские буквы, цифры, дефис и знак подчеркивания', '/^[-_a-z0-9]+$/i');
             $validator->rule('callback', 'login', 'Пользователь с таким логином уже существует. Пожалуйста, выберите другой', array(array($this, 'checkUniqueUserLogin'), $userMapper));
             $validator->rule('required', 'email', 'Пожалуйста, укажите E-mail');
             $validator->rule('email', 'email', 'Пожалуйста, укажите правильный адрес E-mail');

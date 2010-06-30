@@ -33,7 +33,7 @@ class userRegisterController extends simpleController
         $validator->filter('trim', 'repassword');
 
         $validator->rule('required', 'login', 'Вы забыли указать логин');
-        //$validator->rule('regex', 'login', 'Логин может содержать только латинские символы, цифры, дефис и знак подчеркивания', '/^[-_a-z0-9]+$/i');
+        $validator->rule('regex', 'login', 'Логин может содержать только латинские буквы, цифры, дефис и знак подчеркивания', '/^[-_a-z0-9]+$/i');
         $validator->rule('length', 'login', 'Укажите логин, длиннее 2-х символов', array(3, null));
         $validator->rule('length', 'login', 'Укажите логин, короче 20-ти символов', array(null, 20));
         $validator->rule('callback', 'login', 'Пользователь с таким логином уже существует. Выберите другой', array(array($this, 'checkUniqueUserLogin'), $userMapper));

@@ -12,6 +12,20 @@
                     {form->radio name="avatar" values="0|2" label="Gravatar" style="width: auto;" value=$user->getAvatarType()}
                 </dd>
 
+                <dt>{form->caption name="send_mail_on_item" value="Уведомлять меня о новых комментариях к моему говнокоду"}</dt>
+                <dd>
+                    {assign var="radio_value" value=$user->getIsMailSendItem()+1}
+                    {form->radio name="send_mail_on_item" label="Да, уведомлять меня" value=$radio_value values="0|2" style="width: auto;"}
+                    {form->radio name="send_mail_on_item" label="Нет, прекратите это немедленно!" value=$radio_value values="0|1" style="width: auto;"}
+                </dd>
+                
+                <dt>{form->caption name="send_mail_on_reply" value="Уведомлять меня об ответах на мои комментарии"}</dt>
+                <dd>
+                    {assign var="radio_value" value=$user->getIsMailSendReply()+1}
+                    {form->radio name="send_mail_on_reply" label="Да, уведомлять меня" value=$radio_value values="0|2" style="width: auto;"}
+                    {form->radio name="send_mail_on_reply" label="Нет" value=$radio_value values="0|1" style="width: auto;"}
+                </dd>
+                
                 <dt>{form->caption name="avatar" value="Мои OpenID идентификаторы:" label=false}</dt>
                 <dd>
                     <ul>
