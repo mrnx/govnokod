@@ -25,13 +25,15 @@ fileLoader::load('modules/jip/plugins/jipPlugin');
  */
 class quoteCategoryMapper extends mapper
 {
+    const TRASH_CATEGORY_NAME = 'trash';
+
     /**
      * DomainObject class name
      *
      * @var string
      */
     protected $class = 'quoteCategory';
-    
+
     /**
      * Table name
      *
@@ -72,9 +74,9 @@ class quoteCategoryMapper extends mapper
         )
     );
 
-    public function __construct()
+    public function __construct($module)
     {
-        parent::__construct();
+        parent::__construct($module);
         $this->plugins('jip');
         $this->plugins('identityMap');
     }

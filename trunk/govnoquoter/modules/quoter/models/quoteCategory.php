@@ -17,20 +17,13 @@
  *
  * @package modules
  * @subpackage quoter
- * @version 0.2
+ * @version 0.2.1
  */
 class quoteCategory extends entity
 {
-    protected $page = false;
-
-    public function getPage()
+    public function isTrash()
     {
-        if ($this->page === false) {
-            $this->page = $this->mapper->getPage($this);
-        }
-
-        return $this->page;
+        return $this->getName() == quoteCategoryMapper::TRASH_CATEGORY_NAME;
     }
 }
-
 ?>
