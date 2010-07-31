@@ -19,7 +19,6 @@
  * @subpackage quoter
  * @version 0.1
  */
-
 class quoterViewController extends simpleController
 {
     protected function getView()
@@ -28,7 +27,7 @@ class quoterViewController extends simpleController
 
         $quoteMapper = $this->toolkit->getMapper('quoter', 'quote');
         $quote = $quoteMapper->searchActiveById($id);
-        
+
         if (!$quote) {
             return $this->forward404($quoteMapper);
         }

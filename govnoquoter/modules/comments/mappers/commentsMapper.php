@@ -104,10 +104,10 @@ class commentsMapper extends mapper implements iACLMapper
         )
     );
 
-    public function __construct()
+    public function __construct($module)
     {
         $this->attach(new ratingsPlugin(array('join_rate' => true)));
-        parent::__construct();
+        parent::__construct($module);
         $this->attach(new tree_alPlugin(array('path_name' => 'id')), 'tree');
         $this->plugins('jip');
         $this->plugins('identityMap');
