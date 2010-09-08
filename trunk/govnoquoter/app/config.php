@@ -20,10 +20,10 @@
  *
  */
 define('SITE_PATH', '');
-define('COOKIE_DOMAIN', '.govnokod');
+define('COOKIE_DOMAIN', '');
 
 define('DEBUG_MODE', true);
-define('SYSTEM_PATH', realpath(dirname(__FILE__) . '/../mzz/system/'));
+define('SYSTEM_PATH', realpath(dirname(__FILE__) . '/../../mzz/system/'));
 
 /**
  * Идентификатор записи в БД для неавторизированных пользователей
@@ -51,13 +51,14 @@ systemConfig::$db['default']['driver'] = 'pdo';
 systemConfig::$db['default']['dsn']  = 'mysql:host=localhost;dbname=govnokod';
 systemConfig::$db['default']['user'] = 'root';
 systemConfig::$db['default']['password'] = '';
-systemConfig::$db['default']['charset'] = 'utf8';
-systemConfig::$db['default']['pdoOptions'] = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES `utf8`');
+systemConfig::$db['default']['options'] = array(
+    'init_query' => 'SET NAMES `utf8`'
+);
 
 systemConfig::$appName = 'govnokod';
-systemConfig::$appVersion = '1.1';
+systemConfig::$appVersion = '1.2';
 systemConfig::$pathToApplication = dirname(__FILE__);
-systemConfig::$pathToWebRoot = systemConfig::$pathToApplication . '/www';
+systemConfig::$pathToWebRoot = realpath(systemConfig::$pathToApplication . '/../www');
 systemConfig::$pathToTemp = systemConfig::$pathToApplication . '/tmp';
 systemConfig::$pathToConfigs = systemConfig::$pathToApplication . '/configs';
 systemConfig::$enabledModules = array(

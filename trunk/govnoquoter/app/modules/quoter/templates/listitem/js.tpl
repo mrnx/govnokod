@@ -4,7 +4,7 @@
             <li class="hentry">
                 <h2><a rel="chapter" href="<?php echo htmlspecialchars($url . '/' . $quote->getCategory()->getName()); ?>"><?php echo htmlspecialchars($quote->getCategory()->getTitle()); ?></a> / <a rel="bookmark" class="entry-title" href="<?php echo htmlspecialchars($url . '/' . $quote->getId()); ?>">Говнокод #<?php echo $quote->getId(); ?></a></h2>
                 <p class="vote">
-                    {include file="quoter/rating.tpl" quote=$quote}
+                    <?php echo $this->render('quoter/rating.tpl', array('quote' => $quote)); ?>
                 </p>
                 <div class="entry-content">
                     <ol><?php foreach ($quote->generateLines() as $line) { echo '<li>', $line, '</li>'; } ?></ol>

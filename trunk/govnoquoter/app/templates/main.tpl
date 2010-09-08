@@ -10,10 +10,10 @@ $this->add('style.css');
 
         <ul id="navigation">
             <li><a href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl()); ?>/">Все</a></li>
-            <li><a href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl()); ?>/best">Лучший</a></li>
-            <li><a href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl()); ?>/comments">Сток</a></li>
-            <li><a href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl()); ?>/search">Глупый поиск</a></li>
-            <li class="add"><a href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl()); ?>/add">Наговнокодить!</a></li>
+            <li><a href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl()); ?>/paper/">Газетка</a></li>
+            <li><a href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl()); ?>/best/">Лучший</a></li>
+            <li><a href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl()); ?>/search/">Глупый поиск</a></li>
+            <li class="add"><a href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl()); ?>/add/">Наговнокодить!</a></li>
         </ul>
 
         <p id="entrance">

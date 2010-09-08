@@ -1,30 +1,31 @@
-{strip}
-{if $toolkit->getUser()->isLoggedIn()}
-    {if $toolkit->getUser()->getId() == $quote->getUser()->getId()}
-        <span class="vote-on" title="Я не могу голосовать за собственный код">&darr;</span>
-        <strong{if $quote->getRating() < 0} class="bad"{/if} title="{$quote->getRatingsOn()|h} за и {$quote->getRatingsAgainst()|h} против">{if $quote->getRating() > 0}+{elseif $quote->getRating() < 0}&minus;{/if}{$quote->getRating()|@abs}</strong>
-        <span class="vote-against" title="Я не могу голосовать за собственный код">&uarr;</span>
-    {else}
-        {if $quote->getCurrentUserRate()}
-            {if $quote->getCurrentUserRate() == -1}<span class="vote-on my-vote" title="Мой голос">{else}<span class="vote-on">{/if}&darr;</span>
-            <strong{if $quote->getRating() < 0} class="bad"{/if} title="{$quote->getRatingsOn()|h} за и {$quote->getRatingsAgainst()|h} против">{if $quote->getRating() > 0}+{elseif $quote->getRating() < 0}&minus;{/if}{$quote->getRating()|@abs}</strong>
-            {if $quote->getCurrentUserRate() == 1}<span class="vote-against my-vote" title="Мой голос">{else}<span class="vote-against">{/if}&uarr;</span>
-        {else}
-            <a class="vote-against" rel="nofollow" href="{url route="rateForCode" id=$quote->getId() vote="against"}" title="Минусну!">&darr;</a>
-            <strong{if $quote->getRating() < 0} class="bad"{/if} title="{$quote->getRatingsOn()|h} за и {$quote->getRatingsAgainst()|h} против">{if $quote->getRating() > 0}+{elseif $quote->getRating() < 0}&minus;{/if}{$quote->getRating()|@abs}</strong>
-            <a class="vote-on" rel="nofollow" href="{url route="rateForCode" id=$quote->getId() vote="on"}" title="Плюсану!">&uarr;</a>
-        {/if}
-    {/if}
-{else}
-    <strong class="just-rating{if $quote->getRating() < 0} bad{/if}" title="{$quote->getRatingsOn()|h} за и {$quote->getRatingsAgainst()|h} против">{if $quote->getRating() > 0}+{elseif $quote->getRating() < 0}&minus;{/if}{$quote->getRating()|@abs}</strong>
-    {*
-    {if $justRate|default:false}
-    <strong class="just-rating{if $quote->getRating() < 0} bad{/if}" title="{$quote->getRatingsOn()|h} за и {$quote->getRatingsAgainst()|h} против">{if $quote->getRating() > 0}+{elseif $quote->getRating() < 0}&minus;{/if}{$quote->getRating()|@abs}</strong>
-    {else}
-    <a class="vote-against" rel="nofollow" href="{url route="rateForCode" id=$quote->getId() vote="against" _secret=$quote->getVoteToken()}" title="Минусну!">&darr;</a>
-    <strong{if $quote->getRating() < 0} class="bad"{/if} title="{$quote->getRatingsOn()|h} за и {$quote->getRatingsAgainst()|h} против">{if $quote->getRating() > 0}+{elseif $quote->getRating() < 0}&minus;{/if}{$quote->getRating()|@abs}</strong>
-    <a class="vote-on" rel="nofollow" href="{url route="rateForCode" id=$quote->getId() vote="on" _secret=$quote->getVoteToken()}" title="Плюсану!">&uarr;</a>
-    {/if}
-    *}
-{/if}
-{/strip}
+<?php
+$user = $toolkit->getUser();
+if ($user->isLoggedIn()) {
+    if ($user->getId() == $quote->getUser()->getId()) {
+?>
+    <span class="vote-on" title="Я не могу голосовать за собственный код">&darr;</span>
+    <strong<?php if ($quote->getRating() < 0) echo ' class="bad"';?> title="<?php echo $quote->getRatingsOn(); ?> за и <?php echo $quote->getRatingsAgainst(); ?> против"><?php if ($quote->getRating() > 0) { echo '+'; } elseif ($quote->getRating() < 0) { echo '&minus;'; } echo abs($quote->getRating()); ?></strong>
+    <span class="vote-against" title="Я не могу голосовать за собственный код">&uarr;</span>
+<?php
+    } else {
+        $current_user_rate = $quote->getCurrentUserRate();
+        if ($current_user_rate) {
+?>
+    <?php if ($current_user_rate == -1) { ?><span class="vote-on my-vote" title="Мой голос"><?php } else { ?><span class="vote-on"><?php } ?>&darr;</span>
+    <strong<?php if ($quote->getRating() < 0) echo ' class="bad"';?> title="<?php echo $quote->getRatingsOn(); ?> за и <?php echo $quote->getRatingsAgainst(); ?> против"><?php if ($quote->getRating() > 0) { echo '+'; } elseif ($quote->getRating() < 0) { echo '&minus;'; } echo abs($quote->getRating()); ?></strong>
+    <?php if ($current_user_rate == 1) { ?><span class="vote-against my-vote" title="Мой голос"><?php } else { ?><span class="vote-against"><?php } ?>&uarr;</span>
+<?php
+        } else {
+?>
+    <a class="vote-against" rel="nofollow" href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl() . '/ratings/code/' . $quote->getId() . '/against/'); ?>" title="Минусну!">&darr;</a>
+    <strong<?php if ($quote->getRating() < 0) echo ' class="bad"';?> title="<?php echo $quote->getRatingsOn(); ?> за и <?php echo $quote->getRatingsAgainst(); ?> против"><?php if ($quote->getRating() > 0) { echo '+'; } elseif ($quote->getRating() < 0) { echo '&minus;'; } echo abs($quote->getRating()); ?></strong>
+    <a class="vote-on" rel="nofollow" href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl() . '/ratings/code/' . $quote->getId() . '/on/'); ?>" title="Плюсану!">&uarr;</a>
+<?php
+        }
+    }
+} else {
+?>
+    <strong class="just-rating<?php if ($quote->getRating() < 0) echo ' bad';?>" title="<?php echo $quote->getRatingsOn(); ?> за и <?php echo $quote->getRatingsAgainst(); ?> против"><?php if ($quote->getRating() > 0) { echo '+'; } elseif ($quote->getRating() < 0) { echo '&minus;'; } echo abs($quote->getRating()); ?></strong>
+<?php
+}
+?>

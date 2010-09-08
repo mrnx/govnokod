@@ -32,21 +32,21 @@ class quoterViewController extends simpleController
             return $this->forward404($quoteMapper);
         }
 
-        $this->smarty->assign('quote', $quote);
+        $this->view->assign('quote', $quote);
 
         $format = $this->request->getString('format', SC_GET);
         if ($format == 'ajax') {
-            $this->smarty->disableMain();
-            return $this->smarty->fetch('quoter/ajaxview.tpl');
+            $this->view->disableMain();
+            return $this->view->render('quoter/ajaxview.tpl');
         }
 
         $onlyComments = $this->request->getBoolean('onlyComments', SC_GET);
         if ($onlyComments) {
-            $this->smarty->disableMain();
-            return $this->smarty->fetch('quoter/onlyComments.tpl');
+            $this->view->disableMain();
+            return $this->view->render('quoter/onlyComments.tpl');
         }
 
-        return $this->smarty->fetch('quoter/view.tpl');
+        return $this->view->render('quoter/view.tpl');
     }
 }
 

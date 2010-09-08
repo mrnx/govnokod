@@ -99,10 +99,10 @@ class commentsPostController extends simpleController
             }
 
             if ($isAjax) {
-                $this->smarty->disableMain();
-                $this->smarty->assign('comment', $comment);
-                $this->smarty->assign('commentsFolder', $commentsFolder);
-                return $this->smarty->fetch('comments/post_added_ajax.tpl');
+                $this->view->disableMain();
+                $this->view->assign('comment', $comment);
+                $this->view->assign('commentsFolder', $commentsFolder);
+                return $this->view->render('comments/post_added_ajax.tpl');
             } else {
                 $back_url = $commentsFolder->getDefaultBackUrl();
 
@@ -124,18 +124,18 @@ class commentsPostController extends simpleController
             $url->add('replyTo', $commentReply->getId(), true);
         }
 
-        $this->smarty->assign('action', $url->get());
-        $this->smarty->assign('user', $user);
-        $this->smarty->assign('validator', $validator);
-        $this->smarty->assign('comment', $comment);
-        $this->smarty->assign('commentReply', $commentReply);
-        $this->smarty->assign('commentsFolder', $commentsFolder);
-        $this->smarty->assign('hideForm', $this->request->getBoolean('hideForm'));
-        $this->smarty->assign('onlyForm', $onlyForm);
+        $this->view->assign('action', $url->get());
+        $this->view->assign('user', $user);
+        $this->view->assign('validator', $validator);
+        $this->view->assign('comment', $comment);
+        $this->view->assign('commentReply', $commentReply);
+        $this->view->assign('commentsFolder', $commentsFolder);
+        $this->view->assign('hideForm', $this->request->getBoolean('hideForm'));
+        $this->view->assign('onlyForm', $onlyForm);
 
-        $this->smarty->assign('isAjax', $isAjax);
+        $this->view->assign('isAjax', $isAjax);
         if ($isAjax) {
-            $this->smarty->disableMain();
+            $this->view->disableMain();
             $this->setTemplatePrefix('ajax_');
         }
 
@@ -158,8 +158,8 @@ class commentsPostController extends simpleController
             }
         }
 
-        $this->smarty->assign('formTitle', $formTitles[$currentTitleIndex]);
-        return $this->fetch('comments/post.tpl');
+        $this->view->assign('formTitle', $formTitles[$currentTitleIndex]);
+        return $this->render('comments/post.tpl');
     }
 }
 ?>

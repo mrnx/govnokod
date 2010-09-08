@@ -23,7 +23,7 @@ class quoteCategory extends entity
 {
     public function isTrash()
     {
-        return $this->getName() == quoteCategoryMapper::TRASH_CATEGORY_NAME;
+        return $this->getId() == quoteCategoryMapper::TRASH_CATEGORY_ID;
     }
 }
 ?>

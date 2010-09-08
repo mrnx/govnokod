@@ -1,29 +1,31 @@
-{title append="Вход в говнокод тут"}
+<?php
+$this->title('Вход в говнокод тут');
+?>
 <ol class="posts">
     <li class="hentry">
         <h2>Вход в говнокод тут</h2>
-        {form action=$form_action method="post"}
-            {if !$validator->isValid()}
+        <?php echo $__form->open(array('action' => $form_action, 'method' => 'post')); ?>
+<?php if (!$validator->isValid()) { ?>
             <dl class="errors">
                 <dt>Ошибка авторизации:</dt>
                 <dd>
                     <ol>
-                    {foreach from=$validator->getErrors() item="error"}
-                        <li>{$error}</li>
-                    {/foreach}
+<?php foreach ($validator->getErrors() as $error) { ?>
+                        <li><?php echo $error; ?></li>
+<?php } ?>
                     </ol>
                 </dd>
             </dl>
-            {/if}
+<?php } ?>
             <dl>
-                <dt>{form->caption name="openid_identifier" value="OpenID:"}</dt>
-                <dd>{form->text name="openid_identifier" value=$openIDUrl}</dd>
+                <dt><?php echo $__form->caption(array('name' => 'openid_identifier', 'value' => 'OpenID:')); ?></dt>
+                <dd><?php echo $__form->text(array('name' => 'openid_identifier')); ?></dd>
             </dl>
             <p>
-                {form->submit class="send" name="openid_submit" value="Вхожу!"}
+                <?php echo $__form->submit(array('name' => 'openid_submit', 'value' => 'Вхожу!', 'class' => 'send')); ?>
             </p>
         </form>
         <p>&nbsp;</p>
-        <p><a href="{url route="pageActions" name="whatisopenid"}">Что это?</a> | <a href="{url route="default2" module="user" action="login"}">Обычная форма входа</a></p>
+        <p><a href="<?php echo htmlspecialchars($this->url('pageActions', array('name' => 'whatisopenid'))); ?>">Что это?</a> | <a href="<?php echo htmlspecialchars($this->url('default2', array('module' => 'user', 'action' => 'login'))); ?>">Обычная форма входа</a></p>
     </li>
 </ol>

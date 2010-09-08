@@ -30,7 +30,7 @@ class ratingsFolderMapper extends mapper
      * @var string
      */
     protected $class = 'ratingsFolder';
-    
+
     /**
      * Table name
      *
@@ -79,9 +79,9 @@ class ratingsFolderMapper extends mapper
         )
     );
 
-    public function __construct()
+    public function __construct($module)
     {
-        parent::__construct();
+        parent::__construct($module);
         $this->plugins('identityMap');
     }
 

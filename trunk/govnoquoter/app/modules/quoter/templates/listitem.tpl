@@ -1,19 +1,10 @@
 <?php
-/*
-    if ($highlight_driver == 'geshi') {
-        $lang_name = $quote->getCategory()->getGeshiAlias();
-        $this->add('langs/' . $lang_name . '.css');
-    } else if ($highlight_driver == 'js') {
-        $lang_name = $quote->getCategory()->getJsAlias();
-    }
-    */
-    
     $url = $toolkit->getRequest()->getUrl();
 ?>
             <li class="hentry">
                 <h2><a rel="chapter" href="<?php echo htmlspecialchars($url . '/' . $quote->getCategory()->getName()); ?>"><?php echo htmlspecialchars($quote->getCategory()->getTitle()); ?></a> / <a rel="bookmark" class="entry-title" href="<?php echo htmlspecialchars($url . '/' . $quote->getId()); ?>">Говнокод #<?php echo $quote->getId(); ?></a></h2>
                 <p class="vote">
-                    {include file="quoter/rating.tpl" quote=$quote}
+                    <?php echo $this->render('quoter/rating.tpl', array('quote' => $quote)); ?>
                 </p>
                 <div class="entry-content">
 <?php
@@ -23,7 +14,7 @@
         switch ($highlight_driver) {
             case 'geshi':
                 $this->add('langs/' . $lang_name . '.css');
-                
+
                 break;
         }
     }
