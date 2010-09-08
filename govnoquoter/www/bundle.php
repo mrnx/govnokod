@@ -20,7 +20,7 @@
  * @version 0.2
  */
 
-require_once dirname(__FILE__) . '/../config.php';
+require_once dirname(__FILE__) . '/../app/config.php';
 require_once systemConfig::$pathToSystem . '/index.php';
 
 class externalBundleApplication extends core

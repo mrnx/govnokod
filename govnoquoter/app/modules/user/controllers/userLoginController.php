@@ -21,6 +21,8 @@
  */
 class userLoginController extends simpleController
 {
+    protected $backend = 'native';
+
     protected function getView()
     {
         $user = $this->toolkit->getUser();
@@ -65,14 +67,14 @@ class userLoginController extends simpleController
             $url = new url('default2');
             $url->setModule('user');
             $url->setAction('login');
-            $this->smarty->assign('form_action', $url->get());
-            $this->smarty->assign('validator', $validator);
-            $this->smarty->assign('backURL', $backURL);
+            $this->view->assign('form_action', $url->get());
+            $this->view->assign('validator', $validator);
+            $this->view->assign('backURL', $backURL);
 
             return $this->fetch('user/loginForm.tpl');
         }
 
-        $this->smarty->assign('user', $user);
+        $this->view->assign('user', $user);
         return $this->fetch('user/alreadyLogin.tpl');
     }
 

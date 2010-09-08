@@ -19,9 +19,9 @@ class quoterModule extends simpleModule
         'moderator',
         'user'
     );
-    
+
     protected $moduleTitle = 'Цитатник';
-    
+
     public function getRoutes()
     {
         return array(
@@ -31,13 +31,14 @@ class quoterModule extends simpleModule
             ),
             array(
                 'rateForCode' => new requestRoute('ratings/code/:id/:vote', array('module' => 'ratings', 'action' => 'rate', 'module_name' => 'quoter', 'class_name' => 'quote'), array('id' => '\d+')),
-                'categoryList' => new requestRoute(':name', array('module' => 'quoter', 'action' => 'list')),
+                'categoryList' => new requestRoute(':name', array('module' => 'quoter', 'action' => 'list', 'type' => 'category')),
+                'paperList' => new requestRoute('paper', array('module' => 'quoter', 'action' => 'list', 'type' => 'paper')),
                 'search' => new requestRoute('search', array('module' => 'quoter', 'action' => 'search')),
                 'best' => new requestRoute('best/:nomination/:name', array('module' => 'quoter', 'action' => 'best', 'nomination' => 'rating', 'name' => '')),
                 'rss' => new requestRoute('rss', array('module' => 'quoter', 'action' => 'rss')),
                 'rssFull' => new requestRoute(':name/rss', array('module' => 'quoter', 'action' => 'rss')),
-                'livecomments' => new requestRoute('comments', array('module' => 'quoter', 'action' => 'livecomments')),
-                
+                //'livecomments' => new requestRoute('comments', array('module' => 'quoter', 'action' => 'livecomments')),
+
                 'quoteAdd' => new requestRoute('add', array('module' => 'quoter', 'action' => 'add')),
                 'quoteView' => new requestRoute(':id', array('module' => 'quoter', 'action' => 'view'), array('id' => '\d+')),
             )

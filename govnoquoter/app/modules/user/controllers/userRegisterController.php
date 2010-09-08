@@ -24,7 +24,7 @@ class userRegisterController extends simpleController
     protected function getView()
     {
         $userMapper = $this->toolkit->getMapper('user', 'user');
-        
+
         $validator = new formValidator();
 
         $validator->filter('trim', 'login');
@@ -71,7 +71,7 @@ class userRegisterController extends simpleController
 
             $mailer->set($user->getEmail(), $user->getLogin(), 'support@govnokod.ru', 'Говнокод.ру', 'Подтверждение регистрации на сайте Говнокод.ру', $body, $alt_body);
             $mailer->send();
-            
+
             return $this->smarty->fetch('user/register/success.tpl');
         }
 
@@ -79,9 +79,9 @@ class userRegisterController extends simpleController
         $url->setModule('user');
         $url->setAction('register');
 
-        $this->smarty->assign('form_action', $url->get());
-        $this->smarty->assign('validator', $validator);
-        return $this->smarty->fetch('user/register/form.tpl');
+        $this->view->assign('form_action', $url->get());
+        $this->view->assign('validator', $validator);
+        return $this->view->render('user/register/form.tpl');
     }
 
     function checkUniqueUserLogin($login, $userMapper)

@@ -74,7 +74,7 @@ class commentsFolderListController extends simpleController
             $commentsLastSeen = $commentsLastSeenMapper->searchByUserAndFolder($user, $commentsFolder);
 
             $lastTimeRead = ($commentsLastSeen) ? $commentsLastSeen->getTimeRead() : 1;
-            $this->smarty->assign('lastTimeRead', $lastTimeRead);
+            $this->view->assign('lastTimeRead', $lastTimeRead);
 
             $commentsCount = $comments->count();
             if (!$commentsLastSeen || $commentsLastSeen->getSeenCommentsCount() != $commentsCount) {
@@ -82,10 +82,10 @@ class commentsFolderListController extends simpleController
             }
         }
 
-        $this->smarty->assign('commentsFolder', $commentsFolder);
-        $this->smarty->assign('comments', $comments);
-        $this->smarty->assign('commentsLastSeen', $commentsLastSeen);
-        return $this->fetch('comments/list.tpl');
+        $this->view->assign('commentsFolder', $commentsFolder);
+        $this->view->assign('comments', $comments);
+        $this->view->assign('commentsLastSeen', $commentsLastSeen);
+        return $this->render('comments/list.tpl');
     }
 }
 

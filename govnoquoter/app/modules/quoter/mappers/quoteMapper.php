@@ -71,8 +71,6 @@ class quoteMapper extends mapper
         'created' => array(
             'accessor' => 'getCreated',
             'mutator' => 'setCreated',
-            'orderBy' => 1,
-            'orderByDirection' => 'desc',
             'options' => array('once')
         ),
         'text' => array(
@@ -121,17 +119,64 @@ class quoteMapper extends mapper
         $this->attach(new commentsPlugin(array('join_last_seen' => true)));
     }
 
-    public function searchById($id)
+    public function searchAllByParams(Array $params)
     {
-        return $this->searchByKey($id);
+        $criteria = new criteria;
+
+        if (isset($params['category_id'])) {
+            if (is_array($params['category_id'])) {
+                $comparsion = criteria::IN;
+            } else {
+                $comparsion = criteria::EQUAL;
+            }
+
+            $criteria->where('category_id', $params['category_id'], $comparsion);
+        }
+
+        if (isset($params['not_category_id'])) {
+            $criteria->where('category_id', $params['not_category_id'], criteria::NOT_EQUAL);
+        }
+
+        if (isset($params['order'])) {
+            if (is_string($params['order'])) {
+                $params['order'] = array(
+                    $params['order']
+                );
+            }
+
+            if (is_array($params['order'])) {
+                foreach ($params['order'] as $order) {
+                    $parts = explode(' ', $order, 2);
+                    if (sizeof($parts) == 1) {
+                        $field = $parts[0];
+                        $direction = 'desc';
+                    } else if (sizeof($parts) == 2) {
+                        $field = $parts[0];
+                        $direction = $parts[1];
+                    }
+
+                    if ($direction == 'desc') {
+                        $criteria->orderByDesc($field);
+                    } else {
+                        $criteria->orderByAsc($field);
+                    }
+                }
+            }
+        }
+
+        //$criteria->debug();
+
+        return $this->searchAllByCriteria($criteria);
     }
 
+    /*
     public function searchActiveById($id)
     {
         $criteria = new criteria;
         $criteria->where('active', 1)->where('id', $id);
         return $this->searchOneByCriteria($criteria);
     }
+    */
 
     public function searchUserQuotes(user $user)
     {
@@ -155,7 +200,7 @@ class quoteMapper extends mapper
         if (is_array($data)) {
             $data['created'] = new sqlFunction('UNIX_TIMESTAMP');
             $data['rating'] = 0;
-            $data['active'] = 1;
+            //$data['active'] = 1;
         }
     }
 
@@ -177,8 +222,8 @@ class quoteMapper extends mapper
     public function postUpdate(entity $object)
     {
         $cache = cache::factory('memcache');
-        $cache->delete($object->getCacheKey());
-        $cache->delete($object->getCacheKey('15_'));
+        $cache->delete('quote_geshi_' . $object->getId());
+        $cache->delete('quote_geshi_' . $object->getId() . '_15');
     }
 
     public function preDelete(entity $object)
