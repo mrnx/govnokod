@@ -26,8 +26,8 @@ class quoterModule extends simpleModule
     {
         return array(
             array(
-                'userCodes' => new requestRoute('user/:id/codes', array('module' => 'quoter', 'action' => 'userquotes')),
-                'rssUser' => new requestRoute('user/:id/rss', array('module' => 'quoter', 'action' => 'userrss')),
+                'userCodes' => new requestRoute('user/:id/codes', array('module' => 'quoter', 'action' => 'list', 'type' => 'user')),
+                'userCodesRss' => new requestRoute('user/:id/rss', array('module' => 'quoter', 'action' => 'list', 'type' => 'user', 'format' => 'rss')),
             ),
             array(
                 'rateForCode' => new requestRoute('ratings/code/:id/:vote', array('module' => 'ratings', 'action' => 'rate', 'module_name' => 'quoter', 'class_name' => 'quote'), array('id' => '\d+')),
@@ -35,8 +35,8 @@ class quoterModule extends simpleModule
                 'paperList' => new requestRoute('paper', array('module' => 'quoter', 'action' => 'list', 'type' => 'paper')),
                 'search' => new requestRoute('search', array('module' => 'quoter', 'action' => 'search')),
                 'best' => new requestRoute('best/:nomination/:name', array('module' => 'quoter', 'action' => 'best', 'nomination' => 'rating', 'name' => '')),
-                'rss' => new requestRoute('rss', array('module' => 'quoter', 'action' => 'rss')),
-                'rssFull' => new requestRoute(':name/rss', array('module' => 'quoter', 'action' => 'rss')),
+                'rss' => new requestRoute('rss', array('module' => 'quoter', 'action' => 'list', 'type' => 'paper', 'format' => 'rss')),
+                'langRss' => new requestRoute(':name/rss', array('module' => 'quoter', 'action' => 'list', 'type' => 'category', 'format' => 'rss')),
                 //'livecomments' => new requestRoute('comments', array('module' => 'quoter', 'action' => 'livecomments')),
 
                 'quoteAdd' => new requestRoute('add', array('module' => 'quoter', 'action' => 'add')),

@@ -2,85 +2,48 @@
 //quoteFolder actions config
 
 return array (
-    'listAll' => 
-    array (
-        'controller' => 'list',
-        'title' => 'Листинг всех',
-    ),
-    'add' => 
-    array (
+    'add' => array(
         'controller' => 'save',
         'title' => 'Добавление записи',
         'role' => 'user'
     ),
-    'search' => 
-    array (
+    'search' => array(
         'controller' => 'search',
-        'title' => 'Поиск',
+        'title' => 'Поиск'
     ),
-    'best' => 
-    array (
+    'best' => array(
         'controller' => 'best',
         'title' => 'Список лучших',
     ),
-    'categories' => 
-    array (
+    'categories' => array(
         'controller' => 'categories',
         'title' => 'Список категорий',
-        'main' => 'deny',
+        'main' => 'deny'
     ),
-    'rss' => 
-    array (
-        'controller' => 'rss',
-        'title' => 'RSS',
-        'main' => 'active.blank.tpl',
-    ),
-    'userrss' => 
-    array (
-        'controller' => 'rss',
-        'title' => 'RSS лента пользователя',
-        'main' => 'active.blank.tpl',
-    ),
-    'userquotes' => 
-    array (
-        'controller' => 'userQuotes',
-        'title' => 'Записи пользователя',
-    ),
-    'admin' => 
-    array (
+    'admin' => array(
         'controller' => 'admin',
         'admin' => true,
-        'role' => 
-        array (
-            0 => 'moderator',
-        ),
+        'role' => array(
+            'moderator'
+        )
     ),
-    'adminCategories' => 
-    array (
+    'adminCategories' => array(
         'controller' => 'adminCategories',
         'title' => 'Список категорий',
         'admin' => true,
-        'role' => 
-        array (
-            0 => 'admin',
-        ),
+        'role' => array(
+            'admin'
+        )
     ),
-    'addCategory' => 
-    array (
+    'addCategory' => array(
         'controller' => 'saveCategory',
         'title' => 'Добавить категорию',
         'jip' => '1',
         'icon' => 'sprite:mzz-icon/page/add',
         'route_name' => 'default2',
-        'role' => 
-        array (
-            0 => 'admin',
-        ),
-    ),
-    'livecomments' => 
-    array (
-        'controller' => 'livecomments',
-        'title' => 'Последние комментарии'
-    ),
+        'role' => array(
+            'admin'
+        )
+    )
 );
 ?>

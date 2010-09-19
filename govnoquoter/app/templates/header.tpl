@@ -7,14 +7,10 @@
     <meta name="description" content="<?php echo htmlspecialchars($this->meta(array('show' => 'description', 'default' => 'Сборник говнокода на различных языках программирования'))); ?>" />
     <link rel="shortcut icon" href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl()); ?>/favicon.ico" type="image/x-icon" />
     <link rel="icon" href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl()); ?>/animated_favicon.gif" type="image/gif" />
-    <link title="Весь говнокод" type="application/rss+xml" rel="alternate" href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl()); ?>/rss"/>
-<?php
-if (isset($list_category)) {
-?>
-    <link title="<?php echo htmlspecialchars($list_category->getTitle()); ?> говнокод" type="application/rss+xml" rel="alternate" href="<?php echo htmlspecialchars($this->url('rssFull', array('name' => $list_category->getName()))); ?>"/>
-<?php
-}
-?>
+    <link title="Весь говнокод" type="application/rss+xml" rel="alternate" href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl()); ?>/rss/"/>
+<?php if (isset($list_category)) { ?>
+    <link title="<?php echo htmlspecialchars($list_category->getTitle()); ?> говнокод" type="application/rss+xml" rel="alternate" href="<?php echo htmlspecialchars($this->url('langRss', array('name' => $list_category->getName()))); ?>/"/>
+<?php } ?>
 <?php echo $this->render('include.external.bundle.css.tpl'); ?>
     <!--[if lte IE 7]><link href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl()); ?>/css/ie.css?v=2" rel="stylesheet" type="text/css"><![endif]-->
     <script type="text/javascript">

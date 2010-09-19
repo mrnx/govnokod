@@ -14,6 +14,10 @@ switch ($type) {
         $this->title('Печатное издание');
         break;
 
+    case 'user':
+        $this->title('Весь говнокод пользователя ' . $user->getLogin());
+        break;
+
     default:
         $this->title('По колено в коде');
         break;
@@ -27,6 +31,13 @@ if ($type == 'paper' && $pager->getRealPage() == 1) {
     <li class="hentry">
         <h2>Печатное издание Говнокод.ру</h2>
         <p>В данном разделе собраны <b>все</b> говнокоды, когда-либо опубликованные на сайте.</p>
+    </li>
+<?php
+} else if ($type == 'user') {
+?>
+    <li class="hentry">
+        <h2>Список говнокодов пользователя <a href="<?php echo htmlspecialchars($this->url('withId', array('module' => 'user', 'action' => '', 'id' => $list_user->getId()))); ?>"><?php echo htmlspecialchars($list_user->getLogin()); ?></a></h2>
+        <p>Всего: <?php echo $pager->getItemsCount(); ?></p>
     </li>
 <?php
 }

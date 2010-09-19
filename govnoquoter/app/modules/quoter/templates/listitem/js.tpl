@@ -11,7 +11,7 @@
                     <pre><code class="<?php echo htmlspecialchars($quote->getCategory()->getJsAlias()); ?>"><?php echo htmlspecialchars($quote->getText()); ?></code></pre>
                 </div>
                 <p class="description">
-                    <?php echo nl2br($this->bbcode(htmlspecialchars(trim($quote->getDescription())))); /*|trim|h|bbcode|nl2br}*/ ?>
+                    <?php echo nl2br($this->bbcode(htmlspecialchars(trim($quote->getDescription())))); ?>
                 </p>
                 <p class="author">
                     Запостил: <a href="<?php echo htmlspecialchars($url . '/user/' . $quote->getUser()->getId()); ?>"><img src="<?php echo htmlspecialchars($quote->getUser()->getAvatarUrl(20)); ?>" alt="" class="avatar" /></a> <a href="<?php echo htmlspecialchars($url . '/user/' . $quote->getUser()->getId()); ?>"><?php echo htmlspecialchars($quote->getUser()->getLogin()); ?></a>,
