@@ -81,10 +81,6 @@ class quoteMapper extends mapper
             'accessor' => 'getDescription',
             'mutator' => 'setDescription'
         ),
-        'active' => array(
-            'accessor' => 'getIsActive',
-            'mutator' => 'setIsActive'
-        ),
         'comments_count' => array(
             'accessor' => 'getCommentsCount',
             'mutator' => 'setCommentsCount'
@@ -95,11 +91,23 @@ class quoteMapper extends mapper
         ),
         'ratings_on' => array (
             'accessor' => 'getRatingsOn',
-            'mutator' => 'setRatingsOn',
+            'mutator' => 'setRatingsOn'
         ),
         'ratings_against' => array (
             'accessor' => 'getRatingsAgainst',
-            'mutator' => 'setRatingsAgainst',
+            'mutator' => 'setRatingsAgainst'
+        ),
+        'best_in_day' => array(
+            'accessor' => 'getIsBestInDay',
+            'mutator' => 'setIsBestInDay'
+        ),
+        'best_in_week' => array(
+            'accessor' => 'getIsBestInWeek',
+            'mutator' => 'setIsBestInWeek'
+        ),
+        'best_in_month' => array(
+            'accessor' => 'getIsBestInMonth',
+            'mutator' => 'setIsBestInMonth'
         ),
         'last_comment_id' => array(
             'accessor' => 'getLastComment',
@@ -133,9 +141,15 @@ class quoteMapper extends mapper
             $criteria->where('category_id', $params['category_id'], $comparsion);
         }
 
+        if (isset($params['user_id'])) {
+            $criteria->where('user_id', $params['user_id']);
+        }
+
+        /*
         if (isset($params['not_category_id'])) {
             $criteria->where('category_id', $params['not_category_id'], criteria::NOT_EQUAL);
         }
+        */
 
         if (isset($params['order'])) {
             if (is_string($params['order'])) {
@@ -165,23 +179,6 @@ class quoteMapper extends mapper
         }
 
         //$criteria->debug();
-
-        return $this->searchAllByCriteria($criteria);
-    }
-
-    /*
-    public function searchActiveById($id)
-    {
-        $criteria = new criteria;
-        $criteria->where('active', 1)->where('id', $id);
-        return $this->searchOneByCriteria($criteria);
-    }
-    */
-
-    public function searchUserQuotes(user $user)
-    {
-        $criteria = new criteria;
-        $criteria->where('active', 1)->where('user_id', $user->getId());
 
         return $this->searchAllByCriteria($criteria);
     }

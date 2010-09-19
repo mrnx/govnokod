@@ -7,7 +7,7 @@ if (!$isValidated) {
     <ul class="menu">
         <li><a id="expand-trigger" href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl() . '/user/openid/login'); ?>">Войти в говнокод</a></li>
     </ul>
-    
+
     <?php echo $__form->open(array('action' => $form_action, 'method' => 'post', 'class' => 'pane-content')); ?>
         <ul>
             <li><?php echo $__form->text(array('id' => 'openid_identifier_small', 'name' => 'openid_identifier', 'value' => '')); ?></li>
@@ -20,7 +20,7 @@ if (!$isValidated) {
 <?php } else { ?>
 <div id="userpane">
     <ul class="menu">
-        <li><a href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl() . '/user/openid/login'); ?>"><?php if ($this->toolkit->getRequestedModule() == 'user' && $this->toolkit->getRequestedAction() == 'openIDLogin') { ?>Войти в говнокод<?php } else { ?>Заполни данные, %username%!<?php } ?></a></li>
+        <li><a href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl() . '/user/openid/login'); ?>"><?php if ($toolkit->getRequest()->getRequestedModule() == 'user' && $toolkit->getRequest()->getRequestedAction() == 'openIDLogin') { ?>Войти в говнокод<?php } else { ?>Заполни данные, %username%!<?php } ?></a></li>
     </ul>
 </div>
 <?php } ?>

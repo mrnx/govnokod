@@ -25,9 +25,6 @@ fileLoader::load('modules/jip/plugins/jipPlugin');
  */
 class quoteCategoryMapper extends mapper
 {
-    const TRASH_CATEGORY_ID = 15;
-    const TRASH_CATEGORY_NAME = 'trash';
-
     /**
      * DomainObject class name
      *

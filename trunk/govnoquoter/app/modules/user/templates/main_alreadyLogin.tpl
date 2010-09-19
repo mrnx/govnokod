@@ -1,16 +1,18 @@
-{add file="jquery.js"}
-{add file="govnokod.js"}
+<?php
+$this->add('jquery.js');
+$this->add('govnokod.js');
+?>
 <div id="userpane">
-    <ul class="menu" style="background-image: url('{$user->getAvatarUrl(20)|h}');">
-        <li><a id="expand-trigger" href="{url route="default2" module="user" action="login"}">Привет, {$user->getLogin()|h}!</a></li>
+    <ul class="menu" style="background-image: url('<?php echo htmlspecialchars($user->getAvatarUrl(20)); ?>');">
+        <li><a id="expand-trigger" href="<?php echo htmlspecialchars($this->url('default2', array('module' => 'user', 'action' => 'login'))); ?>">Привет, <?php echo htmlspecialchars($user->getLogin()); ?>!</a></li>
     </ul>
 
     <div class="pane-content">
         <ul>
-            <li><a href="{url route="default2" module="user" action="login"}">Кабинка</a></li>
-            <li><a href="{url route="default2" module="user" action="preferences"}">Настройки</a></li>
+            <li><a href="<?php echo htmlspecialchars($this->url('default2', array('module' => 'user', 'action' => 'login'))); ?>">Кабинка</a></li>
+            <li><a href="<?php echo htmlspecialchars($this->url('default2', array('module' => 'user', 'action' => 'preferences'))); ?>">Настройки</a></li>
             <li>&nbsp;</li>
-            <li>{assign var="url" value={url appendGet=true}}<a href="{url route="default2" module="user" action="exit"}/?url={$url|rawurlencode}">Выйти</a></li>
+            <li><a href="<?php echo htmlspecialchars($this->url('default2', array('module' => 'user', 'action' => 'exit'))); ?>/?url=<?php echo rawurlencode($this->url(null, array(), true)); ?>">Выйти</a></li>
         </ul>
     </div>
 </div>
