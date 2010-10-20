@@ -246,22 +246,8 @@ class quoteMapper extends mapper
         $cache->delete('live_comments');
 
         $quoteUser = $quote->getUser();
-        //отсылаем уведомление создателю говнокода
-        if ($quoteUser->isLoggedIn() && $quoteUser->getId() != $comment->getUser()->getId()) {
-            $smarty = systemToolkit::getInstance()->getSmarty();
 
-            $smarty->assign('comment', $comment);
-            $smarty->assign('quote', $quote);
-            $smarty->assign('quoteUser', $quoteUser);
-            $body = $smarty->fetch('quoter/mail/new_comment.tpl');
-
-            fileLoader::load('service/mailer/mailer');
-            $mailer = mailer::factory();
-
-            $mailer->set($quoteUser->getEmail(), $quoteUser->getLogin(), 'support@govnokod.ru', 'Говнокод.ру', 'Новый комментарий к говнокоду #' . $quote->getId(), $body);
-            $mailer->send();
-        }
-
+        $mailAlreadySended = false;
         //Рассылаем почту, если данный комментарий был ответом на другой комментарий
         if ($comment->getTreeParent()) {
             $commentUser = $comment->getUser();
@@ -269,20 +255,40 @@ class quoteMapper extends mapper
 
             //не будем отсылать почту guest или самому себе
             if ($parentCommentUser->isLoggedIn() && $commentUser->getId() != $parentCommentUser->getId()) {
-                $smarty = systemToolkit::getInstance()->getSmarty();
+                $view = systemToolkit::getInstance()->getView();
 
-                $smarty->assign('commentsFolder', $commentsFolder);
-                $smarty->assign('yourComment', $comment->getTreeParent());
-                $smarty->assign('answerComment', $comment);
-                $smarty->assign('quote', $quote);
-                $smarty->assign('you', $parentCommentUser);
-                $smarty->assign('him', $commentUser);
-                $body = $smarty->fetch('quoter/mail/quote_comment_reply.tpl');
+                $view->assign('commentsFolder', $commentsFolder);
+                $view->assign('yourComment', $comment->getTreeParent());
+                $view->assign('answerComment', $comment);
+                $view->assign('quote', $quote);
+                $view->assign('you', $parentCommentUser);
+                $view->assign('him', $commentUser);
+                $body = $view->render('quoter/service/mail/quote_comment_reply.tpl', 'native');
 
                 fileLoader::load('service/mailer/mailer');
                 $mailer = mailer::factory();
 
                 $mailer->set($parentCommentUser->getEmail(), $parentCommentUser->getLogin(), 'support@govnokod.ru', 'Говнокод.ру', 'Ответ на Ваш комментарий к говнокоду #' . $quote->getId(), $body);
+                $mailer->send();
+
+                $mailAlreadySended = true;
+            }
+        }
+
+        if ($mailAlreadySended === false) {
+            //отсылаем уведомление создателю говнокода
+            if ($quoteUser->isLoggedIn() && $quoteUser->getId() != $comment->getUser()->getId()) {
+                $view = systemToolkit::getInstance()->getView();
+
+                $view->assign('comment', $comment);
+                $view->assign('quote', $quote);
+                $view->assign('quoteUser', $quoteUser);
+                $body = $view->render('quoter/service/mail/new_comment.tpl', 'native');
+
+                fileLoader::load('service/mailer/mailer');
+                $mailer = mailer::factory();
+
+                $mailer->set($quoteUser->getEmail(), $quoteUser->getLogin(), 'support@govnokod.ru', 'Говнокод.ру', 'Новый комментарий к говнокоду #' . $quote->getId(), $body);
                 $mailer->send();
             }
         }

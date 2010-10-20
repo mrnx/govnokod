@@ -125,9 +125,21 @@ class commentsMapper extends mapper implements iACLMapper
         return $this->searchOneByCriteria($criteria);
     }
 
-    public function preInsert(array &$data)
+    public function searchUserCommentsForType($user, $type)
     {
-        $data['created'] = time();
+        $treePlugin = $this->plugin('tree');
+        $this->detach('tree');
+        $criteria = new criteria;
+        $criteria->where('user_id', $user);
+
+        return $this->searchAllByCriteria($criteria);
+    }
+
+    public function preInsert(&$data)
+    {
+        if (is_array($data)) {
+            $data['created'] = time();
+        }
     }
 
     public function postInsert(entity $object)

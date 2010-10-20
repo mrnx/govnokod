@@ -18,7 +18,7 @@
     var SITE_PATH = '<?php echo htmlspecialchars(SITE_PATH); ?>'; var SITE_LANG = 'ru';
     //-->
     </script>
-<?php echo $this->render('include.external.bundle.js.tpl'); ?>
+<?php echo $this->render('include.js.tpl'); ?>
 </head>
 <body>
 <?php

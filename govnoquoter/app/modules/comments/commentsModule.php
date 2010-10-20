@@ -35,10 +35,12 @@ class commentsModule extends simpleModule
     public function getRoutes()
     {
         return array(
-            array(),
+            array(
+                'user-comments' => new requestRoute('user/:id/comments', array('module' => 'comments', 'action' => 'userComments'), array('id' => '\d+')),
+            ),
             array(
                 'rateForComment' => new requestRoute('ratings/comment/:id/:vote', array('module' => 'ratings', 'action' => 'rate', 'module_name' => 'comments', 'class_name' => 'comments'), array('id' => '\d+')),
-                'rssComments' => new requestRoute('comments/:id/rss', array('section' => 'comments', 'action' => 'rss')),
+                'rssComments' => new requestRoute('comments/:id/rss', array('module' => 'comments', 'action' => 'rss')),
             )
         );
     }

@@ -35,6 +35,7 @@ if ($preferredLangs === false) {
 
         <ul>
             <li><a href="<?php echo htmlspecialchars($this->url('userCodes', array('id' => $user->getId()))); ?>/">Мои говнокоды (<?php echo htmlspecialchars($user->getQuotesCount()); ?>)</a></li>
+            <li><a href="<?php echo htmlspecialchars($this->url('user-comments', array('id' => $user->getId()))); ?>/">Мои комментарии (0)</a></li>
             <li><a href="<?php echo htmlspecialchars($this->url('userCodesRss', array('id' => $user->getId()))); ?>/" title="Лента RSS, собранная на основе предпочитаемых языков">Моя RSS лента</a></li>
             <li><a href="<?php echo htmlspecialchars($this->url('default2', array('module' => 'user', 'action' => 'preferences'))); ?>/">Настройки</a></li>
             <li style="list-style: none;">&nbsp;</li>
