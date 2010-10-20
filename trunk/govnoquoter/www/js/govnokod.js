@@ -109,6 +109,16 @@ var code;
                                     newComment.removeClass('new');
                                     $.scrollTo(newComment, 500, {offset: -100});
                                     //$("html:not(:animated),body:not(:animated)").animate({scrollTop: newComment.offset().top - 100}, 500);
+
+                                    var commentsCountHolder = $(newComment).closest('div.entry-comments').find('span.enrty-comments-count');
+                                    if (commentsCountHolder.length) {
+                                        var count_re = /^\((\d+)\)$/;
+                                        var comments_count_match = commentsCountHolder.text().match(count_re);
+                                        if (comments_count_match) {
+                                            var comments_count = comments_count_match[1];
+                                            commentsCountHolder.text('(' + ++comments_count + ')');
+                                        }
+                                    }
                                 }
                             } else {
                                 formParent.html(msg);

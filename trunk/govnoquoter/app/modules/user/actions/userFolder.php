@@ -5,6 +5,10 @@ return array(
     'openIDLogin' => array(
         'controller' => 'openIDLogin'
     ),
+    'register' => array(
+        'controller' => 'register',
+        'title' => 'Регистрация'
+    ),
     'preferences' => array(
         'controller' => 'preferences',
         'title' => 'Настройки пользователя',

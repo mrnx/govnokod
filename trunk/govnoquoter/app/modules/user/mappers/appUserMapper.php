@@ -77,6 +77,10 @@ class appUserMapper extends userMapper implements iACLMapper
             'accessor' => 'getPreferredLangs',
             'mutator' => 'setPreferredLangs',
         ),
+        'rating' => array(
+            'accessor' => 'getRating',
+            'mutator' => 'setRating'
+        ),
         'recover_code' => array(
             'accessor' => 'getRecoverCode',
             'mutator' => 'setRecoverCode'
@@ -105,7 +109,7 @@ class appUserMapper extends userMapper implements iACLMapper
             'ref_foreign_key' => 'group_id'
         )
     );
-    
+
     /**
      * Выполняет поиск пользователя по логину или email адресу
      *
@@ -154,12 +158,12 @@ class appUserMapper extends userMapper implements iACLMapper
     {
         return $this->searchOneByField('confirmed', $code);
     }
-    
+
     public function searchByRecoverCode($code)
     {
         return $this->searchOneByField('recover_code', $code);
     }
-    
+
     public function preInsert(& $data)
     {
         if (is_array($data)) {
@@ -256,7 +260,7 @@ class appUserMapper extends userMapper implements iACLMapper
 
         return $usersCount;
     }
-    
+
     public function convertArgsToObj(Array $args)
     {
         if (isset($args['id'])) {

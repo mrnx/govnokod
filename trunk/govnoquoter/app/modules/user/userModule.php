@@ -37,7 +37,7 @@ class userModule extends simpleModule
         'moderator',
         'user'
     );
-    
+
     public function getRoutes()
     {
         return array(
@@ -47,6 +47,7 @@ class userModule extends simpleModule
                 'openIDLogin' => new requestRoute('user/openid/login', array('module' => 'user', 'action' => 'openIDLogin')),
                 'user-confirm' => new requestRoute('user/confirm', array('module' => 'user', 'action' => 'confirm')),
                 'user-recover-pass' => new requestRoute('user/recover', array('module' => 'user', 'action' => 'recover')),
+                'user-profile' => new requestRoute('user/:id', array('module' => 'user', 'action' => 'view'), array('id' => '\d+')),
             )
         );
     }
