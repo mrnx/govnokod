@@ -59,7 +59,7 @@ systemConfig::$appName = 'govnokod';
 systemConfig::$appVersion = '1.2';
 systemConfig::$pathToApplication = dirname(__FILE__);
 systemConfig::$pathToWebRoot = realpath(systemConfig::$pathToApplication . '/../www');
-systemConfig::$pathToTemp = systemConfig::$pathToApplication . '/tmp';
+systemConfig::$pathToTemp = systemConfig::$pathToApplication . '/../tmp';
 systemConfig::$pathToConfigs = systemConfig::$pathToApplication . '/configs';
 systemConfig::$enabledModules = array(
     'page',
