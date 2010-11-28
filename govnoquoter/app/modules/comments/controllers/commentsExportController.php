@@ -38,9 +38,9 @@ class commentsExportController extends simpleController
 
                 $comments = $commentsFolder->getComments();
 
-                $this->smarty->assign('commentsFolder', $commentsFolder);
-                $this->smarty->assign('comments', $comments);
-                return $this->smarty->fetch('comments/export_quote_rss.tpl');
+                $this->view->assign('commentsFolder', $commentsFolder);
+                $this->view->assign('comments', $comments);
+                return $this->view->render('comments/service/export_quote_rss.tpl', 'native');
             }
         }
 
