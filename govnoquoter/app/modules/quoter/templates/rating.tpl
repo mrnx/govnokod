@@ -17,9 +17,9 @@ if ($user->isLoggedIn()) {
 <?php
         } else {
 ?>
-    <a class="vote-against" rel="nofollow" href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl() . '/ratings/code/' . $quote->getId() . '/against/'); ?>" title="Минусну!">&darr;</a>
+    <a class="vote-against" rel="nofollow" href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl() . '/ratings/code/' . $quote->getId() . '/against/'); ?>" title="Не говнокод :(">&darr;</a>
     <strong<?php if ($quote->getRating() < 0) echo ' class="bad"';?> title="<?php echo $quote->getRatingsOn(); ?> за и <?php echo $quote->getRatingsAgainst(); ?> против"><?php if ($quote->getRating() > 0) { echo '+'; } elseif ($quote->getRating() < 0) { echo '&minus;'; } echo abs($quote->getRating()); ?></strong>
-    <a class="vote-on" rel="nofollow" href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl() . '/ratings/code/' . $quote->getId() . '/on/'); ?>" title="Плюсану!">&uarr;</a>
+    <a class="vote-on" rel="nofollow" href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl() . '/ratings/code/' . $quote->getId() . '/on/'); ?>" title="Годный говнокод!">&uarr;</a>
 <?php
         }
     }
