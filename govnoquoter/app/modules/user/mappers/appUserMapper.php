@@ -263,7 +263,12 @@ class appUserMapper extends userMapper implements iACLMapper
 
     public function convertArgsToObj(Array $args)
     {
-        if (isset($args['id'])) {
+        if (isset($args['login'])) {
+            $user = $this->searchByLogin($args['login']);
+            if ($user) {
+                return $user;
+            }
+        } else if (isset($args['id'])) {
             $user = $this->searchByKey($args['id']);
             if ($user) {
                 return $user;

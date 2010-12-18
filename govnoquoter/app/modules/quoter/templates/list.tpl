@@ -36,7 +36,7 @@ if ($type == 'paper' && $pager->getRealPage() == 1) {
 } else if ($type == 'user') {
 ?>
     <li class="hentry">
-        <h2>Список говнокодов пользователя <a href="<?php echo htmlspecialchars($this->url('user-profile', array('id' => $list_user->getId()))); ?>"><?php echo htmlspecialchars($list_user->getLogin()); ?></a></h2>
+        <h2>Список говнокодов пользователя <a href="<?php echo htmlspecialchars($this->url('user-profile', array('login' => $list_user->getLogin()))); ?>"><?php echo htmlspecialchars($list_user->getLogin()); ?></a></h2>
         <p>Всего: <?php echo $pager->getItemsCount(); ?></p>
     </li>
 <?php

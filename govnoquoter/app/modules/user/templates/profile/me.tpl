@@ -31,7 +31,7 @@
         </dl>
 
         <ul>
-            <li><a href="{url route="userCodes" id=$viewuser->getId()}">Его говнокоды ({$viewuser->getQuotesCount()})</a></li>
+            <li><a href="<?php echo htmlspecialchars($this->url('user-quotes', array('login' => $viewuser->getLogin()))); ?>/">Мои говнокоды (<?php echo $viewuser->getQuotesCount(); ?>)</a></li>
         </ul>
     </li>
 </ol>

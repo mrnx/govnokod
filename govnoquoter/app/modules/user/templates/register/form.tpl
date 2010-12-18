@@ -1,40 +1,43 @@
-{title append="Регистрация нового пользователя"}
+<?php
+    $this->title('Регистрация нового пользователя');
+?>
+
 <ol class="posts">
     <li class="hentry">
         <h2>Регистрация нового пользователя</h2>
 
-        {form action=$form_action method="post"}
-            {if !$validator->isValid()}
+        <?php echo $__form->open(array('action' => $form_action, 'method' => 'post')); ?>
+<?php if (!$validator->isValid()): ?>
             <dl class="errors">
                 <dt>Ошибка регистрации:</dt>
                 <dd>
                     <ol>
-                    {foreach from=$validator->getErrors() item="error"}
-                        <li>{$error}</li>
-                    {/foreach}
+<?php foreach ($validator->getErrors() as $error): ?>
+                        <li><?php echo $error; ?></li>
+<?php endforeach; ?>
                     </ol>
                 </dd>
             </dl>
-            {/if}
+<?php endif; ?>
 
             <dl>
-                <dt>{form->caption name="login" value="Логин:"}</dt>
-                <dd>{form->text name="login"}</dd>
-
+                <dt><?php echo $__form->caption(array('name' => 'login', 'value' => 'Логин:')); ?></dt>
+                <dd><?php echo $__form->text(array('name' => 'login')); ?></dd>
+<?php /*
                 <dt>{form->caption name="email" value="E-mail:"}</dt>
                 <dd>{form->text name="email"}</dd>
+*/ ?>
+                <dt><?php echo $__form->caption(array('name' => 'password', 'value' => 'Пароль:')); ?></dt>
+                <dd><?php echo $__form->password(array('name' => 'password')); ?></dd>
 
-                <dt>{form->caption name="password" value="Пароль:"}</dt>
-                <dd>{form->password name="password"}</dd>
+                <dt><?php echo $__form->caption(array('name' => 'repassword', 'value' => 'Пароль еще раз:')); ?></dt>
+                <dd><?php echo $__form->password(array('name' => 'repassword')); ?></dd>
 
-                <dt>{form->caption name="repassword" value="Повтор пароля:"}</dt>
-                <dd>{form->password name="repassword"}</dd>
-                
-                <dt>{form->caption name="captcha" value="Проверочный код:"}</dt>
-                <dd>{form->captcha name="captcha"}</dd>
+                <dt><?php echo $__form->caption(array('name' => 'captcha', 'value' => 'Проверочный код:')); ?></dt>
+                <dd><?php echo $__form->captcha(array('name' => 'captcha')); ?></dd>
             </dl>
             <p>
-                {form->submit class="send" name="submit" value="Зарегистрироваться!"}
+                <?php echo $__form->submit(array('name' => 'register', 'value' => 'Зарегистрироваться!', 'class' => 'send')); ?>
             </p>
         </form>
     </li>

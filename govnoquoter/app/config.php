@@ -70,7 +70,8 @@ systemConfig::$enabledModules = array(
     'user',
 );
 
-systemConfig::$mainTemplateDriver = 'native';
+systemConfig::$defaultTemplateDriver = 'native';
+systemConfig::$internalTemplateDriver = 'native';
 
 systemConfig::$mailer['default']['backend'] = 'PHPMailer';
 systemConfig::$mailer['default']['params'] = array('html' => true, 'smtp' => true, 'smtp_host' => 'localhost');
