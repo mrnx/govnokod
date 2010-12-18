@@ -33,7 +33,7 @@ $this->add('style.css');
     <div id="footer">
         <address>
             <span>&copy; 2008-2010 &laquo;Говнокод.ру&raquo; <?php if (DEBUG_MODE) echo $timer->toString(); ?></span>
-            <span><a href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl()); ?>/page/feedback">Обратная связь</a> | Работает на <a href="http://mzz.ru" title="opensource php5 framework">mzz</a></span>
+            <span><a href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl()); ?>/page/feedback/">Обратная связь</a> | Работает на <a href="http://mzz.ru/" title="opensource php5 framework">mzz</a></span>
         </address>
     </div>
 </div>

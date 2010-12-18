@@ -71,7 +71,9 @@ class quoteMapper extends mapper
         'created' => array(
             'accessor' => 'getCreated',
             'mutator' => 'setCreated',
-            'options' => array('once')
+            'options' => array('once'),
+            'orderBy' => 1,
+            'orderByDirection' => 'desc'
         ),
         'text' => array(
             'accessor' => 'getText',
@@ -351,8 +353,16 @@ class quoteMapper extends mapper
 
     public function ratingUserCanRate($vote, user $user, entity $object)
     {
+        if (!$object->getUser()->isLoggedIn()) {
+            return true;
+        }
+
+        return $object->getUser()->getId() != $user->getId();
+
+        /*
         if ($object->getIsActive()) {
             //Если этот говнокод был запощен гостем (старые говнокоды, после апдейта сайта)
+            //то не учитываем голос
             if (!$object->getUser()->isLoggedIn()) {
                 return true;
             }
@@ -379,6 +389,7 @@ class quoteMapper extends mapper
         }
 
         return false;
+        */
     }
 
     public function ratingSearchUserRate($vote, $rateValue, user $user, entity $ratedObject, $ratingsFolder, $ratingsMapper, $ip, $ua)
