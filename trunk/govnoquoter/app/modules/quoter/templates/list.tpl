@@ -57,8 +57,14 @@ if ($quotes_count) {
         if ($quote->isSpecial()) {
             $list_item_file = 'special';
         }
-
-        echo $this->render('quoter/listitem/' . $list_item_file . '.tpl', array('quote' => $quote, 'highlight_driver' => $highlight_driver));
+?>
+    <li class="hentry">
+        <?php echo $this->render('quoter/listitem/' . $list_item_file . '.tpl', array('quote' => $quote, 'highlight_driver' => $highlight_driver)); ?>
+        <div class="entry-comments">
+            <span class="comments-icon<?php if ($toolkit->getUser()->isLoggedIn() && $quote->getNewCommentsCount() > 0) { echo ' comments-new" title="Есть новые комментарии!'; } ?>">&nbsp;</span><a href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl() . '/' . $quote->getId()); ?>" class="entry-comments-load">Комментарии</a> <span class="entry-comments-count">(<?php echo $quote->getCommentsCount(); if ($toolkit->getUser()->isLoggedIn() && $quote->getNewCommentsCount() > 0) { ?>, <span title="Новые комментарии" class="entry-comments-new">+<?php echo $quote->getNewCommentsCount(); ?></span><?php } ?>)</span>
+        </div>
+    </li>
+<?php
     }
 } else {
 ?>

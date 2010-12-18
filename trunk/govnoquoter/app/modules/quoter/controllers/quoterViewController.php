@@ -46,7 +46,7 @@ class quoterViewController extends simpleController
             return $this->view->render('quoter/onlyComments.tpl');
         }
 
-        return $this->view->render('quoter/view.tpl');
+        return $this->view->render('quoter/view.tpl', 'native');
     }
 }
 

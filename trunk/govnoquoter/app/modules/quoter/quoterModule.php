@@ -27,6 +27,7 @@ class quoterModule extends simpleModule
         return array(
             array(
                 'userCodesRss' => new requestRoute('user/:id/rss', array('module' => 'quoter', 'action' => 'list', 'type' => 'user', 'format' => 'rss')),
+                'quote-view' => new requestRoute(':category/:id', array('module' => 'quoter', 'action' => 'view'), array('id' => '\d+')),
             ),
             array(
                 'rateForCode' => new requestRoute('ratings/code/:id/:vote', array('module' => 'ratings', 'action' => 'rate', 'module_name' => 'quoter', 'class_name' => 'quote'), array('id' => '\d+')),
@@ -41,6 +42,7 @@ class quoterModule extends simpleModule
 
                 'quoteAdd' => new requestRoute('add', array('module' => 'quoter', 'action' => 'add')),
                 'quoteView' => new requestRoute(':id', array('module' => 'quoter', 'action' => 'view'), array('id' => '\d+')),
+
 
                 'user-quotes' => new requestRoute('user/:login/codes', array('module' => 'quoter', 'action' => 'list', 'type' => 'user'))
             )
