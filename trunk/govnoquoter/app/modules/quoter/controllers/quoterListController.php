@@ -60,10 +60,10 @@ class quoterListController extends simpleController
                 break;
 
             case 'user':
-                $id = $this->request->getInteger('id');
+                $login = $this->request->getString('login');
 
                 $userMapper = $this->toolkit->getMapper('user', 'user');
-                $user = $userMapper->searchByKey($id);
+                $user = $userMapper->searchByLogin($login);
 
                 if (!$user) {
                     return $this->forward404($user);

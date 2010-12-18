@@ -224,5 +224,10 @@ class user extends entity implements iACL
                 break;
         }
     }
+
+    public function getHash()
+    {
+        return md5($this->getLogin() . $this->getPassword() . $this->getEmail());
+    }
 }
 ?>

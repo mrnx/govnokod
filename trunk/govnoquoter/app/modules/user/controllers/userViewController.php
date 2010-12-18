@@ -23,17 +23,30 @@ class userViewController extends simpleController
 {
     protected function getView()
     {
-        $id = $this->request->getInteger('id');
-
         $userMapper = $this->toolkit->getMapper('user', 'user');
-        $user = $userMapper->searchById($id);
+        $user = $this->toolkit->getUser();
 
-        if (!$user) {
+        $viewuser = null;
+
+        $id = $this->request->getString('id');
+        $login = $this->request->getString('login');
+        if ($login) {
+            $viewuser = $userMapper->searchByLogin($login);
+        } else if ($id) {
+            $viewuser = $userMapper->searchByKey($id);
+        }
+
+        if (!$viewuser) {
             return $this->forward404($userMapper);
         }
 
-        $this->smarty->assign('viewuser', $user);
-        return $this->smarty->fetch('user/view.tpl');
+        $this->view->assign('viewuser', $viewuser);
+
+        if ($viewuser->getId() == $user->getId()) {
+            return $this->view->render('user/profile/me.tpl', 'native');
+        } else {
+            return $this->view->render('user/profile/user.tpl', 'native');
+        }
     }
 }
 
