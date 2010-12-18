@@ -36,10 +36,7 @@ class quoterListController extends simpleController
                     $params['category_id'] = $user->getPreferredLangs();
                 }
 
-                $params['order'] = array(
-                    'last_comment_id desc',
-                    'created desc'
-                );
+                $params['order'] = 'last_comment_id desc';
 
                 break;
 
@@ -55,8 +52,6 @@ class quoterListController extends simpleController
                 $params['category_id'] = $category->getId();
                 $this->view->assign('list_category', $category);
 
-                $params['order'] = 'created desc';
-
                 break;
 
             case 'user':
@@ -70,7 +65,6 @@ class quoterListController extends simpleController
                 }
 
                 $params['user_id'] = $user->getId();
-                $params['order'] = 'created desc';
 
                 $pager = $this->setPager($quoteMapper, 10, true, 4);
                 $quotes = $quoteMapper->searchAllByParams($params);
@@ -85,7 +79,6 @@ class quoterListController extends simpleController
                 break;
 
             case 'paper':
-                $params['order'] = 'created desc';
                 break;
         }
 

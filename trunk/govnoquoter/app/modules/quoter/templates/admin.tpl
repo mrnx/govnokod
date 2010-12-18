@@ -6,8 +6,8 @@
             <th class="first" style="width: 30px;">&nbsp;</th>
             <th class="left">Название</th>
             <th class="left">Категория</th>
-            <th class="left">Текущий рейтинг</th>         <th class="left">Количество комментариев</th>
-            <th class="left">Активен</th>
+            <th class="left">Текущий рейтинг</th>
+            <th class="left">Количество комментариев</th>
             <th class="last" style="width: 30px;">JIP</th>
         </tr>
     </thead>
@@ -19,13 +19,13 @@
             <td align="left">{$quote->getCategory()->getTitle()|h}</td>
             <td align="center">{$quote->getRating()}</td>
             <td align="center">{$quote->getCommentsCount()}</td>
-            <td align="center">{if $quote->getIsActive()}Да{else}Нет{/if}</td>
+
             <td class="last center">{$quote->getJip()}</td>
         </tr>
     {/foreach}
     <tr class="last">
         <td class="first"></td>
         <td>{$pager->toString('admin/main/adminPager.tpl')}</td>
-        <td class="last center" colspan="5" style="text-align: right; color: #7A7A7A;">Всего: {$pager->getItemsCount()}</td>
+        <td class="last center" colspan="4" style="text-align: right; color: #7A7A7A;">Всего: {$pager->getItemsCount()}</td>
     </tr>
 </table>
