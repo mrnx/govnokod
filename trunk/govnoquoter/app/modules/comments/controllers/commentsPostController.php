@@ -12,8 +12,6 @@
  * @version $Id$
 */
 
-fileLoader::load('forms/validators/formValidator');
-
 /**
  * commentsPostController: контроллер для метода post модуля comments
  *
@@ -132,6 +130,7 @@ class commentsPostController extends simpleController
         $this->view->assign('commentsFolder', $commentsFolder);
         $this->view->assign('hideForm', $this->request->getBoolean('hideForm'));
         $this->view->assign('onlyForm', $onlyForm);
+        $this->view->assign('showCaptcha', true);
 
         $this->view->assign('isAjax', $isAjax);
         if ($isAjax) {
