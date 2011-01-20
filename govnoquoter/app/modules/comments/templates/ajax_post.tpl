@@ -1,5 +1,3 @@
-{assign var="commentsFolderId" value=$commentsFolder->getId()}
-{if $hideForm}{assign var="formStyle" value="display: none;"}{else}{assign var="formStyle" value=""}{/if}
-{form id="commentForm_$commentsFolderId" action=$action method="post" style=$formStyle onsubmit="comments.postForm(this); return false;" onkeypress="comments.handleCtrEnter(event, this);"}
-    {include file="comments/postForm.tpl"}
+<?php echo $__form->open(array('id' => 'commentForm_' . $commentsFolder->getId(), 'action' => $action, 'method' => 'post', 'style' => $hideForm ? 'display: none' : '', 'onsubmit' => 'comments.postForm(this); return false;', 'onkeypress' => 'comments.handleCtrEnter(event, this);')); ?>
+    <?php echo $this->render('comments/postForm.tpl'); ?>
 </form>

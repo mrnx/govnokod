@@ -3,7 +3,7 @@
     $this->add('govnokod.js');
 ?>
 <div class="entry-comments">
-    <h3>Комментарии <span class="enrty-comments-count">(<?php echo $commentsFolder->getCommentsCount(); ?>)</span> <span class="rss"><a href="<?php echo htmlspecialchars($this->url('withId', array('module' => 'comments', 'action' => 'rss', 'id' => $commentsFolder->getId()))); ?>/" rel="alternative">RSS</a></span></h3>
+    <h3><a name="comments"></a>Комментарии <span class="enrty-comments-count">(<?php echo $commentsFolder->getCommentsCount(); ?>)</span> <span class="rss"><a href="<?php echo htmlspecialchars($this->url('withId', array('module' => 'comments', 'action' => 'rss', 'id' => $commentsFolder->getId()))); ?>/" rel="alternative">RSS</a></span></h3>
     <ul id="comments_<?php echo $commentsFolder->getId(); ?>">
 <?php
 $comments_count = $comments->count();

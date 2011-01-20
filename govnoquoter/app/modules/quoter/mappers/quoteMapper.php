@@ -147,6 +147,13 @@ class quoteMapper extends mapper
             $criteria->where('user_id', $params['user_id']);
         }
 
+        if (isset($params['keyword'])) {
+            $criterion = new criterion('text', '%' . $params['keyword'] . '%', criteria::LIKE);
+            $criterion->addOr(new criterion('description', '%' . $params['keyword'] . '%', criteria::LIKE));
+
+            $criteria->where($criterion);
+        }
+
         /*
         if (isset($params['not_category_id'])) {
             $criteria->where('category_id', $params['not_category_id'], criteria::NOT_EQUAL);

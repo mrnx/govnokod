@@ -15,7 +15,12 @@ switch ($type) {
         break;
 
     case 'user':
-        $this->title('Весь говнокод пользователя ' . $list_user->getLogin());
+        $this->title('Говнокод пользователя');
+        $this->title('Личная кабинка пользователя ' . $list_user->getLogin());
+        break;
+
+    case 'search':
+        $this->title('Поиск говнокода');
         break;
 
     default:
@@ -25,19 +30,35 @@ switch ($type) {
 
 ?>
 <ol class="posts hatom">
-<?php
-if ($type == 'paper' && $pager->getRealPage() == 1) {
-?>
+<?php if ($type == 'paper' && $pager->getRealPage() == 1) { ?>
     <li class="hentry">
         <h2>Печатное издание Говнокод.ру</h2>
         <p>В данном разделе собраны <b>все</b> говнокоды, когда-либо опубликованные на сайте.</p>
     </li>
-<?php
-} else if ($type == 'user') {
-?>
+<?php } else if ($type == 'user') { ?>
     <li class="hentry">
-        <h2>Список говнокодов пользователя <a href="<?php echo htmlspecialchars($this->url('user-profile', array('login' => $list_user->getLogin()))); ?>"><?php echo htmlspecialchars($list_user->getLogin()); ?></a></h2>
+        <h2><a href="<?php echo htmlspecialchars($this->url('user-profile', array('login' => $list_user->getLogin()))); ?>">Личная кабинка пользователя <strong><?php echo htmlspecialchars($list_user->getLogin()); ?></strong></a> → Список говнокодов</h2>
         <p>Всего: <?php echo $pager->getItemsCount(); ?></p>
+    </li>
+<?php } else if ($type == 'search') { ?>
+    <li class="hentry">
+        <h2>Поиск говнокода</h2>
+        <p>Этот поиск практически ничего не может найти! Но вы всё-таки попытайтесь, вдруг повезет.</p>
+        <form action="<?php echo htmlspecialchars($this->url('search')); ?>/" method="get">
+            <dl>
+                <dt><?php echo $__form->caption(array('name' => 'keyword', 'value' => 'Поисковая фраза:')); ?></dt>
+                <dd><?php echo $__form->text(array('name' => 'keyword', 'maxlength' => 50)); ?></dd>
+
+                <dt><?php echo $__form->caption(array('name' => 'language', 'value' => 'В языке')); ?></dt>
+                <dd><?php echo $__form->select(array('name' => 'language', 'options' => $search_categories_select, 'emptyFirst' => 'Во всех')); ?></dd>
+            </dl>
+            <p>
+                <input type="submit" class="send" value="Покопаться!"/>
+            </p>
+        </form>
+<?php if (trim($keyword) != '' && $pager->getItemsCount() > 0): ?>
+        <p>Найдено: <?php echo htmlspecialchars($pager->getItemsCount()); ?></p>
+<?php endif; ?>
     </li>
 <?php
 }
@@ -59,19 +80,27 @@ if ($quotes_count) {
         }
 ?>
     <li class="hentry">
-        <?php echo $this->render('quoter/listitem/' . $list_item_file . '.tpl', array('quote' => $quote, 'highlight_driver' => $highlight_driver)); ?>
+        <?php echo $this->render('quoter/items/' . $list_item_file . '.tpl', array('quote' => $quote, 'highlight_driver' => $highlight_driver)); ?>
         <div class="entry-comments">
-            <span class="comments-icon<?php if ($toolkit->getUser()->isLoggedIn() && $quote->getNewCommentsCount() > 0) { echo ' comments-new" title="Есть новые комментарии!'; } ?>">&nbsp;</span><a href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl() . '/' . $quote->getId()); ?>" class="entry-comments-load">Комментарии</a> <span class="entry-comments-count">(<?php echo $quote->getCommentsCount(); if ($toolkit->getUser()->isLoggedIn() && $quote->getNewCommentsCount() > 0) { ?>, <span title="Новые комментарии" class="entry-comments-new">+<?php echo $quote->getNewCommentsCount(); ?></span><?php } ?>)</span>
+            <span class="comments-icon<?php if ($toolkit->getUser()->isLoggedIn() && $quote->getNewCommentsCount() > 0) { echo ' comments-new" title="Для вас есть новые комментарии!'; } ?>">&nbsp;</span><a href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl() . '/' . $quote->getCategory()->getName() . '/' . $quote->getId()); ?>#comments" class="entry-comments-load">Комментарии</a> <span class="entry-comments-count">(<?php echo $quote->getCommentsCount(); if ($toolkit->getUser()->isLoggedIn() && $quote->getNewCommentsCount() > 0) { ?>, <span title="Новые комментарии" class="entry-comments-new">+<?php echo $quote->getNewCommentsCount(); ?></span><?php } ?>)</span>
         </div>
     </li>
 <?php
     }
 } else {
+    if ($type == 'search') {
 ?>
     <li class="hentry">
         <h2>Пусто</h2>
     </li>
 <?php
+    } else {
+?>
+    <li class="hentry">
+        <h2>Пусто</h2>
+    </li>
+<?php
+    }
 }
 ?>
 </ol>

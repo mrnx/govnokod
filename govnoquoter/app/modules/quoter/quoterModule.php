@@ -34,7 +34,7 @@ class quoterModule extends simpleModule
                 'categoryList' => new requestRoute(':name', array('module' => 'quoter', 'action' => 'list', 'type' => 'category')),
                 'quoter-category-list' => new requestRoute(':name', array('module' => 'quoter', 'action' => 'list', 'type' => 'category')),
                 'paperList' => new requestRoute('paper', array('module' => 'quoter', 'action' => 'list', 'type' => 'paper')),
-                'search' => new requestRoute('search', array('module' => 'quoter', 'action' => 'search')),
+                'search' => new requestRoute('search', array('module' => 'quoter', 'action' => 'list', 'type' => 'search')),
                 'best' => new requestRoute('best/:nomination/:name', array('module' => 'quoter', 'action' => 'best', 'nomination' => 'rating', 'name' => '')),
                 'rss' => new requestRoute('rss', array('module' => 'quoter', 'action' => 'list', 'type' => 'paper', 'format' => 'rss')),
                 'langRss' => new requestRoute(':name/rss', array('module' => 'quoter', 'action' => 'list', 'type' => 'category', 'format' => 'rss')),

@@ -1,4 +1,3 @@
-
 <?php if (!$validator->isValid()): ?>
     <dl class="errors">
         <dt>Ошибка компиляции комментария:</dt>
@@ -39,5 +38,5 @@
     </dl>
 
     <p>
-        <?php echo $__form->submit(array('name' => 'commentSubmit', 'value' => 'Отправить комментарий [Ctrl+Enter]')); ?>
+        <?php echo $__form->submit(array('name' => 'commentSubmit', 'class' => 'send', 'value' => 'Отправить комментарий [Ctrl+Enter]')); ?>
     </p>
