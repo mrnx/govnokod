@@ -34,7 +34,6 @@ class commentsPostController extends simpleController
             $id = $commentsFolder->getId();
         }
 
-        $onlyForm = $this->request->getBoolean('onlyForm');
         if (!isset($commentsFolder)) {
             $commentsFolder = $commentsFolderMapper->searchById($id);
             if (!$commentsFolder) {
@@ -61,20 +60,29 @@ class commentsPostController extends simpleController
         $validator->rule('required', 'text', 'Введите хоть что-нибудь!');
         $validator->rule('length', 'text', 'Слишком длинный комментарий! Максимум 2000 символов!', array(0, 2000));
 
+        $show_captcha = false;
+
         if (!$user->isLoggedIn()) {
+            $show_captcha = true;
+
+            $validator->setError('text', 'Простите, guest забанен');
+
+            //$guest_comments_disabled_until = strtotime('2010-04-27');
+            //if (time() < $guest_comments_disabled_until) {
+                //$validator->setError('text', 'На сайте проводится профилактика, поэтому гостям нельзя писать комментарии до 27 апреля. Говнокод.ру благодарит Вас за понимание!');
+            //}
+        }
+
+        if ($show_captcha) {
             $validator->filter('trim', 'captcha');
 
             $validator->rule('required', 'captcha', 'Введите проверочный код!');
             $validator->rule('captcha', 'captcha', 'Неверно введен проверочный код!');
-
-            $guest_comments_disabled_until = strtotime('2010-04-27');
-            if (!$user->isLoggedIn() && time() < $guest_comments_disabled_until) {
-                $validator->setError('text', 'На сайте проводится профилактика, поэтому гостям нельзя писать комментарии до 27 апреля. Говнокод.ру благодарит Вас за понимание!');
-            }
         }
 
         $isAjax = $this->request->getBoolean('ajax', SC_POST);
 
+        $onlyForm = $this->request->getBoolean('onlyForm');
         if (!$onlyForm && $validator->validate()) {
             $text = $this->request->getString('text', SC_POST);
 

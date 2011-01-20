@@ -284,6 +284,16 @@ var code;
             return false;
         });
 
+        if (document.location.hash) {
+            var document_hash = document.location.hash;
+
+            var reg = /^\#comment(\d+)$/;
+            var matches = document_hash.match(reg);
+            if (matches) {
+                $('#comment-' + matches[1]).addClass('highlight');
+            }
+        }
+
         //Если вдруг подключили js highlight драйвер
         if (typeof(hljs) == 'object') {
             hljs.initHighlighting();

@@ -78,6 +78,29 @@ class quoterListController extends simpleController
 
                 break;
 
+            case 'search':
+                $keyword = trim($this->request->getString('keyword', SC_GET));
+
+                if ($keyword) {
+                    $params['keyword'] = $keyword;
+                }
+
+                $search_categories = $quoteCategoryMapper->searchAll();
+
+                $search_categories_select = array();
+                foreach ($search_categories as $search_category) {
+                    $search_categories_select[$search_category->getId()] = $search_category->getTitle();
+                }
+
+                $language_id = $this->request->getString('language', SC_GET);
+                if ($language_id && isset($search_categories_select[$language_id])) {
+                    $params['category_id'] = $language_id;
+                }
+
+                $this->view->assign('search_categories_select', $search_categories_select);
+                $this->view->assign('keyword', $keyword);
+                break;
+
             case 'paper':
                 break;
         }

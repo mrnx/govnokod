@@ -42,7 +42,7 @@ class userViewController extends simpleController
 
         $this->view->assign('viewuser', $viewuser);
 
-        if ($viewuser->getId() == $user->getId()) {
+        if ($viewuser->isLoggedIn() && $viewuser->getId() == $user->getId()) {
             return $this->view->render('user/profile/me.tpl', 'native');
         } else {
             return $this->view->render('user/profile/user.tpl', 'native');

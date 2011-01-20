@@ -1,4 +1,4 @@
-            <div class="entry-comment-wrapper<?php if (isset($lastTimeRead) && $comment->getCreated() > $lastTimeRead) { ?> new<?php } ?>">
+            <div id="comment-<?php echo $comment->getId(); ?>" class="entry-comment-wrapper<?php if (isset($lastTimeRead) && $comment->getCreated() > $lastTimeRead) { ?> new<?php } ?>">
                 <p class="entry-info">
                     <img class="avatar" src="<?php echo htmlspecialchars($comment->getUser()->getAvatarUrl(28)); ?>" alt="ava" title="Аватар" />
                     <strong class="entry-author"><a href="<?php echo htmlspecialchars($this->url('user-profile', array('login' => $comment->getUser()->getLogin()))); ?>/"><?php echo htmlspecialchars($comment->getUser()->getLogin()); ?></a></strong>

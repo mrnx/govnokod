@@ -49,7 +49,7 @@ class quoterSearchController extends simpleController
             $criteria->where('category_id', $category->getId());
         }
 
-        $this->smarty->assign('category', $category);
+        $this->view->assign('category', $category);
 
         $quotes = array();
 
@@ -72,14 +72,14 @@ class quoterSearchController extends simpleController
                     $quotes = $quoteMapper->searchAllByCriteria($criteria);
                 }
 
-                $this->smarty->assign('word', $word);
+                $this->view->assign('word', $word);
                 break;
         }
 
-        $this->smarty->assign('quotes', $quotes);
-        $this->smarty->assign('categorySelect', $categorySelect);
-        $this->smarty->assign('mode', $mode);
-        return $this->smarty->fetch('quoter/search.tpl');
+        $this->view->assign('quotes', $quotes);
+        $this->view->assign('categorySelect', $categorySelect);
+        $this->view->assign('mode', $mode);
+        return $this->view->render('quoter/search.tpl', 'native');
     }
 }
 
