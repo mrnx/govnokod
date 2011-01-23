@@ -111,6 +111,18 @@ class quoteMapper extends mapper
             'accessor' => 'getIsBestInMonth',
             'mutator' => 'setIsBestInMonth'
         ),
+        'best_in_day_time' => array(
+            'accessor' => 'getBestInDayTime',
+            'mutator' => 'setBestInDayTime'
+        ),
+        'best_in_week_time' => array(
+            'accessor' => 'getBestInDayTime',
+            'mutator' => 'setBestInDayTime'
+        ),
+        'best_in_month_time' => array(
+            'accessor' => 'getBestInDayTime',
+            'mutator' => 'setBestInDayTime'
+        ),
         'last_comment_id' => array(
             'accessor' => 'getLastComment',
             'mutator' => 'setLastComment',
