@@ -23,6 +23,10 @@ switch ($type) {
         $this->title('Поиск говнокода');
         break;
 
+    case 'best':
+        $this->title('Лучший говнокод');
+        break;
+
     default:
         $this->title('По колено в коде');
         break;
@@ -59,6 +63,10 @@ switch ($type) {
 <?php if (trim($keyword) != '' && $pager->getItemsCount() > 0): ?>
         <p>Найдено: <?php echo htmlspecialchars($pager->getItemsCount()); ?></p>
 <?php endif; ?>
+    </li>
+<?php } else if ($type == 'best') { ?>
+    <li class="hentry">
+        <h2>Лучший говнокод за все время</h2>
     </li>
 <?php
 }

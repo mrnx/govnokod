@@ -101,6 +101,16 @@ class quoterListController extends simpleController
                 $this->view->assign('keyword', $keyword);
                 break;
 
+            case 'best':
+                $best_type = $this->request->getString('best_type');
+                $period = $this->request->getString('period');
+
+                $this->view->assign('best_type', $best_type);
+                $this->view->assign('period', $period);
+
+                $params['order'] = 'rating desc';
+                break;
+
             case 'paper':
                 break;
         }

@@ -28,6 +28,7 @@ class quoterModule extends simpleModule
             array(
                 'userCodesRss' => new requestRoute('user/:id/rss', array('module' => 'quoter', 'action' => 'list', 'type' => 'user', 'format' => 'rss')),
                 'quote-view' => new requestRoute(':category/:id', array('module' => 'quoter', 'action' => 'view'), array('id' => '\d+')),
+                'quoter-best-list' => new requestRoute('best/:best_type/:period', array('module' => 'quoter', 'action' => 'list', 'type' => 'best', 'best_type' => 'rating', 'period' => 'all')),
             ),
             array(
                 'rateForCode' => new requestRoute('ratings/code/:id/:vote', array('module' => 'ratings', 'action' => 'rate', 'module_name' => 'quoter', 'class_name' => 'quote'), array('id' => '\d+')),
