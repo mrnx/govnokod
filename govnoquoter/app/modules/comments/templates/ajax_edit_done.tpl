@@ -1,1 +1,0 @@
-<span class="comment-text">{$comment->getText()|h|nl2br|bbcode}</span>
