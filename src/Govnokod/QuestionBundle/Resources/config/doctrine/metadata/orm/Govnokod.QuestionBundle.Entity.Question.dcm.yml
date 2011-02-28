@@ -1,0 +1,12 @@
+Govnokod\QuestionBundle\Entity\Question:
+    type: entity
+    table: gk_question
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: IDENTITY
+    fields:
+        title:      { type: string(255) }
+        message:    { type: text }
+        is_solved:  { type: boolean, default: false }
