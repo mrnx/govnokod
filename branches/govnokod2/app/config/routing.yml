@@ -1,2 +1,2 @@
-hello:
-    resource: "@HelloBundle/Resources/config/routing.yml"
+question:
+    resource: "@QuestionBundle/Resources/config/routing.yml"
