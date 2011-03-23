@@ -39,12 +39,12 @@ class quoterSaveCategoryController extends simpleController
         }
 
         $validator = new formValidator();
-        
+
         $validator->filter('trim', 'title');
         $validator->filter('trim', 'name');
         $validator->filter('trim', 'geshi_alias');
         $validator->filter('trim', 'js_alias');
-        
+
         $validator->rule('required', 'title', 'Укажите заголовок');
         $validator->rule('required', 'geshi_alias', 'Укажите алиас для Geshi');
         $validator->rule('required', 'js_alias', 'Укажите алиас для HighglightJS');
@@ -88,8 +88,6 @@ function checkCategoryName($name, $category, $categoryMapper)
         return true;
     }
 
-    $criteria = new criteria();
-    $criteria->add('name', $name);
-    return is_null($categoryMapper->searchOneByCriteria($criteria));
+    return is_null($categoryMapper->searchByName($name));
 }
 ?>

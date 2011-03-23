@@ -1,19 +1,19 @@
-{form class="edit-comment-form" action=$form_action method="post"}
-{if !$validator->isValid()}
+<?php echo $__form->open(array('class' => 'edit-comment-form', 'action' => $form_action, 'method' => 'post')); ?>
+<?php if (!$validator->isValid()): ?>
     <dl class="errors">
         <dt>Ошибка редактирования комментария:</dt>
         <dd>
             <ol>
-            {foreach from=$validator->getErrors() item="error"}
-                <li>{$error}</li>
-            {/foreach}
+<?php foreach ($validator->getErrors() as $error): ?>
+                <li><?php echo $error; ?></li>
+<?php endforeach; ?>
             </ol>
         </dd>
     </dl>
-{/if}
+<?php endif; ?>
     <dl>
-        <dt>{$formTitle}</dt>
-        <dd>{form->textarea name="text" value=$comment->getText() rows="5" cols="5"}</dd>
+        <dt><?php echo $formTitle; ?></dt>
+        <dd><?php echo $__form->textarea(array('name' => 'text', 'value' => $comment->getText(), 'rows' => 5, 'cols' => 5)); ?></dd>
     </dl>
-    <p>{form->submit class="send" name="commentSubmit" value="Отредактировать комментарий"}</p>
+    <p><?php echo $__form->submit(array('name' => 'commentSubmit', 'class' => 'send', 'value' => 'Отредактировать комментарий')); ?></p>
 </form>
