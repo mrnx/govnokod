@@ -1,7 +1,10 @@
 <?php
-use Symfony\Component\Form
-use Symfony\Component\Form\TextField
-use Symfony\Component\Form\TextareaField
+
+namespace Govnokod\QuestionBundle\Form;
+
+use Symfony\Component\Form\Form;
+use Symfony\Component\Form\TextField;
+use Symfony\Component\Form\TextareaField;
 
 class CreateQuestionForm extends Form
 {
