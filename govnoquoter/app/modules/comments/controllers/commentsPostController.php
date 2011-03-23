@@ -65,7 +65,7 @@ class commentsPostController extends simpleController
         if (!$user->isLoggedIn()) {
             $show_captcha = true;
 
-            $validator->setError('text', 'Простите, guest забанен');
+            $validator->setError('text', 'Простите, guest забанен. Приходите в выходные');
 
             //$guest_comments_disabled_until = strtotime('2010-04-27');
             //if (time() < $guest_comments_disabled_until) {

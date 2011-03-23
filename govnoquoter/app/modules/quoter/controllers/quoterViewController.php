@@ -17,7 +17,7 @@
  *
  * @package modules
  * @subpackage quoter
- * @version 0.1
+ * @version 0.2
  */
 class quoterViewController extends simpleController
 {
@@ -33,12 +33,6 @@ class quoterViewController extends simpleController
         }
 
         $this->view->assign('quote', $quote);
-
-        $format = $this->request->getString('format', SC_GET);
-        if ($format == 'ajax') {
-            $this->view->disableMain();
-            return $this->view->render('quoter/ajaxview.tpl');
-        }
 
         $onlyComments = $this->request->getBoolean('onlyComments', SC_GET);
         if ($onlyComments) {

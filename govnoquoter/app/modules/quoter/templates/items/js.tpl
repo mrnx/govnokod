@@ -3,7 +3,7 @@
 
     $user_profile_url = $url . '/user/' . $quote->getUser()->getLogin() . '/profile/';
 ?>
-        <h2><a rel="chapter" href="<?php echo htmlspecialchars($url . '/' . $quote->getCategory()->getName()); ?>/"><?php echo htmlspecialchars($quote->getCategory()->getTitle()); ?></a> / <a rel="bookmark" class="entry-title" href="<?php echo htmlspecialchars($url . '/' . $quote->getCategory()->getName() . '/' . $quote->getId()); ?>">Говнокод #<?php echo $quote->getId(); ?></a></h2>
+        <h2><a rel="chapter" href="<?php echo htmlspecialchars($url . '/' . $quote->getCategory()->getName()); ?>/"><?php echo htmlspecialchars($quote->getCategory()->getTitle()); ?></a> / <a rel="bookmark" class="entry-title" href="<?php echo htmlspecialchars($url . '/' . $quote->getCategory()->getName() . '/' . $quote->getId()); ?>/">Говнокод #<?php echo $quote->getId(); ?></a></h2>
         <p class="vote">
             <?php echo $this->render('quoter/rating.tpl', array('quote' => $quote)); ?>
         </p>

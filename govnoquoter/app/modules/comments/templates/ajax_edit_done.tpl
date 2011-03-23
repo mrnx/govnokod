@@ -1,1 +1,1 @@
-<span class="comment-text">{$comment->getText()|h|nl2br|bbcode}</span>
+<span class="comment-text"><?php echo $this->bbcode(nl2br(htmlspecialchars($comment->getText()))); ?></span>

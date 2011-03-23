@@ -44,7 +44,7 @@ class commentsEditController extends simpleController
         $is_ajax = $this->request->getBoolean('ajax', SC_REQUEST);
 
         if ($is_ajax) {
-            $this->smarty->disableMain();
+            $this->view->disableMain();
         }
 
         if ($validator->validate()) {
@@ -56,8 +56,8 @@ class commentsEditController extends simpleController
             $commentsMapper->save($comment);
 
             if ($is_ajax) {
-                $this->smarty->assign('comment', $comment);
-                return $this->fetch('comments/ajax_edit_done.tpl');
+                $this->view->assign('comment', $comment);
+                return $this->render('comments/ajax_edit_done.tpl');
             } else {
                 $commentsFolder = $comment->getFolder();
                 $back_url = $commentsFolder->getDefaultBackUrl();
@@ -75,10 +75,10 @@ class commentsEditController extends simpleController
         $url->setAction('edit');
         $url->add('id', $comment->getId());
 
-        $this->smarty->assign('comment', $comment);
-        $this->smarty->assign('validator', $validator);
-        $this->smarty->assign('form_action', $url->get());
-        $this->smarty->assign('user', $user);
+        $this->view->assign('comment', $comment);
+        $this->view->assign('validator', $validator);
+        $this->view->assign('form_action', $url->get());
+        $this->view->assign('user', $user);
 
         if ($is_ajax) {
             $this->setTemplatePrefix('ajax_');
@@ -102,8 +102,8 @@ class commentsEditController extends simpleController
             }
         }
 
-        $this->smarty->assign('formTitle', $formTitles[$currentTitleIndex]);
-        return $this->fetch('comments/edit.tpl');
+        $this->view->assign('formTitle', $formTitles[$currentTitleIndex]);
+        return $this->render('comments/edit.tpl');
     }
 }
 ?>
