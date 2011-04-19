@@ -29,7 +29,7 @@ class commentsExportController extends simpleController
             $id = $this->request->getInteger('id');
             $commentsFolder = $commentsFolderMapper->searchById($id);
 
-            if (!$commentsFolderMapper) {
+            if (!$commentsFolder) {
                 return $this->forward404($commentsFolderMapper);
             }
 
