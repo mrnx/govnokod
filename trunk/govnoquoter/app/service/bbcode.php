@@ -122,7 +122,7 @@ class bbcode
         $result = $this->parseArray($this->prepareTags($this->buildBBData($this->content)));
 
         // исключаем xss
-        $find = array('/(javascript|about|vbscript):/si', '/&(?![a-z0-9#]+;)/si');
+        $find = array('/(javascript|about|vbscript):/siu', '/&(?![a-z0-9#]+;)/si');
         $replace = array('$1<b></b>:', '&amp;');
         $result = preg_replace($find, $replace, $result);
 
@@ -581,7 +581,7 @@ class bbcode
 
         if (!strpos($link, ':') && strpos($link, '@')) {
             $link = 'mailto:' . $link;
-        } elseif (!preg_match('#^[\d\w]+(?<!about|javascript|vbscript|data):#si', $link)) {
+        } elseif (!preg_match('#^[\d\w]+(?<!about|javascript|vbscript|data):#siu', $link)) {
             $link = "http://" . $link;
         }
 
@@ -605,7 +605,7 @@ class bbcode
     protected function handleImg($link, $alt = '')
     {
         $link = $this->removeSmileys($link);
-        if (preg_match('#^(https?://([^*\r\n]+|[a-z\d/\\._\- !]+))$#i', $link)) {
+        if (preg_match('#^(https?://([^*\r\n]+|[a-z\d/\\._\- !]+))$#iu', $link)) {
             $link = str_replace(array('  ', '"'), '', $link);
             $alt = str_replace('"', '', $alt);
             if (empty($alt)) {
@@ -705,7 +705,7 @@ class bbcode
      */
     protected function wordwrap($text,$limit = 40, $wraptext = '  ')
     {
-        $regex = '#((?>[^\s&/<>"\\-\[\]]|&[\#a-z0-9]{1,7};){' . $limit . '})(?=[^\s&/<>"\\-\[\]]|&[\#a-z0-9]{1,7};)#i';
+        $regex = '#((?>[^\s&/<>"\\-\[\]]|&[\#a-z0-9]{1,7};){' . $limit . '})(?=[^\s&/<>"\\-\[\]]|&[\#a-z0-9]{1,7};)#iu';
         $limit = (int)$limit;
 
         if ($limit > 0 && !empty($text)) {
