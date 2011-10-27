@@ -5,6 +5,7 @@
     <title><?php echo htmlspecialchars($this->title(array('separator' => ' — ', 'end' => ' — '))); ?>Говнокод.ру</title>
     <meta name="keywords" content="<?php echo htmlspecialchars($this->meta(array('show' => 'keywords', 'default' => 'говнокод, смешной код, быдлокод, быдлокодеры, индусы, для программистов, про программистов, индусский код, записки программиста, говно, говнокод на php, mysql, perl'))); ?>" />
     <meta name="description" content="<?php echo htmlspecialchars($this->meta(array('show' => 'description', 'default' => 'Сборник говнокода на различных языках программирования'))); ?>" />
+    <meta property="og:image" content="http://govnokod.ru/images/brand.gif" />
     <link rel="shortcut icon" href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl()); ?>/favicon.ico" type="image/x-icon" />
     <link rel="icon" href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl()); ?>/animated_favicon.gif" type="image/gif" />
     <link title="Весь говнокод" type="application/rss+xml" rel="alternate" href="<?php echo htmlspecialchars($toolkit->getRequest()->getUrl()); ?>/rss/"/>
