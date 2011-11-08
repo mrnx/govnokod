@@ -36,15 +36,41 @@ class commentsRawEditController extends simpleController
         $validator->filter('trim', 'text');
 
         $validator->rule('required', 'text', 'Введите комментарий');
-        $validator->rule('required', 'rating', 'Укажите рейтинг');
-        $validator->rule('numeric', 'rating', 'Укажите рейтинг');
+        //$validator->rule('required', 'rating', 'Укажите рейтинг');
+        //$validator->rule('numeric', 'rating', 'Укажите рейтинг');
 
         if ($validator->validate()) {
             $text = $this->request->getString('text', SC_POST);
-            $rating = $this->request->getNumeric('rating', SC_POST);
 
             $comment->setText($text);
-            $comment->setRating($rating);
+            
+            $rating = $this->request->getInteger('rating', SC_POST);
+            if (!is_null($rating)) {
+                $rate_value = $rating - $comment->getRating();
+                
+                if ($rate_value != 0) {
+                    $ratingsFolderMapper = $this->toolkit->getMapper('ratings', 'ratingsFolder');
+                    $ratingsFolder = $ratingsFolderMapper->searchByModuleClassAndParent('comments', 'comments', $comment->getId());
+                    if ($ratingsFolder) {
+                        $ratingsMapper = $this->toolkit->getMapper('ratings', 'ratings');
+                        
+                        $ip = $this->request->getServer('REMOTE_ADDR');
+                        $ua = $this->request->getServer('HTTP_USER_AGENT') . ', user_id: ' . $this->toolkit->getUser()->getId();
+                        
+                        $rate = $ratingsMapper->create();
+                        $rate->setUser(MZZ_USER_GUEST_ID);
+                        $rate->setIpAddress($ip);
+                        $rate->setUserAgent($ua);
+                        $rate->setRateValue($rate_value);
+                        $rate->setFolder($ratingsFolder);
+
+                        $ratingsMapper->save($rate);
+                    }
+                    
+                    $comment->setRating($rating);
+                }
+            }
+            
             $commentsMapper->save($comment);
 
             return jipTools::redirect();
